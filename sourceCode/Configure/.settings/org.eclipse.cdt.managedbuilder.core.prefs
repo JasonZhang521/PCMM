@@ -1,0 +1,13 @@
+eclipse.preferences.version=1
+environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cross.lib.debug.1126507112/CPATH/delimiter=;
+environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cross.lib.debug.1126507112/CPATH/operation=remove
+environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cross.lib.debug.1126507112/CPLUS_INCLUDE_PATH/delimiter=;
+environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cross.lib.debug.1126507112/CPLUS_INCLUDE_PATH/operation=replace
+environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cross.lib.debug.1126507112/CPLUS_INCLUDE_PATH/value=C\:\\MinGW\\include;C\:\\MinGW\\lib\\gcc\\i686-w64-mingw32\\4.9.2\\include
+environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cross.lib.debug.1126507112/C_INCLUDE_PATH/delimiter=;
+environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cross.lib.debug.1126507112/C_INCLUDE_PATH/operation=replace
+environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cross.lib.debug.1126507112/C_INCLUDE_PATH/value=C\:\\MinGW\\include;C\:\\MinGW\\lib\\gcc\\i686-w64-mingw32\\4.9.2\\include
+environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cross.lib.debug.1126507112/append=true
+environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cross.lib.debug.1126507112/appendContributed=true
+environment/buildEnvironmentLibrary/cdt.managedbuild.config.gnu.cross.lib.debug.1126507112/append=true
+environment/buildEnvironmentLibrary/cdt.managedbuild.config.gnu.cross.lib.debug.1126507112/appendContributed=true
