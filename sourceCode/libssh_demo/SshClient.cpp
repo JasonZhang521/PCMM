@@ -84,18 +84,20 @@ bool SshClient::executeCliCommand(const std::string& cli, std::string& cliResult
 	{
 		return false;
 	}
-	std::stringstream sstr;
+	
     int rc = ssh_channel_request_exec(cliChannel_, cli.c_str());
     if (rc != SSH_OK)
 	{
         closeCliChannel();
 	    return false;
 	}
+
+	std::stringstream sstr;
 	char buffer[256];
 	int nbytes = ssh_channel_read(cliChannel_, buffer, sizeof(buffer), 0);
-	std::cout << "read bytes:" << nbytes << std::endl;
 	while (nbytes > 0)
 	{
+		buffer[nbytes] = 0;
 		sstr << buffer;
 		nbytes = ssh_channel_read(cliChannel_, buffer, sizeof(buffer), 0);
 	}
@@ -144,7 +146,6 @@ bool SshClient::verifyKnownhost()
 					 << "\nFor security reasons, connection will be stopped");
 			 free(hexa);
 			 free(hash);
-			 // should free the hexa?
 			 return false;
 		 case SSH_SERVER_FOUND_OTHER:
 			 TRACE_WARNING("The host key for this server was not found but an other ype of key exists. "
