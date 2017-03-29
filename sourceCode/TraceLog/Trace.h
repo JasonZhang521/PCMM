@@ -24,15 +24,15 @@
 
 #define TRACE_PRINT(level, traceStr)                                                              \
         do {                                                                            \
-            if (Configure::getInstance().getTraceLogTarget() == TRACE_LOG_TO_CONSOLE)   \
+            if (::Configure::getInstance().getTraceLogTarget() == TRACE_LOG_TO_CONSOLE)   \
             {                                                                           \
               TRACECONSOLE_PRINT(level, traceStr);                                      \
             }                                                                           \
-            else if (Configure::getInstance().getTraceLogTarget() == TRACE_LOG_TO_FILE) \
+            else if (::Configure::getInstance().getTraceLogTarget() == TRACE_LOG_TO_FILE) \
             {                                                                           \
               TRACEFILE_PRINT(level, traceStr);                                         \
             }                                                                           \
-            else if (Configure::getInstance().getTraceLogTarget() == TRACE_LOG_BOTH)    \
+            else if (::Configure::getInstance().getTraceLogTarget() == TRACE_LOG_BOTH)    \
             {                                                                           \
               TRACECONSOLE_PRINT(level, traceStr);                                      \
               TRACEFILE_PRINT(level, traceStr);                                         \
@@ -45,10 +45,10 @@
             do {                                                                        \
               if (TraceFile<level>::getInstance())                                      \
               {                                                                         \
-                (*TraceFile<level>::getInstance()) << Configure::getInstance().getLogLineNumberInFile() \
+                (*TraceFile<level>::getInstance()) << ::Configure::getInstance().getLogLineNumberInFile() \
                                                    << "  " << LocalTime::getCurrentTime() << "  "       \
                                                    << traceStr << std::endl;            \
-                Configure::getInstance().increaseLogLineNumberInFile();                 \
+                ::Configure::getInstance().increaseLogLineNumberInFile();                 \
               }                                                                         \
             }while(0)
 
@@ -57,10 +57,10 @@
             do {                                                               \
               if (TraceConsole<level>::getInstance())                          \
               {                                                                \
-                (*TraceConsole<level>::getInstance()) << Configure::getInstance().getLogLineNumberInConsole() \
+                (*TraceConsole<level>::getInstance()) << ::Configure::getInstance().getLogLineNumberInConsole() \
                                                    << "  " << LocalTime::getCurrentTime() << "  "             \
                                                    << traceStr << std::endl;   \
-                Configure::getInstance().increaseLogLineNumberInConsole();     \
+                ::Configure::getInstance().increaseLogLineNumberInConsole();     \
               }                                                                \
             }while(0)
 

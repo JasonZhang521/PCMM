@@ -5,6 +5,7 @@ cmake_minimum_required (VERSION 2.6)
 
 add_subdirectory(Configure)
 add_subdirectory(Common)
+add_subdirectory(SshWrapper)
 add_subdirectory(libssh_demo)
 
 #Unit test
