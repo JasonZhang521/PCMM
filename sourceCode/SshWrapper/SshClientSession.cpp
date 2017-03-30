@@ -1,4 +1,5 @@
 #include "SshClientSession.h"
+#include "SshShellChannel.h"
 #include "App.h"
 #include "Trace.h"
 
@@ -38,19 +39,30 @@ SshClientSession::Configure& SshClientSession::Configure::operator=(const SshCli
 SshClientSession::SshClientSession(const Configure& configure)
 :configure_(configure)
 ,session_(ssh_new())
+,shellChannel_(new SshShellChannel(session_))
 {
-	if (session_ == NULL)
-	{
-		TRACE_WARNING("Can not allocate memory for a ssh session (ssh_new)");
-		App::ExitNormal();
-	}
+    if (session_ == NULL)
+    {
+        TRACE_WARNING("Can not allocate memory for a ssh session (ssh_new)");
+	App::ExitNormal();
+    }
+
+    if (shellChannel_ == NULL)
+    {
+        TRACE_WARNING("Can not allocate memory for a ssh shell channel");
+	App::ExitNormal();
+    }
 }
 SshClientSession::~SshClientSession()
 {
-	if (session_ != NULL)
-	{
-		ssh_free(session_);
-	}
+    if (session_ != NULL)
+    {
+	ssh_free(session_);
+    }
+    if (shellChannel_ != NULL)
+    {
+        delete shellChannel_;
+    }
 }
 
 void SshClientSession::configure(const Configure& config)
@@ -94,6 +106,7 @@ bool SshClientSession::shutdown()
 	TRACE_NOTICE("Shutdow the ssh session_ for client!");
 	disconnect();
 }
+
 bool SshClientSession::connect()
 {
 	int rc = ssh_connect(session_);
@@ -103,6 +116,21 @@ bool SshClientSession::connect()
 		return false;
     }
 	return true;
+}
+
+bool SshClientSession::startShellChannel()
+{
+    return shellChannel_->setup();
+}
+
+bool SshClientSession::executeShellCommand(const std::string& cmd, std::string& cmdOutput)
+{
+    return shellChannel_->executeCommand(cmd, cmdOutput);
+}
+
+bool SshClientSession::shutdownShellChannel()
+{
+    return shellChannel_->shutdown();
 }
 
 void SshClientSession::disconnect()

@@ -1,10 +1,10 @@
 #ifndef _SSHWRAPPER_ISSHSHELLCHANNEL_H_
 #define _SSHWRAPPER_ISSHSHELLCHANNEL_H_
+#include <string>
 
-namespace std
+namespace SshWrapper
 {
-	class string;
-}
+
 class ISshShellChannel
 {
 public:
@@ -16,5 +16,6 @@ public:
 	virtual bool executeCommand(const std::string& cmd, std::string& cmdOutput) = 0;
 };
 
+}
 #endif
 

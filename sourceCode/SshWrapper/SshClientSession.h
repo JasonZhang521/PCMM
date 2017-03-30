@@ -1,15 +1,17 @@
 #ifndef _SSHWRAPPER_SSHCLIENTSESSION_H_
 #define _SSHWRAPPER_SSHCLIENTSESSION_H_
-#include "ISshSession.h"
+#include "ISshClientSession.h"
 #include <map>
 #include <string>
 
 struct ssh_session_struct;
 typedef struct ssh_session_struct* ssh_session;
-
+ 
 namespace SshWrapper
 {
-class SshClientSession : public ISshSession
+class ISshShellChannel;
+
+class SshClientSession : public ISshClientSession
 {
 public:
     struct Configure
@@ -26,8 +28,9 @@ public:
 		bool unknownHostContinue;
 	};
 private:
-	Configure configure_;
 	ssh_session session_;
+	Configure configure_;
+    ISshShellChannel* shellChannel_;
 public:
 	SshClientSession(const Configure& configure);
 	virtual ~SshClientSession();
@@ -36,6 +39,9 @@ public:
 protected:
 	virtual bool setup();
 	virtual bool shutdown();
+        virtual bool startShellChannel();
+        virtual bool shutdownShellChannel();
+        virtual bool executeShellCommand(const std::string& cmd, std::string& cmdOutput);
 private:
 	void setOptions();
 	bool connect();

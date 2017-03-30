@@ -18,7 +18,7 @@ protected:
 	~SshShellChannel();
 	virtual bool setup();
 	virtual bool shutdown();
-	virtual bool excuteCommand(const std::string& cmd, std::string& cmdOutput);
+	virtual bool executeCommand(const std::string& cmd, std::string& cmdOutput);
 };
 
 }

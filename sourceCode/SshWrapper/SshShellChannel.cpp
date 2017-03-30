@@ -35,7 +35,7 @@ bool SshShellChannel::setup()
 	int rc = ssh_channel_open_session(channel_);
 	if (rc != SSH_OK)
 	{
-		TRACE_WARNING("Error open new Channel: rc = " << rc << ", error info:" << ssh_get_error(session_)); 
+		TRACE_WARNING("Error open new Channel: rc = " << rc << ", error info:" << ssh_get_error(ssh_channel_get_session(channel_))); 
 		return false;
 	}
 	return true;
@@ -43,7 +43,11 @@ bool SshShellChannel::setup()
 
 bool SshShellChannel::shutdown()
 {
-	ssh_channel_close(channel_);
+	int rc = ssh_channel_close(channel_);
+	if (rc != SSH_OK)
+	{
+		TRACE_WARNING("Error close Channel: rc = " << rc << ", error info:" << ssh_get_error(ssh_channel_get_session(channel_))); 
+	}
 }
 
 bool SshShellChannel::executeCommand(const std::string& cmd, std::string& cmdOutput)
@@ -51,10 +55,11 @@ bool SshShellChannel::executeCommand(const std::string& cmd, std::string& cmdOut
 	int rc = ssh_channel_request_exec(channel_, cmd.c_str());
 	if (rc != SSH_OK)
 	{
-		TRACE_WARNING("Error execute shell: rc = " << rc << ", error info:" << ssh_get_error(channel_));
+		TRACE_WARNING("Error execute shell: rc = " << rc << ", error info:" << ssh_get_error(ssh_channel_get_session(channel_)));
 		return false;
 	}
 
+    std::stringstream sstr;
     char buffer[256];                                                                                             
 	int nbytes = ssh_channel_read(channel_, buffer, sizeof(buffer), 0);                                        
 	while (nbytes > 0)                                                                                            
@@ -66,7 +71,7 @@ bool SshShellChannel::executeCommand(const std::string& cmd, std::string& cmdOut
 
 	if (nbytes < 0)
 	{
-		TRACE_WARNING("Read channel error, readed bytes = " << nbytes << "error info:" << ssh_get_error(channel_));
+		TRACE_WARNING("Read channel error, readed bytes = " << nbytes << "error info:" << ssh_get_error(ssh_channel_get_session(channel_)));
 		return false;
 	}
 

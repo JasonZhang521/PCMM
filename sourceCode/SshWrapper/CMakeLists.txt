@@ -1,5 +1,7 @@
 set(sshwrapper_SRCS
     SshClientSession.cpp
+    SshShellChannel.cpp
+    SshClient.cpp
 )
 include_directories ("${PROJECT_SOURCE_DIR}/TraceLog"
 "${PROJECT_SOURCE_DIR}/Common"
