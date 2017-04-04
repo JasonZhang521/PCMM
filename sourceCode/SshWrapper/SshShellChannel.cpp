@@ -77,8 +77,7 @@ bool SshShellChannel::executeCommand(const std::string& cmd, std::string& cmdOut
 	int nbytes = ssh_channel_read(channel_, buffer, sizeof(buffer), 0);                                        
 	while (nbytes > 0)                                                                                            
 	{                                                                                                             
-	    buffer[nbytes] = 0;                                                                                   
-		sstr << buffer;                                                                                       
+		sstr << std::string(buffer, nbytes);                                                                                       
 		nbytes = ssh_channel_read(channel_, buffer, sizeof(buffer), 0);                                    
 	}
 
