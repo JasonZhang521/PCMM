@@ -9,34 +9,7 @@
 namespace SshWrapper
 {
 
-SshClientSession::Configure::Configure()
-:port(-1)
-,verbosity(-1)
-,unknownHostContinue(false)
-{}
-
-SshClientSession::Configure::Configure(const SshClientSession::Configure& config)
-:user(config.user)
-,password(config.password)
-,host(config.host)
-,port(config.port)
-,verbosity(config.verbosity)
-,unknownHostContinue(config.unknownHostContinue)
-{}
-
-SshClientSession::Configure& SshClientSession::Configure::operator=(const SshClientSession::Configure& config)
-{
-	user = config.user;
-	password = config.password;
-	host = config.host;
-	port = config.port;
-	verbosity = config.verbosity;
-	unknownHostContinue = config.unknownHostContinue;
-	return *this;
-}
-
-
-SshClientSession::SshClientSession(const Configure& configure)
+SshClientSession::SshClientSession(const SshConfigure& configure)
 :configure_(configure)
 ,session_(ssh_new())
 ,shellChannel_(new SshShellChannel(session_))
@@ -65,7 +38,7 @@ SshClientSession::~SshClientSession()
     }
 }
 
-void SshClientSession::configure(const Configure& config)
+void SshClientSession::configure(const SshConfigure& config)
 {
 	configure_ = config;
 }
@@ -120,6 +93,10 @@ bool SshClientSession::connect()
 
 bool SshClientSession::startShellChannel()
 {
+	if (shellChannel_ == NULL)
+	{
+		shellChannel_ = new SshShellChannel(session_);
+	}
     return shellChannel_->setup();
 }
 
@@ -131,6 +108,8 @@ bool SshClientSession::executeShellCommand(const std::string& cmd, std::string& 
 bool SshClientSession::shutdownShellChannel()
 {
     return shellChannel_->shutdown();
+	delete shellChannel_;
+	shellChannel_ = 0;
 }
 
 void SshClientSession::disconnect()

@@ -10,17 +10,11 @@ namespace SshWrapper
 {
 
 SshShellChannel::SshShellChannel(ssh_session session)
-: channel_(ssh_channel_new(session))
+: session_(session), channel_(NULL)
 {
 	if (session == NULL)
 	{
 		TRACE_WARNING("Session is NULL when initial shell channel!");
-		App::ExitNormal();
-	}
-
-	if (channel_ == NULL)
-	{
-		TRACE_WARNING("Channel is NULL when initial shell channel!");
 		App::ExitNormal();
 	}
 }
@@ -32,6 +26,20 @@ SshShellChannel::~SshShellChannel()
 
 bool SshShellChannel::setup()
 {
+	return true;
+}
+
+bool SshShellChannel::shutdown()
+{
+	return true;
+}
+
+bool SshShellChannel::startShellCmd()
+{
+	if (channel_ == NULL)
+	{
+		channel_ = ssh_channel_new(session_);
+	}
 	int rc = ssh_channel_open_session(channel_);
 	if (rc != SSH_OK)
 	{
@@ -41,17 +49,22 @@ bool SshShellChannel::setup()
 	return true;
 }
 
-bool SshShellChannel::shutdown()
+bool SshShellChannel::stopShellCmd()
 {
 	int rc = ssh_channel_close(channel_);
 	if (rc != SSH_OK)
 	{
 		TRACE_WARNING("Error close Channel: rc = " << rc << ", error info:" << ssh_get_error(ssh_channel_get_session(channel_))); 
+		return false;
 	}
+	ssh_channel_free(channel_);
+	channel_ = NULL;
+	return true;
 }
 
 bool SshShellChannel::executeCommand(const std::string& cmd, std::string& cmdOutput)
 {
+	startShellCmd();
 	int rc = ssh_channel_request_exec(channel_, cmd.c_str());
 	if (rc != SSH_OK)
 	{
@@ -77,6 +90,7 @@ bool SshShellChannel::executeCommand(const std::string& cmd, std::string& cmdOut
 
 	cmdOutput = sstr.str(); 
     ssh_channel_send_eof(channel_);
+	stopShellCmd();
 	return true;
 }
 

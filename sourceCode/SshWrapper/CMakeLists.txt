@@ -8,8 +8,8 @@ include_directories ("${PROJECT_SOURCE_DIR}/TraceLog"
 "${PROJECT_SOURCE_DIR}/Configure"
 )
 add_library(sshwrapper  ${sshwrapper_SRCS})
-#target_link_libraries(sshwrapper ${SSH_LIBs}
-#			          configure
-#					  common
-#					 )
+target_link_libraries(sshwrapper ${SSH_LIBs}
+	              configure
+		      common
+		     )
 

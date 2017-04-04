@@ -11,6 +11,7 @@ namespace SshWrapper
 
 class SshShellChannel : public ISshShellChannel
 {
+	ssh_session session_;
 	ssh_channel channel_;
 public:
 	SshShellChannel(ssh_session session);
@@ -19,6 +20,9 @@ protected:
 	virtual bool setup();
 	virtual bool shutdown();
 	virtual bool executeCommand(const std::string& cmd, std::string& cmdOutput);
+private:
+	bool startShellCmd();
+	bool stopShellCmd();
 };
 
 }

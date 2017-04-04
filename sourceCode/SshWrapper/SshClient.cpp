@@ -1,14 +1,14 @@
 #include "SshClient.h"
 #include "SshClientSession.h"
+#include "SshConfigure.h"
 #include "App.h"
 #include "Trace.h"
 
 namespace SshWrapper
 {
 
-SshClient::SshClient()
+SshClient::SshClient(const SshConfigure& configure)
 {
-	SshClientSession::Configure configure;
     session_ = new SshClientSession(configure);
 	if (session_ == NULL)
 	{

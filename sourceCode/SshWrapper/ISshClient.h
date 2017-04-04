@@ -8,8 +8,8 @@ namespace SshWrapper
 class ISshClient
 {
 public:
-	ISshClient();
-	virtual ~ISshClient();
+	ISshClient() {}
+	virtual ~ISshClient() {}
 	virtual bool setup() = 0;
 	virtual bool shutdown() = 0;
 	virtual bool startShell() = 0;

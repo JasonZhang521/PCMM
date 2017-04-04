@@ -1,6 +1,7 @@
 #ifndef _SSHWRAPPER_SSHCLIENTSESSION_H_
 #define _SSHWRAPPER_SSHCLIENTSESSION_H_
 #include "ISshClientSession.h"
+#include "SshConfigure.h"
 #include <map>
 #include <string>
 
@@ -13,29 +14,14 @@ class ISshShellChannel;
 
 class SshClientSession : public ISshClientSession
 {
-public:
-    struct Configure
-	{
-		Configure();
-		Configure(const Configure& config);
-		Configure& operator=(const Configure& config);
-
-        std::string user;
-		std::string password;
-		std::string host;
-		int port;
-		int verbosity;
-		bool unknownHostContinue;
-	};
-private:
 	ssh_session session_;
-	Configure configure_;
+	SshConfigure configure_;
     ISshShellChannel* shellChannel_;
 public:
-	SshClientSession(const Configure& configure);
+	SshClientSession(const SshConfigure& configure);
 	virtual ~SshClientSession();
 
-	void configure(const Configure& config);
+	void configure(const SshConfigure& config);
 protected:
 	virtual bool setup();
 	virtual bool shutdown();

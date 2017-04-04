@@ -11,3 +11,4 @@ add_subdirectory(libssh_demo)
 #Unit test
 add_subdirectory(ConfigureTest)
 add_subdirectory(TraceLogTest)
+add_subdirectory(SshWrapperTest)

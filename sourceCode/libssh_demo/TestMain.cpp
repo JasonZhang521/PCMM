@@ -11,9 +11,9 @@ int main()
     Configure::getInstance().setTraceLogTarget(TRACE_LOG_TO_FILE);
 	std::cout << "SSH testing" << std::endl;
 	// put your user
-	std::string user("user");
+	std::string user("test");
 	// put your password here
-	std::string password("password");
+	std::string password("test");
     //SshClient client(true, user, password, "localhost", SSH_LOG_FUNCTIONS, 22);
 	SshClient client(true, user, password, "localhost", SSH_LOG_PROTOCOL, 22);
     client.setup();
@@ -22,10 +22,18 @@ int main()
 	std::string cliResult;
 	client.executeCliCommand(cli, cliResult);
 	std::cout << cliResult << std::endl;
-	std::cout << "execute ll -a" << std::endl;
+	std::cout << "execute ls -a" << std::endl;
 	cli = "ls -a";
+	cliResult = std::string();
 	client.executeCliCommand(cli, cliResult);
 	std::cout << cliResult.size() << "\n"  << cliResult << std::endl;
+	/*
+	std::cout << "execute pwd" << std::endl;
+	cli = "pwd";
+	cliResult = std::string();
+	client.executeCliCommand(cli, cliResult);
+	std::cout << cliResult.size() << "\n"  << cliResult << std::endl;
+	*/
     client.shutdown();
 	return 0;
 }
