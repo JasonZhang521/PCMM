@@ -1,4 +1,6 @@
 #include "SshClient.h"
+#include "SshClientSession.h"
+#include "SshShellChannel.h"
 #include "SshConfigure.h"
 #include "libssh/libssh.h"
 #include <iostream>
@@ -13,7 +15,10 @@ int main()
 	configure.port = 22;
 	configure.verbosity = SSH_LOG_PROTOCOL;
 	configure.unknownHostContinue = true;
-	ISshClient* client = new SshClient(configure);
+	ssh_session session = ssh_new();
+	SshShellChannel* channel = new SshShellChannel(session);
+	SshClientSession* clientSession = new SshClientSession(session, channel, configure);
+	ISshClient* client = new SshClient(clientSession);
 	client->setup();
 	std::string inputString;
 	std::string outputString;

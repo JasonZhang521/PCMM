@@ -9,10 +9,10 @@
 namespace SshWrapper
 {
 
-SshClientSession::SshClientSession(const SshConfigure& configure)
-:configure_(configure)
-,session_(ssh_new())
-,shellChannel_(new SshShellChannel(session_))
+SshClientSession::SshClientSession(ssh_session session, ISshShellChannel* channel, const SshConfigure& configure)
+:session_(session)
+,configure_(configure)
+,shellChannel_(channel)
 {
     if (session_ == NULL)
     {

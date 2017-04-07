@@ -1,15 +1,14 @@
 #include "SshClient.h"
 #include "SshClientSession.h"
-#include "SshConfigure.h"
 #include "App.h"
 #include "Trace.h"
 
 namespace SshWrapper
 {
 
-SshClient::SshClient(const SshConfigure& configure)
+SshClient::SshClient(ISshClientSession* session)
+: session_(session)
 {
-    session_ = new SshClientSession(configure);
 	if (session_ == NULL)
 	{
 	    TRACE_WARNING("Session is NULL when initial shell channel!");

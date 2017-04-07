@@ -18,7 +18,7 @@ class SshClientSession : public ISshClientSession
 	SshConfigure configure_;
     ISshShellChannel* shellChannel_;
 public:
-	SshClientSession(const SshConfigure& configure);
+	SshClientSession(ssh_session session, ISshShellChannel* channel, const SshConfigure& configure);
 	virtual ~SshClientSession();
 
 	void configure(const SshConfigure& config);

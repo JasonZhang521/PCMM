@@ -6,13 +6,12 @@ namespace SshWrapper
 {
 
 class ISshClientSession;
-struct SshConfigure;
 
 class SshClient : public ISshClient
 {
     ISshClientSession* session_;
 public:
-	SshClient(const SshConfigure& configure);
+	SshClient(ISshClientSession* session);
 	virtual ~SshClient();
 protected:
 	virtual bool setup();
