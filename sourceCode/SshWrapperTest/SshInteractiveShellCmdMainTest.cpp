@@ -1,7 +1,7 @@
 #include "SshClient.h"
 #include "SshClientSession.h"
-#include "SshShellChannel.h"
-#include <SshConfigure.h>
+#include "SshInteractiveShellChannel.h"
+#include "SshConfigure.h"
 #include "libssh/libssh.h"
 #include <iostream>
 #include <string>
@@ -16,7 +16,7 @@ int main()
 	configure.verbosity = SSH_LOG_PROTOCOL;
 	configure.unknownHostContinue = true;
 	ssh_session session = ssh_new();
-	SshShellChannel* channel = new SshShellChannel(session);
+	SshInteractiveShellChannel* channel = new SshInteractiveShellChannel(session, 80, 80);
 	SshClientSession* clientSession = new SshClientSession(session, channel, configure);
 	ISshClient* client = new SshClient(clientSession);
 	client->setup();
