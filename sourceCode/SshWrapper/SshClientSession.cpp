@@ -5,7 +5,7 @@
 
 #include <string>
 #include <sstream>
-#include <libssh/libssh.h>
+#include "libssh/libssh.h"
 namespace SshWrapper
 {
 

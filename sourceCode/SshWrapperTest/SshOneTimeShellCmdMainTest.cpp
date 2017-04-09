@@ -5,13 +5,14 @@
 #include "libssh/libssh.h"
 #include <iostream>
 #include <string>
-using namespace SshWrapper;;
+using namespace SshWrapper;
 int main()
 {
+    std::cout << "start" << std::endl;
 	SshConfigure configure;
 	configure.user = "test";
 	configure.password = "test";
-	configure.host = "localhost";
+    configure.host = "192.168.5.138";
 	configure.port = 22;
 	configure.verbosity = SSH_LOG_PROTOCOL;
 	configure.unknownHostContinue = true;
