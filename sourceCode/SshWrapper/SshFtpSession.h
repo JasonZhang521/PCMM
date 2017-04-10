@@ -1,0 +1,28 @@
+#ifndef _WRAPPER_SSHFTPSESSION_H_
+#define _WRAPPER_SSHFTPSESSION_H_
+
+struct ssh_session_struct;
+typedef struct ssh_session_struct* ssh_session;
+struct sftp_session_struct;
+typedef struct sftp_session_struct* sftp_session;
+
+namespace SshWrapper
+{
+
+class SshFtpSession : public ISshFtpSession
+{
+    ssh_session session_;
+    sftp_session sftpSession_;
+public:
+    SshFtpSession(ssh_session session);
+    ~SshFtpSession();
+
+protected:
+    virtual bool setup();
+    virtual bool shutdown();
+    virtual bool getFile(const std::string& remoteFile, const std::string& localDir);
+    virtual bool putFile(const std::string& localFile);
+};
+
+}
+#endif // SSHFTPSESSION_H

@@ -38,7 +38,10 @@ HEADERS += sourceCode/Common/App.h \
            sourceCode/TraceLog/Trace.h \
            sourceCode/TraceLog/TraceBuf.h \
            sourceCode/TraceLog/TraceConsole.h \
-           sourceCode/TraceLog/TraceFile.h
+           sourceCode/TraceLog/TraceFile.h \
+    sourceCode/SshWrapper/ISshFtpSession.h \
+    sourceCode/SshWrapper/SshFtpSession.h \
+    sourceCode/Common/FilePathHandler.h
 SOURCES += sourceCode/Common/LocalTime.cpp \
            sourceCode/Common/remove_character.cpp \
            sourceCode/Common/replace_character.cpp \
@@ -48,7 +51,9 @@ SOURCES += sourceCode/Common/LocalTime.cpp \
            sourceCode/SshWrapper/SshClient.cpp \
            sourceCode/SshWrapper/SshClientSession.cpp \
            sourceCode/SshWrapper/SshShellChannel.cpp \
-           sourceCode/SshWrapperTest/SshOneTimeShellCmdMainTest.cpp
+           sourceCode/SshWrapperTest/SshOneTimeShellCmdMainTest.cpp \
+    sourceCode/SshWrapper/SshFtpSession.cpp \
+    sourceCode/Common/FilePathHandler.cpp
 
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/sourceCode/static_lib/ -lssh.dll
