@@ -4,7 +4,7 @@
 #include "Trace.h"
 
 #include <libssh/sftp.h>
-#include <sys/stat.h>
+#include <fstream>
 #include <fcntl.h>
 
 namespace SshWrapper
@@ -14,13 +14,13 @@ SshFtpSession::SshFtpSession(ssh_session session)
 : session_(session)
 , sftpSession_(sftp_new(session_))
 {
-    if (sftpSession_ == nullptr)
+    if (sftpSession_ == NULL)
     {
         TRACE_WARNING("Session is NULL when initial shell channel!");
         App::ExitNormal();
     }
 
-    if (sftpSession_ == nullptr)
+    if (sftpSession_ == NULL)
     {
         TRACE_WARNING("Session is NULL when initial shell channel!");
         App::ExitNormal();
@@ -29,7 +29,7 @@ SshFtpSession::SshFtpSession(ssh_session session)
 
 SshFtpSession::~SshFtpSession()
 {
-    if (sftpSession_ != nullptr)
+    if (sftpSession_ != NULL)
     {
         sftp_free(sftpSession_);
     }
@@ -54,7 +54,7 @@ bool SshFtpSession::shutdown()
 bool SshFtpSession::getFile(const std::string& remoteFile, const std::string& localDir)
 {
     sftp_file file = sftp_open(sftpSession_, remoteFile.c_str(), O_RDONLY, 0);
-    if (file == nullptr)
+    if (file == NULL)
     {
         TRACE_WARNING("Error open remote file:" << remoteFile << ", error info:" << sftp_get_error(sftpSession_));
         return false;
@@ -62,35 +62,15 @@ bool SshFtpSession::getFile(const std::string& remoteFile, const std::string& lo
 
     // create a empty file in local
     const std::string FileName = FilePathHandler::getFileName(remoteFile);
-    const std::string FilePath = localDir + "/" + FileName;
-    int fd = open(FilePath.c_str(), O_CREAT);
-    if (fd < 0)
-    {
-        TRACE_WARNING("Error create local file:" << FilePath << ", error info:" << strerror(errno));
-        sftp_close(file);
-        return false;
-    }
-
+    const std::string FilePathTemp = localDir + "/" + FileName;
+    const std::string FilePath = FilePathHandler::generateUniqueFileName(FilePathTemp);
+    std::ofstream outfile(FilePath.c_str(), std::ofstream::binary);
     char buffer[MAX_XFER_BUF_SIZE];
     int nbytes = sftp_read(file, buffer, sizeof(buffer));
     while (nbytes > 0)
     {
-        int nwritten = write(fd, buffer, nbytes);
-        if (nwritten != nbytes)
-        {
-            TRACE_WARNING("Error write local file:" << FilePath << ", error info:" << strerror(errno));
-            close(fd);
-            sftp_close(file);
-            return false;
-        }
-    }
-
-    int rc = close(fd);
-    if (rc < 0)
-    {
-        TRACE_WARNING("Error close local file:" << FilePath << ", error info:" << strerror(errno));
-        sftp_close(file);
-        return false;
+        outfile.write(buffer, nbytes);
+        nbytes = sftp_read(file, buffer, sizeof(buffer));
     }
 
     if (nbytes < 0)
@@ -100,7 +80,7 @@ bool SshFtpSession::getFile(const std::string& remoteFile, const std::string& lo
         return false;
     }
 
-    rc = sftp_close(file);
+    int rc = sftp_close(file);
     if (rc != SSH_OK)
     {
         TRACE_WARNING("Error close the remote file:" << remoteFile << ", error info:" << sftp_get_error(sftpSession_));
@@ -112,25 +92,19 @@ bool SshFtpSession::getFile(const std::string& remoteFile, const std::string& lo
 
 bool SshFtpSession::putFile(const std::string& localFile, const std::string& remoteDir)
 {
-    int fd = open(localFile.c_str(), O_RDONLY);
-    if (fd < 0)
-    {
-        TRACE_WARNING("Error create local file:" << localFile << ", error info:" << strerror(errno));
-        return false;
-    }
-    // create a empty file in local
+    std::ifstream infile(localFile.c_str(), std::ifstream::binary);
+    // create a empty file in remote
     const std::string FileName = FilePathHandler::getFileName(localFile);
     const std::string FilePath = remoteDir + "/" + FileName;
     sftp_file file = sftp_open(sftpSession_, FilePath.c_str(), O_CREAT, 0);
-    if (file == nullptr)
+    if (file == NULL)
     {
         TRACE_WARNING("Error create remote file:" << FilePath << ", error info:" << sftp_get_error(sftpSession_));
-        close(fd);
         return false;
     }
 
     char buffer[MAX_XFER_BUF_SIZE];
-    int nbytes = read(fd, buffer, sizeof(buffer));
+    std::streamsize nbytes = infile.readsome(buffer, sizeof(buffer));
     while (nbytes > 0)
     {
         int nwritten = sftp_write(file, buffer, nbytes);
@@ -138,30 +112,15 @@ bool SshFtpSession::putFile(const std::string& localFile, const std::string& rem
         {
             TRACE_WARNING("Error write remote file:" << FilePath << ", error info:" << sftp_get_error(sftpSession_));
             sftp_close(file);
-            close(fd);
             return false;
         }
+        nbytes = infile.readsome(buffer, sizeof(buffer));
     }
 
     int rc = sftp_close(file);
     if (rc != SSH_OK)
     {
         TRACE_WARNING("Error close remote file:" << FilePath << ", error info:" << sftp_get_error(sftpSession_));
-        close(fd);
-        return false;
-    }
-
-    if (nbytes < 0)
-    {
-        TRACE_WARNING("Error read local file:" << localFile << ", error info:" << strerror(errno));
-        close(fd);
-        return false;
-    }
-
-    rc = close(fd);
-    if (rc < 0)
-    {
-        TRACE_WARNING("Error close the local file:" << localFile << ", error info:" << strerror(errno));
         return false;
     }
 

@@ -8,6 +8,8 @@ public:
     FilePathHandler();
     static std::string getFileName(const std::string& fullPath);
     static std::string getFileDir(const std::string& fullPath);
+    static bool isFileExist(const std::string& fullPath);
+    static std::string generateUniqueFileName(const std::string& fullPath);
 };
 
 #endif // FILEPATHHANDLER_H
