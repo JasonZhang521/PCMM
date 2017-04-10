@@ -4,6 +4,8 @@
 #include "Trace.h"
 
 #include <libssh/sftp.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 namespace SshWrapper
 {
@@ -108,18 +110,18 @@ bool SshFtpSession::getFile(const std::string& remoteFile, const std::string& lo
     return true;
 }
 
-bool putFile(const std::string& localFile, const std::string& remoteDir)
+bool SshFtpSession::putFile(const std::string& localFile, const std::string& remoteDir)
 {
     int fd = open(localFile.c_str(), O_RDONLY);
     if (fd < 0)
     {
-        TRACE_WARNING("Error create local file:" << FilePath << ", error info:" << strerror(errno));
+        TRACE_WARNING("Error create local file:" << localFile << ", error info:" << strerror(errno));
         return false;
     }
     // create a empty file in local
     const std::string FileName = FilePathHandler::getFileName(localFile);
     const std::string FilePath = remoteDir + "/" + FileName;
-    sftp_file file = sftp_open(sftpSession_, FilePath.c_str(), O_CREAT);
+    sftp_file file = sftp_open(sftpSession_, FilePath.c_str(), O_CREAT, 0);
     if (file == nullptr)
     {
         TRACE_WARNING("Error create remote file:" << FilePath << ", error info:" << sftp_get_error(sftpSession_));
@@ -151,7 +153,7 @@ bool putFile(const std::string& localFile, const std::string& remoteDir)
 
     if (nbytes < 0)
     {
-        TRACE_WARNING("Error read local file:" << remoteFile << ", error info:" << strerror(errno));
+        TRACE_WARNING("Error read local file:" << localFile << ", error info:" << strerror(errno));
         close(fd);
         return false;
     }
@@ -159,7 +161,7 @@ bool putFile(const std::string& localFile, const std::string& remoteDir)
     rc = close(fd);
     if (rc < 0)
     {
-        TRACE_WARNING("Error close the local file:" << remoteFile << ", error info:" << strerror(errno));
+        TRACE_WARNING("Error close the local file:" << localFile << ", error info:" << strerror(errno));
         return false;
     }
 

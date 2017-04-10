@@ -1,5 +1,6 @@
 #ifndef _WRAPPER_ISSHFTPSESSION_H_
 #define _WRAPPER_ISSHFTPSESSION_H_
+#include <string>
 
 namespace SshWrapper
 {
