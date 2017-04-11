@@ -54,6 +54,7 @@ bool SshInteractiveShellChannel::shutdown()
 	 ssh_channel_send_eof(channel_);
 	 ssh_channel_free(channel_);
 	 channel_ = NULL;
+     return false;
 }
 
 
@@ -77,6 +78,8 @@ bool SshInteractiveShellChannel::sessionAndTerminalInit()
 		TRACE_WARNING("Error request shell: rc = " << rc << ", error info:" << ssh_get_error(ssh_channel_get_session(channel_))); 
 		 return rc;
 	 }
+
+     return true;
 }
 
 bool SshInteractiveShellChannel::executeCommand(const std::string& cmd, std::string& cmdOutput)
@@ -97,7 +100,7 @@ bool SshInteractiveShellChannel::executeCommand(const std::string& cmd, std::str
 			 sstr << std::string(buffer, nbytes);
 		 }
 
-		 int nwritten = ssh_channel_write(channel_, cmd.c_str(), cmd.size());
+         unsigned int nwritten = ssh_channel_write(channel_, cmd.c_str(), cmd.size());
 		 if (nwritten != cmd.size())
 		 {
 			TRACE_WARNING("Error write channel error, error info:" << ssh_get_error(ssh_channel_get_session(channel_))); 

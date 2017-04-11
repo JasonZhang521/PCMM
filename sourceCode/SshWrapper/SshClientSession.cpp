@@ -78,6 +78,7 @@ bool SshClientSession::shutdown()
 {
 	TRACE_NOTICE("Shutdow the ssh session_ for client!");
 	disconnect();
+    return true;
 }
 
 bool SshClientSession::connect()
