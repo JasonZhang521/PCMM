@@ -85,7 +85,7 @@
 // that their results don't depend on their order.
 //
 // </TechnicalDetails>
-
+char* className() {return 0;}
 
 int main()
 {

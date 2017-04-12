@@ -3,7 +3,7 @@
 #include "ISshClientSession.h"
 #include "ISshFtpSession.h"
 #include "SshConfigure.h"
-#include "Componet.h"
+#include "Component.h"
 #include "Macro.h"
 #include <map>
 #include <string>

@@ -1,7 +1,7 @@
 #ifndef _WRAPPER_SSHFTPSESSION_H_
 #define _WRAPPER_SSHFTPSESSION_H_
 #include "ISshFtpSession.h"
-#include "Componet.h"
+#include "Component.h"
 #include "Macro.h"
 
 struct ssh_session_struct;

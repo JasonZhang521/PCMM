@@ -1,7 +1,7 @@
 #ifndef _SSHWRAPPER_SSHCLIENT_H_
 #define _SSHWRAPPER_SSHCLIENT_H_
 #include "ISshClient.h"
-#include "Componet.h"
+#include "Component.h"
 #include "Macro.h"
 
 namespace SshWrapper

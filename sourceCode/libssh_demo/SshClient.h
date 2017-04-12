@@ -1,5 +1,7 @@
 #ifndef _SSH_CLIENT_H_
 #define _SSH_CLIENT_H_
+#include "Component.h"
+#include "Macro.h"
 #include <map>
 struct ssh_session_struct;
 typedef struct ssh_session_struct* ssh_session;
@@ -31,5 +33,7 @@ private:
 	bool verifyUser();
 	bool openCliChannel();
     void closeCliChannel();
+public:	
+     GETCLASSNAME(SshClientSession)
 };
 #endif

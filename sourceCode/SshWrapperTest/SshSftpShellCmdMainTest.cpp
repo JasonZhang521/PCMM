@@ -1,4 +1,3 @@
-#include <QCoreApplication>
 #include "SshClient.h"
 #include "SshClientSession.h"
 #include "SshShellChannel.h"
@@ -11,7 +10,6 @@
 using namespace SshWrapper;
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
     std::cout << "start" << std::endl;
     SshConfigure configure;
     configure.user = "test";
@@ -35,6 +33,5 @@ int main(int argc, char *argv[])
     //client->putFile()
     client->shutdownSftp();
     client->shutdown();
-
-    return a.exec();
+    return 0;
 }

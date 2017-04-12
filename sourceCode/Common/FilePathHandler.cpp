@@ -47,7 +47,7 @@ std::string FilePathHandler::getFileDir(const std::string& fullPath)
  bool FilePathHandler::isFileExist(const std::string& fullPath)
  {
     std::fstream file;
-    file.open(fullPath, std::ios::in);
+    file.open(fullPath.c_str(), std::ios_base::in);
     if (!file)
     {
         return false;

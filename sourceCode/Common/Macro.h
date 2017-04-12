@@ -2,7 +2,7 @@
 #define _MACRO_H_
 
 #define STRING(str) #str
-#define GETCLASSNAME(name) static const std::string className() \
+#define GETCLASSNAME(name) static inline const std::string className() \
                            {                           \
                                   return component() + \
                                          std::string("::") +\

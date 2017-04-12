@@ -1,7 +1,7 @@
 #ifndef _SSHWRAPPER_SSHINTERACTIVESHELLCHANNEL_H_
 #define _SSHWRAPPER_SSHINTERACTIVESHELLCHANNEL_H_
 #include "ISshShellChannel.h"
-#include "Componet.h"
+#include "Component.h"
 #include "Macro.h"
 
 struct ssh_session_struct;
