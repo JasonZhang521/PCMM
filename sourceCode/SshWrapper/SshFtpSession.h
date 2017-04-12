@@ -1,6 +1,8 @@
 #ifndef _WRAPPER_SSHFTPSESSION_H_
 #define _WRAPPER_SSHFTPSESSION_H_
 #include "ISshFtpSession.h"
+#include "Componet.h"
+#include "Macro.h"
 
 struct ssh_session_struct;
 typedef struct ssh_session_struct* ssh_session;
@@ -25,6 +27,9 @@ protected:
     virtual bool shutdown();
     virtual bool getFile(const std::string& remoteFile, const std::string& localDir);
     virtual bool putFile(const std::string& localFile, const std::string& remoteDir);
+
+public:
+     GETCLASSNAME(SshFtpSession)
 };
 
 }

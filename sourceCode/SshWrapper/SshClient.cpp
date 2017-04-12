@@ -45,4 +45,24 @@ bool SshClient::executeShellCommand(const std::string& cmd, std::string& cmdOutp
 	return session_->executeShellCommand(cmd, cmdOutput);
 }
 
+bool SshClient::startSftp()
+{
+    return session_->startFtpSession();
+}
+
+bool SshClient::shutdownSftp()
+{
+    return session_->shutdownFtpSessionl();
+}
+
+bool SshClient::getFile(const std::string& remoteFile, const std::string& localDir)
+{
+    return session_->getFile(remoteFile, localDir);
+}
+
+bool SshClient::putFile(const std::string& localFile, const std::string& remoteDir)
+{
+    return session_->putFile(localFile, remoteDir);
+}
+
 }

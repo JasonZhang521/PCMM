@@ -1,6 +1,8 @@
 #ifndef _SSHWRAPPER_SSHINTERACTIVESHELLCHANNEL_H_
 #define _SSHWRAPPER_SSHINTERACTIVESHELLCHANNEL_H_
 #include "ISshShellChannel.h"
+#include "Componet.h"
+#include "Macro.h"
 
 struct ssh_session_struct;
 struct ssh_channel_struct;
@@ -24,6 +26,9 @@ protected:
 	virtual bool executeCommand(const std::string& cmd, std::string& cmdOutput);
 private:
 	bool sessionAndTerminalInit();
+
+public:
+     GETCLASSNAME(SshInteractiveShellChannel)
 };
 
 }

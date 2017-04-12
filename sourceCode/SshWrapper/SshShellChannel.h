@@ -1,6 +1,8 @@
 #ifndef _SSHWRAPPER_SSHSHELLCHANNEL_H_
 #define _SSHWRAPPER_SSHSHELLCHANNEL_H_
 #include "ISshShellChannel.h"
+#include "Componet.h"
+#include "Macro.h"
 
 struct ssh_session_struct;
 struct ssh_channel_struct;
@@ -23,6 +25,9 @@ protected:
 private:
 	bool startShellCmd();
 	bool stopShellCmd();
+
+public:
+     GETCLASSNAME(SshShellChannel)
 };
 
 }

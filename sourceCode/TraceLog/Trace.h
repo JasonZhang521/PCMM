@@ -46,6 +46,7 @@
               if (TraceFile<level>::getInstance())                                      \
               {                                                                         \
                 (*TraceFile<level>::getInstance()) << ::Configure::getInstance().getLogLineNumberInFile() \
+                                                   <<": " << className() << "::" << __FUNCTION__ \
                                                    << "  " << LocalTime::getCurrentTime() << "  "       \
                                                    << traceStr << std::endl;            \
                 ::Configure::getInstance().increaseLogLineNumberInFile();                 \
@@ -58,6 +59,7 @@
               if (TraceConsole<level>::getInstance())                          \
               {                                                                \
                 (*TraceConsole<level>::getInstance()) << ::Configure::getInstance().getLogLineNumberInConsole() \
+                                                   <<": " << className() << "::" << __FUNCTION__ \
                                                    << "  " << LocalTime::getCurrentTime() << "  "             \
                                                    << traceStr << std::endl;   \
                 ::Configure::getInstance().increaseLogLineNumberInConsole();     \

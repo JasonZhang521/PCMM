@@ -2,6 +2,7 @@
 #include "SshClient.h"
 #include "SshClientSession.h"
 #include "SshShellChannel.h"
+#include "SshFtpSession.h"
 #include <SshConfigure.h>
 #include "libssh/libssh.h"
 #include <iostream>
@@ -20,25 +21,19 @@ int main(int argc, char *argv[])
     configure.verbosity = SSH_LOG_PROTOCOL;
     configure.unknownHostContinue = true;
     ssh_session session = ssh_new();
+    std::cout << "step 1" << std::endl;
     SshFtpSession* ftpSession = new SshFtpSession(session);
-    SshClientSession* clientSession = new SshClientSession(session, channel, configure);
+    std::cout << "step 2" << std::endl;
+    SshClientSession* clientSession = new SshClientSession(session, ftpSession, configure);
+    std::cout << "step 3" << std::endl;
     ISshClient* client = new SshClient(clientSession);
+    std::cout << "step 4" << std::endl;
     client->setup();
     std::string inputString;
     std::string outputString;
-    client->startShell();
-    while (inputString != std::string("exit"))
-    {
-        char ch[256];
-        std::fill(ch, ch + 256, 0);
-        std::cout << "Input command:";
-        std::cin.getline(ch, 255);
-        std::cout << "[" << ch << "]" << std::endl;
-        inputString = ch;
-        client->executeShellCommand(inputString, outputString);
-        std::cout << outputString << std::endl;
-    }
-    client->shutdownShell();
+    client->startSftp();
+    //client->putFile()
+    client->shutdownSftp();
     client->shutdown();
 
     return a.exec();

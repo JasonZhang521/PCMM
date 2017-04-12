@@ -71,7 +71,9 @@ HEADERS += \
     ../../sourceCode/TraceLog/Trace.h \
     ../../sourceCode/TraceLog/TraceBuf.h \
     ../../sourceCode/TraceLog/TraceConsole.h \
-    ../../sourceCode/TraceLog/TraceFile.h
+    ../../sourceCode/TraceLog/TraceFile.h \
+    ../../sourceCode/Common/Macro.h \
+    ../../sourceCode/SshWrapper/Componet.h
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../sourceCode/static_lib/ -lssh.dll
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../sourceCode/static_lib/ -lssh.dll

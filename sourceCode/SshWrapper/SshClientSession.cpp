@@ -1,5 +1,6 @@
 #include "SshClientSession.h"
 #include "SshShellChannel.h"
+#include "SshFtpSession.h"
 #include "App.h"
 #include "Trace.h"
 
@@ -13,19 +14,65 @@ SshClientSession::SshClientSession(ssh_session session, ISshShellChannel* channe
 :session_(session)
 ,configure_(configure)
 ,shellChannel_(channel)
+,sftpSession_(NULL)
 {
     if (session_ == NULL)
     {
-        TRACE_WARNING("Can not allocate memory for a ssh session (ssh_new)");
-	App::ExitNormal();
+        TRACE_WARNING("Ssh session is NULL");
+        App::ExitNormal();
     }
 
     if (shellChannel_ == NULL)
     {
-        TRACE_WARNING("Can not allocate memory for a ssh shell channel");
-	App::ExitNormal();
+        TRACE_WARNING("Ssh shell channel is NULL");
+        App::ExitNormal();
     }
 }
+
+SshClientSession::SshClientSession(ssh_session session, ISshFtpSession* sftpSession, const SshConfigure& configure)
+:session_(session)
+,configure_(configure)
+,shellChannel_(NULL)
+,sftpSession_(sftpSession)
+{
+    if (session_ == NULL)
+    {
+        TRACE_WARNING("Ssh session is NULL");
+        App::ExitNormal();
+    }
+
+    if (sftpSession == NULL)
+    {
+        TRACE_WARNING("Sftp session is NULL");
+        App::ExitNormal();
+    }
+}
+
+SshClientSession::SshClientSession(ssh_session session, ISshShellChannel* channel, ISshFtpSession* sftpSession, const SshConfigure& configure)
+:session_(session)
+,configure_(configure)
+,shellChannel_(channel)
+,sftpSession_(sftpSession)
+{
+    if (session_ == NULL)
+    {
+        TRACE_WARNING("Ssh session is NULL");
+        App::ExitNormal();
+    }
+
+    if (shellChannel_ == NULL)
+    {
+        TRACE_WARNING("Ssh shell channel is NULL");
+        App::ExitNormal();
+    }
+
+    if (sftpSession == NULL)
+    {
+        TRACE_WARNING("Sftp session is NULL");
+        App::ExitNormal();
+    }
+}
+
 SshClientSession::~SshClientSession()
 {
     if (session_ != NULL)
@@ -45,6 +92,7 @@ void SshClientSession::configure(const SshConfigure& config)
 
 void SshClientSession::setOptions()
 {
+    TRACE_NOTICE("Set option for client session!");
     ssh_options_set(session_, SSH_OPTIONS_HOST, configure_.host.c_str());
     ssh_options_set(session_, SSH_OPTIONS_LOG_VERBOSITY, &configure_.verbosity);
     ssh_options_set(session_, SSH_OPTIONS_PORT, &configure_.port);
@@ -52,7 +100,7 @@ void SshClientSession::setOptions()
 
 bool SshClientSession::setup()
 {
-	TRACE_NOTICE("Set up a new ssh session_ for client!");
+    TRACE_NOTICE("Set up a new ssh session for client session!");
     // Set options.
 	setOptions();
 	// Connect
@@ -76,13 +124,14 @@ bool SshClientSession::setup()
 
 bool SshClientSession::shutdown()
 {
-	TRACE_NOTICE("Shutdow the ssh session_ for client!");
+    TRACE_NOTICE("Shutdow the ssh session for client session!");
 	disconnect();
     return true;
 }
 
 bool SshClientSession::connect()
 {
+    TRACE_NOTICE("ssh session is connecting to the server!");
 	int rc = ssh_connect(session_);
 	if (rc != SSH_OK)
 	{
@@ -94,6 +143,7 @@ bool SshClientSession::connect()
 
 bool SshClientSession::startShellChannel()
 {
+    TRACE_NOTICE("Start Shell Channel for client session!");
 	if (shellChannel_ == NULL)
 	{
 		shellChannel_ = new SshShellChannel(session_);
@@ -103,14 +153,59 @@ bool SshClientSession::startShellChannel()
 
 bool SshClientSession::executeShellCommand(const std::string& cmd, std::string& cmdOutput)
 {
+    TRACE_NOTICE("execute shell command (" << cmd << ") for client session!");
+    if (shellChannel_ == NULL)
+    {
+        TRACE_WARNING("Ssh shell channel is NULL");
+        App::ExitNormal();
+    }
     return shellChannel_->executeCommand(cmd, cmdOutput);
 }
 
 bool SshClientSession::shutdownShellChannel()
 {
-    return shellChannel_->shutdown();
+    TRACE_NOTICE("Start Shell Channel for client session!");
+    bool rc = shellChannel_->shutdown();
 	delete shellChannel_;
-	shellChannel_ = 0;
+    shellChannel_ = NULL;
+    return rc;
+}
+
+bool SshClientSession::startFtpSession()
+{
+    if (sftpSession_ == NULL)
+    {
+        sftpSession_ = new SshFtpSession(session_);
+    }
+    return sftpSession_->setup();
+}
+
+bool SshClientSession::getFile(const std::string& remoteFile, const std::string& localDir)
+{
+    if (sftpSession_ == NULL)
+    {
+        TRACE_WARNING("Ssh ftp session is NULL");
+        App::ExitNormal();
+    }
+    return sftpSession_->getFile(remoteFile, localDir);
+}
+
+bool SshClientSession::putFile(const std::string& localFile, const std::string& remoteDir)
+{
+    if (sftpSession_ == NULL)
+    {
+        TRACE_WARNING("Ssh ftp session is NULL");
+        App::ExitNormal();
+    }
+    return sftpSession_->putFile(localFile, remoteDir);
+}
+
+bool SshClientSession::shutdownFtpSessionl()
+{
+    bool rc = sftpSession_->shutdown();
+    delete sftpSession_;
+    sftpSession_ = NULL;
+    return rc;
 }
 
 void SshClientSession::disconnect()

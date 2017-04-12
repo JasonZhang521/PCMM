@@ -14,15 +14,16 @@ SshFtpSession::SshFtpSession(ssh_session session)
 : session_(session)
 , sftpSession_(sftp_new(session_))
 {
-    if (sftpSession_ == NULL)
+    std::cout << "11111" << std::endl;
+    if (session_ == NULL)
     {
-        TRACE_WARNING("Session is NULL when initial shell channel!");
+        TRACE_WARNING("Session is NULL when initial sftp channel!");
         App::ExitNormal();
     }
 
     if (sftpSession_ == NULL)
     {
-        TRACE_WARNING("Session is NULL when initial shell channel!");
+        TRACE_WARNING("sftpSession is NULL when initial sftp channel!");
         App::ExitNormal();
     }
 }
