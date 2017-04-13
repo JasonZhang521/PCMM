@@ -128,4 +128,45 @@ bool SshFtpSession::putFile(const std::string& localFile, const std::string& rem
     return true;
 }
 
+bool SshFtpSession::listDir(const std::string& dirPath, SftpDirAttributes& dirAttributes)
+{
+    sftp_dir dir = sftp_opendir(sftpSession_, dirPath.c_str());
+    if (!dir)
+	{
+        TRACE_WARNING("Can not open Dir:" << dirPath  << ", error info:" << sftp_get_error(sftpSession_));
+		return false;
+    }
+	sftp_attributes attributes = NULL;
+    while ((attributes = sftp_readdir(sftpSession_, dir)) != NULL)
+	{
+		SftpDirAttribute dirAttribute;
+		dirAttribute.name = attributes->name;
+        dirAttribute.flags = attributes->flags;
+        dirAttribute.type = attributes->type;
+        dirAttribute.size = attributes->size;
+        dirAttribute.uid = attributes->uid;
+        dirAttribute.gid = attributes->gid;
+        dirAttribute.owner = attributes->owner;
+        dirAttribute.group = attributes->group;
+        dirAttribute.permissions = attributes->permissions;
+		dirAttributes.push_back(dirAttribute);
+        sftp_attributes_free(attributes);
+    }
+
+    if (!sftp_dir_eof(dir))
+    {
+        TRACE_WARNING("Can not list Dir:" << dirPath  << ", error info:" << sftp_get_error(sftpSession_));
+        sftp_closedir(dir);
+	    return false;
+    }
+
+    int rc = sftp_closedir(dir);
+	if (rc != SSH_OK)
+	{
+        TRACE_WARNING("Can not close Dir:" << dirPath  << ", error code = " << rc << ", error info:" << sftp_get_error(sftpSession_));
+        return false;
+	}
+    return true; 
+}
+
 }

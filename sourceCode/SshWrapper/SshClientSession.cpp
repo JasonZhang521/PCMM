@@ -213,6 +213,16 @@ bool SshClientSession::putFile(const std::string& localFile, const std::string& 
     return sftpSession_->putFile(localFile, remoteDir);
 }
 
+bool SshClientSession::listDir(const std::string& dirPath, SftpDirAttributes& dirAttributes)
+{
+    if (sftpSession_ == NULL)
+    {
+        TRACE_WARNING("Ssh ftp session is NULL");
+        App::ExitNormal();
+    }
+    return sftpSession_->listDir(dirPath, dirAttributes);
+}
+
 bool SshClientSession::shutdownFtpSessionl()
 {
     bool rc = sftpSession_->shutdown();

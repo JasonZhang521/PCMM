@@ -1,7 +1,6 @@
 #ifndef _SSHWRAPPER_SSHCLIENTSESSION_H_
 #define _SSHWRAPPER_SSHCLIENTSESSION_H_
 #include "ISshClientSession.h"
-#include "ISshFtpSession.h"
 #include "SshConfigure.h"
 #include "Component.h"
 #include "Macro.h"
@@ -40,6 +39,7 @@ protected:
     virtual bool startFtpSession();
     virtual bool getFile(const std::string& remoteFile, const std::string& localDir);
     virtual bool putFile(const std::string& localFile, const std::string& remoteDir);
+	virtual bool listDir(const std::string& dirPath, SftpDirAttributes& dirAttributes);
     virtual bool shutdownFtpSessionl();
 private:
 	void setOptions();

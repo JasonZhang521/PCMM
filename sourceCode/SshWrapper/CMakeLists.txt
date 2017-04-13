@@ -4,6 +4,7 @@ set(sshwrapper_SRCS
 	SshInteractiveShellChannel.cpp
 	SshFtpSession.cpp
     SshClient.cpp
+	SftpDirAttribute.cpp
 )
 include_directories ("${PROJECT_SOURCE_DIR}/TraceLog"
 "${PROJECT_SOURCE_DIR}/Common"

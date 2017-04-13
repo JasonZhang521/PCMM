@@ -65,4 +65,9 @@ bool SshClient::putFile(const std::string& localFile, const std::string& remoteD
     return session_->putFile(localFile, remoteDir);
 }
 
+bool SshClient::listDir(const std::string& dirPath, SftpDirAttributes& dirAttributes)
+{
+	return session_->listDir(dirPath, dirAttributes);
+}
+
 }
