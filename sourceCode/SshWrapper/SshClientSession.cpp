@@ -10,6 +10,19 @@
 namespace SshWrapper
 {
 
+SshClientSession::SshClientSession(ssh_session session, const SshConfigure& configure)
+:session_(session)
+,configure_(configure)
+,shellChannel_(NULL)
+,sftpSession_(NULL)
+{
+    if (session_ == NULL)
+    {
+        TRACE_WARNING("Ssh session is NULL");
+        App::ExitNormal();
+    }
+}
+
 SshClientSession::SshClientSession(ssh_session session, ISshShellChannel* channel, const SshConfigure& configure)
 :session_(session)
 ,configure_(configure)

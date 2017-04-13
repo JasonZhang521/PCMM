@@ -23,6 +23,7 @@ class SshClientSession : public ISshClientSession
     ISshShellChannel* shellChannel_;
     ISshFtpSession* sftpSession_;
 public:
+    SshClientSession(ssh_session session, const SshConfigure& configure);
 	SshClientSession(ssh_session session, ISshShellChannel* channel, const SshConfigure& configure);
     SshClientSession(ssh_session session, ISshFtpSession* sftpSession, const SshConfigure& configure);
     SshClientSession(ssh_session session, ISshShellChannel* channel, ISshFtpSession* sftpSession, const SshConfigure& configure);

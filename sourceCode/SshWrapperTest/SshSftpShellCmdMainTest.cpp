@@ -20,10 +20,8 @@ int main(int argc, char *argv[])
     configure.unknownHostContinue = true;
     ssh_session session = ssh_new();
     std::cout << "step 1" << std::endl;
-    SshFtpSession* ftpSession = new SshFtpSession(session);
+    SshClientSession* clientSession = new SshClientSession(session, configure);
     std::cout << "step 2" << std::endl;
-    SshClientSession* clientSession = new SshClientSession(session, ftpSession, configure);
-    std::cout << "step 3" << std::endl;
     ISshClient* client = new SshClient(clientSession);
     std::cout << "step 4" << std::endl;
     client->setup();
