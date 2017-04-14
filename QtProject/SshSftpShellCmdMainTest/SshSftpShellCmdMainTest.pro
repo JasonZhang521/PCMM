@@ -28,7 +28,8 @@ SOURCES += \
     ../../sourceCode/SshWrapper/SshFtpSession.cpp \
     ../../sourceCode/SshWrapper/SshInteractiveShellChannel.cpp \
     ../../sourceCode/SshWrapper/SshShellChannel.cpp \
-    ../../sourceCode/SshWrapperTest/SshSftpShellCmdMainTest.cpp
+    ../../sourceCode/SshWrapperTest/SshSftpShellCmdMainTest.cpp \
+    ../../sourceCode/SshWrapper/SftpDirAttribute.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -73,7 +74,9 @@ HEADERS += \
     ../../sourceCode/TraceLog/TraceConsole.h \
     ../../sourceCode/TraceLog/TraceFile.h \
     ../../sourceCode/Common/Macro.h \
-    ../../sourceCode/SshWrapper/Componet.h
+    ../../sourceCode/SshWrapper/Componet.h \
+    ../../sourceCode/SshWrapper/SftpDirAttribute.h \
+    ../../sourceCode/SshWrapper/Component.h
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../sourceCode/static_lib/ -lssh.dll
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../sourceCode/static_lib/ -lssh.dll

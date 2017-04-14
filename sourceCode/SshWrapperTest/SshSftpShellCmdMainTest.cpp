@@ -11,11 +11,21 @@
 using namespace SshWrapper;
 int main(int argc, char *argv[])
 {
+    static_cast<void>(argc);
+    static_cast<void>(argv);
+    std::string user, password, hostname;
+    // std::cout << "Input host:";
+    // std::cin >> hostname;
+    hostname = "selnpcgwnx1000.seln.ete.ericsson.se";
+    std::cout << "Input User:";
+    std::cin >> user;
+    std::cout << "Input password:";
+    std::cin >> password;
     std::cout << "start" << std::endl;
     SshConfigure configure;
-    configure.user = "test";
-    configure.password = "test";
-    configure.host = "192.168.5.138";
+    configure.user = user;
+    configure.password = password;
+    configure.host = hostname;
     configure.port = 22;
     configure.verbosity = SSH_LOG_PROTOCOL;
     configure.unknownHostContinue = true;
@@ -45,7 +55,7 @@ int main(int argc, char *argv[])
 		if (inputString == std::string("ls"))
 		{
 	        SftpDirAttributes attributes;
-	        client->listDir(std::string("/home/test"), attributes);
+            client->listDir(std::string("/home/euwyzbc"), attributes);
 	        std::cout << attributes << std::endl;
 		}
 		else if(inputString == std::string("get"))
