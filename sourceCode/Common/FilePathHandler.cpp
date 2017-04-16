@@ -64,10 +64,17 @@ std::string FilePathHandler::generateUniqueFileName(const std::string& fullPath)
     unsigned int index = 1;
     while (isFileExist(tempFileName))
     {
-       std::stringstream sstr;
-       sstr << index;
-       tempFileName = fullPath + "_" + sstr.str();
+       tempFileName = getIndexFileName(fullPath, index);
        ++index;
     }
+    return tempFileName;
+}
+
+std::string FilePathHandler::getIndexFileName(const std::string& fullPath, size_t index)
+{
+    std::string tempFileName = fullPath;
+    std::stringstream sstr;
+    sstr << index;
+    tempFileName = fullPath + "_" + sstr.str();
     return tempFileName;
 }

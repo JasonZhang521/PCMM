@@ -54,7 +54,11 @@ bool SshFtpSession::shutdown()
 
 bool SshFtpSession::getFile(const std::string& remoteFile, const std::string& localDir)
 {
-    sftp_file file = sftp_open(sftpSession_, remoteFile.c_str(), O_RDONLY, 0);
+    std::string remotePath = sftp_canonicalize_path (sftpSession_, remoteFile.c_str());
+
+    TRACE_NOTICE("Download File " << remotePath << " to " << localDir);
+
+    sftp_file file = sftp_open(sftpSession_, remotePath.c_str(), O_RDONLY, 0);
     if (file == NULL)
     {
         TRACE_WARNING("Error open remote file:" << remoteFile << ", error info:" << sftp_get_error(sftpSession_));
@@ -62,7 +66,7 @@ bool SshFtpSession::getFile(const std::string& remoteFile, const std::string& lo
     }
 
     // create a empty file in local
-    const std::string FileName = FilePathHandler::getFileName(remoteFile);
+    const std::string FileName = FilePathHandler::getFileName(remotePath);
     const std::string FilePathTemp = localDir + "/" + FileName;
     const std::string FilePath = FilePathHandler::generateUniqueFileName(FilePathTemp);
     std::ofstream outfile(FilePath.c_str(), std::ofstream::binary);
@@ -76,7 +80,7 @@ bool SshFtpSession::getFile(const std::string& remoteFile, const std::string& lo
 
     if (nbytes < 0)
     {
-        TRACE_WARNING("Error read remote file:" << remoteFile << ", error info:" << sftp_get_error(sftpSession_));
+        TRACE_WARNING("Error read remote file:" << remotePath << ", error info:" << sftp_get_error(sftpSession_));
         sftp_close(file);
         return false;
     }
@@ -84,7 +88,7 @@ bool SshFtpSession::getFile(const std::string& remoteFile, const std::string& lo
     int rc = sftp_close(file);
     if (rc != SSH_OK)
     {
-        TRACE_WARNING("Error close the remote file:" << remoteFile << ", error info:" << sftp_get_error(sftpSession_));
+        TRACE_WARNING("Error close the remote file:" << remotePath << ", error info:" << sftp_get_error(sftpSession_));
         return false;
     }
 
@@ -93,11 +97,22 @@ bool SshFtpSession::getFile(const std::string& remoteFile, const std::string& lo
 
 bool SshFtpSession::putFile(const std::string& localFile, const std::string& remoteDir)
 {
+    std::string remotePath = sftp_canonicalize_path (sftpSession_, remoteDir.c_str());
+    TRACE_NOTICE("Upload File " << localFile << " to " << remotePath);
     std::ifstream infile(localFile.c_str(), std::ifstream::binary);
     // create a empty file in remote
     const std::string FileName = FilePathHandler::getFileName(localFile);
-    const std::string FilePath = remoteDir + "/" + FileName;
-    sftp_file file = sftp_open(sftpSession_, FilePath.c_str(), O_CREAT, 0);
+    std::string fileNameTemp = FileName;
+
+    size_t index = 0;
+    while (isRemoteFileExit(remotePath, fileNameTemp))
+    {
+        fileNameTemp = FilePathHandler::getIndexFileName(FileName, index);
+        ++index;
+    }
+    const std::string FilePath = remotePath + "/" + fileNameTemp;
+
+    sftp_file file = sftp_open(sftpSession_, FilePath.c_str(), O_CREAT | O_WRONLY, 0700);
     if (file == NULL)
     {
         TRACE_WARNING("Error create remote file:" << FilePath << ", error info:" << sftp_get_error(sftpSession_));
@@ -130,7 +145,8 @@ bool SshFtpSession::putFile(const std::string& localFile, const std::string& rem
 
 bool SshFtpSession::listDir(const std::string& dirPath, SftpDirAttributes& dirAttributes)
 {
-    sftp_dir dir = sftp_opendir(sftpSession_, dirPath.c_str());
+    char * path = sftp_canonicalize_path (sftpSession_, dirPath.c_str());
+    sftp_dir dir = sftp_opendir(sftpSession_, path);
     if (!dir)
 	{
         TRACE_WARNING("Can not open Dir:" << dirPath  << ", error info:" << sftp_get_error(sftpSession_));
@@ -167,6 +183,35 @@ bool SshFtpSession::listDir(const std::string& dirPath, SftpDirAttributes& dirAt
         return false;
 	}
     return true; 
+}
+
+bool SshFtpSession::isRemoteFileExit(const std::string& remoteDir, const std::string& fileName)
+{
+    sftp_dir dir = sftp_opendir(sftpSession_, remoteDir.c_str());
+    if (!dir)
+    {
+        TRACE_WARNING("Can not open Dir:" << remoteDir  << ", error info:" << sftp_get_error(sftpSession_));
+        return true;
+    }
+    sftp_attributes attributes = NULL;
+    while ((attributes = sftp_readdir(sftpSession_, dir)) != NULL)
+    {
+        if (std::string(attributes->name) == fileName)
+        {
+            std::cout << "The same" << std::endl;
+            return true;
+        }
+
+        sftp_attributes_free(attributes);
+    }
+
+    int rc = sftp_closedir(dir);
+    if (rc != SSH_OK)
+    {
+        TRACE_WARNING("Can not close Dir:" << remoteDir  << ", error code = " << rc << ", error info:" << sftp_get_error(sftpSession_));
+    }
+
+    return false;
 }
 
 }

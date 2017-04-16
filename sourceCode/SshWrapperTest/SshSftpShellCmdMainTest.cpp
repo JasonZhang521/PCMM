@@ -9,6 +9,46 @@
 #include <string>
 
 using namespace SshWrapper;
+
+
+bool parseFileNameFromCommond(const std::string& inputCommand, std::string& fileName)
+{
+    size_t startPos = 3;
+    if (inputCommand[startPos] != ' ')
+    {
+        return false;
+    }
+    else
+    {
+        while (inputCommand[startPos] == ' ' && startPos < inputCommand.size())
+        {
+            ++startPos;
+        }
+
+        if (startPos >= inputCommand.size())
+        {
+            return false;
+        }
+    }
+
+    size_t endPos = inputCommand.size() - 1;
+    while (inputCommand[endPos] == ' ' && endPos >= startPos)
+    {
+        --endPos;
+    }
+
+    if (endPos < startPos)
+    {
+        return false;
+    }
+    else
+    {
+        fileName = inputCommand.substr(startPos, endPos - startPos + 1);
+    }
+
+    return true;
+}
+
 int main(int argc, char *argv[])
 {
     static_cast<void>(argc);
@@ -16,7 +56,7 @@ int main(int argc, char *argv[])
     std::string user, password, hostname;
     // std::cout << "Input host:";
     // std::cin >> hostname;
-    hostname = "selnpcgwnx1000.seln.ete.ericsson.se";
+    hostname = "192.168.5.138";
     std::cout << "Input User:";
     std::cin >> user;
     std::cout << "Input password:";
@@ -27,7 +67,7 @@ int main(int argc, char *argv[])
     configure.password = password;
     configure.host = hostname;
     configure.port = 22;
-    configure.verbosity = SSH_LOG_PROTOCOL;
+    configure.verbosity = SSH_LOG_NOLOG; //SSH_LOG_PROTOCOL;
     configure.unknownHostContinue = true;
     ssh_session session = ssh_new();
     std::cout << "step 1" << std::endl;
@@ -37,11 +77,11 @@ int main(int argc, char *argv[])
     std::cout << "step 4" << std::endl;
     client->setup();
     client->startSftp();
-	std::cout << "Input cmd:\n"
-		      << "(1) ls: list the Dir\n"
-			  << "(2) put file: upload file\n"
-			  << "(3) get file: download file\n";
-		      
+    std::cout << "Input cmd:\n"
+              << "(1) [ls]: list the Dir\n"
+              << "(2) [put file]: upload file\n"
+              << "(3) [get file]: download file\n";
+
 	std::string inputString;
 	while (inputString != std::string("exit"))
 	{
@@ -51,19 +91,51 @@ int main(int argc, char *argv[])
 		std::cin.getline(ch, 255);
 		std::cout << "[" << ch << "]" << std::endl;
 		inputString = ch;
-
+        bool isError = false;
 		if (inputString == std::string("ls"))
 		{
 	        SftpDirAttributes attributes;
-            client->listDir(std::string("/home/euwyzbc"), attributes);
+            isError = !client->listDir(std::string("."), attributes);
 	        std::cout << attributes << std::endl;
 		}
-		else if(inputString == std::string("get"))
+        else if(inputString.substr(0, 3) == std::string("get") && inputString.size() > 4)
 		{
-			//client->get();
+            std::string downFile;
+            if (parseFileNameFromCommond(inputString, downFile))
+            {
+                isError = !client->getFile(downFile, ".");
+            }
+            else
+            {
+                isError = true;
+            }
 		}
-		else
+        else if (inputString.substr(0, 3) == std::string("put") && inputString.size() > 4)
 		{
+            std::string upFile;
+            if (parseFileNameFromCommond(inputString, upFile))
+            {
+                std::cout << "inputString:" << inputString << ", uploadFile: " << upFile << std::endl;
+                isError = !client->putFile(upFile, ".");
+            }
+            else
+            {
+                isError = true;
+            }
+        }
+        else
+        {
+            isError = true;
+        }
+
+        if (isError)
+        {
+            std::cout << "Command Error" << std::endl;
+            std::cout << "Input cmd:\n"
+                      << "(1) [ls]: list the Dir\n"
+                      << "(2) [put file]: upload file\n"
+                      << "(3) [get file]: download file"
+                      << std::endl;
         }
 	}
     //client->putFile()
