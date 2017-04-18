@@ -8,12 +8,21 @@
 using namespace SshWrapper;;
 int main()
 {
-	SshConfigure configure;
-	configure.user = "test";
-	configure.password = "test";
-	configure.host = "localhost";
+    std::string user, password, hostname;
+    hostname = "selnpcgwnx1000.seln.ete.ericsson.se";
+    std::cout << "Input User:";
+    std::cin >> user;
+    std::cout << "Input password:";
+    std::cin >> password;
+    std::cout << "start" << std::endl;
+
+    SshConfigure configure;
+    configure.user = user;
+    configure.password = password;
+    configure.host = "selnpcgwnx1000.seln.ete.ericsson.se";
 	configure.port = 22;
-	configure.verbosity = SSH_LOG_PROTOCOL;
+    // configure.verbosity = SSH_LOG_PROTOCOL;
+    configure.verbosity = SSH_LOG_WARNING;
 	configure.unknownHostContinue = true;
 	ssh_session session = ssh_new();
 	SshInteractiveShellChannel* channel = new SshInteractiveShellChannel(session, 80, 80);
@@ -23,6 +32,9 @@ int main()
 	std::string inputString;
 	std::string outputString;
 	client->startShell();
+    client->executeShellCommand(std::string("ls -a"), outputString);
+    //client->executeShellCommand(inputString, outputString);
+/*
 	while (inputString != std::string("exit"))
 	{
 		char ch[256];
@@ -34,6 +46,8 @@ int main()
         client->executeShellCommand(inputString, outputString);
 		std::cout << outputString << std::endl;
 	}
+*/
+    std::cout << outputString << std::endl;
     client->shutdownShell();
 	client->shutdown();
 	return 0;
