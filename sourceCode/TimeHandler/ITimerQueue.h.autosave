@@ -1,0 +1,16 @@
+#ifndef ITIMERQUEUE_H
+#define ITIMERQUEUE_H
+
+namespace TimeHandler {
+
+class ITimer;
+
+class ITimerQueue
+{
+public:
+    ITimerQueue();
+    void AddTimer(ITimer);
+};
+
+}
+#endif // ITIMERQUEUE_H

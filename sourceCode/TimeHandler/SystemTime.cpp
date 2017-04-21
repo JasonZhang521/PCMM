@@ -5,6 +5,7 @@
 
 using namespace std;
 using namespace std::chrono;
+namespace TimeHandler {
 
 SystemTime::SystemTime()
 {
@@ -21,4 +22,6 @@ uint64_t SystemTime::expiredTimeStampAsMillisecond(uint32_t intervalAsMillisecon
 {
     milliseconds ms = duration_cast<milliseconds>(high_resolution_clock::now().time_since_epoch());
     return ms.count() + intervalAsMillisecond;
+}
+
 }

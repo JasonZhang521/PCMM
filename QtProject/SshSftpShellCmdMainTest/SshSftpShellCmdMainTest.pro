@@ -81,6 +81,8 @@ HEADERS += \
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../sourceCode/static_lib/ -lssh.dll
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../sourceCode/static_lib/ -lssh.dll
 
+LIBS += -lWs2_32
+
 INCLUDEPATH += $$PWD/../../sourceCode/static_lib
 DEPENDPATH += $$PWD/../../sourceCode/static_lib
 DLLDESTDIR += $$PWD/../../sourceCode/dynamic_lib/ssh
