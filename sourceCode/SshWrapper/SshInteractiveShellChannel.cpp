@@ -47,12 +47,12 @@ bool SshInteractiveShellChannel::setup()
 		channel_ = NULL;
 		return false;
 	}
-    /*
+
     if (!sessionAndTerminalInit())
     {
         return false;
     }
-    */
+
 	return true;
 }
 
@@ -92,48 +92,62 @@ bool SshInteractiveShellChannel::sessionAndTerminalInit()
 
 bool SshInteractiveShellChannel::executeCommand(const std::string& cmd, std::string& cmdOutput)
 {
-    std::string command(cmd);
-    if (!sessionAndTerminalInit())
-    {
-        return false;
-    }
+     std::string command(cmd);
+     cmdOutput.clear();
 	 char buffer[256];
 	 std::fill(buffer, buffer + 256, 0);
-	 std::stringstream sstr;
-	 while (ssh_channel_is_open(channel_) && !ssh_channel_is_eof(channel_))
-	 {
-         sleep(1);
-		 int nbytes = ssh_channel_read_nonblocking(channel_, buffer, sizeof(buffer), 0);
-         std::cout << "read bytes:" << nbytes << std::endl;
-		 if (nbytes < 0)
-		 {
-		    TRACE_WARNING("Error read channel error, error info:" << ssh_get_error(ssh_channel_get_session(channel_))); 
-			return false;
-		 }
 
-		 if (nbytes > 0)
-		 {
-             sstr.write(buffer, nbytes);
-		 }
-         std::string str(sstr.str());
-         std::cout << str << "\n\n\n";
-         if (str.find("$") != std::string::npos && !command.empty())
-         {
-             std::cout << "find\n";
-             unsigned int nwritten = ssh_channel_write(channel_, command.c_str(), cmd.size());
-             if (nwritten != cmd.size())
-             {
-                TRACE_WARNING("Error write channel error, error info:" << ssh_get_error(ssh_channel_get_session(channel_)));
-                 return false;
-             }
-             ssh_channel_write(channel_, "\n", 1);
-             command.clear();
-             std::stringstream temp;
-             sstr.swap(temp);
-         }
-	 }
-     cmdOutput = sstr.str();
-     std::cout << cmdOutput << std::endl;
+     while (ssh_channel_is_open(channel_) && !ssh_channel_is_eof(channel_))
+     {
+        int nbytes = ssh_channel_read_nonblocking(channel_, buffer, sizeof(buffer), 0);
+
+        while (nbytes > 0)
+        {
+           std::stringstream sstr;
+           sstr.write(buffer, nbytes);
+           cmdOutput += sstr.str();
+           std::cout << sstr.str() << std::endl;
+           nbytes = ssh_channel_read_nonblocking(channel_, buffer, sizeof(buffer), 0);
+        }
+
+        if (nbytes < 0)
+        {
+           TRACE_WARNING("Error read channel error, error info:" << ssh_get_error(ssh_channel_get_session(channel_)));
+           return false;
+        }
+
+        if (!cmd.empty())
+        {
+            unsigned int nwritten = ssh_channel_write(channel_, cmd.c_str(), cmd.size());
+            if (nwritten != cmd.size())
+            {
+               TRACE_WARNING("Error write channel error, error info:" << ssh_get_error(ssh_channel_get_session(channel_)));
+                return false;
+            }
+            ssh_channel_write(channel_, "\n", 1);
+            std::cout << "\n write command:" << cmd << "\n" << std::endl;
+        }
+
+        nbytes = ssh_channel_read_nonblocking(channel_, buffer, sizeof(buffer), 0);
+
+        while (nbytes > 0)
+        {
+           std::stringstream sstr;
+           sstr.write(buffer, nbytes);
+           cmdOutput += sstr.str();
+           std::cout << sstr.str() << std::endl;
+           nbytes = ssh_channel_read_nonblocking(channel_, buffer, sizeof(buffer), 0);
+        }
+
+        if (nbytes < 0)
+        {
+           TRACE_WARNING("Error read channel error, error info:" << ssh_get_error(ssh_channel_get_session(channel_)));
+           return false;
+        }
+
+        break;
+     }
+
 	 return true;
 }
 

@@ -3,3 +3,4 @@
 QtProject/build*
 *.user
 *.swp
+sourseCode/dynamic_lib/ssh
