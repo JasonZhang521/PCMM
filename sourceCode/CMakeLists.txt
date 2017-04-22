@@ -7,6 +7,8 @@ add_subdirectory(Configure)
 add_subdirectory(Common)
 add_subdirectory(SshWrapper)
 add_subdirectory(libssh_demo)
+add_subdirectory(EventHandler)
+add_subdirectory(TimeHandler)
 
 #Unit test
 add_subdirectory(ConfigureTest)
