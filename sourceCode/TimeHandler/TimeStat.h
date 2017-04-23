@@ -1,5 +1,5 @@
-#ifndef TIMESTAT_H
-#define TIMESTAT_H
+#ifndef _TIMEHANDLER_TIMESTAT_H_
+#define _TIMEHANDLER_TIMESTAT_H_
 
 #include <stdint.h>
 
@@ -16,4 +16,4 @@ public:
 };
 
 }
-#endif // TIMESTAT_H
+#endif // _TIMEHANDLER_TIMESTAT_H_

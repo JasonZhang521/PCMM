@@ -11,17 +11,20 @@ namespace TimeHandler {
 
 class EventTimer : public ITimer
 {
-uint64_t expiredTime_;
-EventHandler::IEvent* event_;
+    uint64_t timerId_;
+    uint64_t expiredTime_;
+    EventHandler::IEvent* event_;
 public:
     EventTimer(uint32_t interval, EventHandler::IEvent* event);
     virtual ~EventTimer();
 protected:
     virtual void onTime();
     virtual bool isExpired();
-    virtual uint64_t getExpiredTime();
+    virtual uint64_t getExpiredTime() const;
+    virtual uint64_t getTimerId() const;
+    virtual std::ostream& operator<<(std::ostream& os);
 };
 
 }
 
-#endif // EVENTTIMER_H
+#endif // _TIMEHANDLER_EVENTTIMER_H_

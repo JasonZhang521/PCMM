@@ -15,4 +15,4 @@ public:
 
 }
 
-#endif // SYSTEMTIME_H
+#endif // _TIMEHANDLER_SYSTEMTIME_H_

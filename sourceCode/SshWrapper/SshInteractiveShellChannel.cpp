@@ -5,7 +5,6 @@
 #include <libssh/libssh.h>
 #include "App.h"
 #include "Trace.h"
-#include <winsock2.h>
 #include <stdlib.h>
 
 namespace SshWrapper

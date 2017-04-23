@@ -238,11 +238,22 @@ void SshClientSession::disconnect()
 
 bool SshClientSession::verifyKnownhost()
 {
-	 unsigned char *hash = NULL;
 	 int state = ssh_is_server_known(session_);
-	 int hlen = ssh_get_pubkey_hash(session_, &hash);
-	 if (hlen < 0)
-		 return -1;
+     ssh_key srv_pubkey;
+     int rc = ssh_get_publickey(session_, &srv_pubkey);
+     if (rc != SSH_AUTH_SUCCESS)
+     {
+         TRACE_WARNING("Get server public key Error: " << ssh_get_error(session_));
+         return false;
+     }
+     unsigned char *hash = NULL;
+     size_t hlen = 0;
+     rc = ssh_get_publickey_hash(srv_pubkey,
+                                 SSH_PUBLICKEY_HASH_SHA1,
+                                 &hash,
+                                 &hlen);
+     ssh_key_free(srv_pubkey);
+
 	 char *hexa = 0;;
 	 switch (state)
 	 {

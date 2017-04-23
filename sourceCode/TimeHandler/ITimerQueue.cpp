@@ -8,4 +8,9 @@ ITimerQueue::ITimerQueue()
 
 }
 
+ITimerQueue::~ITimerQueue()
+{
+
+}
+
 }
