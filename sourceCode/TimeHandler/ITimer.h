@@ -1,8 +1,7 @@
 #ifndef _TIMEHANDLER_ITIMER_H_
 #define _TIMEHANDLER_ITIMER_H_
-
-#include <ostream>
 #include <stdint.h>
+#include <ostream>
 
 namespace TimeHandler {
 

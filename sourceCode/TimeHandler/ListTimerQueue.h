@@ -19,6 +19,7 @@ protected:
     virtual void AddTimer(ITimer*);
     virtual void deleteTimer(uint64_t timerID);
     virtual void executeTimers();
+    virtual std::ostream& operator<<(std::ostream& os);
 
 public:
      GETCLASSNAME(ListTimerQueue)

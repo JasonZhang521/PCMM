@@ -92,4 +92,21 @@ void ListTimerQueue::executeTimers()
     }
 }
 
+std::ostream& ListTimerQueue::operator<<(std::ostream& os)
+{
+    os << "[";
+    for (TimersList::iterator it = timersList_.begin(); it != timersList_.end(); ++it)
+    {
+        os << "timer=" << *it;
+    }
+    os << "]";\
+    return os;
+}
+
+std::ostream& operator<<(std::ostream& os, ITimerQueue* timerQueue)
+{
+    return timerQueue->operator <<(os);
+}
+
+
 }
