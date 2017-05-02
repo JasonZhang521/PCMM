@@ -38,6 +38,7 @@ protected:
 
     virtual bool startFtpSession();
     virtual bool getFile(const std::string& remoteFile, const std::string& localDir);
+    virtual bool getFileFromLastPos(const std::string& remoteFile, const std::string& localFile);
     virtual bool putFile(const std::string& localFile, const std::string& remoteDir);
 	virtual bool listDir(const std::string& dirPath, SftpDirAttributes& dirAttributes);
     virtual bool shutdownFtpSessionl();

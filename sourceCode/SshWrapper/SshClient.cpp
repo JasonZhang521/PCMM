@@ -60,6 +60,11 @@ bool SshClient::getFile(const std::string& remoteFile, const std::string& localD
     return session_->getFile(remoteFile, localDir);
 }
 
+bool SshClient::getFileFromLastPos(const std::string& remoteFile, const std::string& localFile)
+{
+    return session_->getFileFromLastPos(remoteFile, localFile);
+}
+
 bool SshClient::putFile(const std::string& localFile, const std::string& remoteDir)
 {
     return session_->putFile(localFile, remoteDir);

@@ -14,7 +14,6 @@ SshFtpSession::SshFtpSession(ssh_session session)
 : session_(session)
 , sftpSession_(sftp_new(session_))
 {
-    std::cout << "11111" << std::endl;
     if (session_ == NULL)
     {
         TRACE_WARNING("Session is NULL when initial sftp channel!");
@@ -54,45 +53,20 @@ bool SshFtpSession::shutdown()
 
 bool SshFtpSession::getFile(const std::string& remoteFile, const std::string& localDir)
 {
-    std::string remotePath = sftp_canonicalize_path (sftpSession_, remoteFile.c_str());
-
-    TRACE_NOTICE("Download File " << remotePath << " to " << localDir);
-
-    sftp_file file = sftp_open(sftpSession_, remotePath.c_str(), O_RDONLY, 0);
-    if (file == NULL)
-    {
-        TRACE_WARNING("Error open remote file:" << remoteFile << ", error info:" << sftp_get_error(sftpSession_));
-        return false;
-    }
-
+    TRACE_ENTER();
     // create a empty file in local
-    const std::string FileName = FilePathHandler::getFileName(remotePath);
+    const std::string FileName = FilePathHandler::getFileName(remoteFile);
     const std::string FilePathTemp = localDir + "/" + FileName;
     const std::string FilePath = FilePathHandler::generateUniqueFileName(FilePathTemp);
-    std::ofstream outfile(FilePath.c_str(), std::ofstream::binary);
-    char buffer[MAX_XFER_BUF_SIZE];
-    int nbytes = sftp_read(file, buffer, sizeof(buffer));
-    while (nbytes > 0)
-    {
-        outfile.write(buffer, nbytes);
-        nbytes = sftp_read(file, buffer, sizeof(buffer));
-    }
+    const bool fromStartPos = true;
+    return getFile(remoteFile, FilePath, fromStartPos);
+}
 
-    if (nbytes < 0)
-    {
-        TRACE_WARNING("Error read remote file:" << remotePath << ", error info:" << sftp_get_error(sftpSession_));
-        sftp_close(file);
-        return false;
-    }
-
-    int rc = sftp_close(file);
-    if (rc != SSH_OK)
-    {
-        TRACE_WARNING("Error close the remote file:" << remotePath << ", error info:" << sftp_get_error(sftpSession_));
-        return false;
-    }
-
-    return true;
+bool SshFtpSession::getFileFromLastPos(const std::string& remoteFile, const std::string& localFile)
+{
+    TRACE_ENTER();
+    const bool fromStartPos = false;
+    return getFile(remoteFile, localFile, fromStartPos);
 }
 
 bool SshFtpSession::putFile(const std::string& localFile, const std::string& remoteDir)
@@ -212,6 +186,61 @@ bool SshFtpSession::isRemoteFileExit(const std::string& remoteDir, const std::st
     }
 
     return false;
+}
+
+bool SshFtpSession::getFile(const std::string& remoteFile, const std::string& localFile, bool fromStartPos)
+{
+    std::string remotePath = sftp_canonicalize_path (sftpSession_, remoteFile.c_str());
+
+    TRACE_NOTICE("Download remote file " << remotePath << " to local file " << localFile);
+
+    sftp_file file = sftp_open(sftpSession_, remotePath.c_str(), O_RDONLY, 0);
+    if (file == NULL)
+    {
+        TRACE_WARNING("Error open remote file:" << remoteFile << ", error info:" << sftp_get_error(sftpSession_));
+        return false;
+    }
+
+    std::ofstream::openmode mode = std::ofstream::binary;
+    if (!fromStartPos)
+    {
+        mode = mode | std::ofstream::app;
+    }
+    std::ofstream outfile(localFile.c_str(), mode);
+    if (!fromStartPos)
+    {
+        outfile.seekp(0, std::ofstream::end);
+    }
+    long pos = outfile.tellp();
+    if (sftp_seek64(file, pos) < 0)
+    {
+       TRACE_WARNING("Can not seek the postion:" << pos << " for file " << remotePath);
+       return false;
+    }
+
+    char buffer[MAX_XFER_BUF_SIZE];
+    int nbytes = sftp_read(file, buffer, sizeof(buffer));
+    while (nbytes > 0)
+    {
+        outfile.write(buffer, nbytes);
+        nbytes = sftp_read(file, buffer, sizeof(buffer));
+    }
+
+    if (nbytes < 0)
+    {
+        TRACE_WARNING("Error read remote file:" << remotePath << ", error info:" << sftp_get_error(sftpSession_));
+        sftp_close(file);
+        return false;
+    }
+
+    int rc = sftp_close(file);
+    if (rc != SSH_OK)
+    {
+        TRACE_WARNING("Error close the remote file:" << remotePath << ", error info:" << sftp_get_error(sftpSession_));
+        return false;
+    }
+
+    return true;
 }
 
 }
