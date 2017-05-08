@@ -7,6 +7,7 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <poll.h>
 #endif
 
 #define UNSUPPORTED_SOCKET_VERION 0X7FFFFFFF
@@ -141,6 +142,9 @@ using SocketDataBufferSize = ssize_t;
 using SocketShutDownFlag = int;
 using SocketFdSet = fd_set;
 using SocketTimeVal = struct timeval;
+using SocketPollFdSet = struct pollfd;
+using SocketPollFdNumber = nfds_t;
+using SocketPollEvent = short;
 
 // const value
 const SocketHandle InvalidSocketHandle = -1;
@@ -204,6 +208,16 @@ const SocketShutDownFlag SOCKET_SD_SEND = SHUT_WR;
 const SocketShutDownFlag SOCKET_SD_BOTH = SHUT_RDWR;
 // Socket Shutdown Flag end
 
+// Poll Event
+const SocketPollEvent SOCKET_POLLIN = POLLIN;
+const SocketPollEvent SOCKET_POLLPRI = POLLPRI;
+const SocketPollEvent SOCKET_POLLOUT = POLLOUT;
+const SocketPollEvent SOCKET_POLLRDHUP = POLLRDHUP;
+const SocketPollEvent SOCKET_POLLERR = POLLERR;
+const SocketPollEvent SOCKET_POLLHUP = POLLHUP;
+const SocketPollEvent SOCKET_POLLNVAL = POLLNVAL;
+// Poll Event end
+
 inline int InitSocket()
 {
     return SOCKET_SUCCESS;
@@ -231,13 +245,18 @@ inline int GetLastSocketErrorNo()
 
 inline std::string GetSocketErrorMessageFromErrorCode(int errorCode)
 {
-    return strerror(errno);
+    return ::strerror(errno);
 }
 
 std::string GetLastSocketErrorMessage()
 {
     return getSocketErrorMessageFromErrorCode(getLastSocketErrorNo());
 };
+
+inline int Poll(SocketPollFdSet* fds, SocketPollFdNumber nfds, int timeout)
+{
+    ::poll(fds, nfds, timeout);
+}
 
 #endif
 
@@ -293,7 +312,7 @@ inline int Accept(SocketHandle sockfd, SocketAddress* addr, SocketLength *addrle
     return ::accept(sockfd, addr, addrlen);
 }
 
-inline int Select(int nfds, SocketFdSet* readfds, SocketFdSet* writefds,
+inline int Select(SocketHandle nfds, SocketFdSet* readfds, SocketFdSet* writefds,
            SocketFdSet* exceptfds, SocketTimeVal* timeout)
 {
     return ::select(nfds, readfds, writefds, exceptfds, timeout);

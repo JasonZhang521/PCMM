@@ -3,16 +3,15 @@ QT -= gui
 
 CONFIG += c++11
 
-TARGET = Network
+TARGET = Serialize
 CONFIG += console
 CONFIG -= app_bundle
 
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    ../../sourceCode/Network/ITcpClient.cpp \
-    ../../sourceCode/Network/SocketWrapper.cpp \
-    ../../sourceCode/Network/SocketAddress.cpp
+    ../../sourceCode/Serialize/ReadBuffer.cpp \
+    ../../sourceCode/Serialize/WriteBuffer.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -26,8 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 HEADERS += \
-    ../../sourceCode/Network/ITcpClient.h \
-    ../../sourceCode/Network/SocketWrapper.h \
-    ../../sourceCode/Network/SocketAddress.h
-
-LIBS += -lWs2_32
+    ../../sourceCode/Serialize/BufferToData.h \
+    ../../sourceCode/Serialize/DataToBuffer.h \
+    ../../sourceCode/Serialize/ReadBuffer.h \
+    ../../sourceCode/Serialize/WriteBuffer.h
