@@ -1,31 +1,34 @@
 #ifndef _SERIALIZE_READBUFFER_H_
 #define _SERIALIZE_READBUFFER_H_
-
+#include "BufferToData.h"
 namespace Serialize {
 
 class ReadBuffer
 {
+    unsigned int bufferSize_;
     char* buffer_;
-    unsigned int size_;
+    unsigned int dataSize_;
     unsigned int pos_;
 public:
-    ReadBuffer(unsigned int size);
+    ReadBuffer(unsigned int bufferSize);
     ~ReadBuffer();
     template <typename T>
-    T Read()
+    bool Read(T& val)
     {
-        return *(reinterpret_cast<T*>(&buffer_[pos_]));
+        if (pos_ + sizeof(T) >= dataSize_)
+        {
+            return false;
+        }
+        BufferToData::Read(buffer_ + pos_);
         pos_ += sizeof(T);
+        return true;
     }
 
-    void Read(char* newBuffer, unsigned int readSize)
-    {
-        for (unsigned int i = 0; i < readSize; ++i)
-        {
-            newBuffer[i] = buffer[pos_ + i];
-        }
-        pos_ += readSize;
-    }
+    bool setDataSize(unsigned int dataSize);
+    unsigned int getDataSize() const;
+    char* getBuffer() const;
+    void refillBuffer(char* newBuffer, unsigned int newDataSize);
+
 public:
     const static unsigned int DefaultReadBufferSize;
 };
