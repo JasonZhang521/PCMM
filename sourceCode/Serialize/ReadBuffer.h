@@ -19,15 +19,15 @@ public:
         {
             return false;
         }
-        BufferToData::Read(buffer_ + pos_);
+        val = BufferToData::Read<T>(buffer_ + pos_);
         pos_ += sizeof(T);
         return true;
     }
 
+    bool Read(char* newBuffer, unsigned int readSize);
+
     bool setDataSize(unsigned int dataSize);
-    unsigned int getDataSize() const;
     char* getBuffer() const;
-    void refillBuffer(char* newBuffer, unsigned int newDataSize);
 
 public:
     const static unsigned int DefaultReadBufferSize;

@@ -27,4 +27,19 @@ bool ReadBuffer::Read(char* newBuffer, unsigned int readSize)
     return true;
 }
 
+bool ReadBuffer::setDataSize(unsigned int dataSize)
+{
+    if (dataSize > bufferSize_)
+    {
+        return false;
+    }
+    dataSize_ = dataSize;
+    return true;
+}
+
+char* ReadBuffer::getBuffer() const
+{
+    return buffer_;
+}
+
 }
