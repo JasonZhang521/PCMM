@@ -9,7 +9,7 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
-SOURCES += main.cpp \
+SOURCES += \
     ../../sourceCode/Serialize/ReadBuffer.cpp \
     ../../sourceCode/Serialize/WriteBuffer.cpp
 
