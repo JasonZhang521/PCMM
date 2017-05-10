@@ -17,6 +17,7 @@ public:
     virtual bool getFileFromLastPos(const std::string& remoteFile, const std::string& localFile) = 0;
     virtual bool putFile(const std::string& localFile, const std::string& remoteDir) = 0;
 	virtual bool listDir(const std::string& dirPath, SftpDirAttributes& dirAttributes) = 0;
+    virtual bool isRemoteFileExit(const std::string& remoteFile) = 0;
 };
 
 }

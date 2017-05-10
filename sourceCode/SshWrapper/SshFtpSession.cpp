@@ -56,8 +56,7 @@ bool SshFtpSession::getFile(const std::string& remoteFile, const std::string& lo
     TRACE_ENTER();
     // create a empty file in local
     const std::string FileName = FilePathHandler::getFileName(remoteFile);
-    const std::string FilePathTemp = localDir + "/" + FileName;
-    const std::string FilePath = FilePathHandler::generateUniqueFileName(FilePathTemp);
+    const std::string FilePath = localDir + "/" + FileName;
     const bool fromStartPos = true;
     return getFile(remoteFile, FilePath, fromStartPos);
 }
@@ -76,15 +75,7 @@ bool SshFtpSession::putFile(const std::string& localFile, const std::string& rem
     std::ifstream infile(localFile.c_str(), std::ifstream::binary);
     // create a empty file in remote
     const std::string FileName = FilePathHandler::getFileName(localFile);
-    std::string fileNameTemp = FileName;
-
-    size_t index = 0;
-    while (isRemoteFileExit(remotePath, fileNameTemp))
-    {
-        fileNameTemp = FilePathHandler::getIndexFileName(FileName, index);
-        ++index;
-    }
-    const std::string FilePath = remotePath + "/" + fileNameTemp;
+    const std::string FilePath = remotePath + "/" + FileName;
 
     sftp_file file = sftp_open(sftpSession_, FilePath.c_str(), O_CREAT | O_WRONLY, 0700);
     if (file == NULL)
@@ -119,6 +110,7 @@ bool SshFtpSession::putFile(const std::string& localFile, const std::string& rem
 
 bool SshFtpSession::listDir(const std::string& dirPath, SftpDirAttributes& dirAttributes)
 {
+    TRACE_ENTER();
     char * path = sftp_canonicalize_path (sftpSession_, dirPath.c_str());
     sftp_dir dir = sftp_opendir(sftpSession_, path);
     if (!dir)
@@ -157,6 +149,15 @@ bool SshFtpSession::listDir(const std::string& dirPath, SftpDirAttributes& dirAt
         return false;
 	}
     return true; 
+}
+
+bool SshFtpSession::isRemoteFileExit(const std::string& remoteFile)
+{
+    TRACE_ENTER();
+    const std::string remotePath = sftp_canonicalize_path (sftpSession_, remoteFile.c_str());
+    const std::string remoteDir = FilePathHandler::getFileDir(remotePath);
+    const std::string remoteFileName = FilePathHandler::getFileName(remotePath);
+    return isRemoteFileExit(remoteDir, remoteFileName);
 }
 
 bool SshFtpSession::isRemoteFileExit(const std::string& remoteDir, const std::string& fileName)

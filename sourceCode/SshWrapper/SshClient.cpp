@@ -75,4 +75,9 @@ bool SshClient::listDir(const std::string& dirPath, SftpDirAttributes& dirAttrib
 	return session_->listDir(dirPath, dirAttributes);
 }
 
+bool SshClient::isRemoteFileExit(const std::string& remoteFile)
+{
+   return session_->isRemoteFileExit(remoteFile);
+}
+
 }
