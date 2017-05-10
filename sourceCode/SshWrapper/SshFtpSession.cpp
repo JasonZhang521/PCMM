@@ -77,7 +77,7 @@ bool SshFtpSession::putFile(const std::string& localFile, const std::string& rem
     const std::string FileName = FilePathHandler::getFileName(localFile);
     const std::string FilePath = remotePath + "/" + FileName;
 
-    sftp_file file = sftp_open(sftpSession_, FilePath.c_str(), O_CREAT | O_WRONLY, 0700);
+    sftp_file file = sftp_open(sftpSession_, FilePath.c_str(), O_CREAT | O_WRONLY | O_TRUNC , 0700);
     if (file == NULL)
     {
         TRACE_WARNING("Error create remote file:" << FilePath << ", error info:" << sftp_get_error(sftpSession_));
@@ -151,13 +151,26 @@ bool SshFtpSession::listDir(const std::string& dirPath, SftpDirAttributes& dirAt
     return true; 
 }
 
-bool SshFtpSession::isRemoteFileExit(const std::string& remoteFile)
+bool SshFtpSession::isRemoteFileExist(const std::string& remoteFile)
 {
-    TRACE_ENTER();
+    TRACE_NOTICE("Check the file (" << remoteFile << ")'s existence");
     const std::string remotePath = sftp_canonicalize_path (sftpSession_, remoteFile.c_str());
     const std::string remoteDir = FilePathHandler::getFileDir(remotePath);
     const std::string remoteFileName = FilePathHandler::getFileName(remotePath);
     return isRemoteFileExit(remoteDir, remoteFileName);
+}
+
+bool SshFtpSession::renameRemoteFile(const std::string& srcFile, const std::string& dstFile)
+{
+    TRACE_NOTICE("Rename the file (" << srcFile << ") to (" << dstFile << ")");
+    int rc = sftp_rename(sftpSession_, srcFile.c_str(), dstFile.c_str());
+    if (rc < 0)
+    {
+        TRACE_WARNING("Can not renamethe file (" << srcFile << ") to (" << dstFile
+                      << "), error code:" << rc << ", error info:" << sftp_get_error(sftpSession_));
+        return false;
+    }
+    return true;
 }
 
 bool SshFtpSession::isRemoteFileExit(const std::string& remoteDir, const std::string& fileName)

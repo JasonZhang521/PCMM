@@ -81,7 +81,8 @@ int main(int argc, char *argv[])
               << "(1) [ls]: list the Dir\n"
               << "(2) [put file]: upload file\n"
               << "(3) [get file]: download file\n"
-              << "(4) [getc file]: download file continue\n" << std::endl;
+              << "(4) [getc file]: download file continue\n"
+              << "(5) [mv srcFile dstFile]: mv srcFile dstFile\n" << std::endl;
 
 	std::string inputString;
 	while (inputString != std::string("exit"))
@@ -141,6 +142,10 @@ int main(int argc, char *argv[])
             {
                 isError = true;
             }
+        }
+        else if (inputString.substr(0, 2) == std::string("mv") && inputString.size() > 5)
+        {
+
         }
         else
         {

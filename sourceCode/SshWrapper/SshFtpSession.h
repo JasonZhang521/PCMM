@@ -29,7 +29,8 @@ protected:
     virtual bool getFileFromLastPos(const std::string& remoteFile, const std::string& localFile);
     virtual bool putFile(const std::string& localFile, const std::string& remoteDir);
     virtual bool listDir(const std::string& dirPath, SftpDirAttributes& dirAttributes);
-    virtual bool isRemoteFileExit(const std::string& remoteFile);
+    virtual bool isRemoteFileExist(const std::string& remoteFile);
+    virtual bool renameRemoteFile(const std::string& srcFile, const std::string& dstFile);
 
 private:
     bool isRemoteFileExit(const std::string& remoteDir, const std::string& fileName);
