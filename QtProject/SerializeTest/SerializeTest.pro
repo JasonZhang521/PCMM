@@ -17,6 +17,15 @@ INCLUDEPATH += ../../sourceCode/gtest/googletest/include \
 
 
 SOURCES += \
+    ../../sourceCode/SerializeTest/BufferToDatatest.cpp \
+    ../../sourceCode/Serialize/ReadBuffer.cpp \
+    ../../sourceCode/Serialize/WriteBuffer.cpp \
+    ../../sourceCode/gtest/googlemock/src/gmock-all.cc \
+    ../../sourceCode/gtest/googlemock/src/gmock-cardinalities.cc \
+    ../../sourceCode/gtest/googlemock/src/gmock-internal-utils.cc \
+    ../../sourceCode/gtest/googlemock/src/gmock-matchers.cc \
+    ../../sourceCode/gtest/googlemock/src/gmock-spec-builders.cc \
+    ../../sourceCode/gtest/googlemock/src/gmock.cc \
     ../../sourceCode/gtest/googletest/src/gtest-all.cc \
     ../../sourceCode/gtest/googletest/src/gtest-death-test.cc \
     ../../sourceCode/gtest/googletest/src/gtest-filepath.cc \
@@ -25,17 +34,7 @@ SOURCES += \
     ../../sourceCode/gtest/googletest/src/gtest-test-part.cc \
     ../../sourceCode/gtest/googletest/src/gtest-typed-test.cc \
     ../../sourceCode/gtest/googletest/src/gtest.cc \
-    ../../sourceCode/gtest/googletest/src/gtest_main.cc \
-    ../../sourceCode/gtest/googlemock/src/gmock-all.cc \
-    ../../sourceCode/gtest/googlemock/src/gmock-cardinalities.cc \
-    ../../sourceCode/gtest/googlemock/src/gmock-internal-utils.cc \
-    ../../sourceCode/gtest/googlemock/src/gmock-matchers.cc \
-    ../../sourceCode/gtest/googlemock/src/gmock-spec-builders.cc \
-    ../../sourceCode/gtest/googlemock/src/gmock.cc \
-    ../../sourceCode/gtest/googlemock/src/gmock_main.cc \
-    ../../sourceCode/SerializeTest/BufferToDatatest.cpp \
-    ../../sourceCode/Serialize/ReadBuffer.cpp \
-    ../../sourceCode/Serialize/WriteBuffer.cpp
+    ../../sourceCode/gtest/googlemock/src/gmock_main.cc
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
