@@ -18,7 +18,7 @@ public:
     template <typename T>
     bool read(T& val)
     {
-        if (pos_ + sizeof(T) >= dataSize_)
+        if (pos_ + sizeof(T) > dataSize_)
         {
             return false;
         }

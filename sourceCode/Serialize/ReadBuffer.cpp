@@ -18,7 +18,7 @@ ReadBuffer::~ReadBuffer()
 
 bool ReadBuffer::read(char* newBuffer, unsigned int readSize)
 {
-    if (pos_ + readSize >= dataSize_)
+    if (pos_ + readSize > dataSize_)
     {
         return false;
     }

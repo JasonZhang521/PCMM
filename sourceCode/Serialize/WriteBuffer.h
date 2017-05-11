@@ -16,12 +16,13 @@ public:
     template <typename T>
     void write(const T& val)
     {
-        if (pos_ + sizeof(T) >= dataSize_)
+        if (pos_ + sizeof(T) > dataSize_)
         {
             resizeBuffer(sizeof(T));
         }
         DataToBuffer::Write<T>(buffer_ + pos_, val);
         pos_ += sizeof(T);
+        dataSize_ += sizeof(T);
     }
 
     void write(const char* newBuffer, unsigned int writeSize);

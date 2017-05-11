@@ -19,13 +19,14 @@ WriteBuffer::~WriteBuffer()
 
 void WriteBuffer::write(const char* newBuffer, unsigned int writeSize)
 {
-    if (pos_ + writeSize >= dataSize_)
+    if (pos_ + writeSize > dataSize_)
     {
         resizeBuffer(writeSize);
     }
 
     DataToBuffer::Write(buffer_ + pos_, newBuffer, writeSize);
     pos_ += writeSize;
+    dataSize_ += writeSize;
 }
 
 char* WriteBuffer::getBuffer() const
