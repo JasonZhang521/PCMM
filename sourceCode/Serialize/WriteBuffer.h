@@ -10,11 +10,11 @@ class WriteBuffer
     unsigned int dataSize_;
     unsigned int pos_;
 public:
-    WriteBuffer(unsigned int size);
+    WriteBuffer(unsigned int size = DefaultWriteBufferSize);
     ~WriteBuffer();
 
     template <typename T>
-    void Write(const T& val)
+    void write(const T& val)
     {
         if (pos_ + sizeof(T) >= dataSize_)
         {
@@ -24,8 +24,10 @@ public:
         pos_ += sizeof(T);
     }
 
-    void Write(const char* newBuffer, unsigned int writeSize);
+    void write(const char* newBuffer, unsigned int writeSize);
     char* getBuffer() const;
+    unsigned int getBufferSize() const;
+    unsigned int getDataSize() const;
 private:
     void resizeBuffer(unsigned int additionSize);
 

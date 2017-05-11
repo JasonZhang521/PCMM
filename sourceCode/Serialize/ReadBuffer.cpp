@@ -2,8 +2,8 @@
 
 namespace Serialize {
 
-const static unsigned int DefaultReadBufferSize = 2048;
-ReadBuffer::ReadBuffer(unsigned int bufferSize = DefaultReadBufferSize)
+const unsigned int ReadBuffer::DefaultReadBufferSize = 2048;
+ReadBuffer::ReadBuffer(unsigned int bufferSize)
 :bufferSize_(bufferSize)
 ,buffer_(new char[bufferSize])
 ,dataSize_(0)
@@ -16,7 +16,7 @@ ReadBuffer::~ReadBuffer()
     delete [] buffer_;
 }
 
-bool ReadBuffer::Read(char* newBuffer, unsigned int readSize)
+bool ReadBuffer::read(char* newBuffer, unsigned int readSize)
 {
     if (pos_ + readSize >= dataSize_)
     {
@@ -40,6 +40,16 @@ bool ReadBuffer::setDataSize(unsigned int dataSize)
 char* ReadBuffer::getBuffer() const
 {
     return buffer_;
+}
+
+unsigned int ReadBuffer::getBufferSize() const
+{
+    return bufferSize_;
+}
+
+unsigned int ReadBuffer::getDataSize() const
+{
+    return dataSize_;
 }
 
 }

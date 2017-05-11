@@ -5,15 +5,18 @@ namespace Serialize {
 
 class ReadBuffer
 {
+public:
+    const static unsigned int DefaultReadBufferSize;
+private:
     unsigned int bufferSize_;
     char* buffer_;
     unsigned int dataSize_;
     unsigned int pos_;
 public:
-    ReadBuffer(unsigned int bufferSize);
+    ReadBuffer(unsigned int bufferSize = DefaultReadBufferSize);
     ~ReadBuffer();
     template <typename T>
-    bool Read(T& val)
+    bool read(T& val)
     {
         if (pos_ + sizeof(T) >= dataSize_)
         {
@@ -24,13 +27,12 @@ public:
         return true;
     }
 
-    bool Read(char* newBuffer, unsigned int readSize);
+    bool read(char* newBuffer, unsigned int readSize);
 
     bool setDataSize(unsigned int dataSize);
     char* getBuffer() const;
-
-public:
-    const static unsigned int DefaultReadBufferSize;
+    unsigned int getBufferSize() const;
+    unsigned int getDataSize() const;
 };
 
 }

@@ -3,7 +3,7 @@
 
 namespace Serialize {
 
-WriteBuffer::WriteBuffer(unsigned int bufferSize = DefaultWriteBufferSize)
+WriteBuffer::WriteBuffer(unsigned int bufferSize)
 :bufferSize_(bufferSize)
 ,buffer_(new char[bufferSize])
 ,dataSize_(0)
@@ -11,13 +11,13 @@ WriteBuffer::WriteBuffer(unsigned int bufferSize = DefaultWriteBufferSize)
 {
 
 }
-
+const unsigned int WriteBuffer::DefaultWriteBufferSize = 2048;
 WriteBuffer::~WriteBuffer()
 {
    delete []  buffer_;
 }
 
-void WriteBuffer::Write(const char* newBuffer, unsigned int writeSize)
+void WriteBuffer::write(const char* newBuffer, unsigned int writeSize)
 {
     if (pos_ + writeSize >= dataSize_)
     {
@@ -31,6 +31,16 @@ void WriteBuffer::Write(const char* newBuffer, unsigned int writeSize)
 char* WriteBuffer::getBuffer() const
 {
     return buffer_;
+}
+
+unsigned int WriteBuffer::getBufferSize() const
+{
+    return bufferSize_;
+}
+
+unsigned int WriteBuffer::getDataSize() const
+{
+    return dataSize_;
 }
 
 void WriteBuffer::resizeBuffer(unsigned int additionSize)

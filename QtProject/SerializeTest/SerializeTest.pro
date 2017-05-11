@@ -13,11 +13,11 @@ INCLUDEPATH += ../../sourceCode/gtest/googletest/include \
                ../../sourceCode/gtest/googlemock/include \
                ../../sourceCode/gtest/googletest/ \
                ../../sourceCode/gtest/googlemock/ \
-               ../../sourceCode/Serialize
+               ../../sourceCode/Serialize \
+               ../../sourceCode/Common
 
 
 SOURCES += \
-    ../../sourceCode/SerializeTest/BufferToDatatest.cpp \
     ../../sourceCode/Serialize/ReadBuffer.cpp \
     ../../sourceCode/Serialize/WriteBuffer.cpp \
     ../../sourceCode/gtest/googlemock/src/gmock-all.cc \
@@ -34,7 +34,10 @@ SOURCES += \
     ../../sourceCode/gtest/googletest/src/gtest-test-part.cc \
     ../../sourceCode/gtest/googletest/src/gtest-typed-test.cc \
     ../../sourceCode/gtest/googletest/src/gtest.cc \
-    ../../sourceCode/gtest/googlemock/src/gmock_main.cc
+    ../../sourceCode/gtest/googlemock/src/gmock_main.cc \
+    ../../sourceCode/Common/Random.cpp \
+    ../../sourceCode/SerializeTest/BufferAndDataTest.cpp \
+    ../../sourceCode/SerializeTest/ReadWriteBufferTest.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -93,4 +96,5 @@ HEADERS += \
     ../../sourceCode/Serialize/BufferToData.h \
     ../../sourceCode/Serialize/DataToBuffer.h \
     ../../sourceCode/Serialize/ReadBuffer.h \
-    ../../sourceCode/Serialize/WriteBuffer.h
+    ../../sourceCode/Serialize/WriteBuffer.h \
+    ../../sourceCode/Common/Random.h
