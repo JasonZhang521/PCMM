@@ -44,3 +44,14 @@ uint8_t Random::generate8(uint8_t max, uint8_t min)
     uint32_t interval = max - min;
     return val % interval + min;
 }
+
+std::string Random::generateString(uint16_t len)
+{
+    std::string str;
+    str.reserve(len);
+    for (uint16_t i = 0; i < len; ++i)
+    {
+        str.push_back(static_cast<char>(generate8(255, 1)));
+    }
+    return str;
+}

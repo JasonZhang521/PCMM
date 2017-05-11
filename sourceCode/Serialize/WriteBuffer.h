@@ -1,6 +1,7 @@
 #ifndef _SERIALIZE_WRITEBUFFER_H_
 #define _SERIALIZE_WRITEBUFFER_H_
 #include "DataToBuffer.h"
+
 namespace Serialize {
 
 class WriteBuffer
@@ -16,7 +17,7 @@ public:
     template <typename T>
     void write(const T& val)
     {
-        if (pos_ + sizeof(T) > dataSize_)
+        if (pos_ + sizeof(T) > bufferSize_)
         {
             resizeBuffer(sizeof(T));
         }

@@ -2,7 +2,8 @@
 
 namespace Serialize {
 
-const unsigned int ReadBuffer::DefaultReadBufferSize = 2048;
+const unsigned int ReadBuffer::DefaultReadBufferSize = 1024 * 128;
+
 ReadBuffer::ReadBuffer(unsigned int bufferSize)
 :bufferSize_(bufferSize)
 ,buffer_(new char[bufferSize])

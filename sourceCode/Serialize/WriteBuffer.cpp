@@ -1,7 +1,9 @@
 #include "WriteBuffer.h"
 #include <algorithm>
+#include <iostream>
 
 namespace Serialize {
+const unsigned int WriteBuffer::DefaultWriteBufferSize = 1024 * 128;
 
 WriteBuffer::WriteBuffer(unsigned int bufferSize)
 :bufferSize_(bufferSize)
@@ -9,9 +11,8 @@ WriteBuffer::WriteBuffer(unsigned int bufferSize)
 ,dataSize_(0)
 ,pos_(0)
 {
-
 }
-const unsigned int WriteBuffer::DefaultWriteBufferSize = 2048;
+
 WriteBuffer::~WriteBuffer()
 {
    delete []  buffer_;
@@ -19,7 +20,7 @@ WriteBuffer::~WriteBuffer()
 
 void WriteBuffer::write(const char* newBuffer, unsigned int writeSize)
 {
-    if (pos_ + writeSize > dataSize_)
+    if (pos_ + writeSize > bufferSize_)
     {
         resizeBuffer(writeSize);
     }
