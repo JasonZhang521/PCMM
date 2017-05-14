@@ -3,6 +3,7 @@
 #include <string>
 #ifdef WIN32
 #include <winsock2.h>
+#include <ws2tcpip.h>
 #else
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -14,6 +15,7 @@
 #define SOCKET_SUCCESS 0
 
 namespace Network {
+
 #ifdef WIN32
 // type
 using SocketError = int;
@@ -30,6 +32,8 @@ using SocketDataBufferSize = int;
 using SocketShutDownFlag = int;
 using SocketFdSet = fd_set;
 using SocketTimeVal = struct timeval;
+using SocketInetAddress = struct in_addr;
+using SocketInet6Address = struct in6_addr;
 
 // const value
 const SocketHandle InvalidSocketHandle = INVALID_SOCKET;
@@ -113,7 +117,7 @@ inline Close(SocketHandle sockfd)
     return ::closesocket(sockfd);
 }
 
-int Accept(SocketHandle sockfd, SocketAddress* addr, SocketLength *addrlen, SocketFlag flags)
+inline int Accept(SocketHandle sockfd, SocketAddress* addr, SocketLength *addrlen, SocketFlag flags)
 {
     static_cast<void>(flags);
     return ::accept(sockfd, addr, addrlen);
@@ -123,6 +127,20 @@ inline int GetLastSocketErrorNo()
 {
     return ::WSAGetLastError();
 }
+#if (_WIN32_WINNT >= 0x0600)
+inline int InetPton(SocketAddressFamily af, const char *src, void *dst)
+{
+    ::InetPton(af, src, dst);
+}
+
+inline const char* InetNtop(SocketAddressFamily af, const void *src, char *dst, SocketLength size)
+{
+    return ::InetNtop(af, src, dst, size);
+}
+#else
+int InetPton(SocketAddressFamily af, const char *src, void *dst);
+const char* InetNtop(SocketAddressFamily af, const void *src, char *dst, SocketLength size);
+#endif
 
 std::string GetSocketErrorMessageFromErrorCode(int errorCode);
 std::string GetLastSocketErrorMessage();
@@ -145,6 +163,8 @@ using SocketTimeVal = struct timeval;
 using SocketPollFdSet = struct pollfd;
 using SocketPollFdNumber = nfds_t;
 using SocketPollEvent = short;
+using SocketInetAddress = struct in_addr;
+using SocketInet6Address = struct in6_addr;
 
 // const value
 const SocketHandle InvalidSocketHandle = -1;
@@ -258,6 +278,16 @@ inline int Poll(SocketPollFdSet* fds, SocketPollFdNumber nfds, int timeout)
     ::poll(fds, nfds, timeout);
 }
 
+int InetPton(SocketAddressFamily af, const char *src, void *dst)
+{
+    ::inet_pton(af, src, dst);
+}
+
+const char* InetNtop(SocketAddressFamily af, const void *src, char *dst, SocketLength size);
+{
+    return ::inet_ntop(af, src, dst, size);
+}
+
 #endif
 
 inline SocketHandle Socket(SocketAddressFamily addrFamily, SocketType type, SocketProtocol protocol)
@@ -305,11 +335,6 @@ inline int Bind(SocketHandle sockfd, const SocketAddress* addr, SocketLength add
 inline int Listen(SocketHandle sockfd, int backlog)
 {
     return ::listen(sockfd, backlog);
-}
-
-inline int Accept(SocketHandle sockfd, SocketAddress* addr, SocketLength *addrlen)
-{
-    return ::accept(sockfd, addr, addrlen);
 }
 
 inline int Select(SocketHandle nfds, SocketFdSet* readfds, SocketFdSet* writefds,

@@ -1,6 +1,6 @@
 #include "SocketWrapper.h"
 #ifdef WIN32
-
+#include <algorithm>
 #else
 
 #endif
@@ -60,6 +60,40 @@ std::string GetSocketErrorMessageFromErrorCode(int errorCode)
     return errorMsg;
 }
 
+#if (_WIN32_WINNT < 0x0600)
+int InetPton(SocketAddressFamily af, const char *src, void *dst)
+{
+    if (af == SOCKET_AF_INET)
+    {
+        unsigned long addr = ::inet_addr(src);
+        *reinterpret_cast<unsigned long*>(dst) = addr;
+        return 1;
+    }
+    else
+    {
+        return -1;
+    }
+}
+
+const char* InetNtop(SocketAddressFamily af, const void *src, char *dst, SocketLength size)
+{
+    if (af == SOCKET_AF_INET)
+    {
+        char* to = inet_ntoa(*reinterpret_cast<const struct in_addr*>(src));
+        SocketLength toSize = strlen(to);
+        if (toSize > size)
+        {
+            return nullptr;
+        }
+        std::copy(to, to + toSize, dst);
+        return dst;
+    }
+    else
+    {
+        return nullptr;
+    }
+}
+#endif
 
 #else
 

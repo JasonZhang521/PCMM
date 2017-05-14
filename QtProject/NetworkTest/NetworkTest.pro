@@ -3,16 +3,21 @@ QT -= gui
 
 CONFIG += c++11
 
-TARGET = Serialize
+TARGET = NetworkTest
 CONFIG += console
 CONFIG -= app_bundle
 
 TEMPLATE = app
 
-SOURCES += \
+INCLUDEPATH += ../../sourceCode/Serialize
+
+SOURCES += main.cpp \
+    ../../sourceCode/Network/IpAddress.cpp \
+    ../../sourceCode/Network/ITcpClient.cpp \
+    ../../sourceCode/Network/socketwrapper.cpp \
+    ../../sourceCode/Serialize/ISerializable.cpp \
     ../../sourceCode/Serialize/ReadBuffer.cpp \
-    ../../sourceCode/Serialize/WriteBuffer.cpp \
-    ../../sourceCode/Serialize/ISerializable.cpp
+    ../../sourceCode/Serialize/WriteBuffer.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -26,8 +31,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 HEADERS += \
+    ../../sourceCode/Network/IpAddress.h \
+    ../../sourceCode/Network/ITcpClient.h \
+    ../../sourceCode/Network/socketwrapper.h \
     ../../sourceCode/Serialize/BufferToData.h \
     ../../sourceCode/Serialize/DataToBuffer.h \
+    ../../sourceCode/Serialize/IReadBuffer.h \
+    ../../sourceCode/Serialize/ISerializable.h \
     ../../sourceCode/Serialize/ReadBuffer.h \
-    ../../sourceCode/Serialize/WriteBuffer.h \
-    ../../sourceCode/Serialize/ISerializable.h
+    ../../sourceCode/Serialize/WriteBuffer.h
+
+
+LIBS += -lWs2_32
