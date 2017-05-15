@@ -46,7 +46,10 @@ public:
     virtual void serialize(Serialize::WriteBuffer& writeBuffer) const;
     virtual void unserialize(Serialize::ReadBuffer& readBuffer);
     std::string toString() const;
+    std::ostream& operator<<(std::ostream& os) const;
 
+public:
+    static const IpAddress Null;
 } ;
 
 }

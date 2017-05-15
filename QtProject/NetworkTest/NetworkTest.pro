@@ -9,7 +9,8 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
-INCLUDEPATH += ../../sourceCode/Serialize
+INCLUDEPATH += ../../sourceCode/Serialize \
+               ../../sourceCode/Common
 
 SOURCES += main.cpp \
     ../../sourceCode/Network/IpAddress.cpp \
@@ -17,7 +18,13 @@ SOURCES += main.cpp \
     ../../sourceCode/Network/socketwrapper.cpp \
     ../../sourceCode/Serialize/ISerializable.cpp \
     ../../sourceCode/Serialize/ReadBuffer.cpp \
-    ../../sourceCode/Serialize/WriteBuffer.cpp
+    ../../sourceCode/Serialize/WriteBuffer.cpp \
+    ../../sourceCode/Network/IpPort.cpp \
+    ../../sourceCode/Common/FilePathHandler.cpp \
+    ../../sourceCode/Common/LocalTime.cpp \
+    ../../sourceCode/Common/Random.cpp \
+    ../../sourceCode/Common/remove_character.cpp \
+    ../../sourceCode/Common/replace_character.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -38,7 +45,17 @@ HEADERS += \
     ../../sourceCode/Serialize/DataToBuffer.h \
     ../../sourceCode/Serialize/ISerializable.h \
     ../../sourceCode/Serialize/ReadBuffer.h \
-    ../../sourceCode/Serialize/WriteBuffer.h
+    ../../sourceCode/Serialize/WriteBuffer.h \
+    ../../sourceCode/Network/IpPort.h \
+    ../../sourceCode/Common/App.h \
+    ../../sourceCode/Common/appconst.h \
+    ../../sourceCode/Common/FilePathHandler.h \
+    ../../sourceCode/Common/LocalTime.h \
+    ../../sourceCode/Common/Macro.h \
+    ../../sourceCode/Common/Random.h \
+    ../../sourceCode/Common/remove_character.h \
+    ../../sourceCode/Common/replace_character.h \
+    ../../sourceCode/Common/Generic.h
 
 
 LIBS += -lWs2_32

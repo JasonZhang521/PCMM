@@ -5,6 +5,8 @@
 #include <sstream>
 namespace Network {
 
+const IpAddress IpAddress::Null = IpAddress();
+
 IpAddress::IpAddress()
 :ipType_(IPFamilyInvalid)
 {
@@ -192,7 +194,11 @@ std::string IpAddress::toString() const
     return os.str();
 }
 
-
+std::ostream& IpAddress::operator<<(std::ostream& os) const
+{
+    os << toString();
+    return os;
+}
 
 
 }
