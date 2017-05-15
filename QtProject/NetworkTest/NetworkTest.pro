@@ -15,7 +15,6 @@ INCLUDEPATH += ../../sourceCode/Serialize \
 SOURCES += main.cpp \
     ../../sourceCode/Network/IpAddress.cpp \
     ../../sourceCode/Network/ITcpClient.cpp \
-    ../../sourceCode/Network/socketwrapper.cpp \
     ../../sourceCode/Serialize/ISerializable.cpp \
     ../../sourceCode/Serialize/ReadBuffer.cpp \
     ../../sourceCode/Serialize/WriteBuffer.cpp \
@@ -24,7 +23,9 @@ SOURCES += main.cpp \
     ../../sourceCode/Common/LocalTime.cpp \
     ../../sourceCode/Common/Random.cpp \
     ../../sourceCode/Common/remove_character.cpp \
-    ../../sourceCode/Common/replace_character.cpp
+    ../../sourceCode/Common/replace_character.cpp \
+    ../../sourceCode/Network/IpSocketEndpoint.cpp \
+    ../../sourceCode/Network/SocketWrapper.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -40,7 +41,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 HEADERS += \
     ../../sourceCode/Network/IpAddress.h \
     ../../sourceCode/Network/ITcpClient.h \
-    ../../sourceCode/Network/socketwrapper.h \
     ../../sourceCode/Serialize/BufferToData.h \
     ../../sourceCode/Serialize/DataToBuffer.h \
     ../../sourceCode/Serialize/ISerializable.h \
@@ -55,7 +55,9 @@ HEADERS += \
     ../../sourceCode/Common/Random.h \
     ../../sourceCode/Common/remove_character.h \
     ../../sourceCode/Common/replace_character.h \
-    ../../sourceCode/Common/Generic.h
+    ../../sourceCode/Common/Generic.h \
+    ../../sourceCode/Network/IpSocketEndpoint.h \
+    ../../sourceCode/Network/SocketWrapper.h
 
 
 LIBS += -lWs2_32

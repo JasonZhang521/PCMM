@@ -27,6 +27,7 @@ class IpAddress : public Serialize::ISerializable
     } addr_;
 public:
     IpAddress();
+    IpAddress(const IpAddress& ipAddress);
     IpAddress(uint32_t address);
     IpAddress(const uint8_t* ipv6address);
     IpAddress(const SocketInetAddress& address);
@@ -34,6 +35,8 @@ public:
     // Can take an IPv4 or IPv6 address in string format.throw an exception if
     // an invalid string (i.e. not a valid IP address format) is given.
     IpAddress(const std::string& address);
+
+    IpAddress& operator=(const IpAddress& ipAddress);
 
     const SocketInetAddress& getAddressIpv4() const;
     const SocketInet6Address& getAddressIpv6() const;

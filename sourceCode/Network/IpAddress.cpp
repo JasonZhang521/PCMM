@@ -14,6 +14,21 @@ IpAddress::IpAddress()
     ::memset(&addr_.ipv6, 0, sizeof(SocketInet6Address));
 }
 
+IpAddress::IpAddress(const IpAddress& ipAddress)
+:ipType_(ipAddress.ipType_)
+{
+   if (ipType_ == IPFamilyV4)
+   {
+       ::memset(&addr_.ipv6, 0, sizeof(SocketInet6Address));
+       ::memcpy(&addr_.ipv4, &ipAddress.addr_.ipv4, sizeof(SocketInetAddress));
+   }
+   else if (ipType_ == IPFamilyV6)
+   {
+       ::memset(&addr_.ipv4, 0, sizeof(SocketInet6Address));
+       ::memcpy(&addr_.ipv6, &ipAddress.addr_.ipv6, sizeof(SocketInet6Address));
+   }
+}
+
 IpAddress::IpAddress(uint32_t address)
 :ipType_(IPFamilyV4)
 {
@@ -62,6 +77,20 @@ IpAddress::IpAddress(const std::string& address)
     }
 }
 
+IpAddress& IpAddress::operator=(const IpAddress& ipAddress)
+{
+    ipType_ = ipAddress.ipType_;
+    if (ipType_ == IPFamilyV4)
+    {
+        ::memset(&addr_.ipv6, 0, sizeof(SocketInet6Address));
+        ::memcpy(&addr_.ipv4, &ipAddress.addr_.ipv4, sizeof(SocketInetAddress));
+    }
+    else if (ipType_ == IPFamilyV6)
+    {
+        ::memset(&addr_.ipv4, 0, sizeof(SocketInet6Address));
+        ::memcpy(&addr_.ipv6, &ipAddress.addr_.ipv6, sizeof(SocketInet6Address));
+    }
+}
 
 const SocketInetAddress& IpAddress::getAddressIpv4() const
 {

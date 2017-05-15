@@ -8,6 +8,11 @@ namespace Network {
 
 const IpPort IpPort::Null = IpPort();
 
+IpPort::IpPort(const IpPort& ipPort)
+:port_(ipPort.port_)
+{
+}
+
 IpPort::IpPort(unsigned short port)
 :port_(htons(port))
 {
@@ -16,6 +21,12 @@ IpPort::IpPort(unsigned short port)
 IpPort::IpPort(const std::string& port)
 :port_(lexical_cast<unsigned short>(port))
 {
+}
+
+IpPort& IpPort::operator=(const IpPort& ipPort)
+{
+    port_ = ipPort.port_;
+    return (*this);
 }
 
 bool IpPort::operator==(const IpPort& that) const

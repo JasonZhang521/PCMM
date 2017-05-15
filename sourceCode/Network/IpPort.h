@@ -9,8 +9,10 @@ class IpPort : public Serialize::ISerializable
     // port number in network byte order
     unsigned short port_;
 public:
+    IpPort(const IpPort& ipPort);
     IpPort(unsigned short port = 0);
     IpPort(const std::string& port);
+    IpPort& operator=(const IpPort& ipPort);
     bool operator==(const IpPort& that) const;
     bool operator!=(const IpPort& that) const;
     bool operator>(const IpPort& that) const;
