@@ -1,23 +1,20 @@
 #ifndef _SERIALIZE_BUFFERTODATA_H_
 #define _SERIALIZE_BUFFERTODATA_H_
-
+#include <string.h>
 namespace Serialize {
 
 class BufferToData
 {
 public:
     template <typename T>
-    static inline T Read(char* buffer)
+    static inline T Read(void* buffer)
     {
         return *(reinterpret_cast<T*>(buffer));
     }
 
-    static inline void Read(char* buffer, char* newBuffer, unsigned int readSize)
+    static inline void Read(void* buffer, void* newBuffer, unsigned int readSize)
     {
-        for (unsigned int i = 0; i < readSize; ++i)
-        {
-            newBuffer[i] = buffer[i];
-        }
+        memcpy(newBuffer, buffer, readSize);
     }
 };
 

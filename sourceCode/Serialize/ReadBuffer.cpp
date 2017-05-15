@@ -17,7 +17,7 @@ ReadBuffer::~ReadBuffer()
     delete [] buffer_;
 }
 
-bool ReadBuffer::read(char* newBuffer, unsigned int readSize)
+bool ReadBuffer::read(void* newBuffer, unsigned int readSize)
 {
     if (pos_ + readSize > dataSize_)
     {

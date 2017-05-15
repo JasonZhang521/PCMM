@@ -18,14 +18,14 @@ WriteBuffer::~WriteBuffer()
    delete []  buffer_;
 }
 
-void WriteBuffer::write(const char* newBuffer, unsigned int writeSize)
+void WriteBuffer::write(const void* newBuffer, unsigned int writeSize)
 {
     if (pos_ + writeSize > bufferSize_)
     {
         resizeBuffer(writeSize);
     }
 
-    DataToBuffer::Write(buffer_ + pos_, newBuffer, writeSize);
+    DataToBuffer::Write(&buffer_[pos_], newBuffer, writeSize);
     pos_ += writeSize;
     dataSize_ += writeSize;
 }

@@ -36,7 +36,6 @@ HEADERS += \
     ../../sourceCode/Network/socketwrapper.h \
     ../../sourceCode/Serialize/BufferToData.h \
     ../../sourceCode/Serialize/DataToBuffer.h \
-    ../../sourceCode/Serialize/IReadBuffer.h \
     ../../sourceCode/Serialize/ISerializable.h \
     ../../sourceCode/Serialize/ReadBuffer.h \
     ../../sourceCode/Serialize/WriteBuffer.h

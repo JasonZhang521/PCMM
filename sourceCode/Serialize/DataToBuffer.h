@@ -1,6 +1,6 @@
 #ifndef _SERIALIZE_DATATOBUFFER_H_
 #define _SERIALIZE_DATATOBUFFER_H_
-
+#include <string.h>
 namespace Serialize {
 
 class DataToBuffer
@@ -8,17 +8,14 @@ class DataToBuffer
 public:
     DataToBuffer();
     template <typename T>
-    static inline void Write(char* buffer, const T& val)
+    static inline void Write(void* buffer, const T& val)
     {
         *(reinterpret_cast<T*>(buffer)) = val;
     }
 
-    static inline void Write(char* buffer, const char* newBuffer, unsigned int writeSize)
+    static inline void Write(void* buffer, const void* newBuffer, unsigned int writeSize)
     {
-        for(unsigned int i = 0; i < writeSize; ++i)
-        {
-            buffer[i] = newBuffer[i];
-        }
+        memcpy(buffer, newBuffer, writeSize);
     }
 };
 

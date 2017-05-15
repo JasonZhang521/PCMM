@@ -3,6 +3,11 @@
 #include <stdint.h>
 #include "SocketWrapper.h"
 #include "ISerializable.h"
+
+namespace Serialize {
+class WriteBuffer;
+class ReadBuffer;
+}
 namespace Network {
 
 enum IPFamilyType
@@ -36,6 +41,8 @@ public:
 
     bool operator==(const IpAddress& other) const;
     bool operator!=(const IpAddress& other) const;
+    bool operator>(const IpAddress& rh) const;
+    bool operator<(const IpAddress& rh) const;
     virtual void serialize(Serialize::WriteBuffer& writeBuffer) const;
     virtual void unserialize(Serialize::ReadBuffer& readBuffer);
     std::string toString() const;

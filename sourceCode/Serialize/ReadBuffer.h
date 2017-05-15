@@ -27,7 +27,7 @@ public:
         return true;
     }
 
-    bool read(char* newBuffer, unsigned int readSize);
+    bool read(void* newBuffer, unsigned int readSize);
 
     bool setDataSize(unsigned int dataSize);
     char* getBuffer() const;

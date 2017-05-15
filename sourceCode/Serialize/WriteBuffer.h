@@ -26,7 +26,7 @@ public:
         dataSize_ += sizeof(T);
     }
 
-    void write(const char* newBuffer, unsigned int writeSize);
+    void write(const void* newBuffer, unsigned int writeSize);
     char* getBuffer() const;
     unsigned int getBufferSize() const;
     unsigned int getDataSize() const;
