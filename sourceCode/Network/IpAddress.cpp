@@ -3,6 +3,8 @@
 #include "WriteBuffer.h"
 #include <string.h>
 #include <sstream>
+#include <stdexcept>
+
 namespace Network {
 
 const IpAddress IpAddress::Null = IpAddress();
@@ -74,6 +76,7 @@ IpAddress::IpAddress(const std::string& address)
     else
     {
         ipType_ = IPFamilyInvalid;
+        throw std::invalid_argument(std::string("Invalid ip address: ") + address);
     }
 }
 
@@ -90,6 +93,7 @@ IpAddress& IpAddress::operator=(const IpAddress& ipAddress)
         ::memset(&addr_.ipv4, 0, sizeof(SocketInet6Address));
         ::memcpy(&addr_.ipv6, &ipAddress.addr_.ipv6, sizeof(SocketInet6Address));
     }
+    return *this;
 }
 
 const SocketInetAddress& IpAddress::getAddressIpv4() const

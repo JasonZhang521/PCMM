@@ -3,18 +3,20 @@
 #include "IpPort.h"
 #include "IpAddress.h"
 #include "ISerializable.h"
+#include <string>
 
 namespace Network {
 
 class IpSocketEndpoint : public Serialize::ISerializable
 {
-    IpAddress IpAddress_;
+    IpAddress ipAddress_;
     IpPort ipPort_;
 
 public:
     IpSocketEndpoint();
     IpSocketEndpoint(const IpSocketEndpoint& ipSocketEndPoint);
     IpSocketEndpoint(const IpAddress& ipAddress, const IpPort& ipPort);
+    // IpSocketEndpoint endpoint("10.35.127.80:22");
     IpSocketEndpoint(const std::string& ipAndPort);
     IpSocketEndpoint& operator=(const IpSocketEndpoint& ipSocketEndpoint);
     bool operator==(const IpSocketEndpoint& ipSocketEndpoint);
@@ -27,6 +29,9 @@ public:
     std::string toString() const;
     std::ostream& operator<<(std::ostream& os) const;
 
+private:
+    void parse(const std::string& ipAndPort);
+    void parseIpAndPortV4(const std::string& ipAndPort);
 };
 
 }
