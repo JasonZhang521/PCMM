@@ -75,12 +75,12 @@ int InetPton(SocketAddressFamily af, const char *src, void *dst)
     }
 }
 
-const char* InetNtop(SocketAddressFamily af, const void *src, char *dst, SocketLength size)
+const char* InetNtop(SocketAddressFamily af, const void *src, char *dst, SocketAddresstLength size)
 {
     if (af == SOCKET_AF_INET)
     {
         char* to = inet_ntoa(*reinterpret_cast<const struct in_addr*>(src));
-        SocketLength toSize = strlen(to);
+        SocketAddresstLength toSize = strlen(to);
         if (toSize > size)
         {
             return nullptr;

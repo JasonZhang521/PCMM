@@ -25,6 +25,7 @@ using SocketAddressFamily = int;
 using SocketType = int;
 using SocketProtocol = int;
 using SocketAddress = struct sockaddr;
+using SocketAddresstLength = int;
 using SocketFlag = int;
 using SocketDataSize = int;
 using SocketDataBuffer = char*;
@@ -34,6 +35,10 @@ using SocketFdSet = fd_set;
 using SocketTimeVal = struct timeval;
 using SocketInetAddress = struct in_addr;
 using SocketInet6Address = struct in6_addr;
+using SocketOptLevel = int;
+using SocketOptName = int;
+using SocketOptVal = char*;
+using SocketOptLength = int;
 
 // const value
 const SocketHandle InvalidSocketHandle = INVALID_SOCKET;
@@ -117,16 +122,12 @@ inline Close(SocketHandle sockfd)
     return ::closesocket(sockfd);
 }
 
-inline int Accept(SocketHandle sockfd, SocketAddress* addr, SocketLength *addrlen, SocketFlag flags)
+inline int Accept(SocketHandle sockfd, SocketAddress* addr, SocketAddresstLength *addrlen, SocketFlag flags)
 {
     static_cast<void>(flags);
     return ::accept(sockfd, addr, addrlen);
 }
 
-inline int GetLastSocketErrorNo()
-{
-    return ::WSAGetLastError();
-}
 #if (_WIN32_WINNT >= 0x0600)
 inline int InetPton(SocketAddressFamily af, const char *src, void *dst)
 {
@@ -139,9 +140,13 @@ inline const char* InetNtop(SocketAddressFamily af, const void *src, char *dst, 
 }
 #else
 int InetPton(SocketAddressFamily af, const char *src, void *dst);
-const char* InetNtop(SocketAddressFamily af, const void *src, char *dst, SocketLength size);
+const char* InetNtop(SocketAddressFamily af, const void *src, char *dst, SocketAddresstLength size);
 #endif
 
+inline int GetLastSocketErrorNo()
+{
+    return ::WSAGetLastError();
+}
 std::string GetSocketErrorMessageFromErrorCode(int errorCode);
 std::string GetLastSocketErrorMessage();
 
@@ -153,6 +158,7 @@ using SocketAddressFamily = int;
 using SocketType = int;
 using SocketProtocol = int;
 using SocketAddress = struct sockaddr;
+using SocketAddresstLength = socklen_t;
 using SocketFlag = int;
 using SocketDataSize = ssize_t;
 using SocketDataBuffer = void*;
@@ -165,6 +171,10 @@ using SocketPollFdNumber = nfds_t;
 using SocketPollEvent = short;
 using SocketInetAddress = struct in_addr;
 using SocketInet6Address = struct in6_addr;
+using SocketOptLevel = int;
+using SocketOptName = int;
+using SocketOptVal = void*;
+using SocketOptLength = socklen_t;
 
 // const value
 const SocketHandle InvalidSocketHandle = -1;
@@ -295,7 +305,7 @@ inline SocketHandle CreateSocket(SocketAddressFamily addrFamily, SocketType type
     return ::socket(addrFamily, type, protocol);
 }
 
-inline int Connect(SocketHandle sockfd, const SocketAddress* addr, SocketLength addrLen)
+inline int Connect(SocketHandle sockfd, const SocketAddress* addr, SocketAddresstLength addrLen)
 {
     return ::connect(sockfd, addr, addrLen);
 }
@@ -305,10 +315,10 @@ inline SocketDataSize Send(SocketHandle sockfd, const SocketDataBuffer buf, Sock
     return ::send(sockfd, buf, len, flags);
 }
 
-inline SocketDataSize Sendto(SocketHandle sockfd, const SocketDataBuffer buf, SocketDataBufferSize len, SocketFlag flags,
-               const SocketAddress* dest_addr, SocketLength addrlen)
+inline SocketDataSize SendTo(SocketHandle sockfd, const SocketDataBuffer buf, SocketDataBufferSize len, SocketFlag flags,
+               const SocketAddress* destAddr, SocketAddresstLength addrLen)
 {
-    return ::sendto(sockfd, buf, len, flags, dest_addr, addrlen);
+    return ::sendto(sockfd, buf, len, flags, destAddr, addrLen);
 }
 
 inline SocketDataSize Recv(SocketHandle sockfd, SocketDataBuffer buf, SocketDataBufferSize len, SocketFlag flags)
@@ -316,10 +326,10 @@ inline SocketDataSize Recv(SocketHandle sockfd, SocketDataBuffer buf, SocketData
     return ::recv(sockfd, buf, len, flags);
 }
 
-inline SocketDataSize Recvfrom(SocketHandle sockfd, SocketDataBuffer buf, SocketDataBufferSize len, SocketFlag flags,
-                 SocketAddress* src_addr, SocketLength *addrlen)
+inline SocketDataSize RecvFrom(SocketHandle sockfd, SocketDataBuffer buf, SocketDataBufferSize len, SocketFlag flags,
+                 SocketAddress* srcAddr, SocketAddresstLength *addrLen)
 {
-    return ::recvfrom(sockfd, buf, len, flags, src_addr, addrlen);
+    return ::recvfrom(sockfd, buf, len, flags, srcAddr, addrLen);
 }
 
 inline int Shutdown(SocketHandle sockfd, SocketShutDownFlag how)
@@ -327,9 +337,9 @@ inline int Shutdown(SocketHandle sockfd, SocketShutDownFlag how)
     return ::shutdown(sockfd, how);
 }
 
-inline int Bind(SocketHandle sockfd, const SocketAddress* addr, SocketLength addrlen)
+inline int Bind(SocketHandle sockfd, const SocketAddress* addr, SocketAddresstLength addrLen)
 {
-    return ::bind(sockfd, addr, addrlen);
+    return ::bind(sockfd, addr, addrLen);
 }
 
 inline int Listen(SocketHandle sockfd, int backlog)
@@ -361,6 +371,23 @@ inline void FdClear(SocketHandle sockfd, SocketFdSet* fds)
 inline void FdIsSet(SocketHandle sockfd, SocketFdSet* fds)
 {
     FD_ISSET(sockfd, fds);
+}
+
+inline int SetSockOpt(SocketHandle sockfd, SocketOptLevel level, SocketOptName optname,
+                      const SocketOptVal optval, SocketOptLength optlen)
+{
+    return ::setsockopt(sockfd, level, optname, optval, optlen);
+}
+
+inline int GetSockOpt(SocketHandle sockfd, SocketOptLevel level, SocketOptName optname,
+                      SocketOptVal optval, SocketOptLength* optlen)
+{
+    return ::getsockopt(sockfd, level, optname, optval, optlen);
+}
+
+inline int GetSockName(SocketHandle sockfd, SocketAddress *addr, SocketAddresstLength *addrLen)
+{
+    return ::getsockname(sockfd, addr, addrLen);
 }
 
 }

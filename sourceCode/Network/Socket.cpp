@@ -1,8 +1,6 @@
 #include "Socket.h"
-#include "Component.h"
 #include "AppConst.h"
 #include "Trace.h"
-
 #include <sstream>
 namespace Network {
 
@@ -28,10 +26,10 @@ Socket::~Socket()
 
 std::string Socket::getErrorInfo()
 {
-    int errno = GetLastSocketErrorNo();
-    std::string errorInfo = GetSocketErrorMessageFromErrorCode(errno);
+    const int Errno = GetLastSocketErrorNo();
+    const std::string ErrorInfo = GetSocketErrorMessageFromErrorCode(Errno);
     std::stringstream ss;
-    ss << "Errno = " << errno << ", errorInfo = " << errorInfo;
+    ss << "Errno = " << Errno << ", errorInfo = " << ErrorInfo;
     return ss.str();
 }
 
