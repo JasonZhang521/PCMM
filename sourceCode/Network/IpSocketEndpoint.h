@@ -1,5 +1,5 @@
-#ifndef IPSOCKETENDPOINT_H
-#define IPSOCKETENDPOINT_H
+#ifndef _NETWORK_IPSOCKETENDPOINT_H_
+#define _NETWORK_IPSOCKETENDPOINT_H_
 #include "IpPort.h"
 #include "IpAddress.h"
 #include "ISerializable.h"
@@ -36,4 +36,4 @@ private:
 
 }
 
-#endif // IPSOCKETENDPOINT_H
+#endif // _NETWORK_IPSOCKETENDPOINT_H_

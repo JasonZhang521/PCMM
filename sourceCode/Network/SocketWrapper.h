@@ -290,7 +290,7 @@ const char* InetNtop(SocketAddressFamily af, const void *src, char *dst, SocketL
 
 #endif
 
-inline SocketHandle Socket(SocketAddressFamily addrFamily, SocketType type, SocketProtocol protocol)
+inline SocketHandle CreateSocket(SocketAddressFamily addrFamily, SocketType type, SocketProtocol protocol)
 {
     return ::socket(addrFamily, type, protocol);
 }

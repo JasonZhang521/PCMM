@@ -75,7 +75,7 @@ std::ostream& operator<<(std::ostream& oStream, const SftpDirAttribute& b)
 			<< ", gid=" << b.gid
 			<< ", owner=" << b.owner
 			<< ", group=" << b.group
-			<< ", permissions" << b.permissions
+			<< ", permissions=" << b.permissions
 			<< "]";
 
 	return oStream;

@@ -10,7 +10,9 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 INCLUDEPATH += ../../sourceCode/Serialize \
-               ../../sourceCode/Common
+               ../../sourceCode/Common \
+               ../../sourceCode/TraceLog \
+               ../../sourceCode/Configure
 
 SOURCES += main.cpp \
     ../../sourceCode/Network/IpAddress.cpp \
@@ -25,7 +27,11 @@ SOURCES += main.cpp \
     ../../sourceCode/Common/remove_character.cpp \
     ../../sourceCode/Common/replace_character.cpp \
     ../../sourceCode/Network/IpSocketEndpoint.cpp \
-    ../../sourceCode/Network/SocketWrapper.cpp
+    ../../sourceCode/Network/SocketWrapper.cpp \
+    ../../sourceCode/Network/Socket.cpp \
+    ../../sourceCode/Configure/Configure.cpp \
+    ../../sourceCode/Configure/ExceptionConfigure.cpp \
+    ../../sourceCode/Configure/TraceLogConfigure.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -48,7 +54,6 @@ HEADERS += \
     ../../sourceCode/Serialize/WriteBuffer.h \
     ../../sourceCode/Network/IpPort.h \
     ../../sourceCode/Common/App.h \
-    ../../sourceCode/Common/appconst.h \
     ../../sourceCode/Common/FilePathHandler.h \
     ../../sourceCode/Common/LocalTime.h \
     ../../sourceCode/Common/Macro.h \
@@ -57,7 +62,18 @@ HEADERS += \
     ../../sourceCode/Common/replace_character.h \
     ../../sourceCode/Common/Generic.h \
     ../../sourceCode/Network/IpSocketEndpoint.h \
-    ../../sourceCode/Network/SocketWrapper.h
+    ../../sourceCode/Network/SocketWrapper.h \
+    ../../sourceCode/Network/Socket.h \
+    ../../sourceCode/TraceLog/Trace.h \
+    ../../sourceCode/TraceLog/TraceBuf.h \
+    ../../sourceCode/TraceLog/TraceConsole.h \
+    ../../sourceCode/TraceLog/TraceFile.h \
+    ../../sourceCode/Configure/Configure.h \
+    ../../sourceCode/Configure/Configure_Define.h \
+    ../../sourceCode/Configure/ExceptionConfigure.h \
+    ../../sourceCode/Configure/TraceLogConfigure.h \
+    ../../sourceCode/Network/Component.h \
+    ../../sourceCode/Common/AppConst.h
 
 
 LIBS += -lWs2_32
