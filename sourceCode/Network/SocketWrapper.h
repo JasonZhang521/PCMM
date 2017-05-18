@@ -390,6 +390,8 @@ inline int GetSockName(SocketHandle sockfd, SocketAddress *addr, SocketAddresstL
     return ::getsockname(sockfd, addr, addrLen);
 }
 
+int SetBlocking(SocketHandle sockfd, bool blocking);
+
 }
 
 

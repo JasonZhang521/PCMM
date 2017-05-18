@@ -96,6 +96,21 @@ const char* InetNtop(SocketAddressFamily af, const void *src, char *dst, SocketA
 #endif
 
 #else
-
 #endif
+
+
+int SetBlocking(SocketHandle sockfd, bool blocking)
+{
+#ifdef WIN32
+    unsigned long ul = blocking ? 0 : 1;
+    int ret = ioctlsocket(sockfd,FIONBIO, &ul);
+    return ret;
+#else
+    int flags = ::fcntl(fd_, F_GETFL, 0);
+    flags = blocking ? flags & (~O_NONBLOCK) : flags | O_NONBLOCK;
+    int res = ::fcntl(sockfd, F_SETFL, flags);
+    return res;
+#endif
+}
+
 }

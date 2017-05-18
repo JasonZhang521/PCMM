@@ -17,6 +17,10 @@ public:
            const SocketProtocol& protocol);
     ~Socket();
     std::string getErrorInfo();
+    inline SocketHandle getFd()
+    {
+        return fd_;
+    }
 
     inline int bind(const SocketAddress& address, SocketAddresstLength addrLen) const
     {
@@ -85,6 +89,11 @@ public:
     inline int getsockname(SocketAddress& addr, SocketAddresstLength& addrLen)
     {
         return GetSockName(fd_, &addr, &addrLen);
+    }
+
+    inline int setBlocking(bool blocking)
+    {
+        return SetBlocking(fd_, blocking);
     }
 
 public:
