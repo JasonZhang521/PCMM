@@ -106,10 +106,27 @@ std::string IpSocketEndpoint::toString() const
 {
     return ipAddress_.toString() + ":" + ipPort_.toString();
 }
+
 std::ostream& IpSocketEndpoint::operator<<(std::ostream& os) const
 {
     os << toString();
     return os;
+}
+
+SocketAddressFamily IpSocketEndpoint::getSocketAddressFamily() const
+{
+    if (IPFamilyV4 == ipAddress_.getIPFamilyType())
+    {
+        return SOCKET_AF_INET;
+    }
+    else if (IPFamilyV6 == ipAddress_.getIPFamilyType())
+    {
+        return SOCKET_AF_INET6;
+    }
+    else
+    {
+        return SOCKET_AF_UNSPEC;
+    }
 }
 
 }

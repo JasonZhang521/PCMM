@@ -1,10 +1,10 @@
-#include "Socket.h"
+#include "SocketImp.h"
 #include "AppConst.h"
 #include "Trace.h"
 #include <sstream>
 namespace Network {
 
-Socket::Socket(const SocketAddressFamily& addrFamily,
+SocketImp::SocketImp(const SocketAddressFamily& addrFamily,
        const SocketType& type,
        const SocketProtocol& protocol)
     :addrFamily_(addrFamily)
@@ -19,12 +19,12 @@ Socket::Socket(const SocketAddressFamily& addrFamily,
     fd_ = CreateSocket(addrFamily, type, protocol);
 }
 
-Socket::~Socket()
+SocketImp::~SocketImp()
 {
 
 }
 
-std::string Socket::getErrorInfo()
+std::string SocketImp::getErrorInfo()
 {
     const int Errno = GetLastSocketErrorNo();
     const std::string ErrorInfo = GetSocketErrorMessageFromErrorCode(Errno);

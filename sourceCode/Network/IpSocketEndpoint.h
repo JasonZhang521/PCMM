@@ -29,6 +29,8 @@ public:
     std::string toString() const;
     std::ostream& operator<<(std::ostream& os) const;
 
+    SocketAddressFamily getSocketAddressFamily() const;
+
 private:
     void parse(const std::string& ipAndPort);
     void parseIpAndPortV4(const std::string& ipAndPort);

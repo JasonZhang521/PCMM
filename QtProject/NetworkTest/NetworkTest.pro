@@ -28,10 +28,12 @@ SOURCES += main.cpp \
     ../../sourceCode/Common/replace_character.cpp \
     ../../sourceCode/Network/IpSocketEndpoint.cpp \
     ../../sourceCode/Network/SocketWrapper.cpp \
-    ../../sourceCode/Network/Socket.cpp \
     ../../sourceCode/Configure/Configure.cpp \
     ../../sourceCode/Configure/ExceptionConfigure.cpp \
-    ../../sourceCode/Configure/TraceLogConfigure.cpp
+    ../../sourceCode/Configure/TraceLogConfigure.cpp \
+    ../../sourceCode/Network/TcpSocket.cpp \
+    ../../sourceCode/Network/SocketImp.cpp \
+    ../../sourceCode/Network/TcpClient.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -63,7 +65,6 @@ HEADERS += \
     ../../sourceCode/Common/Generic.h \
     ../../sourceCode/Network/IpSocketEndpoint.h \
     ../../sourceCode/Network/SocketWrapper.h \
-    ../../sourceCode/Network/Socket.h \
     ../../sourceCode/TraceLog/Trace.h \
     ../../sourceCode/TraceLog/TraceBuf.h \
     ../../sourceCode/TraceLog/TraceConsole.h \
@@ -73,7 +74,10 @@ HEADERS += \
     ../../sourceCode/Configure/ExceptionConfigure.h \
     ../../sourceCode/Configure/TraceLogConfigure.h \
     ../../sourceCode/Network/Component.h \
-    ../../sourceCode/Common/AppConst.h
+    ../../sourceCode/Common/AppConst.h \
+    ../../sourceCode/Network/TcpSocket.h \
+    ../../sourceCode/Network/SocketImp.h \
+    ../../sourceCode/Network/TcpClient.h
 
 
 LIBS += -lWs2_32

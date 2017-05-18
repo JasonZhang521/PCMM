@@ -1,21 +1,27 @@
-#ifndef _NETWORK_SOCKET_H_
-#define _NETWORK_SOCKET_H_
+#ifndef _NETWORK_SOCKETIMP_H_
+#define _NETWORK_SOCKETIMP_H_
 #include "SocketWrapper.h"
 #include "Component.h"
 #include "Macro.h"
 
 namespace Network {
-class Socket
+
+class SocketImp
 {
     SocketAddressFamily addrFamily_;
     SocketType type_;
     SocketProtocol protocol_;
     SocketHandle fd_;
 public:
-    Socket(const SocketAddressFamily& addrFamily,
+    SocketImp(const SocketAddressFamily& addrFamily,
            const SocketType& type,
            const SocketProtocol& protocol);
-    ~Socket();
+    ~SocketImp();
+
+    virtual void handleRead() { }
+
+    virtual void handleWrite() { }
+
     std::string getErrorInfo();
     inline SocketHandle getFd()
     {
@@ -97,9 +103,9 @@ public:
     }
 
 public:
-     GETCLASSNAME(Socket)
+     GETCLASSNAME(SocketImp)
 };
 
 }
 
-#endif // _NETWORK_SOCKET_H_
+#endif // _NETWORK_SOCKETIMP_H_
