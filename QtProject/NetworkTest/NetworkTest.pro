@@ -12,7 +12,8 @@ TEMPLATE = app
 INCLUDEPATH += ../../sourceCode/Serialize \
                ../../sourceCode/Common \
                ../../sourceCode/TraceLog \
-               ../../sourceCode/Configure
+               ../../sourceCode/Configure \
+               ../../sourceCode/EventHandler
 
 SOURCES += main.cpp \
     ../../sourceCode/Network/IpAddress.cpp \
@@ -79,7 +80,8 @@ HEADERS += \
     ../../sourceCode/Network/TcpSocket.h \
     ../../sourceCode/Network/SocketImp.h \
     ../../sourceCode/Network/TcpClient.h \
-    ../../sourceCode/EventHandler/IEvent.h
+    ../../sourceCode/EventHandler/IEvent.h \
+    ../../sourceCode/Network/TcpState.h
 
 
 LIBS += -lWs2_32

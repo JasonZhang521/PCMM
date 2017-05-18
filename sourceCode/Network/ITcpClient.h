@@ -23,7 +23,6 @@ public:
     virtual TcpClientResult receive(ITcpReceiveBuf&) = 0;
     virtual TcpClientResult disconnect() = 0;
     virtual TcpClientResult cleanup() = 0;
-    virtual void running() = 0;
 };
 
 }

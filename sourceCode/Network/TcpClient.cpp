@@ -2,9 +2,13 @@
 
 namespace Network {
 
-TcpClient::TcpClient()
+TcpClient::TcpClient(const IpSocketEndpoint& localEndpoint)
+    :socket_(localEndpoint)
 {
+}
 
+TcpClient::~TcpClient()
+{
 }
 
 }
