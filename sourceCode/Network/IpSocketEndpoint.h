@@ -30,11 +30,15 @@ public:
     std::ostream& operator<<(std::ostream& os) const;
 
     SocketAddressFamily getSocketAddressFamily() const;
+    IpAddress getIpAddress() const;
+    IpPort getIpPort() const;
 
 private:
     void parse(const std::string& ipAndPort);
     void parseIpAndPortV4(const std::string& ipAndPort);
 };
+
+std::ostream& operator<<(std::ostream& os, const IpSocketEndpoint& ipSocketEndpoint);
 
 }
 

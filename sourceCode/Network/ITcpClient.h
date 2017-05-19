@@ -5,6 +5,7 @@ namespace Network {
 
 class ITcpSendBuf;
 class ITcpReceiveBuf;
+class IpSocketEndpoint;
 
 enum class TcpClientResult
 {
@@ -18,7 +19,7 @@ public:
     ITcpClient();
     virtual ~ITcpClient();
     virtual TcpClientResult init() = 0;
-    virtual TcpClientResult connect() = 0;
+    virtual TcpClientResult connect(const IpSocketEndpoint& localEndpoint) = 0;
     virtual TcpClientResult send(const ITcpSendBuf&) = 0;
     virtual TcpClientResult receive(ITcpReceiveBuf&) = 0;
     virtual TcpClientResult disconnect() = 0;

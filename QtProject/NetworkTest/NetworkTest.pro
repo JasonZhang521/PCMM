@@ -81,7 +81,8 @@ HEADERS += \
     ../../sourceCode/Network/SocketImp.h \
     ../../sourceCode/Network/TcpClient.h \
     ../../sourceCode/EventHandler/IEvent.h \
-    ../../sourceCode/Network/TcpState.h
+    ../../sourceCode/Network/TcpState.h \
+    ../../sourceCode/Network/SocketWrapperDef.h
 
 
 LIBS += -lWs2_32

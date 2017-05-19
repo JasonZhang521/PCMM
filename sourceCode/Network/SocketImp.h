@@ -28,6 +28,11 @@ public:
         return fd_;
     }
 
+    inline int init()
+    {
+        return InitSocket();
+    }
+
     inline int bind(const SocketAddress& address, SocketAddresstLength addrLen) const
     {
         return Bind(fd_, &address, addrLen);

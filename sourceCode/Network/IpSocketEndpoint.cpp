@@ -129,4 +129,20 @@ SocketAddressFamily IpSocketEndpoint::getSocketAddressFamily() const
     }
 }
 
+IpAddress IpSocketEndpoint::getIpAddress() const
+{
+    return ipAddress_;
+}
+
+IpPort IpSocketEndpoint::getIpPort() const
+{
+    return ipPort_;
+}
+
+std::ostream& operator<<(std::ostream& os, const IpSocketEndpoint& ipSocketEndpoint)
+{
+    ipSocketEndpoint.operator<<(os);
+    return os;
+}
+
 }
