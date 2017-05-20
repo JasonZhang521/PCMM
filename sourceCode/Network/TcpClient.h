@@ -17,12 +17,12 @@ public:
     TcpClient(const IpSocketEndpoint& localEndpoint);
     ~TcpClient();
     virtual TcpClientResult init();
-    virtual TcpClientResult connect(const IpSocketEndpoint& remodeEndpoint);
-    virtual TcpClientResult send(const ITcpSendBuf&);
-    virtual TcpClientResult receive(ITcpReceiveBuf&);
+    virtual TcpClientResult connect();
+    virtual TcpClientResult send(const Serialize::WriteBuffer&);
+    virtual TcpClientResult receive(Serialize::ReadBuffer&);
     virtual TcpClientResult disconnect();
     virtual TcpClientResult cleanup();
-    virtual void run();
+    virtual void run(); 
 
 public:
      GETCLASSNAME(SocketImp)

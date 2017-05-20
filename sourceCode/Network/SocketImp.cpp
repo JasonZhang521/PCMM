@@ -29,8 +29,13 @@ std::string SocketImp::getErrorInfo()
     const int Errno = GetLastSocketErrorNo();
     const std::string ErrorInfo = GetSocketErrorMessageFromErrorCode(Errno);
     std::stringstream ss;
-    ss << "Errno = " << Errno << ", errorInfo = " << ErrorInfo;
+    ss << "errno = " << Errno << ", errorInfo = " << ErrorInfo;
     return ss.str();
+}
+
+int SocketImp::getErrorNo()
+{
+    return GetLastSocketErrorNo();
 }
 
 }

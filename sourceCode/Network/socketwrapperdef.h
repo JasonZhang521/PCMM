@@ -12,11 +12,19 @@
 #endif
 
 #define UNSUPPORTED_SOCKET_VERION 0X7FFFFFFF
+
+#ifdef WIN32
 #define SOCKET_SUCCESS 0
 
 #ifndef SOCKET_ERROR
 #define SOCKET_ERROR -1
 #endif
+
+#else
+#define SOCKET_SUCCESS 0
+#define SOCKET_ERROR -1
+#endif
+
 
 namespace Network {
 
