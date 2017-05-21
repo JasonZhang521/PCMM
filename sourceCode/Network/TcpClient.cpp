@@ -15,15 +15,16 @@ TcpClient::~TcpClient()
 {
 }
 
-TcpClientResult TcpClient::init()
+TcpResult TcpClient::init()
 {
+    TRACE_ENTER();
     socket_.init();
-    return TcpClientResult::Success;
+    return TcpResult::Success;
 }
 
-TcpClientResult TcpClient::connect()
+TcpResult TcpClient::connect()
 {
-    TRACE_DEBUG("localEndpoint:" << socket_.getLocalEndpoint() << ", remoteEndpoint:" << remoteEndpoint);
+    TRACE_DEBUG("localEndpoint:" << socket_.getLocalEndpoint() << ", remoteEndpoint:" << socket_.getRemoteEndpoint());
 
     int ret = socket_.connect();
 
@@ -33,73 +34,73 @@ TcpClientResult TcpClient::connect()
         {
             TRACE_NOTICE(socket_.getErrorInfo());
             state_ = TcpState::Tcp_Connecting;
-            return TcpClientResult::Success;
+            return TcpResult::Success;
         }
         else
         {
             TRACE_WARNING(socket_.getErrorInfo());
-            return TcpClientResult::Failed;
+            return TcpResult::Failed;
         }
     }
     else
     {
-        return TcpClientResult::Success;
+        return TcpResult::Success;
     }
 }
 
-TcpClientResult TcpClient::send(const Serialize::WriteBuffer& buffer)
+TcpResult TcpClient::send(const Serialize::WriteBuffer& buffer)
 {
     TRACE_ENTER();
     if (SOCKET_ERROR == socket_.send(buffer.getBuffer(), buffer.getDataSize(), SOCKET_FLAG_NONE))
     {
         TRACE_NOTICE(socket_.getErrorInfo());
-        return TcpClientResult::Failed;
+        return TcpResult::Failed;
     }
     else
     {
-        return TcpClientResult::Success;
+        return TcpResult::Success;
     }
 }
 
-TcpClientResult TcpClient::receive(Serialize::ReadBuffer& buffer)
+TcpResult TcpClient::receive(Serialize::ReadBuffer& buffer)
 {
     TRACE_ENTER();
     if (SOCKET_ERROR == socket_.recv(buffer.getBuffer(), buffer.getBufferSize(), SOCKET_FLAG_NONE))
     {
         TRACE_NOTICE(socket_.getErrorInfo());
-        return TcpClientResult::Failed;
+        return TcpResult::Failed;
     }
     else
     {
-        return TcpClientResult::Success;
+        return TcpResult::Success;
     }
 }
 
-TcpClientResult TcpClient::disconnect()
+TcpResult TcpClient::disconnect()
 {
     TRACE_ENTER();
     if (SOCKET_ERROR == socket_.close())
     {
         TRACE_NOTICE(socket_.getErrorInfo());
-        return TcpClientResult::Failed;
+        return TcpResult::Failed;
     }
     else
     {
-        return TcpClientResult::Success;
+        return TcpResult::Success;
     }
 }
 
-TcpClientResult TcpClient::cleanup()
+TcpResult TcpClient::cleanup()
 {
     TRACE_ENTER();
     if (SOCKET_ERROR == socket_.shutdown(SOCKET_SD_BOTH))
     {
         TRACE_NOTICE(socket_.getErrorInfo());
-        return TcpClientResult::Failed;
+        return TcpResult::Failed;
     }
     else
     {
-        return TcpClientResult::Success;
+        return TcpResult::Success;
     }
 }
 

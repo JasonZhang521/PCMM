@@ -7,18 +7,31 @@
 
 namespace Network {
 
+enum class TcpSocketType
+{
+    TcpServer, // Socket as Server
+    TcpClient, // Socket as Client
+    TcpServerClient // Socket as accept client in Server
+};
+
 class TcpSocket : public SocketImp
 {
+    TcpSocketType type_;
     IpSocketEndpoint localEndpoint_;
     IpSocketEndpoint remoteEndpoint_;
 public:
+    // For server
+    TcpSocket(const IpSocketEndpoint& localEndpoint);
+    // For accept client for server
+    TcpSocket(const SocketAddressFamily& family, const SocketHandle& fd);
+    // For client
     TcpSocket(const IpSocketEndpoint& localEndpoint, const IpSocketEndpoint& remoteEndpoint);
     inline const IpSocketEndpoint& getLocalEndpoint() const {return localEndpoint_;}
     inline const IpSocketEndpoint& getRemoteEndpoint() const {return remoteEndpoint_;}
 
     int bind() const;
     int connect() const;
-    int accept(SocketFlag flags) const;
+    int accept(IpSocketEndpoint& remoteEndPoint, SocketFlag flag) const;
 
 public:
      GETCLASSNAME(SocketImp)

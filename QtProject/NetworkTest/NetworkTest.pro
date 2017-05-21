@@ -35,7 +35,9 @@ SOURCES += main.cpp \
     ../../sourceCode/Network/TcpSocket.cpp \
     ../../sourceCode/Network/SocketImp.cpp \
     ../../sourceCode/Network/TcpClient.cpp \
-    ../../sourceCode/EventHandler/IEvent.cpp
+    ../../sourceCode/EventHandler/IEvent.cpp \
+    ../../sourceCode/Network/ITcpServer.cpp \
+    ../../sourceCode/Network/TcpServer.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -82,7 +84,10 @@ HEADERS += \
     ../../sourceCode/Network/TcpClient.h \
     ../../sourceCode/EventHandler/IEvent.h \
     ../../sourceCode/Network/TcpState.h \
-    ../../sourceCode/Network/SocketWrapperDef.h
+    ../../sourceCode/Network/SocketWrapperDef.h \
+    ../../sourceCode/Network/ITcpServer.h \
+    ../../sourceCode/Network/TcpResult.h \
+    ../../sourceCode/Network/TcpServer.h
 
 
 LIBS += -lWs2_32

@@ -14,14 +14,14 @@ class TcpClient : public ITcpClient, public EventHandler::IEvent
     TcpSocket socket_;
     TcpState state_;
 public:
-    TcpClient(const IpSocketEndpoint& localEndpoint);
+    TcpClient(const IpSocketEndpoint& localEndpoint, const IpSocketEndpoint& remoteEndpoint);
     ~TcpClient();
-    virtual TcpClientResult init();
-    virtual TcpClientResult connect();
-    virtual TcpClientResult send(const Serialize::WriteBuffer&);
-    virtual TcpClientResult receive(Serialize::ReadBuffer&);
-    virtual TcpClientResult disconnect();
-    virtual TcpClientResult cleanup();
+    virtual TcpResult init();
+    virtual TcpResult connect();
+    virtual TcpResult send(const Serialize::WriteBuffer&);
+    virtual TcpResult receive(Serialize::ReadBuffer&);
+    virtual TcpResult disconnect();
+    virtual TcpResult cleanup();
     virtual void run(); 
 
 public:

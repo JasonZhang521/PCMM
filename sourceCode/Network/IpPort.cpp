@@ -71,4 +71,14 @@ std::ostream& IpPort::operator<<(std::ostream& os) const
     return os;
 }
 
+void IpPort::setPort(unsigned short port)
+{
+    port_ = port;
+}
+
+unsigned short IpPort::getPort() const
+{
+    return port_;
+}
+
 }

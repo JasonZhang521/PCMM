@@ -23,6 +23,8 @@ public:
     std::string toString() const;
     std::ostream& operator<<(std::ostream& os) const;
 
+    void setPort(unsigned short port);
+    unsigned short getPort() const;
 public:
     static const IpPort Null;
 };

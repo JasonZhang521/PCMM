@@ -3,8 +3,22 @@
 
 namespace Network {
 
+TcpSocket::TcpSocket(const IpSocketEndpoint& localEndpoint)
+    :SocketImp(localEndpoint.getSocketAddressFamily(), SOCKET_SOCK_STREAM, SOCKET_IPPROTO_TCP)
+    ,type_(TcpSocketType::TcpServer)
+    ,localEndpoint_(localEndpoint)
+{
+}
+
+TcpSocket::TcpSocket(const SocketAddressFamily& family, const SocketHandle& fd)
+    :SocketImp(family, SOCKET_SOCK_STREAM, SOCKET_IPPROTO_TCP, fd)
+    ,type_(TcpSocketType::TcpServerClient)
+{
+}
+
 TcpSocket::TcpSocket(const IpSocketEndpoint& localEndpoint, const IpSocketEndpoint& remoteEndpoint)
     :SocketImp(localEndpoint.getSocketAddressFamily(), SOCKET_SOCK_STREAM, SOCKET_IPPROTO_TCP)
+    ,type_(TcpSocketType::TcpClient)
     ,localEndpoint_(localEndpoint), remoteEndpoint_(remoteEndpoint)
 {
     TRACE_DEBUG("localEndpoint:" << localEndpoint << ", remoteEndpoint:" << remoteEndpoint);
@@ -51,17 +65,26 @@ int TcpSocket::connect() const
     }
 }
 
-int TcpSocket::accept(SocketFlag flags) const
+int TcpSocket::accept(IpSocketEndpoint& remoteEndPoint, SocketFlag flags) const
 {
-    if (IPFamilyType::IPFamilyV4 == remoteEndpoint_.getSocketAddressFamily())
+    if (IPFamilyType::IPFamilyV4 == localEndpoint_.getSocketAddressFamily())
     {
-        SocketInetAddress address = remoteEndpoint_.getIpAddress().getAddressIpv4();
-        return SocketImp::accept(reinterpret_cast<SocketAddress*>(&address), sizeof(SocketAddress), flags);
+        SocketAddresstLength len = 0;
+        SocketAddress address;
+
+        int fd = SocketImp::accept(&address, &len, flags);
+        remoteEndPoint = IpSocketEndpoint(IpAddress(getInetAddressFromSocketAddress(address)),
+                                          IpPort(SocketAddressToAddressIn(address).sin_port));
+        return fd;
     }
-    else if(IPFamilyType::IPFamilyV6 == remoteEndpoint_.getSocketAddressFamily())
+    else if(IPFamilyType::IPFamilyV6 == localEndpoint_.getSocketAddressFamily())
     {
-       SocketInet6Address address = remoteEndpoint_.getIpAddress().getAddressIpv6();
-       return SocketImp::accept(reinterpret_cast<SocketAddress*>(&address), sizeof(SocketAddress), flags);
+        SocketAddress address;
+        SocketAddresstLength len = 0;
+        int fd = SocketImp::accept(&address, &len, flags);
+        remoteEndPoint = IpSocketEndpoint(IpAddress(getInet6AddressFromSocketAddress(address)),
+                                          IpPort(SocketAddressToAddressIn6(address).sin6_port));
+        return fd;
     }
     else
     {

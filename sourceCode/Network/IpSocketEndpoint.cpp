@@ -2,6 +2,8 @@
 #include <stdexcept>
 namespace Network {
 
+const IpSocketEndpoint IpSocketEndpoint::Null;
+
 IpSocketEndpoint::IpSocketEndpoint()
 {
 }
@@ -21,6 +23,26 @@ IpSocketEndpoint::IpSocketEndpoint(const IpAddress& ipAddress, const IpPort& ipP
 IpSocketEndpoint::IpSocketEndpoint(const std::string& ipAndPort)
 {
     parse(ipAndPort);
+}
+
+IpSocketEndpoint::IpSocketEndpoint(const SocketAddress& socketAddress)
+{
+    if (socketAddress.sa_family == SOCKET_AF_INET)
+    {
+        const SocketAddressIn* addr = reinterpret_cast<const SocketAddressIn*>(&socketAddress);
+        ipAddress_.setAddressIpv4(addr->sin_addr);
+        ipPort_.setPort(addr->sin_port);
+    }
+    else if (socketAddress.sa_family == SOCKET_AF_INET6)
+    {
+        const SocketAddressIn6* addr = reinterpret_cast<const SocketAddressIn6*>(&socketAddress);
+        ipAddress_.setAddressIpv6(addr->sin6_addr);
+        ipPort_.setPort(addr->sin6_family);
+    }
+    else
+    {
+        throw std::invalid_argument("Invalid format of ip socket address family");
+    }
 }
 
 void IpSocketEndpoint::parse(const std::string& ipAndPort)
@@ -137,6 +159,16 @@ IpAddress IpSocketEndpoint::getIpAddress() const
 IpPort IpSocketEndpoint::getIpPort() const
 {
     return ipPort_;
+}
+
+void IpSocketEndpoint::setIpAddress(const IpAddress& address)
+{
+    ipAddress_ = address;
+}
+
+void IpSocketEndpoint::setIpPort(const IpPort& port)
+{
+    ipPort_ = port;
 }
 
 std::ostream& operator<<(std::ostream& os, const IpSocketEndpoint& ipSocketEndpoint)

@@ -1,5 +1,4 @@
 #include "SocketImp.h"
-#include "AppConst.h"
 #include "Trace.h"
 #include <sstream>
 namespace Network {
@@ -19,9 +18,19 @@ SocketImp::SocketImp(const SocketAddressFamily& addrFamily,
     fd_ = CreateSocket(addrFamily, type, protocol);
 }
 
+SocketImp::SocketImp(const SocketAddressFamily& addrFamily,
+          const SocketType& type,
+          const SocketProtocol& protocol,
+          const SocketHandle& fd)
+    :addrFamily_(addrFamily)
+    ,type_(type)
+    ,protocol_(protocol)
+    ,fd_(fd)
+{
+}
+
 SocketImp::~SocketImp()
 {
-
 }
 
 std::string SocketImp::getErrorInfo()

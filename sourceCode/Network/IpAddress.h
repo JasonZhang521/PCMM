@@ -40,6 +40,8 @@ public:
 
     const SocketInetAddress& getAddressIpv4() const;
     const SocketInet6Address& getAddressIpv6() const;
+    void setAddressIpv4(const SocketInetAddress& ipv4Addr);
+    void setAddressIpv6(const SocketInet6Address& ipv6Addr);
     IPFamilyType getIPFamilyType() const;
 
     bool operator==(const IpAddress& other) const;

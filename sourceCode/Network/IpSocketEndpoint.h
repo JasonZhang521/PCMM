@@ -18,6 +18,8 @@ public:
     IpSocketEndpoint(const IpAddress& ipAddress, const IpPort& ipPort);
     // IpSocketEndpoint endpoint("10.35.127.80:22");
     IpSocketEndpoint(const std::string& ipAndPort);
+    IpSocketEndpoint(const SocketAddress& socketAddress);
+
     IpSocketEndpoint& operator=(const IpSocketEndpoint& ipSocketEndpoint);
     bool operator==(const IpSocketEndpoint& ipSocketEndpoint);
     bool operator!=(const IpSocketEndpoint& ipSocketEndpoint);
@@ -32,10 +34,15 @@ public:
     SocketAddressFamily getSocketAddressFamily() const;
     IpAddress getIpAddress() const;
     IpPort getIpPort() const;
+    void setIpAddress(const IpAddress& address);
+    void setIpPort(const IpPort& port);
 
 private:
     void parse(const std::string& ipAndPort);
     void parseIpAndPortV4(const std::string& ipAndPort);
+
+public:
+    static const IpSocketEndpoint Null;
 };
 
 std::ostream& operator<<(std::ostream& os, const IpSocketEndpoint& ipSocketEndpoint);

@@ -106,6 +106,18 @@ const SocketInet6Address& IpAddress::getAddressIpv6() const
     return addr_.ipv6;
 }
 
+void IpAddress::setAddressIpv4(const SocketInetAddress& ipv4Addr)
+{
+    addr_.ipv4 = ipv4Addr;
+    ipType_ = IPFamilyV4;
+}
+
+void IpAddress::setAddressIpv6(const SocketInet6Address& ipv6Addr)
+{
+    addr_.ipv6 = ipv6Addr;
+    ipType_ = IPFamilyV6;
+}
+
 IPFamilyType IpAddress::getIPFamilyType() const
 {
     return ipType_;

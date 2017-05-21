@@ -14,6 +14,10 @@ class SocketImp
     SocketHandle fd_;
 public:
     SocketImp(const SocketAddressFamily& addrFamily,
+              const SocketType& type,
+              const SocketProtocol& protocol,
+              const SocketHandle& fd);
+    SocketImp(const SocketAddressFamily& addrFamily,
            const SocketType& type,
            const SocketProtocol& protocol);
     ~SocketImp();
@@ -54,9 +58,9 @@ public:
         return Shutdown(fd_, how);
     }
 
-    inline int accept(SocketAddress* clientAddr, SocketAddresstLength& addrLen, SocketFlag flags) const
+    inline int accept(SocketAddress* clientAddr, SocketAddresstLength* addrLen, SocketFlag flags) const
     {
-        return Accept(fd_, clientAddr, &addrLen, flags);
+        return Accept(fd_, clientAddr, addrLen, flags);
     }
 
     inline int listen(int backlog) const

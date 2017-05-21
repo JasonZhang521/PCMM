@@ -7,6 +7,28 @@
 
 namespace Network {
 
+// Ip address handling
+inline SocketAddressIn& SocketAddressToAddressIn(SocketAddress& address)
+{
+    return *reinterpret_cast<SocketAddressIn*>(&address);
+}
+
+inline SocketAddressIn6& SocketAddressToAddressIn6(SocketAddress& address)
+{
+    return *reinterpret_cast<SocketAddressIn6*>(&address);
+}
+
+inline SocketInetAddress& getInetAddressFromSocketAddress(SocketAddress& address)
+{
+    return *reinterpret_cast<SocketInetAddress*>(&SocketAddressToAddressIn(address).sin_addr);
+}
+
+inline SocketInet6Address& getInet6AddressFromSocketAddress(SocketAddress& address)
+{
+    return *reinterpret_cast<SocketInet6Address*>(&SocketAddressToAddressIn6(address).sin6_addr);
+}
+// Ip address handling end
+
 #ifdef WIN32
 
 int InitSocket();
