@@ -53,17 +53,35 @@ TcpResult TcpServer::accept(int flag)
 
 TcpResult TcpServer::disconnect()
 {
-
+    TRACE_ENTER();
+    if (SOCKET_ERROR == socket_.close())
+    {
+        TRACE_NOTICE(socket_.getErrorInfo());
+        return TcpResult::Failed;
+    }
+    else
+    {
+        return TcpResult::Success;
+    }
 }
 
 TcpResult TcpServer::cleanup()
 {
-
+    TRACE_ENTER();
+    if (SOCKET_ERROR == socket_.shutdown(SOCKET_SD_BOTH))
+    {
+        TRACE_NOTICE(socket_.getErrorInfo());
+        return TcpResult::Failed;
+    }
+    else
+    {
+        return TcpResult::Success;
+    }
 }
 
-void TcpServer::run()
+void TcpServer::run(EventHandler::EventFlag flag)
 {
-
+    static_cast<void>(flag);
 }
 
 }

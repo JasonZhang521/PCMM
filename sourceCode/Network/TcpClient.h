@@ -22,7 +22,7 @@ public:
     virtual TcpResult receive(Serialize::ReadBuffer&);
     virtual TcpResult disconnect();
     virtual TcpResult cleanup();
-    virtual void run(); 
+    virtual void run(EventHandler::EventFlag flag = EventHandler::EventFlag::Event_NoFlag);
 
 public:
      GETCLASSNAME(SocketImp)

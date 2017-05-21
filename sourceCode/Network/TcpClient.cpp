@@ -104,9 +104,9 @@ TcpResult TcpClient::cleanup()
     }
 }
 
-void TcpClient::run()
+void TcpClient::run(EventHandler::EventFlag flag)
 {
-
+    static_cast<void>(flag);
 }
 
 }
