@@ -38,7 +38,9 @@ SOURCES += main.cpp \
     ../../sourceCode/EventHandler/IEvent.cpp \
     ../../sourceCode/Network/ITcpServer.cpp \
     ../../sourceCode/Network/TcpServer.cpp \
-    ../../sourceCode/EventHandler/IEventQueue.cpp
+    ../../sourceCode/EventHandler/IEventQueue.cpp \
+    ../../sourceCode/EventHandler/EventIdGenerator.cpp \
+    ../../sourceCode/EventHandler/ListEventQueue.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -89,7 +91,9 @@ HEADERS += \
     ../../sourceCode/Network/ITcpServer.h \
     ../../sourceCode/Network/TcpResult.h \
     ../../sourceCode/Network/TcpServer.h \
-    ../../sourceCode/EventHandler/IEventQueue.h
+    ../../sourceCode/EventHandler/IEventQueue.h \
+    ../../sourceCode/EventHandler/EventIdGenerator.h \
+    ../../sourceCode/EventHandler/ListEventQueue.h
 
 
 LIBS += -lWs2_32
