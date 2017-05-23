@@ -203,6 +203,16 @@ bool SshClientSession::getFile(const std::string& remoteFile, const std::string&
     return sftpSession_->getFile(remoteFile, localDir);
 }
 
+bool SshClientSession::getFileFromLastPos(const std::string& remoteFile, const std::string& localFile)
+{
+    if (sftpSession_ == NULL)
+    {
+        TRACE_WARNING("Ssh ftp session is NULL");
+        App::ExitNormal();
+    }
+    return sftpSession_->getFileFromLastPos(remoteFile, localFile);
+}
+
 bool SshClientSession::putFile(const std::string& localFile, const std::string& remoteDir)
 {
     if (sftpSession_ == NULL)
@@ -221,6 +231,26 @@ bool SshClientSession::listDir(const std::string& dirPath, SftpDirAttributes& di
         App::ExitNormal();
     }
     return sftpSession_->listDir(dirPath, dirAttributes);
+}
+
+bool SshClientSession::isRemoteFileExist(const std::string& remoteFile)
+{
+    if (sftpSession_ == NULL)
+    {
+        TRACE_WARNING("Ssh ftp session is NULL");
+        App::ExitNormal();
+    }
+    return sftpSession_->isRemoteFileExist(remoteFile);
+}
+
+bool SshClientSession::renameRemoteFile(const std::string& srcFile, const std::string& dstFile)
+{
+    if (sftpSession_ == NULL)
+    {
+        TRACE_WARNING("Ssh ftp session is NULL");
+        App::ExitNormal();
+    }
+    return sftpSession_->renameRemoteFile(srcFile, dstFile);
 }
 
 bool SshClientSession::shutdownFtpSessionl()

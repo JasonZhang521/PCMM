@@ -108,5 +108,4 @@ std::ostream& operator<<(std::ostream& os, ITimerQueue* timerQueue)
     return timerQueue->operator <<(os);
 }
 
-
 }

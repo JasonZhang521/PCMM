@@ -11,9 +11,9 @@
 using namespace SshWrapper;
 
 
-bool parseFileNameFromCommond(const std::string& inputCommand, std::string& fileName)
+bool parseFileNameFromCommond(size_t pos, const std::string& inputCommand, std::string& fileName)
 {
-    size_t startPos = 3;
+    size_t startPos = pos;
     if (inputCommand[startPos] != ' ')
     {
         return false;
@@ -80,7 +80,9 @@ int main(int argc, char *argv[])
     std::cout << "Input cmd:\n"
               << "(1) [ls]: list the Dir\n"
               << "(2) [put file]: upload file\n"
-              << "(3) [get file]: download file\n";
+              << "(3) [get file]: download file\n"
+              << "(4) [getc file]: download file continue\n"
+              << "(5) [mv srcFile dstFile]: mv srcFile dstFile\n" << std::endl;
 
 	std::string inputString;
 	while (inputString != std::string("exit"))
@@ -89,6 +91,10 @@ int main(int argc, char *argv[])
         std::fill(ch, ch + 256, 0);
 		std::cout << "Input command:";
 		std::cin.getline(ch, 255);
+        if (ch[0] == 0)
+        {
+            continue;
+        }
 		std::cout << "[" << ch << "]" << std::endl;
 		inputString = ch;
         bool isError = false;
@@ -98,10 +104,24 @@ int main(int argc, char *argv[])
             isError = !client->listDir(std::string("."), attributes);
 	        std::cout << attributes << std::endl;
 		}
+        else if(inputString.substr(0, 4) == std::string("getc") && inputString.size() > 5)
+        {
+            std::string downFile;
+            if (parseFileNameFromCommond(4, inputString, downFile))
+            {
+                std::cout << "download file:" << downFile << std::endl;
+                isError = !client->getFileFromLastPos(downFile, downFile);
+            }
+            else
+            {
+                isError = true;
+            }
+            std::cout << "end download file:" << downFile << std::endl;
+        }
         else if(inputString.substr(0, 3) == std::string("get") && inputString.size() > 4)
 		{
             std::string downFile;
-            if (parseFileNameFromCommond(inputString, downFile))
+            if (parseFileNameFromCommond(3, inputString, downFile))
             {
                 isError = !client->getFile(downFile, ".");
             }
@@ -113,7 +133,7 @@ int main(int argc, char *argv[])
         else if (inputString.substr(0, 3) == std::string("put") && inputString.size() > 4)
 		{
             std::string upFile;
-            if (parseFileNameFromCommond(inputString, upFile))
+            if (parseFileNameFromCommond(3, inputString, upFile))
             {
                 std::cout << "inputString:" << inputString << ", uploadFile: " << upFile << std::endl;
                 isError = !client->putFile(upFile, ".");
@@ -122,6 +142,10 @@ int main(int argc, char *argv[])
             {
                 isError = true;
             }
+        }
+        else if (inputString.substr(0, 2) == std::string("mv") && inputString.size() > 5)
+        {
+
         }
         else
         {
@@ -134,7 +158,8 @@ int main(int argc, char *argv[])
             std::cout << "Input cmd:\n"
                       << "(1) [ls]: list the Dir\n"
                       << "(2) [put file]: upload file\n"
-                      << "(3) [get file]: download file"
+                      << "(3) [get file]: download file\n"
+                      << "(4) [getc file]: download file continue\n"
                       << std::endl;
         }
 	}

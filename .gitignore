@@ -5,3 +5,4 @@ QtProject/build*
 *.swp
 sourseCode/dynamic_lib/ssh
 *.autosave
+*.pump

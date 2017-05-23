@@ -6,7 +6,7 @@ uint64_t TimerIdGenerator::timerId = 0;
 
 uint64_t TimerIdGenerator::generateTimerId()
 {
-    return timerId++;
+    return ++timerId;
 }
 
 }
