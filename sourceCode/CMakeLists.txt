@@ -21,8 +21,11 @@ add_subdirectory(SshWrapper)
 add_subdirectory(libssh_demo)
 add_subdirectory(EventHandler)
 add_subdirectory(TimeHandler)
+add_subdirectory(Network)
+add_subdirectory(Serialize)
 
 #Unit test
 add_subdirectory(ConfigureTest)
 add_subdirectory(TraceLogTest)
 add_subdirectory(SshWrapperTest)
+add_subdirectory(SerializeTest)
