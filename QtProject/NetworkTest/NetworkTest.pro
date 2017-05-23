@@ -42,7 +42,8 @@ SOURCES += main.cpp \
     ../../sourceCode/EventHandler/IEventQueue.cpp \
     ../../sourceCode/EventHandler/EventIdGenerator.cpp \
     ../../sourceCode/EventHandler/ListEventQueue.cpp \
-    ../../sourceCode/TimeHandler/TimeStat.cpp
+    ../../sourceCode/TimeHandler/TimeStat.cpp \
+    ../../sourceCode/TimeHandler/SystemTime.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -97,7 +98,8 @@ HEADERS += \
     ../../sourceCode/EventHandler/EventIdGenerator.h \
     ../../sourceCode/EventHandler/ListEventQueue.h \
     ../../sourceCode/TimeHandler/TimeStat.h \
-    ../../sourceCode/EventHandler/Component.h
+    ../../sourceCode/EventHandler/Component.h \
+    ../../sourceCode/TimeHandler/SystemTime.h
 
 
 LIBS += -lWs2_32
