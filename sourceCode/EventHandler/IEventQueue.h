@@ -1,7 +1,11 @@
 #ifndef IEVENTQUEUE_H
 #define IEVENTQUEUE_H
+#include <stdint.h>
+#include <ostream>
 
 namespace EventHandler {
+
+class IEvent;
 
 class IEventQueue
 {

@@ -1,6 +1,7 @@
 #ifndef TCPSERVER_H
 #define TCPSERVER_H
 #include "ITcpServer.h"
+#include "ITcpClient.h"
 #include "IEvent.h"
 #include "TcpSocket.h"
 #include "TcpState.h"

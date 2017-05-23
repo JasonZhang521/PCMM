@@ -6,4 +6,9 @@ IEventQueue::IEventQueue()
 
 }
 
+IEventQueue::~IEventQueue()
+{
+
+}
+
 }
