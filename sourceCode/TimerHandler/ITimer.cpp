@@ -1,6 +1,6 @@
 #include "ITimer.h"
 
-namespace TimeHandler {
+namespace TimerHandler {
 
 ITimer::ITimer()
 {

@@ -1,11 +1,11 @@
-#ifndef LISTTIMERQUEUE_H
-#define LISTTIMERQUEUE_H
+#ifndef _TIMER_LISTTIMERQUEUE_H_
+#define _TIMER_LISTTIMERQUEUE_H_
 #include "ITimerQueue.h"
 #include "Component.h"
 #include "Macro.h"
 #include <list>
 
-namespace TimeHandler {
+namespace TimerHandler {
 class ITimer;
 
 class ListTimerQueue : public ITimerQueue
@@ -27,4 +27,4 @@ public:
 
 }
 
-#endif // LISTTIMERQUEUE_H
+#endif // _TIMER_LISTTIMERQUEUE_H_

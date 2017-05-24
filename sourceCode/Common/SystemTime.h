@@ -3,7 +3,6 @@
 
 #include "stdint.h"
 
-namespace TimeHandler {
 
 class SystemTime
 {
@@ -12,7 +11,5 @@ public:
     static uint64_t currentTimeStampAsMillisecond();
     static uint64_t expiredTimeStampAsMillisecond(uint32_t intervalAsMillisecond);
 };
-
-}
 
 #endif // _TIMEHANDLER_SYSTEMTIME_H_

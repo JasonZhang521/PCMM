@@ -6,7 +6,7 @@
 #include "AppConst.h"
 #include "Trace.h"
 
-namespace TimeHandler {
+namespace TimerHandler {
 
 ListTimerQueue::ListTimerQueue()
 {

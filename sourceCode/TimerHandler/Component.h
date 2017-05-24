@@ -1,9 +1,9 @@
-#ifndef COMPONENT_H
-#define COMPONENT_H
+#ifndef _TIMERHANDLER_COMPONENT_H_
+#define _TIMERHANDLER_COMPONENT_H_
 
 #include <string>
-namespace TimeHandler {
+namespace TimerHandler {
 inline static std::string component(){return std::string("SshWrapper");}
 }
 
-#endif // COMPONENT_H
+#endif // _TIMERHANDLER_COMPONENT_H_

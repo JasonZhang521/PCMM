@@ -1,6 +1,6 @@
 #include "ITimerQueue.h"
 
-namespace TimeHandler {
+namespace TimerHandler {
 
 
 ITimerQueue::ITimerQueue()

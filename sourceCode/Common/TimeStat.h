@@ -3,8 +3,6 @@
 
 #include <stdint.h>
 
-namespace TimeHandler {
-
 class TimeStat
 {
     uint64_t startTime_;
@@ -15,5 +13,4 @@ public:
     uint64_t getElapseTimeAsSecond();
 };
 
-}
 #endif // _TIMEHANDLER_TIMESTAT_H_

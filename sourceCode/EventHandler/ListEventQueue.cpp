@@ -39,10 +39,10 @@ void ListEventQueue::deleteEvent(uint64_t eventID)
 
 void ListEventQueue::executeEvents()
 {
-    TimeHandler::TimeStat totalStat;
+    TimeStat totalStat;
     while (!eventsList_.empty())
     {
-        TimeHandler::TimeStat singleStat;
+        TimeStat singleStat;
         IEvent* event = eventsList_.front();
         eventsList_.pop_front();
         event->run();

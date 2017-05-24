@@ -9,28 +9,34 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
-INCLUDEPATH += ../../sourceCode/TimeHandler
+INCLUDEPATH += ../../sourceCode/TimerHandler
 INCLUDEPATH += ../../sourceCode/EventHandler
 INCLUDEPATH += ../../sourceCode/Common
 INCLUDEPATH += ../../sourceCode/TraceLog
 INCLUDEPATH += ../../sourceCode/Configure
 
 SOURCES += main.cpp \
-    ../../sourceCode/TimeHandler/SystemTime.cpp \
-    ../../sourceCode/TimeHandler/ITimer.cpp \
+    ../../sourceCode/TimerHandler/ITimer.cpp \
     ../../sourceCode/EventHandler/IEvent.cpp \
-    ../../sourceCode/TimeHandler/EventTimer.cpp \
-    ../../sourceCode/TimeHandler/TimeStat.cpp \
-    ../../sourceCode/TimeHandler/ITimerQueue.cpp \
-    ../../sourceCode/TimeHandler/TimerIdGenerator.cpp \
-    ../../sourceCode/TimeHandler/ListTimerQueue.cpp \
+    ../../sourceCode/TimerHandler/EventTimer.cpp \
+    ../../sourceCode/TimerHandler/ITimerQueue.cpp \
+    ../../sourceCode/TimerHandler/TimerIdGenerator.cpp \
+    ../../sourceCode/TimerHandler/ListTimerQueue.cpp \
     ../../sourceCode/Common/FilePathHandler.cpp \
     ../../sourceCode/Common/LocalTime.cpp \
     ../../sourceCode/Common/remove_character.cpp \
     ../../sourceCode/Common/replace_character.cpp \
     ../../sourceCode/Configure/Configure.cpp \
     ../../sourceCode/Configure/ExceptionConfigure.cpp \
-    ../../sourceCode/Configure/TraceLogConfigure.cpp
+    ../../sourceCode/Configure/TraceLogConfigure.cpp \
+    ../../sourceCode/TimerHandler/EventTimer.cpp \
+    ../../sourceCode/TimerHandler/ITimer.cpp \
+    ../../sourceCode/TimerHandler/ITimerQueue.cpp \
+    ../../sourceCode/TimerHandler/ListTimerQueue.cpp \
+    ../../sourceCode/TimerHandler/TimerIdGenerator.cpp \
+    ../../sourceCode/Common/Random.cpp \
+    ../../sourceCode/Common/SystemTime.cpp \
+    ../../sourceCode/Common/TimeStat.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -44,14 +50,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 HEADERS += \
-    ../../sourceCode/TimeHandler/SystemTime.h \
-    ../../sourceCode/TimeHandler/ITimer.h \
+    ../../sourceCode/TimerHandler/ITimer.h \
     ../../sourceCode/EventHandler/IEvent.h \
-    ../../sourceCode/TimeHandler/EventTimer.h \
-    ../../sourceCode/TimeHandler/TimeStat.h \
-    ../../sourceCode/TimeHandler/ITimerQueue.h \
-    ../../sourceCode/TimeHandler/TimerIdGenerator.h \
-    ../../sourceCode/TimeHandler/ListTimerQueue.h \
+    ../../sourceCode/TimerHandler/EventTimer.h \
+    ../../sourceCode/TimerHandler/ITimerQueue.h \
+    ../../sourceCode/TimerHandler/TimerIdGenerator.h \
+    ../../sourceCode/TimerHandler/ListTimerQueue.h \
     ../../sourceCode/TraceLog/Trace.h \
     ../../sourceCode/TraceLog/TraceBuf.h \
     ../../sourceCode/TraceLog/TraceConsole.h \
@@ -62,9 +66,19 @@ HEADERS += \
     ../../sourceCode/Common/Macro.h \
     ../../sourceCode/Common/remove_character.h \
     ../../sourceCode/Common/replace_character.h \
-    ../../sourceCode/TimeHandler/Component.h \
+    ../../sourceCode/TimerHandler/Component.h \
     ../../sourceCode/Common/AppConst.h \
     ../../sourceCode/Configure/Configure.h \
     ../../sourceCode/Configure/Configure_Define.h \
     ../../sourceCode/Configure/ExceptionConfigure.h \
-    ../../sourceCode/Configure/TraceLogConfigure.h
+    ../../sourceCode/Configure/TraceLogConfigure.h \
+    ../../sourceCode/TimerHandler/Component.h \
+    ../../sourceCode/TimerHandler/EventTimer.h \
+    ../../sourceCode/TimerHandler/ITimer.h \
+    ../../sourceCode/TimerHandler/ITimerQueue.h \
+    ../../sourceCode/TimerHandler/ListTimerQueue.h \
+    ../../sourceCode/TimerHandler/TimerIdGenerator.h \
+    ../../sourceCode/Common/generic.h \
+    ../../sourceCode/Common/Random.h \
+    ../../sourceCode/Common/SystemTime.h \
+    ../../sourceCode/Common/TimeStat.h

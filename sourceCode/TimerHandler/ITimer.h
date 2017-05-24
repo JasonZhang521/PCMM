@@ -1,9 +1,9 @@
-#ifndef _TIMEHANDLER_ITIMER_H_
-#define _TIMEHANDLER_ITIMER_H_
+#ifndef _TIMERHANDLER_ITIMER_H_
+#define _TIMERHANDLER_ITIMER_H_
 #include <stdint.h>
 #include <ostream>
 
-namespace TimeHandler {
+namespace TimerHandler {
 
 class ITimer
 {
@@ -21,4 +21,4 @@ std::ostream& operator<<(std::ostream& os, ITimer* timer);
 
 }
 
-#endif // _TIMEHANDLER_ITIMER_H_
+#endif // _TIMERHANDLER_ITIMER_H_

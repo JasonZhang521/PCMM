@@ -1,5 +1,5 @@
-#ifndef _TIMEHANDLER_EVENTTIMER_H_
-#define _TIMEHANDLER_EVENTTIMER_H_
+#ifndef _TIMERHANDLER_EVENTTIMER_H_
+#define _TIMERHANDLER_EVENTTIMER_H_
 
 #include "ITimer.h"
 #include <stdint.h>
@@ -7,7 +7,7 @@
 namespace EventHandler {
     class IEvent;
 }
-namespace TimeHandler {
+namespace TimerHandler {
 
 class EventTimer : public ITimer
 {
@@ -27,4 +27,4 @@ protected:
 
 }
 
-#endif // _TIMEHANDLER_EVENTTIMER_H_
+#endif // _TIMERHANDLER_EVENTTIMER_H_

@@ -3,7 +3,7 @@
 #include "SystemTime.h"
 #include "TimerIdGenerator.h"
 
-namespace TimeHandler {
+namespace TimerHandler {
 
 EventTimer::EventTimer(uint32_t interval, EventHandler::IEvent* event)
 : timerId_(TimerIdGenerator::generateTimerId())

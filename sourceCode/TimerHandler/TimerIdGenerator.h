@@ -1,8 +1,8 @@
-#ifndef _TIMEHANDLER_TIMERIDGENERATOR_H_
-#define _TIMEHANDLER_TIMERIDGENERATOR_H_
+#ifndef _TIMERHANDLER_TIMERIDGENERATOR_H_
+#define _TIMERHANDLER_TIMERIDGENERATOR_H_
 #include <stdint.h>
 
-namespace TimeHandler {
+namespace TimerHandler {
 
 class TimerIdGenerator
 {
@@ -16,4 +16,4 @@ public:
 
 }
 
-#endif // _TIMEHANDLER_TIMERIDGENERATOR_H_
+#endif // _TIMERHANDLER_TIMERIDGENERATOR_H_

@@ -1,6 +1,6 @@
 #include "TimerIdGenerator.h"
 
-namespace TimeHandler {
+namespace TimerHandler {
 
 uint64_t TimerIdGenerator::timerId = 0;
 

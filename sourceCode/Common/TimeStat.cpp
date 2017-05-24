@@ -1,8 +1,6 @@
 #include "TimeStat.h"
 #include "SystemTime.h"
 
-namespace TimeHandler {
-
 TimeStat::TimeStat()
 : startTime_(SystemTime::currentTimeStampAsMillisecond())
 {
@@ -23,6 +21,4 @@ uint64_t TimeStat::getElapseTimeAsMilliSecond()
 uint64_t TimeStat::getElapseTimeAsSecond()
 {
     return getElapseTimeAsMilliSecond() / 1000;
-}
-
 }
