@@ -3,7 +3,7 @@ QT -= gui
 
 CONFIG += c++11
 
-TARGET = TimeControl
+TARGET = TimerControl
 CONFIG += console
 CONFIG -= app_bundle
 
@@ -15,13 +15,7 @@ INCLUDEPATH += ../../sourceCode/Common
 INCLUDEPATH += ../../sourceCode/TraceLog
 INCLUDEPATH += ../../sourceCode/Configure
 
-SOURCES += main.cpp \
-    ../../sourceCode/TimerHandler/ITimer.cpp \
-    ../../sourceCode/EventHandler/IEvent.cpp \
-    ../../sourceCode/TimerHandler/EventTimer.cpp \
-    ../../sourceCode/TimerHandler/ITimerQueue.cpp \
-    ../../sourceCode/TimerHandler/TimerIdGenerator.cpp \
-    ../../sourceCode/TimerHandler/ListTimerQueue.cpp \
+SOURCES += ../../sourceCode/EventHandler/IEvent.cpp \
     ../../sourceCode/Common/FilePathHandler.cpp \
     ../../sourceCode/Common/LocalTime.cpp \
     ../../sourceCode/Common/remove_character.cpp \
@@ -50,12 +44,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 HEADERS += \
-    ../../sourceCode/TimerHandler/ITimer.h \
     ../../sourceCode/EventHandler/IEvent.h \
-    ../../sourceCode/TimerHandler/EventTimer.h \
-    ../../sourceCode/TimerHandler/ITimerQueue.h \
-    ../../sourceCode/TimerHandler/TimerIdGenerator.h \
-    ../../sourceCode/TimerHandler/ListTimerQueue.h \
     ../../sourceCode/TraceLog/Trace.h \
     ../../sourceCode/TraceLog/TraceBuf.h \
     ../../sourceCode/TraceLog/TraceConsole.h \
@@ -66,7 +55,6 @@ HEADERS += \
     ../../sourceCode/Common/Macro.h \
     ../../sourceCode/Common/remove_character.h \
     ../../sourceCode/Common/replace_character.h \
-    ../../sourceCode/TimerHandler/Component.h \
     ../../sourceCode/Common/AppConst.h \
     ../../sourceCode/Configure/Configure.h \
     ../../sourceCode/Configure/Configure_Define.h \
