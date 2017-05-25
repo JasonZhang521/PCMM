@@ -2,7 +2,8 @@
 #ifdef WIN32
 #include <algorithm>
 #else
-
+#include <string.h>
+#include <fcntl.h>
 #endif
 
 namespace Network {
@@ -106,7 +107,7 @@ int SetBlocking(SocketHandle sockfd, bool blocking)
     int ret = ioctlsocket(sockfd,FIONBIO, &ul);
     return ret;
 #else
-    int flags = ::fcntl(fd_, F_GETFL, 0);
+    int flags = ::fcntl(sockfd, F_GETFL, 0);
     flags = blocking ? flags & (~O_NONBLOCK) : flags | O_NONBLOCK;
     int res = ::fcntl(sockfd, F_SETFL, flags);
     return res;

@@ -7,8 +7,9 @@
 #else
 #include <sys/socket.h>
 #include <sys/types.h>
-#include <unistd.h>
 #include <poll.h>
+#include <errno.h>
+#include <netinet/in.h>
 #endif
 
 #define UNSUPPORTED_SOCKET_VERION 0X7FFFFFFF
@@ -25,8 +26,6 @@
 #define SOCKET_ERROR -1
 #endif
 
-
-namespace Network {
 
 #ifdef WIN32
 // type
@@ -127,12 +126,15 @@ const SocketShutDownFlag SOCKET_SD_BOTH = SD_BOTH;
 #else
 
 // type
+using SocketError = int;
 using SocketHandle = int;
 using SocketLength = socklen_t;
 using SocketAddressFamily = int;
 using SocketType = int;
 using SocketProtocol = int;
 using SocketAddress = struct sockaddr;
+using SocketAddressIn = struct sockaddr_in;
+using SocketAddressIn6 = struct sockaddr_in6;
 using SocketAddresstLength = socklen_t;
 using SocketFlag = int;
 using SocketDataSize = ssize_t;
@@ -184,6 +186,7 @@ const SocketAddressFamily SOCKET_AF_INET = AF_INET;
 const SocketAddressFamily SOCKET_AF_IPX = AF_IPX;
 const SocketAddressFamily SOCKET_AF_APPLETALK = AF_APPLETALK;
 const SocketAddressFamily SOCKET_AF_INET6 = AF_INET6;
+const SocketAddressFamily SOCKET_AF_UNSPEC = AF_UNSPEC;
 // Socket Address Family end
 
 // Socket Type
@@ -195,6 +198,16 @@ const SocketType SOCKET_SOCK_SEQPACKET = SOCK_SEQPACKET;
 const SocketType SOCKET_SOCK_NONBLOCK = SOCK_NONBLOCK;
 const SocketType SOCKET_SOCK_CLOEXEC = SOCK_CLOEXEC;
 // Socket Type end
+
+// Socket Protocol
+const SocketProtocol SOCKET_IPPROTO_ICMP = IPPROTO_ICMP;
+const SocketProtocol SOCKET_IPPROTO_IGMP = IPPROTO_IGMP;
+//const SocketProtocol SOCKET_BTHPROTO_RFCOMM = BTHPROTO_RFCOMM;
+const SocketProtocol SOCKET_IPPROTO_TCP = IPPROTO_TCP;
+const SocketProtocol SOCKET_IPPROTO_UDP = IPPROTO_UDP;
+const SocketProtocol SOCKET_IPPROTO_ICMPV6 = IPPROTO_ICMPV6;
+//const SocketProtocol SOCKET_IPPROTO_RM = IPPROTO_RM;
+// Socket Protocol end
 
 // Socket Flag
 const SocketFlag SOCKET_FLAG_NONE = 0;
@@ -225,5 +238,4 @@ const SocketPollEvent SOCKET_POLLNVAL = POLLNVAL;
 
 #endif
 
-}
 #endif // _NETWORK_SOCKETWRAPPERDEF_H_

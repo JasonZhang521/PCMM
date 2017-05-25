@@ -8,7 +8,8 @@
 namespace EventHandler {
 class IEvent;
 
-using EventList = std::list<IEvent*>;
+// using EventList = std::list<IEvent*>;
+typedef std::list<IEvent*> EventList;
 
 class ListEventQueue : public IEventQueue
 {

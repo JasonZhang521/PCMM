@@ -1,0 +1,6 @@
+#!/bin/sh
+cd /$HOME/GitHub/PCMM/script/
+cd ../build
+CMAKE_CXX_COMPILER=/usr/local/bin/g++
+CMAKE_C_COMPILER=/usr/local/bin/gcc
+cmake ../sourceCode

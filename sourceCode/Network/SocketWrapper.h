@@ -3,7 +3,12 @@
 #include "SocketWrapperDef.h"
 #include <string>
 
-
+#ifdef WIN32
+#else
+#include <string.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#endif
 
 namespace Network {
 
@@ -84,14 +89,15 @@ inline int Cleanup()
     return 0;
 }
 
-intline Close(SocketHandle sockfd)
+inline int Close(SocketHandle sockfd)
 {
     return ::close(sockfd);
 }
 
-int Accept(SocketHandle sockfd, SocketAddress* addr, SocketLength *addrlen, SocketFlag flags)
+inline int Accept(SocketHandle sockfd, SocketAddress* addr, SocketLength *addrlen, SocketFlag flags)
 {
-    return ::accept(sockfd, addr, addrlen, flags);
+	static_cast<void>(flags);
+    return ::accept(sockfd, addr, addrlen);
 }
 
 inline int GetLastSocketErrorNo()
@@ -106,7 +112,7 @@ inline std::string GetSocketErrorMessageFromErrorCode(int errorCode)
 
 std::string GetLastSocketErrorMessage()
 {
-    return getSocketErrorMessageFromErrorCode(getLastSocketErrorNo());
+    return GetSocketErrorMessageFromErrorCode(GetLastSocketErrorNo());
 };
 
 inline int Poll(SocketPollFdSet* fds, SocketPollFdNumber nfds, int timeout)
@@ -119,7 +125,7 @@ int InetPton(SocketAddressFamily af, const char *src, void *dst)
     ::inet_pton(af, src, dst);
 }
 
-const char* InetNtop(SocketAddressFamily af, const void *src, char *dst, SocketLength size);
+const char* InetNtop(SocketAddressFamily af, const void *src, char *dst, SocketLength size)
 {
     return ::inet_ntop(af, src, dst, size);
 }
