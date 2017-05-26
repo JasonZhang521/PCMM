@@ -4,4 +4,4 @@ include_directories ("${PROJECT_SOURCE_DIR}/Serialize"
 "${PROJECT_SOURCE_DIR}/Configure"
 )
 add_executable(Serialize_unittest.elf ${Serialize_Unittest_SRCS})
-target_link_libraries (Serialize_unittest.elf configure common ${TEST_LIBs})
+target_link_libraries (Serialize_unittest.elf configure common serialize ${TEST_LIBs})

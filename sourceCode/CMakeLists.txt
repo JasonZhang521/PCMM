@@ -1,10 +1,6 @@
 
 set(LIBs pthread)
-set(SSH_LIBs ssh ssh_threads)	
-enable_testing()
-find_package(GTest REQUIRED)
-set(CMAKE_SYSTEM_LIBRARY_PATH "${CMAKE_SYSTEM_LIBRARY_PATH};/usr/local/lib/")
-set(TEST_LIBs ${LIBs} gtest gmock gtest_main gmock_main)
+
 cmake_minimum_required (VERSION 2.6)
 
 SET(CMAKE_C_COMPILER "/usr/local/bin/gcc")
@@ -21,8 +17,16 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 #    message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11
 #					support. Please use a different C++ compiler.")
 #endif()
+set(SSH_LIBs ssh ssh_threads)	
+enable_testing()
+find_package(GTest REQUIRED)
+message("GTEST_INCLUDE_DIRS: ${GTEST_INCLUDE_DIRS}")	
+include_directories($GTEST_INCLUDE_DIRS)
+message("GTEST_BOTH_LIBRARIES: ${GTEST_BOTH_LIBRARIES}")
+set(TEST_LIBs ${LIBs} ${GTEST_BOTH_LIBRARIES})
+#set(TEST_LIBs ${LIBs} gtest gmock gtest_main gmock_main)
 message("lib ${CMAKE_LIBRARY_PATH} ---- ${CMAKE_SYSTEM_LIBRARY_PATH} ---
-		${CMAKE_INCLUDE_PATH}")
+		${CMAKE_INCLUDE_PATH} ---- ${CMAKE_SYSTEM_INCLUDE_PATH}")
 	
 add_subdirectory(Configure)
 add_subdirectory(Common)

@@ -7,7 +7,7 @@ include_directories ("${PROJECT_SOURCE_DIR}/TraceLog"
 
 add_library(serialize  ${serialize_SRCS})
 
-target_link_libraries(serialize ${SSH_LIBs}
+target_link_libraries(serialize
 	                  configure
 		              common
 		             )
