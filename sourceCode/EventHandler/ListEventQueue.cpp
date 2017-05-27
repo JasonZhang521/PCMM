@@ -3,7 +3,7 @@
 #include "AppConst.h"
 #include "Trace.h"
 #include "TimeStat.h"
-
+#include <memory>
 
 namespace EventHandler {
 
@@ -50,10 +50,8 @@ void ListEventQueue::executeEvents()
         if (singleTimerElapse > MaxRunningDurationForSingleTimer)
         {
             TRACE_WARNING("Event is executing more than " << MaxRunningDurationForSingleEvent
-                         << "ms, Timer Information" << event);
+                         << "ms, Timer Information" << event.get());
         }
-
-        delete event;
     }
 
     uint64_t totalElapse = totalStat.getElapseTimeAsMilliSecond();
@@ -71,6 +69,8 @@ std::ostream& ListEventQueue::operator<<(std::ostream& os) const
        os << "event=" << *it;
     }
     os << "]";
+
+    return os;
 }
 
 }

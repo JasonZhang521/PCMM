@@ -97,7 +97,6 @@ HEADERS += \
     ../../sourceCode/EventHandler/IEventQueue.h \
     ../../sourceCode/EventHandler/EventIdGenerator.h \
     ../../sourceCode/EventHandler/ListEventQueue.h \
-    ../../sourceCode/TimeHandler/TimeStat.h \
     ../../sourceCode/EventHandler/Component.h \
     ../../sourceCode/Common/SystemTime.h \
     ../../sourceCode/Common/TimeStat.h
