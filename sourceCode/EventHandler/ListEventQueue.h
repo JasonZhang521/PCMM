@@ -20,7 +20,7 @@ public:
     virtual void AddEvent(IEvent*);
     virtual void deleteEvent(uint64_t eventID);
     virtual void executeEvents();
-    virtual std::ostream& operator<<(std::ostream& os);
+    virtual std::ostream& operator<<(std::ostream& os) const;
 
 public:
      GETCLASSNAME(SocketImp)

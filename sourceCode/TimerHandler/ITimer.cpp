@@ -14,7 +14,7 @@ ITimer::~ITimer()
 
 std::ostream& operator<<(std::ostream& os, ITimer* timer)
 {
-    return timer->operator <<(os);
+    return timer->operator<<(os);
 }
 
 }

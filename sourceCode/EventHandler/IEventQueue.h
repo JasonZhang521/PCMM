@@ -15,8 +15,10 @@ public:
     virtual void AddEvent(IEvent*) = 0;
     virtual void deleteEvent(uint64_t eventID) = 0;
     virtual void executeEvents() = 0;
-    virtual std::ostream& operator<<(std::ostream& os) = 0;
+    virtual std::ostream& operator<<(std::ostream& os) const = 0;
 };
+
+    std::ostream& operator<<(std::ostream& os, const IEventQueue* eventQueue);
 
 }
 #endif // IEVENTQUEUE_H
