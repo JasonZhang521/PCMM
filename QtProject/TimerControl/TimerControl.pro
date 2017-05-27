@@ -16,6 +16,11 @@ INCLUDEPATH += ../../sourceCode/TraceLog
 INCLUDEPATH += ../../sourceCode/Configure
 
 SOURCES += ../../sourceCode/EventHandler/IEvent.cpp \
+    ../../sourceCode/TimerHandler/ITimer.cpp \
+    ../../sourceCode/TimerHandler/EventTimer.cpp \
+    ../../sourceCode/TimerHandler/ITimerQueue.cpp \
+    ../../sourceCode/TimerHandler/TimerIdGenerator.cpp \
+    ../../sourceCode/TimerHandler/ListTimerQueue.cpp \
     ../../sourceCode/Common/FilePathHandler.cpp \
     ../../sourceCode/Common/LocalTime.cpp \
     ../../sourceCode/Common/remove_character.cpp \
@@ -23,11 +28,6 @@ SOURCES += ../../sourceCode/EventHandler/IEvent.cpp \
     ../../sourceCode/Configure/Configure.cpp \
     ../../sourceCode/Configure/ExceptionConfigure.cpp \
     ../../sourceCode/Configure/TraceLogConfigure.cpp \
-    ../../sourceCode/TimerHandler/EventTimer.cpp \
-    ../../sourceCode/TimerHandler/ITimer.cpp \
-    ../../sourceCode/TimerHandler/ITimerQueue.cpp \
-    ../../sourceCode/TimerHandler/ListTimerQueue.cpp \
-    ../../sourceCode/TimerHandler/TimerIdGenerator.cpp \
     ../../sourceCode/Common/Random.cpp \
     ../../sourceCode/Common/SystemTime.cpp \
     ../../sourceCode/Common/TimeStat.cpp

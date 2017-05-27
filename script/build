@@ -1,0 +1,5 @@
+#!/bin/sh
+cd /$HOME/GitHub/PCMM/script/
+cd ../build
+LD_LIBRARY_PATH="$LD_LIBRARY_PATH;/usr/local/lib"
+cmake ../sourceCode

@@ -12,4 +12,10 @@ IEvent::~IEvent()
 
 }
 
+std::ostream& operator<< (std::ostream& os, const IEvent* event)
+{
+    event->operator <<(os);
+    return os;
+}
+
 }
