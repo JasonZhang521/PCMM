@@ -110,7 +110,7 @@ inline std::string GetSocketErrorMessageFromErrorCode(int errorCode)
     return ::strerror(errno);
 }
 
-std::string GetLastSocketErrorMessage()
+inline std::string GetLastSocketErrorMessage()
 {
     return GetSocketErrorMessageFromErrorCode(GetLastSocketErrorNo());
 };
@@ -120,12 +120,12 @@ inline int Poll(SocketPollFdSet* fds, SocketPollFdNumber nfds, int timeout)
     ::poll(fds, nfds, timeout);
 }
 
-int InetPton(SocketAddressFamily af, const char *src, void *dst)
+inline int InetPton(SocketAddressFamily af, const char *src, void *dst)
 {
     ::inet_pton(af, src, dst);
 }
 
-const char* InetNtop(SocketAddressFamily af, const void *src, char *dst, SocketLength size)
+inline const char* InetNtop(SocketAddressFamily af, const void *src, char *dst, SocketLength size)
 {
     return ::inet_ntop(af, src, dst, size);
 }

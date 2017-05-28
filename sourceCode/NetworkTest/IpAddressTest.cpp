@@ -3,6 +3,7 @@
 #include "WriteBuffer.h"
 #include "Random.h"
 #include <string>
+#include <string.h>
 #include <sstream>
 #include <iostream>
 #include "gtest/gtest.h"
@@ -55,11 +56,9 @@ TEST_F(IpAddressTest, Testing)
     // constructor with SocketInetAddress
     {
         IpAddress ipAddressBase(0x01020304);
+		uint32_t ip = 0x01020304;
         SocketInetAddress address;
-        address.S_un.S_un_b.s_b1 = 0x01;
-        address.S_un.S_un_b.s_b2 = 0x02;
-        address.S_un.S_un_b.s_b3 = 0x03;
-        address.S_un.S_un_b.s_b4 = 0x04;
+		memcpy(reinterpret_cast<uint8_t*>(&address), reinterpret_cast<uint8_t*>(&ip), sizeof(uint32_t));
         IpAddress ipAddress(address);
         EXPECT_EQ(ipAddressBase, ipAddress);
     }
@@ -103,11 +102,9 @@ TEST_F(IpAddressTest, Testing)
     // set
     {
         IpAddress ipAddress1(0x01020305);
+		uint32_t ip = 0x01020304;
         SocketInetAddress address;
-        address.S_un.S_un_b.s_b1 = 0x01;
-        address.S_un.S_un_b.s_b2 = 0x02;
-        address.S_un.S_un_b.s_b3 = 0x03;
-        address.S_un.S_un_b.s_b4 = 0x04;
+		memcpy(reinterpret_cast<uint8_t*>(&address), reinterpret_cast<uint8_t*>(&ip), sizeof(uint32_t));
         ipAddress1.setAddressIpv4(address);
         IpAddress ipAddress2(0x01020304);
         EXPECT_EQ(ipAddress1, ipAddress2);

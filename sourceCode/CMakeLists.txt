@@ -38,7 +38,8 @@ add_subdirectory(Network)
 add_subdirectory(Serialize)
 
 #Unit test
-#add_subdirectory(ConfigureTest)
+add_subdirectory(ConfigureTest)
 add_subdirectory(TraceLogTest)
 add_subdirectory(SshWrapperTest)
 add_subdirectory(SerializeTest)
+add_subdirectory(NetworkTest)
