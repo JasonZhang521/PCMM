@@ -14,7 +14,7 @@ IpPort::IpPort(const IpPort& ipPort)
 }
 
 IpPort::IpPort(unsigned short port)
-:port_(htons(port))
+:port_(port)
 {
 }
 

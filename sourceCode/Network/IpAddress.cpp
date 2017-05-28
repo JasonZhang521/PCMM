@@ -145,7 +145,7 @@ bool IpAddress::operator==(const IpAddress& other) const
 
 bool IpAddress::operator!=(const IpAddress& other) const
 {
-    return !(*this != other);
+    return !(*this == other);
 }
 
 bool IpAddress::operator>(const IpAddress& rh) const
@@ -212,6 +212,8 @@ std::string IpAddress::toString() const
     std::ostringstream os;
     char               addr4buf[16]; // big enough for IPv4
     char               addr6buf[46]; // big enough for IPv6
+    std::fill(addr4buf, addr4buf + sizeof(addr4buf), 0);
+    std::fill(addr6buf, addr6buf + sizeof(addr6buf), 0);
 
     switch (ipType_)
     {
