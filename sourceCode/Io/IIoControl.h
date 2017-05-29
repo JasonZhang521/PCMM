@@ -1,5 +1,5 @@
-#ifndef IIOCONTROL_H
-#define IIOCONTROL_H
+#ifndef _IO_IIOCONTROL_H_
+#define _IO_IIOCONTROL_H_
 
 namespace EventHandler {
     class IEvent;
@@ -11,10 +11,11 @@ class IIoControl
 {
 public:
     IIoControl();
-    void registerIoFd(int fd, EventHandler::IEvent* IEvent);
-    void unRegisterIoFd(int fd);
+    virtual ~IIoControl();
+    virtual void registerIoFd(int fd, EventHandler::IEvent* IEvent) = 0;
+    virtual void unRegisterIoFd(int fd) = 0;
 };
 
 }
 
-#endif // IIOCONTROL_H
+#endif // _IO_IIOCONTROL_H_

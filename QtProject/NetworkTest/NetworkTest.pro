@@ -65,7 +65,9 @@ SOURCES += \
     ../../sourceCode/gtest/googletest/src/gtest-typed-test.cc \
     ../../sourceCode/gtest/googletest/src/gtest.cc \
     ../../sourceCode/gtest/googletest/src/gtest_main.cc \
-    ../../sourceCode/NetworkTest/IpAddressTest.cpp
+    ../../sourceCode/NetworkTest/IpAddressTest.cpp \
+    ../../sourceCode/Io/IIoControl.cpp \
+    ../../sourceCode/Io/IoControlEvent.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -163,7 +165,9 @@ HEADERS += \
     ../../sourceCode/gtest/googletest/include/gtest/gtest.h \
     ../../sourceCode/gtest/googletest/include/gtest/gtest_pred_impl.h \
     ../../sourceCode/gtest/googletest/include/gtest/gtest_prod.h \
-    ../../sourceCode/gtest/googletest/src/gtest-internal-inl.h
+    ../../sourceCode/gtest/googletest/src/gtest-internal-inl.h \
+    ../../sourceCode/Io/IIoControl.h \
+    ../../sourceCode/Io/IoControlEvent.h
 
 
 

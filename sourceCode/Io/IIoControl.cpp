@@ -6,4 +6,8 @@ IIoControl::IIoControl()
 {
 }
 
+IIoControl::~IIoControl()
+{
+}
+
 }
