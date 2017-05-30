@@ -10,7 +10,7 @@ enum class EventFlag
     Event_NoFlag,
     Event_IoRead,
     Event_IoWrite,
-    Event_IoError
+    Event_IoExcept
 };
 
 class IEvent

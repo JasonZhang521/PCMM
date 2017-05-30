@@ -1,10 +1,12 @@
 #include "TcpServer.h"
+#include "EventIdGenerator.h"
 #include "Trace.h"
 
 namespace Network {
 
 TcpServer::TcpServer(const IpSocketEndpoint& localEndpoint)
-    :socket_(localEndpoint)
+    :eventId_(EventHandler::EventIdGenerator::generateEventId())
+    ,socket_(localEndpoint)
     ,state_(TcpState::Tcp_Closed)
 {
 }

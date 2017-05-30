@@ -167,7 +167,8 @@ HEADERS += \
     ../../sourceCode/gtest/googletest/include/gtest/gtest_prod.h \
     ../../sourceCode/gtest/googletest/src/gtest-internal-inl.h \
     ../../sourceCode/Io/IIoControl.h \
-    ../../sourceCode/Io/IoControlEvent.h
+    ../../sourceCode/Io/IoControlEvent.h \
+    ../../sourceCode/Io/Component.h
 
 
 

@@ -13,6 +13,7 @@ namespace Network {
 
 class TcpServer : public ITcpServer, public EventHandler::IEvent
 {
+    uint64_t eventId_;
     TcpSocket socket_;
     TcpState state_;
     using Clients = std::vector<ITcpClient*>;

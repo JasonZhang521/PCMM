@@ -11,6 +11,7 @@ namespace Network {
 
 class TcpClient : public ITcpClient, public EventHandler::IEvent
 {
+    uint64_t eventId_;
     TcpSocket socket_;
     TcpState state_;
 public:

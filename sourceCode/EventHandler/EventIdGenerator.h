@@ -9,7 +9,7 @@ class EventIdGenerator
     static uint64_t eventId_;
 public:
     EventIdGenerator();
-    static uint64_t generateTimerId();
+    static uint64_t generateEventId();
 };
 
 }

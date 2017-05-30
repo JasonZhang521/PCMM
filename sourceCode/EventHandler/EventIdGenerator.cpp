@@ -8,7 +8,7 @@ EventIdGenerator::EventIdGenerator()
 {
 }
 
-uint64_t EventIdGenerator::generateTimerId()
+uint64_t EventIdGenerator::generateEventId()
 {
     return ++eventId_;
 }

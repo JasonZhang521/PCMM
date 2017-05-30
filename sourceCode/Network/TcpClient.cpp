@@ -1,12 +1,14 @@
 #include "TcpClient.h"
 #include "WriteBuffer.h"
 #include "ReadBuffer.h"
+#include "EventIdGenerator.h"
 #include "Trace.h"
 
 namespace Network {
 
 TcpClient::TcpClient(const IpSocketEndpoint& localEndpoint, const IpSocketEndpoint& remoteEndpoint)
-    :socket_(localEndpoint, remoteEndpoint)
+    :eventId_(EventHandler::EventIdGenerator::generateEventId())
+    ,socket_(localEndpoint, remoteEndpoint)
     ,state_(TcpState::Tcp_Closed)
 {
 }
