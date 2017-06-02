@@ -13,6 +13,8 @@ namespace SshWrapper
 SshFtpSession::SshFtpSession(ssh_session session)
 : session_(session)
 , sftpSession_(sftp_new(session_))
+, stopGetFile_(false)
+, stopPutFile_(false)
 {
     if (session_ == NULL)
     {
@@ -70,6 +72,9 @@ bool SshFtpSession::getFileFromLastPos(const std::string& remoteFile, const std:
 
 bool SshFtpSession::putFile(const std::string& localFile, const std::string& remoteDir)
 {
+    // when start upload file, set the stop flag false
+    stopPutFile_ = false;
+
     std::string remotePath = sftp_canonicalize_path (sftpSession_, remoteDir.c_str());
     TRACE_NOTICE("Upload File " << localFile << " to " << remotePath);
     std::ifstream infile(localFile.c_str(), std::ifstream::binary);
@@ -86,7 +91,7 @@ bool SshFtpSession::putFile(const std::string& localFile, const std::string& rem
 
     char buffer[MAX_XFER_BUF_SIZE];
     std::streamsize nbytes = infile.readsome(buffer, sizeof(buffer));
-    while (nbytes > 0)
+    while (nbytes > 0 && !stopPutFile_)
     {
         int nwritten = sftp_write(file, buffer, nbytes);
         if (nwritten != nbytes)
@@ -121,17 +126,17 @@ bool SshFtpSession::listDir(const std::string& dirPath, SftpDirAttributes& dirAt
 	sftp_attributes attributes = NULL;
     while ((attributes = sftp_readdir(sftpSession_, dir)) != NULL)
 	{
-		SftpDirAttribute dirAttribute;
-		dirAttribute.name = attributes->name;
-        dirAttribute.flags = attributes->flags;
-        dirAttribute.type = attributes->type;
-        dirAttribute.size = attributes->size;
-        dirAttribute.uid = attributes->uid;
-        dirAttribute.gid = attributes->gid;
-        dirAttribute.owner = attributes->owner;
-        dirAttribute.group = attributes->group;
-        dirAttribute.permissions = attributes->permissions;
-		dirAttributes.push_back(dirAttribute);
+        SftpFileAttribute fileAttribute;
+        fileAttribute.name = attributes->name;
+        fileAttribute.flags = attributes->flags;
+        fileAttribute.type = attributes->type;
+        fileAttribute.size = attributes->size;
+        fileAttribute.uid = attributes->uid;
+        fileAttribute.gid = attributes->gid;
+        fileAttribute.owner = attributes->owner;
+        fileAttribute.group = attributes->group;
+        fileAttribute.permissions = attributes->permissions;
+        dirAttributes.push_back(fileAttribute);
         sftp_attributes_free(attributes);
     }
 
@@ -149,6 +154,43 @@ bool SshFtpSession::listDir(const std::string& dirPath, SftpDirAttributes& dirAt
         return false;
 	}
     return true; 
+}
+
+void SshFtpSession::stopGetFile()
+{
+    stopGetFile_ = true;
+}
+
+void SshFtpSession::stopPutFile()
+{
+    stopPutFile_ = true;
+}
+
+bool SshFtpSession::listRemoteFileAttribute(const std::string& filePath, SftpFileAttribute& fileAttribute)
+{
+    TRACE_ENTER();
+    char * path = sftp_canonicalize_path (sftpSession_, filePath.c_str());
+    sftp_attributes attributes = sftp_lstat(sftpSession_, path);
+    if (attributes != nullptr)
+    {
+        fileAttribute.name = attributes->name;
+        fileAttribute.flags = attributes->flags;
+        fileAttribute.type = attributes->type;
+        fileAttribute.size = attributes->size;
+        fileAttribute.uid = attributes->uid;
+        fileAttribute.gid = attributes->gid;
+        fileAttribute.owner = attributes->owner;
+        fileAttribute.group = attributes->group;
+        fileAttribute.permissions = attributes->permissions;
+        sftp_attributes_free(attributes);
+    }
+    else
+    {
+        TRACE_WARNING("Can not file information:" << path  << ", error info:" << sftp_get_error(sftpSession_));
+        return false;
+    }
+
+    return true;
 }
 
 bool SshFtpSession::isRemoteFileExist(const std::string& remoteFile)
@@ -204,6 +246,9 @@ bool SshFtpSession::isRemoteFileExit(const std::string& remoteDir, const std::st
 
 bool SshFtpSession::getFile(const std::string& remoteFile, const std::string& localFile, bool fromStartPos)
 {
+    // when start download file, set the stop flag false
+    stopGetFile_ = false;
+
     std::string remotePath = sftp_canonicalize_path (sftpSession_, remoteFile.c_str());
 
     TRACE_NOTICE("Download remote file " << remotePath << " to local file " << localFile);
@@ -234,7 +279,7 @@ bool SshFtpSession::getFile(const std::string& remoteFile, const std::string& lo
 
     char buffer[MAX_XFER_BUF_SIZE];
     int nbytes = sftp_read(file, buffer, sizeof(buffer));
-    while (nbytes > 0)
+    while (nbytes > 0 && !stopGetFile_)
     {
         outfile.write(buffer, nbytes);
         nbytes = sftp_read(file, buffer, sizeof(buffer));

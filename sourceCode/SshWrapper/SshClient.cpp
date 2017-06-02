@@ -75,6 +75,21 @@ bool SshClient::listDir(const std::string& dirPath, SftpDirAttributes& dirAttrib
 	return session_->listDir(dirPath, dirAttributes);
 }
 
+void SshClient::stopGetFile()
+{
+    session_->stopGetFile();
+}
+
+void SshClient::stopPutFile()
+{
+    session_->stopPutFile();
+}
+
+bool SshClient::listRemoteFileAttribute(const std::string& filePath, SftpFileAttribute& fileAttributes)
+{
+    return session_->listRemoteFileAttribute(filePath, fileAttributes);
+}
+
 bool SshClient::isRemoteFileExist(const std::string& remoteFile)
 {
    return session_->isRemoteFileExist(remoteFile);

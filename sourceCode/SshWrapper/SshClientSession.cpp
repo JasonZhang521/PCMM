@@ -233,6 +233,36 @@ bool SshClientSession::listDir(const std::string& dirPath, SftpDirAttributes& di
     return sftpSession_->listDir(dirPath, dirAttributes);
 }
 
+void SshClientSession::stopGetFile()
+{
+    if (sftpSession_ == NULL)
+    {
+        TRACE_WARNING("Ssh ftp session is NULL");
+        App::ExitNormal();
+    }
+    sftpSession_->stopGetFile();
+}
+
+void SshClientSession::stopPutFile()
+{
+    if (sftpSession_ == NULL)
+    {
+        TRACE_WARNING("Ssh ftp session is NULL");
+        App::ExitNormal();
+    }
+    sftpSession_->stopPutFile();
+}
+
+bool SshClientSession::listRemoteFileAttribute(const std::string& filePath, SftpFileAttribute& fileAttribute)
+{
+    if (sftpSession_ == NULL)
+    {
+        TRACE_WARNING("Ssh ftp session is NULL");
+        App::ExitNormal();
+    }
+    return sftpSession_->listRemoteFileAttribute(filePath, fileAttribute);
+}
+
 bool SshClientSession::isRemoteFileExist(const std::string& remoteFile)
 {
     if (sftpSession_ == NULL)
