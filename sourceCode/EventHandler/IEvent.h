@@ -13,6 +13,8 @@ enum class EventFlag
     Event_IoExcept
 };
 
+std::string EventFlagString(EventFlag flag);
+
 class IEvent
 {
 public:

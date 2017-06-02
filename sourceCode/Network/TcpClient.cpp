@@ -10,6 +10,8 @@ TcpClient::TcpClient(const IpSocketEndpoint& localEndpoint, const IpSocketEndpoi
     :eventId_(EventHandler::EventIdGenerator::generateEventId())
     ,socket_(localEndpoint, remoteEndpoint)
     ,state_(TcpState::Tcp_Closed)
+    ,writeBuffer_(nullptr)
+    ,readBuffer_(nullptr)
 {
 }
 
@@ -46,6 +48,7 @@ TcpResult TcpClient::connect()
     }
     else
     {
+        state_ = TcpState::Tcp_Established;
         return TcpResult::Success;
     }
 }
@@ -56,10 +59,12 @@ TcpResult TcpClient::send(const Serialize::WriteBuffer& buffer)
     if (SOCKET_ERROR == socket_.send(buffer.getBuffer(), buffer.getDataSize(), SOCKET_FLAG_NONE))
     {
         TRACE_NOTICE(socket_.getErrorInfo());
+        state_ = TcpState::Tcp_Sending;
         return TcpResult::Failed;
     }
     else
     {
+        state_ = TcpState::Tcp_Established;
         return TcpResult::Success;
     }
 }
@@ -70,10 +75,12 @@ TcpResult TcpClient::receive(Serialize::ReadBuffer& buffer)
     if (SOCKET_ERROR == socket_.recv(buffer.getBuffer(), buffer.getBufferSize(), SOCKET_FLAG_NONE))
     {
         TRACE_NOTICE(socket_.getErrorInfo());
+        state_ = TcpState::Tcp_Receiving;
         return TcpResult::Failed;
     }
     else
     {
+        state_ = TcpState::Tcp_Established;
         return TcpResult::Success;
     }
 }

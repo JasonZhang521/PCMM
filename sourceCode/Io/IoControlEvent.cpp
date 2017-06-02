@@ -82,13 +82,56 @@ uint64_t IoControlEvent::getEventId() const
 
 void IoControlEvent::run(EventHandler::EventFlag flag)
 {
-    TRACE_DEBUG("flag = " << flag);
-    Network::Select(readFds_, writeFds_, exceptFds_);
+    TRACE_DEBUG("flag = " << EventFlagString(flag));
+    if (fdEventMap_.empty())
+    {
+        TRACE_WARNING("No fd to be handled!");
+    }
+    IoFdEventMap::reverse_iterator rit = fdEventMap_.rbegin();
+    int maxFdNum = rit->first + 1;
+    Network::Select(maxFdNum, &readFds_, &writeFds_, &exceptFds_, nullptr);
+    for (; rit != fdEventMap_.rend(); ++rit)
+    {
+        int fd = rit->first;
+        EventHandler::IEvent* event = rit->second.fdEvent;
+        IoFdType fdType = rit->second.fdType;
+        switch (flag) {
+        case EventHandler::EventFlag::Event_IoRead:
+            if (fdType & IoFdType::IoFdRead && Network::FdIsSet(fd, &readFds_))
+            {
+                event->run(flag);
+            }
+            break;
+        case EventHandler::EventFlag::Event_IoWrite:
+            if (fdType & IoFdType::IoFdWrite && Network::FdIsSet(fd, &writeFds_))
+            {
+                event->run(flag);
+            }
+            break;
+        case EventHandler::EventFlag::Event_IoExcept:
+            if (fdType & IoFdType::IoFdExcept && Network::FdIsSet(fd, &exceptFds_))
+            {
+                event->run(flag);
+            }
+            break;
+        default:
+            TRACE_WARNING("Error Event Flag = " << EventFlagString(flag));
+            break;
+        }
+    }
 }
 
 std::ostream& IoControlEvent::operator<< (std::ostream& os) const
 {
+    os << "[";
 
+    for (IoFdEventMap::const_iterator it = fdEventMap_.cbegin(); it != fdEventMap_.cend(); ++it)
+    {
+        os << "fd=" << it->first << ", eventType=" << it->second.fdType << ", event=" << it->second.fdEvent;
+    }
+    os << "]";
+
+    return os;
 }
 
 }

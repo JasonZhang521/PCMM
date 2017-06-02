@@ -6,6 +6,8 @@ enum class TcpState
 {
     Tcp_Closed,
     Tcp_Connecting,
+    Tcp_Sending,
+    Tcp_Receiving,
     Tcp_Listening,
     Tcp_Established
 };

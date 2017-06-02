@@ -11,6 +11,7 @@ namespace Io {
 
 struct IoFdEvent
 {
+    IoFdEvent() : fdType(IoFdNoType), fdEvent(nullptr) {}
     IoFdEvent(IoFdType type, EventHandler::IEvent* event) : fdType(type), fdEvent(event) {}
     IoFdType fdType;
     EventHandler::IEvent* fdEvent;

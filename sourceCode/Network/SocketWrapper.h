@@ -200,9 +200,9 @@ inline void FdClear(SocketHandle sockfd, SocketFdSet* fds)
     FD_CLR(sockfd, fds);
 }
 
-inline void FdIsSet(SocketHandle sockfd, SocketFdSet* fds)
+inline int FdIsSet(SocketHandle sockfd, SocketFdSet* fds)
 {
-    FD_ISSET(sockfd, fds);
+    return FD_ISSET(sockfd, fds);
 }
 
 inline int SetSockOpt(SocketHandle sockfd, SocketOptLevel level, SocketOptName optname,

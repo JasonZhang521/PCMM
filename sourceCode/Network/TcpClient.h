@@ -14,6 +14,8 @@ class TcpClient : public ITcpClient, public EventHandler::IEvent
     uint64_t eventId_;
     TcpSocket socket_;
     TcpState state_;
+    const Serialize::WriteBuffer* writeBuffer_;
+    Serialize::ReadBuffer* readBuffer_;
 public:
     TcpClient(const IpSocketEndpoint& localEndpoint, const IpSocketEndpoint& remoteEndpoint);
     ~TcpClient();
