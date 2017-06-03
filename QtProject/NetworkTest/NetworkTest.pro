@@ -16,10 +16,11 @@ INCLUDEPATH += ../../sourceCode/Serialize \
                ../../sourceCode/EventHandler \
                ../../sourceCode/TimeHandler \
                ../../sourceCode/Network \
+               ../../sourceCode/Connection \
                ../../sourceCode/gtest/googletest/include \
                ../../sourceCode/gtest/googlemock/include \
                ../../sourceCode/gtest/googletest/ \
-               ../../sourceCode/gtest/googlemock/ \
+               ../../sourceCode/gtest/googlemock/
 
 SOURCES += \
     ../../sourceCode/Network/IpAddress.cpp \
@@ -70,7 +71,11 @@ SOURCES += \
     ../../sourceCode/Io/IoControlEvent.cpp \
     ../../sourceCode/Ipc/IIpcMessage.cpp \
     ../../sourceCode/Ipc/IpcMessageIdGenerator.cpp \
-    ../../sourceCode/Connection/IConnection.cpp
+    ../../sourceCode/Connection/IConnectionTx.cpp \
+    ../../sourceCode/Connection/IConnectionRx.cpp \
+    ../../sourceCode/Ipc/IpcClient.cpp \
+    ../../sourceCode/Ipc/IIpcConnectionStrategy.cpp \
+    ../../sourceCode/Ipc/IpcConnectionTcpStrategy.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -175,7 +180,11 @@ HEADERS += \
     ../../sourceCode/Ipc/IIpcMessage.h \
     ../../sourceCode/Ipc/IpcMessageType.h \
     ../../sourceCode/Ipc/IpcMessageIdGenerator.h \
-    ../../sourceCode/Connection/IConnection.h
+    ../../sourceCode/Connection/IConnectionTx.h \
+    ../../sourceCode/Connection/IConnectionRx.h \
+    ../../sourceCode/Ipc/IpcClient.h \
+    ../../sourceCode/Ipc/IIpcConnectionStrategy.h \
+    ../../sourceCode/Ipc/IpcConnectionTcpStrategy.h
 
 
 

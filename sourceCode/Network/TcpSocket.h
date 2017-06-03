@@ -26,6 +26,8 @@ public:
     TcpSocket(const SocketAddressFamily& family, const SocketHandle& fd);
     // For client
     TcpSocket(const IpSocketEndpoint& localEndpoint, const IpSocketEndpoint& remoteEndpoint);
+
+    virtual ~TcpSocket();
     inline const IpSocketEndpoint& getLocalEndpoint() const {return localEndpoint_;}
     inline const IpSocketEndpoint& getRemoteEndpoint() const {return remoteEndpoint_;}
 

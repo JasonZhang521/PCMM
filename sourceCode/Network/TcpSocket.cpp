@@ -31,6 +31,10 @@ TcpSocket::TcpSocket(const IpSocketEndpoint& localEndpoint, const IpSocketEndpoi
     }
 }
 
+TcpSocket::~TcpSocket()
+{
+}
+
 int TcpSocket::bind() const
 {
     if (IPFamilyType::IPFamilyV4 == localEndpoint_.getSocketAddressFamily())
