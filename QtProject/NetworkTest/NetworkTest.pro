@@ -67,7 +67,10 @@ SOURCES += \
     ../../sourceCode/gtest/googletest/src/gtest_main.cc \
     ../../sourceCode/NetworkTest/IpAddressTest.cpp \
     ../../sourceCode/Io/IIoControl.cpp \
-    ../../sourceCode/Io/IoControlEvent.cpp
+    ../../sourceCode/Io/IoControlEvent.cpp \
+    ../../sourceCode/Ipc/IIpcMessage.cpp \
+    ../../sourceCode/Ipc/IpcMessageIdGenerator.cpp \
+    ../../sourceCode/Connection/IConnection.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -168,7 +171,11 @@ HEADERS += \
     ../../sourceCode/gtest/googletest/src/gtest-internal-inl.h \
     ../../sourceCode/Io/IIoControl.h \
     ../../sourceCode/Io/IoControlEvent.h \
-    ../../sourceCode/Io/Component.h
+    ../../sourceCode/Io/Component.h \
+    ../../sourceCode/Ipc/IIpcMessage.h \
+    ../../sourceCode/Ipc/IpcMessageType.h \
+    ../../sourceCode/Ipc/IpcMessageIdGenerator.h \
+    ../../sourceCode/Connection/IConnection.h
 
 
 

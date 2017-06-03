@@ -258,3 +258,62 @@ TEST_F(ReadWriteBufferTest, TestCombination)
     readBuffer.read(readBool);
     ASSERT_EQ(readBool, isTrue);
 }
+
+TEST_F(ReadWriteBufferTest, WriteBufferSwap)
+{
+    Serialize::WriteBuffer writeBuffer1(10);
+    Serialize::WriteBuffer writeBuffer2(20);
+    writeBuffer1.write<int>(5);
+    writeBuffer2.write<int>(6);
+    writeBuffer2.write<int>(7);
+
+    Serialize::WriteBuffer writeBuffer3(10);
+    Serialize::WriteBuffer writeBuffer4(20);
+    writeBuffer3.write<int>(5);
+    writeBuffer4.write<int>(6);
+    writeBuffer4.write<int>(7);
+
+    writeBuffer3.swap(writeBuffer4);
+
+    EXPECT_FALSE((writeBuffer3 == writeBuffer1));
+    EXPECT_FALSE((writeBuffer4 == writeBuffer2));
+    EXPECT_TRUE((writeBuffer3 == writeBuffer2));
+    EXPECT_TRUE((writeBuffer4 == writeBuffer1));
+}
+
+TEST_F(ReadWriteBufferTest, ReadBufferSwap)
+{
+    Serialize::ReadBuffer readBuffer1(10);
+    readBuffer1.setDataSize(8);
+    for (unsigned int i = 0; i < 8; ++i)
+    {
+        *(readBuffer1.getBuffer() + i) = static_cast<char>(i);
+    }
+    Serialize::ReadBuffer readBuffer2(20);
+    readBuffer2.setDataSize(18);
+    for (unsigned int i = 0; i < 18; ++i)
+    {
+        *(readBuffer2.getBuffer() + i) = static_cast<char>(2 * i);
+    }
+
+    Serialize::ReadBuffer readBuffer3(10);
+    readBuffer3.setDataSize(8);
+    for (unsigned int i = 0; i < 8; ++i)
+    {
+        *(readBuffer3.getBuffer() + i) = static_cast<char>(i);
+    }
+
+    Serialize::ReadBuffer readBuffer4(20);
+    readBuffer4.setDataSize(18);
+    for (unsigned int i = 0; i < 18; ++i)
+    {
+        *(readBuffer4.getBuffer() + i) = static_cast<char>(2 * i);
+    }
+
+    readBuffer3.swap(readBuffer4);
+
+    EXPECT_FALSE((readBuffer3 == readBuffer1));
+    EXPECT_FALSE((readBuffer4 == readBuffer2));
+    EXPECT_TRUE((readBuffer3 == readBuffer2));
+    EXPECT_TRUE((readBuffer4 == readBuffer1));
+}

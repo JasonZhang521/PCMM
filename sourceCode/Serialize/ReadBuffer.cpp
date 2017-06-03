@@ -53,4 +53,43 @@ unsigned int ReadBuffer::getDataSize() const
     return dataSize_;
 }
 
+void ReadBuffer::swap(ReadBuffer& buffer)
+{
+    unsigned int tempBufferSize = buffer.bufferSize_;
+    char* tempBuffer = buffer.buffer_;
+    unsigned int tempDataSize = buffer.dataSize_;
+    unsigned int tempPos = buffer.pos_;
+
+    buffer.bufferSize_ = bufferSize_;
+    buffer.buffer_ = buffer_;
+    buffer.dataSize_ = dataSize_;
+    buffer.pos_ = pos_;
+
+    bufferSize_ = tempBufferSize;
+    buffer_ = tempBuffer;
+    dataSize_ = tempDataSize;
+    pos_ = tempPos;
+
+}
+
+bool ReadBuffer::operator==(const ReadBuffer& buffer)
+{
+    if (bufferSize_ != buffer.bufferSize_ ||
+        dataSize_ != buffer.dataSize_ ||
+        pos_ != buffer.pos_)
+    {
+        return false;
+    }
+
+    for (unsigned int i = 0; i < dataSize_; ++i)
+    {
+        if (buffer_[i] != buffer.buffer_[i])
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 }

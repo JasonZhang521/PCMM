@@ -10,8 +10,6 @@ TcpClient::TcpClient(const IpSocketEndpoint& localEndpoint, const IpSocketEndpoi
     :eventId_(EventHandler::EventIdGenerator::generateEventId())
     ,socket_(localEndpoint, remoteEndpoint)
     ,state_(TcpState::Tcp_Closed)
-    ,writeBuffer_(nullptr)
-    ,readBuffer_(nullptr)
 {
 }
 
@@ -60,11 +58,13 @@ TcpResult TcpClient::send(const Serialize::WriteBuffer& buffer)
     {
         TRACE_NOTICE(socket_.getErrorInfo());
         state_ = TcpState::Tcp_Sending;
+        writeBuffer_ = &buffer;
         return TcpResult::Failed;
     }
     else
     {
         state_ = TcpState::Tcp_Established;
+        writeBuffer_ = nullptr;
         return TcpResult::Success;
     }
 }
@@ -72,15 +72,19 @@ TcpResult TcpClient::send(const Serialize::WriteBuffer& buffer)
 TcpResult TcpClient::receive(Serialize::ReadBuffer& buffer)
 {
     TRACE_ENTER();
-    if (SOCKET_ERROR == socket_.recv(buffer.getBuffer(), buffer.getBufferSize(), SOCKET_FLAG_NONE))
+    int numOfBytesReceived = socket_.recv(buffer.getBuffer(), buffer.getBufferSize(), SOCKET_FLAG_NONE);
+    if (SOCKET_ERROR == numOfBytesReceived)
     {
         TRACE_NOTICE(socket_.getErrorInfo());
         state_ = TcpState::Tcp_Receiving;
+        readBuffer_ = &buffer;
         return TcpResult::Failed;
     }
     else
     {
+        buffer.setDataSize(static_cast<unsigned int>(numOfBytesReceived));
         state_ = TcpState::Tcp_Established;
+        readBuffer_ = nullptr;
         return TcpResult::Success;
     }
 }

@@ -30,6 +30,8 @@ public:
     char* getBuffer() const;
     unsigned int getBufferSize() const;
     unsigned int getDataSize() const;
+    void swap(WriteBuffer& buffer);
+    bool operator==(const WriteBuffer& buffer);
 private:
     void resizeBuffer(unsigned int additionSize);
 

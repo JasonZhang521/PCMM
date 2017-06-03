@@ -33,6 +33,9 @@ public:
     char* getBuffer() const;
     unsigned int getBufferSize() const;
     unsigned int getDataSize() const;
+
+    void swap(ReadBuffer& buffer);
+    bool operator==(const ReadBuffer& buffer);
 };
 
 }
