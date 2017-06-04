@@ -20,7 +20,8 @@ class TcpServer : public ITcpServer, public EventHandler::IEvent
     Clients clients_;
 public:
     TcpServer(const IpSocketEndpoint& localEndpoint);
-    ~TcpServer();
+private:
+    virtual ~TcpServer();
     virtual TcpResult init();
     virtual TcpResult listen(int backlog);
     virtual TcpResult accept(int flag);
@@ -29,7 +30,7 @@ public:
     virtual void run(EventHandler::EventFlag flag = EventHandler::EventFlag::Event_NoFlag);
 
 public:
-     GETCLASSNAME(SocketImp)
+     GETCLASSNAME(TcpServer)
 };
 
 }

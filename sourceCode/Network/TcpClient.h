@@ -5,6 +5,7 @@
 #include "TcpState.h"
 #include "Component.h"
 #include "Macro.h"
+#include <memory>
 
 namespace Serialize{
 class WriteBuffer;
@@ -22,12 +23,13 @@ class TcpClient : public ITcpClient, public EventHandler::IEvent
 {
     uint64_t eventId_;  
     TcpState state_;
-    TcpSocket* socket_;
-    Connection::IConnectionTx* connectionTx;
+    std::shared_ptr<TcpSocket> socket_;
+    std::shared_ptr<Connection::IConnectionTx> connectionTx;
 public:
     TcpClient(const IpSocketEndpoint& localEndpoint,
               const IpSocketEndpoint& remoteEndpoint,
-              Connection::IConnectionTx* tx);
+              std::shared_ptr<Connection::IConnectionTx> tx);
+private:
     virtual ~TcpClient();
     virtual TcpResult init();
     virtual TcpResult connect();

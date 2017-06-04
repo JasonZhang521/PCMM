@@ -74,8 +74,10 @@ SOURCES += \
     ../../sourceCode/Connection/IConnectionTx.cpp \
     ../../sourceCode/Connection/IConnectionRx.cpp \
     ../../sourceCode/Ipc/IpcClient.cpp \
-    ../../sourceCode/Ipc/IIpcConnectionStrategy.cpp \
-    ../../sourceCode/Ipc/IpcConnectionTcpStrategy.cpp
+    ../../sourceCode/Ipc/IpcConnectionTcpStrategy.cpp \
+    ../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
+    ../../sourceCode/SystemMonitor/CpuInfoCollector.cpp \
+    ../../sourceCode/SystemMonitor/CpuUsageCalculator.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -183,8 +185,12 @@ HEADERS += \
     ../../sourceCode/Connection/IConnectionTx.h \
     ../../sourceCode/Connection/IConnectionRx.h \
     ../../sourceCode/Ipc/IpcClient.h \
-    ../../sourceCode/Ipc/IIpcConnectionStrategy.h \
-    ../../sourceCode/Ipc/IpcConnectionTcpStrategy.h
+    ../../sourceCode/Ipc/IpcConnectionTcpStrategy.h \
+    ../../sourceCode/Ipc/Component.h \
+    ../../sourceCode/Ipc/IIpcConnectionClientStrategy.h \
+    ../../sourceCode/SystemMonitor/CpuInfoCollector.h \
+    ../../sourceCode/SystemMonitor/CpuUsageDataType.h \
+    ../../sourceCode/SystemMonitor/CpuUsageCalculator.h
 
 
 

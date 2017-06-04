@@ -11,13 +11,13 @@ namespace Network {
 
 TcpClient::TcpClient(const IpSocketEndpoint& localEndpoint,
                      const IpSocketEndpoint& remoteEndpoint,
-                     Connection::IConnectionTx* tx)
+                     std::shared_ptr<Connection::IConnectionTx> tx)
     :eventId_(EventHandler::EventIdGenerator::generateEventId())
     ,state_(TcpState::Tcp_Closed)
     ,socket_(new TcpSocket(localEndpoint, remoteEndpoint))
     ,connectionTx(tx)
 {
-    if (tx == nullptr)
+    if (!tx)
     {
         TRACE_ERROR("Initial Tcp Client with null connectionTx, local = " << localEndpoint << ", remote = " << remoteEndpoint);
         App::ExitWithCoredump();
@@ -26,7 +26,6 @@ TcpClient::TcpClient(const IpSocketEndpoint& localEndpoint,
 
 TcpClient::~TcpClient()
 {
-    delete socket_;
 }
 
 TcpResult TcpClient::init()
