@@ -1,9 +1,9 @@
-#ifndef CPUUSAGEDATATYPE_H
-#define CPUUSAGEDATATYPE_H
+#ifndef _ENVIRONMENT_CPUUSAGEDATATYPE_H_
+#define _ENVIRONMENT_CPUUSAGEDATATYPE_H_
 #include<stdint.h>
 #include<vector>
 
-namespace SystemMonitor {
+namespace Environment {
 
 #ifdef WIN32
 //#else
@@ -52,4 +52,4 @@ public:
 
 }
 
-#endif // CPUUSAGEDATATYPE_H
+#endif // _ENVIRONMENT_CPUUSAGEDATATYPE_H_

@@ -1,8 +1,8 @@
-#ifndef CPUUSAGECALCULATOR_H
-#define CPUUSAGECALCULATOR_H
+#ifndef _ENVIRONMENT_CPUUSAGECALCULATOR_H_
+#define _ENVIRONMENT_CPUUSAGECALCULATOR_H_
 #include "CpuUsageDataType.h"
 
-namespace SystemMonitor {
+namespace Environment {
 
 class CpuUsageCalculator
 {
@@ -13,4 +13,4 @@ public:
 
 }
 
-#endif // CPUUSAGECALCULATOR_H
+#endif // _ENVIRONMENT_CPUUSAGECALCULATOR_H_

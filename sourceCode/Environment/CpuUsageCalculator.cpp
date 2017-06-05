@@ -1,6 +1,6 @@
 #include "CpuUsageCalculator.h"
 
-namespace SystemMonitor {
+namespace Environment {
 
 CpuUsageCalculator::CpuUsageCalculator()
 {

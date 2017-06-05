@@ -17,6 +17,7 @@ INCLUDEPATH += ../../sourceCode/Serialize \
                ../../sourceCode/TimeHandler \
                ../../sourceCode/Network \
                ../../sourceCode/Connection \
+               ../../sourceCode/Environment \
                ../../sourceCode/gtest/googletest/include \
                ../../sourceCode/gtest/googlemock/include \
                ../../sourceCode/gtest/googletest/ \
@@ -76,8 +77,9 @@ SOURCES += \
     ../../sourceCode/Ipc/IpcClient.cpp \
     ../../sourceCode/Ipc/IpcConnectionTcpStrategy.cpp \
     ../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
-    ../../sourceCode/SystemMonitor/CpuInfoCollector.cpp \
-    ../../sourceCode/SystemMonitor/CpuUsageCalculator.cpp
+    ../../sourceCode/Environment/CpuInfoCollector.cpp \
+    ../../sourceCode/Environment/CpuUsage.cpp \
+    ../../sourceCode/Environment/CpuUsageCalculator.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -188,9 +190,10 @@ HEADERS += \
     ../../sourceCode/Ipc/IpcConnectionTcpStrategy.h \
     ../../sourceCode/Ipc/Component.h \
     ../../sourceCode/Ipc/IIpcConnectionClientStrategy.h \
-    ../../sourceCode/SystemMonitor/CpuInfoCollector.h \
-    ../../sourceCode/SystemMonitor/CpuUsageDataType.h \
-    ../../sourceCode/SystemMonitor/CpuUsageCalculator.h
+    ../../sourceCode/Environment/CpuInfoCollector.h \
+    ../../sourceCode/Environment/CpuUsage.h \
+    ../../sourceCode/Environment/CpuUsageCalculator.h \
+    ../../sourceCode/Environment/CpuUsageDataType.h
 
 
 

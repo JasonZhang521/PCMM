@@ -1,6 +1,6 @@
 #include "CpuInfoCollector.h"
 
-namespace SystemMonitor {
+namespace Environment {
 
 CpuInfoCollector::CpuInfoCollector()
 {
