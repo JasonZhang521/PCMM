@@ -3,6 +3,10 @@
 #include "Trace.h"
 #include <fstream>
 
+#ifdef WIN32
+#else
+#include <sys/sysinfo.h>
+#endif
 namespace Environment {
 
 #ifdef WIN32

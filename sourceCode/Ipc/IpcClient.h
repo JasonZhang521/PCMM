@@ -1,6 +1,5 @@
 #ifndef _IPC_IPCCLIENT_H_
 #define _IPC_IPCCLIENT_H_
-#include "IIpcClient.h"
 #include "IConnectionRx.h"
 #include "Component.h"
 #include "Macro.h"

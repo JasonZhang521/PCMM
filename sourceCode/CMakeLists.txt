@@ -37,7 +37,9 @@ add_subdirectory(TimerHandler)
 add_subdirectory(Network)
 add_subdirectory(Serialize)
 add_subdirectory(Io)
+add_subdirectory(IoPlatformWrapper)
 add_subdirectory(Ipc)
+add_subdirectory(Connection)
 add_subdirectory(Environment)
 
 #Unit test
