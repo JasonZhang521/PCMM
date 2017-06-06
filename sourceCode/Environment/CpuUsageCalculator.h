@@ -4,11 +4,15 @@
 
 namespace Environment {
 
-class CpuUsageCalculator
+class CpuUsageEntryCalculator
 {
 public:
-    CpuUsageCalculator();
     CpuUsageEntry operator() (const CpuUsageRawData& data);
+};
+
+class CpuUsageRawDataDiffCalculator
+{
+    CpuUsageRawData operator() (const CpuUsageRawData& curData, const CpuUsageRawData& preData);
 };
 
 }

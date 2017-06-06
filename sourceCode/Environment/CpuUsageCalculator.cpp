@@ -2,11 +2,7 @@
 
 namespace Environment {
 
-CpuUsageCalculator::CpuUsageCalculator()
-{
-}
-
-CpuUsageEntry CpuUsageCalculator::operator() (const CpuUsageRawData& data)
+CpuUsageEntry CpuUsageEntryCalculator::operator() (const CpuUsageRawData& data)
 {
     CpuUsageEntry entry;
     if (data.size() != CPU_USAGE_TYPE_NUMBER)
@@ -33,6 +29,12 @@ CpuUsageEntry CpuUsageCalculator::operator() (const CpuUsageRawData& data)
         entry.setTotalUsage(sum);
         return entry;
     }
+}
+
+CpuUsageRawData CpuUsageRawDataDiffCalculator::operator() (const CpuUsageRawData& curData, const CpuUsageRawData& preData)
+{
+    CpuUsageRawData data;
+    return data;
 }
 
 }
