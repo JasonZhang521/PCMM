@@ -6,7 +6,7 @@
 namespace Environment {
 
 #ifdef WIN32
-//#else
+#else
 enum CpuUsageType
 {
     CPU_USER        = 0,
@@ -22,7 +22,9 @@ enum CpuUsageType
 };
 
 using CpuUsageRawData = std::vector<uint64_t>;
-using CpuUsageRawDataVector = std::vector<CpuUsageRawData>;
+using CpuUsageRawDatas = std::vector<CpuUsageRawData>;
+
+#endif
 
 class CpuUsageEntry
 {
@@ -48,7 +50,7 @@ public:
     inline void setIntrUsage(unsigned int intr) {intr_ = intr;}
 };
 
-#endif
+using CpuUsageEntrys = std::vector<CpuUsageEntry>;
 
 }
 

@@ -79,7 +79,7 @@ SOURCES += \
     ../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/Environment/CpuInfoCollector.cpp \
     ../../sourceCode/Environment/CpuUsageCalculator.cpp \
-    ../../sourceCode/Environment/CpuUsageLinux.cpp
+    ../../sourceCode/Environment/CpuUsage.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -193,7 +193,9 @@ HEADERS += \
     ../../sourceCode/Environment/CpuInfoCollector.h \
     ../../sourceCode/Environment/CpuUsageCalculator.h \
     ../../sourceCode/Environment/CpuUsageDataType.h \
-    ../../sourceCode/Environment/CpuUsageLinux.h
+    ../../sourceCode/Environment/CpuUsage.h \
+    ../../sourceCode/Common/Operator.h \
+    ../../sourceCode/Environment/Component.h
 
 
 
