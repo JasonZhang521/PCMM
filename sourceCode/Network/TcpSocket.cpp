@@ -77,8 +77,8 @@ int TcpSocket::accept(IpSocketEndpoint& remoteEndPoint, SocketFlag flags) const
         SocketAddress address;
 
         int fd = SocketImp::accept(&address, &len, flags);
-        remoteEndPoint = IpSocketEndpoint(IpAddress(getInetAddressFromSocketAddress(address)),
-                                          IpPort(SocketAddressToAddressIn(address).sin_port));
+        remoteEndPoint = IpSocketEndpoint(IpAddress(IoPlatformWrapper::getInetAddressFromSocketAddress(address)),
+                                          IpPort(IoPlatformWrapper::SocketAddressToAddressIn(address).sin_port));
         return fd;
     }
     else if(IPFamilyType::IPFamilyV6 == localEndpoint_.getSocketAddressFamily())
@@ -86,8 +86,8 @@ int TcpSocket::accept(IpSocketEndpoint& remoteEndPoint, SocketFlag flags) const
         SocketAddress address;
         SocketAddresstLength len = 0;
         int fd = SocketImp::accept(&address, &len, flags);
-        remoteEndPoint = IpSocketEndpoint(IpAddress(getInet6AddressFromSocketAddress(address)),
-                                          IpPort(SocketAddressToAddressIn6(address).sin6_port));
+        remoteEndPoint = IpSocketEndpoint(IpAddress(IoPlatformWrapper::getInet6AddressFromSocketAddress(address)),
+                                          IpPort(IoPlatformWrapper::SocketAddressToAddressIn6(address).sin6_port));
         return fd;
     }
     else

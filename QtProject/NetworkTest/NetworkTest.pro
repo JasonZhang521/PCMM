@@ -16,6 +16,7 @@ INCLUDEPATH += ../../sourceCode/Serialize \
                ../../sourceCode/EventHandler \
                ../../sourceCode/TimeHandler \
                ../../sourceCode/Network \
+               ../../sourceCode/IoPlatformWrapper \
                ../../sourceCode/Connection \
                ../../sourceCode/Environment \
                ../../sourceCode/gtest/googletest/include \
@@ -36,7 +37,6 @@ SOURCES += \
     ../../sourceCode/Common/remove_character.cpp \
     ../../sourceCode/Common/replace_character.cpp \
     ../../sourceCode/Network/IpSocketEndpoint.cpp \
-    ../../sourceCode/Network/SocketWrapper.cpp \
     ../../sourceCode/Configure/Configure.cpp \
     ../../sourceCode/Configure/ExceptionConfigure.cpp \
     ../../sourceCode/Configure/TraceLogConfigure.cpp \
@@ -79,7 +79,8 @@ SOURCES += \
     ../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/Environment/CpuInfoCollector.cpp \
     ../../sourceCode/Environment/CpuUsageCalculator.cpp \
-    ../../sourceCode/Environment/CpuUsage.cpp
+    ../../sourceCode/Environment/CpuUsage.cpp \
+    ../../sourceCode/IoPlatformWrapper/SocketWrapper.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -110,7 +111,6 @@ HEADERS += \
     ../../sourceCode/Common/replace_character.h \
     ../../sourceCode/Common/Generic.h \
     ../../sourceCode/Network/IpSocketEndpoint.h \
-    ../../sourceCode/Network/SocketWrapper.h \
     ../../sourceCode/TraceLog/Trace.h \
     ../../sourceCode/TraceLog/TraceBuf.h \
     ../../sourceCode/TraceLog/TraceConsole.h \
@@ -126,7 +126,6 @@ HEADERS += \
     ../../sourceCode/Network/TcpClient.h \
     ../../sourceCode/EventHandler/IEvent.h \
     ../../sourceCode/Network/TcpState.h \
-    ../../sourceCode/Network/SocketWrapperDef.h \
     ../../sourceCode/Network/ITcpServer.h \
     ../../sourceCode/Network/TcpResult.h \
     ../../sourceCode/Network/TcpServer.h \
@@ -195,7 +194,9 @@ HEADERS += \
     ../../sourceCode/Environment/CpuUsageDataType.h \
     ../../sourceCode/Environment/CpuUsage.h \
     ../../sourceCode/Common/Operator.h \
-    ../../sourceCode/Environment/Component.h
+    ../../sourceCode/Environment/Component.h \
+    ../../sourceCode/IoPlatformWrapper/SocketWrapper.h \
+    ../../sourceCode/IoPlatformWrapper/SocketWrapperDef.h
 
 
 

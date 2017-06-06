@@ -6,7 +6,7 @@
 #include <fcntl.h>
 #endif
 
-namespace Network {
+namespace IoPlatformWrapper {
 #ifdef WIN32
 int InitSocket()
 {

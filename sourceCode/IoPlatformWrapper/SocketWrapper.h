@@ -1,5 +1,5 @@
-#ifndef _NETWORK_SOCKETWRAPPER_H_
-#define _NETWORK_SOCKETWRAPPER_H_
+#ifndef _IOPLATFORMWRAPPER_SOCKETWRAPPER_H_
+#define _IOPLATFORMWRAPPER_SOCKETWRAPPER_H_
 #include "SocketWrapperDef.h"
 #include <string>
 
@@ -10,7 +10,7 @@
 #include <unistd.h>
 #endif
 
-namespace Network {
+namespace IoPlatformWrapper {
 
 // Ip address handling
 inline SocketAddressIn& SocketAddressToAddressIn(SocketAddress& address)

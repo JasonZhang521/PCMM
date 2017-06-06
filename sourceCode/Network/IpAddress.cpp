@@ -65,11 +65,11 @@ IpAddress::IpAddress(const std::string& address)
     ::memset(&addr_.ipv4, 0, sizeof(SocketInetAddress));
     ::memset(&addr_.ipv6, 0, sizeof(SocketInet6Address));
 
-    if (InetPton(SOCKET_AF_INET, address.c_str(), &addr_.ipv4))
+    if (IoPlatformWrapper::InetPton(SOCKET_AF_INET, address.c_str(), &addr_.ipv4))
     {
         ipType_ = IPFamilyV4;
     }
-    else if(InetPton(SOCKET_AF_INET, address.c_str(), &addr_.ipv6))
+    else if(IoPlatformWrapper::InetPton(SOCKET_AF_INET, address.c_str(), &addr_.ipv6))
     {
         ipType_ = IPFamilyV6;
     }
@@ -218,7 +218,7 @@ std::string IpAddress::toString() const
     switch (ipType_)
     {
         case IPFamilyV4:
-            if (InetNtop(AF_INET, &addr_.ipv4, addr4buf, sizeof(addr4buf)) == 0)
+            if (IoPlatformWrapper::InetNtop(AF_INET, &addr_.ipv4, addr4buf, sizeof(addr4buf)) == 0)
             {
                 os << "Illegal_v4_IpAddress";
             }
@@ -226,7 +226,7 @@ std::string IpAddress::toString() const
             break;
 
         case IPFamilyV6:
-            if (InetNtop(AF_INET6, &addr_.ipv6, addr6buf, sizeof(addr6buf)) == 0)
+            if (IoPlatformWrapper::InetNtop(AF_INET6, &addr_.ipv6, addr6buf, sizeof(addr6buf)) == 0)
             {
                 os << "Illegal_v6_IpAddress";
             }

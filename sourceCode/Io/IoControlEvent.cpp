@@ -10,16 +10,16 @@ namespace Io {
 IoControlEvent::IoControlEvent()
     :eventId_(EventHandler::EventIdGenerator::generateEventId())
 {
-    Network::FdZero(&readFds_);
-    Network::FdZero(&writeFds_);
-    Network::FdZero(&exceptFds_);
+    IoPlatformWrapper::FdZero(&readFds_);
+    IoPlatformWrapper::FdZero(&writeFds_);
+    IoPlatformWrapper::FdZero(&exceptFds_);
 }
 
 IoControlEvent::~IoControlEvent()
 {
-    Network::FdZero(&readFds_);
-    Network::FdZero(&writeFds_);
-    Network::FdZero(&exceptFds_);
+    IoPlatformWrapper::FdZero(&readFds_);
+    IoPlatformWrapper::FdZero(&writeFds_);
+    IoPlatformWrapper::FdZero(&exceptFds_);
 }
 
 void IoControlEvent::registerIoFd(int fd, IoFdType type, EventHandler::IEvent* event)
@@ -28,15 +28,15 @@ void IoControlEvent::registerIoFd(int fd, IoFdType type, EventHandler::IEvent* e
 
     if (type & IoFdType::IoFdRead)
     {
-        Network::FdSet(fd, &readFds_);
+        IoPlatformWrapper::FdSet(fd, &readFds_);
     }
     else if(type & IoFdType::IoFdWrite)
     {
-        Network::FdSet(fd, &writeFds_);
+        IoPlatformWrapper::FdSet(fd, &writeFds_);
     }
     else if (type & IoFdType::IoFdExcept)
     {
-        Network::FdSet(fd, &exceptFds_);
+        IoPlatformWrapper::FdSet(fd, &exceptFds_);
     }
     else
     {
@@ -58,15 +58,15 @@ void IoControlEvent::unRegisterIoFd(int fd)
 
         if (event.fdType & IoFdType::IoFdRead)
         {
-            Network::FdClear(fd, &readFds_);
+            IoPlatformWrapper::FdClear(fd, &readFds_);
         }
         else if(event.fdType & IoFdType::IoFdWrite)
         {
-            Network::FdClear(fd, &writeFds_);
+            IoPlatformWrapper::FdClear(fd, &writeFds_);
         }
         else if (event.fdType & IoFdType::IoFdExcept)
         {
-            Network::FdClear(fd, &exceptFds_);
+            IoPlatformWrapper::FdClear(fd, &exceptFds_);
         }
         else
         {
@@ -89,7 +89,7 @@ void IoControlEvent::run(EventHandler::EventFlag flag)
     }
     IoFdEventMap::reverse_iterator rit = fdEventMap_.rbegin();
     int maxFdNum = rit->first + 1;
-    Network::Select(maxFdNum, &readFds_, &writeFds_, &exceptFds_, nullptr);
+    IoPlatformWrapper::Select(maxFdNum, &readFds_, &writeFds_, &exceptFds_, nullptr);
     for (; rit != fdEventMap_.rend(); ++rit)
     {
         int fd = rit->first;
@@ -97,19 +97,19 @@ void IoControlEvent::run(EventHandler::EventFlag flag)
         IoFdType fdType = rit->second.fdType;
         switch (flag) {
         case EventHandler::EventFlag::Event_IoRead:
-            if (fdType & IoFdType::IoFdRead && Network::FdIsSet(fd, &readFds_))
+            if (fdType & IoFdType::IoFdRead && IoPlatformWrapper::FdIsSet(fd, &readFds_))
             {
                 event->run(flag);
             }
             break;
         case EventHandler::EventFlag::Event_IoWrite:
-            if (fdType & IoFdType::IoFdWrite && Network::FdIsSet(fd, &writeFds_))
+            if (fdType & IoFdType::IoFdWrite && IoPlatformWrapper::FdIsSet(fd, &writeFds_))
             {
                 event->run(flag);
             }
             break;
         case EventHandler::EventFlag::Event_IoExcept:
-            if (fdType & IoFdType::IoFdExcept && Network::FdIsSet(fd, &exceptFds_))
+            if (fdType & IoFdType::IoFdExcept && IoPlatformWrapper::FdIsSet(fd, &exceptFds_))
             {
                 event->run(flag);
             }
