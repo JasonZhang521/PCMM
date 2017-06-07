@@ -2,6 +2,7 @@
 #include "CpuUsageCalculator.h"
 #include "Trace.h"
 #include <fstream>
+#include <iostream>
 
 #ifdef WIN32
 #else
@@ -30,12 +31,15 @@ void CpuUsage::init()
 
 void CpuUsage::getCpuUsageFromProcStatFile()
 {
+	std::cout << "nCpu:" << nCpu_ << std::endl;
     // save the curRawDatas;
     preRawDatas_.swap(curRawDatas_);
     // for the Linux operation system, the CPU infomation always got from /proc/stat files
     std::ifstream ifs(statFilePath_.c_str());
+	
     if (!ifs.good())
     {
+		std::cout << "Failed to open file: " << statFilePath_ << std::endl;
         TRACE_WARNING("Failed to open file: " << statFilePath_ << ", stop reading, try next time." << std::endl);
         return;
     }

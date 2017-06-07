@@ -1,7 +1,8 @@
 #ifndef _ENVIRONMENT_CPUUSAGEDATATYPE_H_
 #define _ENVIRONMENT_CPUUSAGEDATATYPE_H_
-#include<stdint.h>
-#include<vector>
+#include <stdint.h>
+#include <vector>
+#include <iostream>
 
 namespace Environment {
 
@@ -51,7 +52,19 @@ public:
     inline void setIntrUsage(unsigned int intr) {intr_ = intr;}
     inline unsigned int getTotalTime() const {return totalTime_;}
     inline void setTotalTime(unsigned int totalTime) {totalTime_ = totalTime;}
+	inline std::ostream& operator<<(std::ostream& os) const
+	{
+	    os << "[total=" << total_ << ", user=" << user_ << ", nice=" << nice_ 
+		   << ", sys="  << sys_   << ", idle=" << idle_ << ", intr=" << intr_
+		   << ", totalTime=" << totalTime_ << "]";
+		return os;
+	}
 };
+
+inline std::ostream& operator<< (std::ostream& os, const CpuUsageEntry& entry)
+{
+	return entry.operator<<(os);
+}
 
 using CpuUsageEntrys = std::vector<CpuUsageEntry>;
 
