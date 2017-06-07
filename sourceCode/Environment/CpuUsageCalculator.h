@@ -6,13 +6,13 @@
 namespace Environment {
 #ifdef WIN32
 #else
-class CpuUsageEntryCalculator : public std::unary_function<CpuUsageEntry, CpuUsageEntry>
+class CpuUsageEntryCalculator : public std::unary_function<CpuUsageRawData, CpuUsageEntry>
 {
 public:
     CpuUsageEntry operator() (const CpuUsageRawData& data);
 };
 
-class CpuUsageEntrysCalculator : public std::unary_function<CpuUsageEntrys, CpuUsageEntrys>
+class CpuUsageEntrysCalculator : public std::unary_function<CpuUsageRawDatas, CpuUsageEntrys>
 {
 public:
     CpuUsageEntrys operator() (const CpuUsageRawDatas& datas);

@@ -34,6 +34,7 @@ class CpuUsageEntry
     unsigned int sys_;
     unsigned int idle_;
     unsigned int intr_;
+    unsigned int totalTime_;
 public:
     inline CpuUsageEntry() : total_(0), user_(0), nice_(0), sys_(0), idle_(0), intr_(0) {}
     inline unsigned int getTotalUsage() const {return total_;}
@@ -48,6 +49,8 @@ public:
     inline void setIdleUsage(unsigned int idle) {idle_ = idle;}
     inline unsigned int getIntrUsage() const {return intr_;}
     inline void setIntrUsage(unsigned int intr) {intr_ = intr;}
+    inline unsigned int getTotalTime() const {return totalTime_;}
+    inline void setTotalTime(unsigned int totalTime) {totalTime_ = totalTime;}
 };
 
 using CpuUsageEntrys = std::vector<CpuUsageEntry>;
