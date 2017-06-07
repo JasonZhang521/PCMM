@@ -55,6 +55,12 @@ void CpuUsage::getCpuUsageFromProcStatFile()
     unsigned int cpuInde = 0;
     while(ifs.good())
     {
+		std::string cpuFlag;
+		ifs >> cpuFlag;
+		if (cpuFlag.find("cpu") == 0)
+		{
+			break;
+		}
         ifs >> curRawDatas_[cpuInde][CPU_USER]
             >> curRawDatas_[cpuInde][CPU_NICE]
             >> curRawDatas_[cpuInde][CPU_SYS]
