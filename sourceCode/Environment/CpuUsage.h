@@ -20,7 +20,7 @@ class CpuUsage
 public:
     CpuUsage();
     void update();
-    const CpuUsageRawDatas& getCpuUsageRawData() const;
+    const CpuUsageRawDatas& getCpuUsageRawDatas() const;
     const CpuUsageEntrys& getCpuUsageEntrys() const;
 private:
     void init();

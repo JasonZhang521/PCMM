@@ -2,6 +2,7 @@
 #include "CpuUsageCalculator.h"
 #include "Trace.h"
 #include <fstream>
+#include <sstream>
 #include <iostream>
 
 #ifdef WIN32
@@ -29,9 +30,16 @@ void CpuUsage::init()
     getCpuUsageFromProcStatFile();
 }
 
+/*
+ * "/proc/stat" file content sample
+ * cpu  5749 2 5482 6263815 7142 57 760 0 0
+ * cpu0 1101 0 1840 1525383 1174 27 684 0 0
+ * cpu1 1850 0 1750 1587567 2237 0 3 0 0
+ * cpu2 366 0 744 1547691 1619 30 52 0 0
+ * cpu3 2430 0 1147 1603173 2111 0 20 0 0
+ * */
 void CpuUsage::getCpuUsageFromProcStatFile()
 {
-	std::cout << "nCpu:" << nCpu_ << std::endl;
     // save the curRawDatas;
     preRawDatas_.swap(curRawDatas_);
     // for the Linux operation system, the CPU infomation always got from /proc/stat files
@@ -53,15 +61,23 @@ void CpuUsage::getCpuUsageFromProcStatFile()
      * n <--> n-1
      */
     unsigned int cpuInde = 0;
-    while(ifs.good())
+	char buffer[128];
+	while(ifs.good())
     {
+		std::fill(buffer, buffer + 128, 46);
+		ifs.getline(buffer, 128);
+		std::stringstream ss;
+		ss << buffer;
 		std::string cpuFlag;
-		ifs >> cpuFlag;
-		if (cpuFlag.find("cpu") == 0)
+	    
+		// cpu flag
+		ss >> cpuFlag;
+		std::string substr = cpuFlag.substr(0, 3);
+		if (cpuFlag.substr(0, 3) != std::string("cpu"))
 		{
 			break;
 		}
-        ifs >> curRawDatas_[cpuInde][CPU_USER]
+        ss  >> curRawDatas_[cpuInde][CPU_USER]
             >> curRawDatas_[cpuInde][CPU_NICE]
             >> curRawDatas_[cpuInde][CPU_SYS]
             >> curRawDatas_[cpuInde][CPU_IDLE]
@@ -70,6 +86,7 @@ void CpuUsage::getCpuUsageFromProcStatFile()
             >> curRawDatas_[cpuInde][CPU_SOFTIRQ]
             >> curRawDatas_[cpuInde][CPU_STEALSTOLEN]
             >> curRawDatas_[cpuInde][CPU_GUEST];
+
         ++cpuInde;
         if (cpuInde == (nCpu_ + 1))
         {
@@ -87,7 +104,7 @@ void CpuUsage::update()
     usageEntrys_ = usageEntryCalculator(usageRawDatas_);
 }
 
-const CpuUsageRawDatas& CpuUsage::getCpuUsageRawData() const
+const CpuUsageRawDatas& CpuUsage::getCpuUsageRawDatas() const
 {
     return usageRawDatas_;
 }
