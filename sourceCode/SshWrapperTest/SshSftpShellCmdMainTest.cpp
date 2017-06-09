@@ -63,8 +63,8 @@ int main(int argc, char *argv[])
     std::cin >> password;
     std::cout << "start" << std::endl;
     SshConfigure configure;
-    configure.user = user;
-    configure.password = password;
+    configure.user = "test";
+    configure.password = "test";
     configure.host = hostname;
     configure.port = 22;
     configure.verbosity = SSH_LOG_NOLOG; //SSH_LOG_PROTOCOL;
@@ -104,6 +104,22 @@ int main(int argc, char *argv[])
             isError = !client->listDir(std::string("."), attributes);
 	        std::cout << attributes << std::endl;
 		}
+        if (inputString.substr(0, 3) == std::string("lsf"))
+        {
+            std::string remotefile;
+            if (parseFileNameFromCommond(3, inputString, remotefile))
+            {
+                std::cout << "execute cmd lsf:" << remotefile << std::endl;
+                SftpFileAttribute attribute;
+                std::cout << "list file:" << remotefile << std::endl;
+                isError = !client->listRemoteFileAttribute(remotefile, attribute);
+                std::cout << attribute << std::endl;
+            }
+            else
+            {
+                isError = true;
+            }
+        }
         else if(inputString.substr(0, 4) == std::string("getc") && inputString.size() > 5)
         {
             std::string downFile;

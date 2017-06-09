@@ -77,7 +77,6 @@ SOURCES += \
     ../../sourceCode/Ipc/IpcClient.cpp \
     ../../sourceCode/Ipc/IpcConnectionTcpStrategy.cpp \
     ../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
-    ../../sourceCode/Environment/CpuInfoCollector.cpp \
     ../../sourceCode/Environment/CpuUsageCalculator.cpp \
     ../../sourceCode/Environment/CpuUsage.cpp \
     ../../sourceCode/IoPlatformWrapper/SocketWrapper.cpp
@@ -189,7 +188,6 @@ HEADERS += \
     ../../sourceCode/Ipc/IpcConnectionTcpStrategy.h \
     ../../sourceCode/Ipc/Component.h \
     ../../sourceCode/Ipc/IIpcConnectionClientStrategy.h \
-    ../../sourceCode/Environment/CpuInfoCollector.h \
     ../../sourceCode/Environment/CpuUsageCalculator.h \
     ../../sourceCode/Environment/CpuUsageDataType.h \
     ../../sourceCode/Environment/CpuUsage.h \

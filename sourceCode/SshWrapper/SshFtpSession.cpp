@@ -127,14 +127,27 @@ bool SshFtpSession::listDir(const std::string& dirPath, SftpDirAttributes& dirAt
     while ((attributes = sftp_readdir(sftpSession_, dir)) != NULL)
 	{
         SftpFileAttribute fileAttribute;
-        fileAttribute.name = attributes->name;
+
+        if (attributes->name != nullptr)
+        {
+            fileAttribute.name = attributes->name;
+        }
+
         fileAttribute.flags = attributes->flags;
         fileAttribute.type = attributes->type;
         fileAttribute.size = attributes->size;
         fileAttribute.uid = attributes->uid;
         fileAttribute.gid = attributes->gid;
-        fileAttribute.owner = attributes->owner;
-        fileAttribute.group = attributes->group;
+
+        if (attributes->owner != nullptr)
+        {
+            fileAttribute.owner = attributes->owner;
+        }
+
+        if (attributes->group)
+        {
+            fileAttribute.group = attributes->group;
+        }
         fileAttribute.permissions = attributes->permissions;
         dirAttributes.push_back(fileAttribute);
         sftp_attributes_free(attributes);
@@ -170,19 +183,33 @@ bool SshFtpSession::listRemoteFileAttribute(const std::string& filePath, SftpFil
 {
     TRACE_ENTER();
     char * path = sftp_canonicalize_path (sftpSession_, filePath.c_str());
-    sftp_attributes attributes = sftp_lstat(sftpSession_, path);
+    sftp_attributes attributes = sftp_stat(sftpSession_, path);
     if (attributes != nullptr)
     {
-        fileAttribute.name = attributes->name;
+        if (attributes->name != nullptr)
+        {
+            fileAttribute.name = attributes->name;
+        }
+
         fileAttribute.flags = attributes->flags;
         fileAttribute.type = attributes->type;
         fileAttribute.size = attributes->size;
         fileAttribute.uid = attributes->uid;
         fileAttribute.gid = attributes->gid;
-        fileAttribute.owner = attributes->owner;
-        fileAttribute.group = attributes->group;
+
+        if (attributes->owner != nullptr)
+        {
+            fileAttribute.owner = attributes->owner;
+        }
+
+        if (attributes->group != nullptr)
+        {
+            fileAttribute.group = attributes->group;
+        }
+
         fileAttribute.permissions = attributes->permissions;
         sftp_attributes_free(attributes);
+
     }
     else
     {
