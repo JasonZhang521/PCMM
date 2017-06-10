@@ -27,7 +27,9 @@ INCLUDEPATH += ../../sourceCode/Serialize \
                ../../sourceCode/IoPlatformWrapper \
                ../../sourceCode/Connection \
                ../../sourceCode/Environment \
-               ../../sourceCode/IpcMessage
+               ../../sourceCode/IpcMessage \
+               ../../sourceCode/SystemMonitorMessage
+               ../../sourceCode/Serialize
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
@@ -47,7 +49,24 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/Common/replace_character.cpp \
     ../../sourceCode/Common/SystemTime.cpp \
     ../../sourceCode/Common/TimeStat.cpp \
-    ../../sourceCode/SystemMonitorMessage/ISystemMonitorMessage.cpp
+    ../../sourceCode/SystemMonitorMessage/ISystemMonitorMessage.cpp \
+    ../../sourceCode/SystemMonitorMessage/SystemInfoMessage.cpp \
+    ../../sourceCode/Serialize/ISerializable.cpp \
+    ../../sourceCode/Serialize/ReadBuffer.cpp \
+    ../../sourceCode/Serialize/WriteBuffer.cpp \
+    ../../sourceCode/Environment/CpuUsage.cpp \
+    ../../sourceCode/Environment/CpuUsageCalculator.cpp \
+    ../../sourceCode/Environment/CpuUsageInfo.cpp \
+    ../../sourceCode/Network/IpAddress.cpp \
+    ../../sourceCode/Network/IpPort.cpp \
+    ../../sourceCode/Network/IpSocketEndpoint.cpp \
+    ../../sourceCode/Network/ITcpClient.cpp \
+    ../../sourceCode/Network/ITcpServer.cpp \
+    ../../sourceCode/Network/SocketImp.cpp \
+    ../../sourceCode/Network/TcpClient.cpp \
+    ../../sourceCode/Network/TcpServer.cpp \
+    ../../sourceCode/Network/TcpSocket.cpp \
+    ../../sourceCode/IoPlatformWrapper/SocketWrapper.cpp
 
 HEADERS += \
     ../../sourceCode/SystemMonitor/SystemMonitorProcess.h \
@@ -72,7 +91,33 @@ HEADERS += \
     ../../sourceCode/Common/replace_character.h \
     ../../sourceCode/Common/SystemTime.h \
     ../../sourceCode/Common/TimeStat.h \
-    ../../sourceCode/SystemMonitorMessage/ISystemMonitorMessage.h
+    ../../sourceCode/SystemMonitorMessage/ISystemMonitorMessage.h \
+    ../../sourceCode/SystemMonitorMessage/SystemInfoMessage.h \
+    ../../sourceCode/SystemMonitorMessage/Component.h \
+    ../../sourceCode/Serialize/BufferToData.h \
+    ../../sourceCode/Serialize/DataToBuffer.h \
+    ../../sourceCode/Serialize/ISerializable.h \
+    ../../sourceCode/Serialize/ReadBuffer.h \
+    ../../sourceCode/Serialize/WriteBuffer.h \
+    ../../sourceCode/Environment/Component.h \
+    ../../sourceCode/Environment/CpuUsage.h \
+    ../../sourceCode/Environment/CpuUsageCalculator.h \
+    ../../sourceCode/Environment/CpuUsageDataType.h \
+    ../../sourceCode/Environment/CpuUsageInfo.h \
+    ../../sourceCode/Network/IpAddress.h \
+    ../../sourceCode/Network/IpPort.h \
+    ../../sourceCode/Network/IpSocketEndpoint.h \
+    ../../sourceCode/Network/ITcpClient.h \
+    ../../sourceCode/Network/ITcpServer.h \
+    ../../sourceCode/Network/SocketImp.h \
+    ../../sourceCode/Network/TcpClient.h \
+    ../../sourceCode/Network/tcpresult.h \
+    ../../sourceCode/Network/TcpServer.h \
+    ../../sourceCode/Network/TcpSocket.h \
+    ../../sourceCode/Network/TcpState.h \
+    ../../sourceCode/Network/Component.h \
+    ../../sourceCode/IoPlatformWrapper/SocketWrapper.h \
+    ../../sourceCode/IoPlatformWrapper/SocketWrapperDef.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

@@ -224,6 +224,26 @@ inline int GetSockName(SocketHandle sockfd, SocketAddress *addr, SocketAddresstL
 
 int SetBlocking(SocketHandle sockfd, bool blocking);
 
+inline unsigned long Htonl(unsigned long hostlong)
+{
+    return htonl(hostlong);
+}
+
+inline unsigned long Ntohl(unsigned long netlong)
+{
+    return ntohl(netlong);
+}
+
+inline unsigned short Htons(unsigned short hostshort)
+{
+    return htons(hostshort);
+}
+
+inline unsigned short Ntohs(unsigned short netshort)
+{
+    return ntohs(netshort);
+}
+
 }
 
 

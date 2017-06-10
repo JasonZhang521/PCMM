@@ -79,7 +79,8 @@ SOURCES += \
     ../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/Environment/CpuUsageCalculator.cpp \
     ../../sourceCode/Environment/CpuUsage.cpp \
-    ../../sourceCode/IoPlatformWrapper/SocketWrapper.cpp
+    ../../sourceCode/IoPlatformWrapper/SocketWrapper.cpp \
+    ../../sourceCode/Environment/CpuUsageInfo.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -194,7 +195,8 @@ HEADERS += \
     ../../sourceCode/Common/Operator.h \
     ../../sourceCode/Environment/Component.h \
     ../../sourceCode/IoPlatformWrapper/SocketWrapper.h \
-    ../../sourceCode/IoPlatformWrapper/SocketWrapperDef.h
+    ../../sourceCode/IoPlatformWrapper/SocketWrapperDef.h \
+    ../../sourceCode/Environment/CpuUsageInfo.h
 
 
 
