@@ -1,5 +1,5 @@
-#ifndef _IPC_IIPCMESSAGE_H_
-#define _IPC_IIPCMESSAGE_H_
+#ifndef _IPCMESSAGE_IIPCMESSAGE_H_
+#define _IPCMESSAGE_IIPCMESSAGE_H_
 #include "IpcMessageType.h"
 #include <stdint.h>
 
@@ -9,7 +9,7 @@ class WriteBuffer;
 class ReadBuffer;
 }
 
-namespace Ipc {
+namespace IpcMessage {
 
 class IIpcMessage
 {
@@ -25,4 +25,4 @@ public:
 
 }
 
-#endif // _IPC_IIPCMESSAGE_H_
+#endif // _IPCMESSAGE_IIPCMESSAGE_H_

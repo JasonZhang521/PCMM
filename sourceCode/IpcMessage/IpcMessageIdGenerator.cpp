@@ -1,6 +1,6 @@
 #include "IpcMessageIdGenerator.h"
 
-namespace Ipc {
+namespace IpcMessage {
 
 uint64_t IpcMessageIdGenerator::ipcMessagetId_ = 0;
 

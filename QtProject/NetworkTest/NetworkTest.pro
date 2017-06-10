@@ -70,8 +70,8 @@ SOURCES += \
     ../../sourceCode/NetworkTest/IpAddressTest.cpp \
     ../../sourceCode/Io/IIoControl.cpp \
     ../../sourceCode/Io/IoControlEvent.cpp \
-    ../../sourceCode/Ipc/IIpcMessage.cpp \
-    ../../sourceCode/Ipc/IpcMessageIdGenerator.cpp \
+    ../../sourceCode/IpcMessage/IIpcMessage.cpp \
+    ../../sourceCode/IpcMessage/IpcMessageIdGenerator.cpp \
     ../../sourceCode/Connection/IConnectionTx.cpp \
     ../../sourceCode/Connection/IConnectionRx.cpp \
     ../../sourceCode/Ipc/IpcClient.cpp \
@@ -179,9 +179,9 @@ HEADERS += \
     ../../sourceCode/Io/IIoControl.h \
     ../../sourceCode/Io/IoControlEvent.h \
     ../../sourceCode/Io/Component.h \
-    ../../sourceCode/Ipc/IIpcMessage.h \
-    ../../sourceCode/Ipc/IpcMessageType.h \
-    ../../sourceCode/Ipc/IpcMessageIdGenerator.h \
+    ../../sourceCode/IpcMessage/IIpcMessage.h \
+    ../../sourceCode/IpcMessage/IpcMessageType.h \
+    ../../sourceCode/IpcMessage/IpcMessageIdGenerator.h \
     ../../sourceCode/Connection/IConnectionTx.h \
     ../../sourceCode/Connection/IConnectionRx.h \
     ../../sourceCode/Ipc/IpcClient.h \

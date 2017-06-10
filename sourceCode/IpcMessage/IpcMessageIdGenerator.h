@@ -1,8 +1,8 @@
-#ifndef _IPC_IPCMESSAGEIDGENERATOR_H_
-#define _IPC_IPCMESSAGEIDGENERATOR_H_
+#ifndef _IPCMESSAGE_IPCMESSAGEIDGENERATOR_H_
+#define _IPCMESSAGE_IPCMESSAGEIDGENERATOR_H_
 #include <stdint.h>
 
-namespace Ipc {
+namespace IpcMessage {
 
 class IpcMessageIdGenerator
 {
@@ -14,4 +14,4 @@ public:
 
 }
 
-#endif // _IPC_IPCMESSAGEIDGENERATOR_H_
+#endif // _IPCMESSAGE_IPCMESSAGEIDGENERATOR_H_

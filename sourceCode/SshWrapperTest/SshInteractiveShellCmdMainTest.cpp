@@ -9,17 +9,17 @@ using namespace SshWrapper;;
 int main()
 {
     std::string user, password, hostname;
-    hostname = "selnpcgwnx1000.seln.ete.ericsson.se";
-    std::cout << "Input User:";
-    std::cin >> user;
-    std::cout << "Input password:";
-    std::cin >> password;
-    std::cout << "start" << std::endl;
+    hostname = "192.168.5.138";
+    //std::cout << "Input User:";
+    //std::cin >> user;
+    //std::cout << "Input password:";
+    //std::cin >> password;
+    //std::cout << "start" << std::endl;
 
     SshConfigure configure;
-    configure.user = user;
-    configure.password = password;
-    configure.host = "selnpcgwnx1000.seln.ete.ericsson.se";
+    configure.user = "test";
+    configure.password = "test";
+    configure.host = "192.168.5.138";
 	configure.port = 22;
     // configure.verbosity = SSH_LOG_PROTOCOL;
     configure.verbosity = SSH_LOG_WARNING;

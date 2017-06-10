@@ -1,7 +1,7 @@
 #include "IIpcMessage.h"
 #include "IpcMessageIdGenerator.h"
 
-namespace Ipc {
+namespace IpcMessage {
 
 
 IIpcMessage::IIpcMessage()
