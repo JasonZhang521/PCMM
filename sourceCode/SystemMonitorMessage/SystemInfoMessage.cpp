@@ -23,6 +23,11 @@ SystemInfoMessage::SystemInfoMessage(const Environment::CpuUsageInfo& cpuUsageIn
     }
 }
 
+const Environment::CpuUsageInfo& SystemInfoMessage::getCpuUsageInfo() const
+{
+    return cpuUsageInfo_;
+}
+
 
 SystemInfoMessage::~SystemInfoMessage()
 {

@@ -14,6 +14,7 @@ class SystemInfoMessage : public ISystemMonitorMessage
 public:
     SystemInfoMessage();
     SystemInfoMessage(const Environment::CpuUsageInfo& cpuUsageInfo, SystemMonitorType monitorType);
+    const Environment::CpuUsageInfo& getCpuUsageInfo() const;
 
 private:
     ~SystemInfoMessage();
