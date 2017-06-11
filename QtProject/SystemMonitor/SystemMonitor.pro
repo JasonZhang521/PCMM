@@ -66,7 +66,10 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/Network/TcpClient.cpp \
     ../../sourceCode/Network/TcpServer.cpp \
     ../../sourceCode/Network/TcpSocket.cpp \
-    ../../sourceCode/IoPlatformWrapper/SocketWrapper.cpp
+    ../../sourceCode/IoPlatformWrapper/SocketWrapper.cpp \
+    ../../sourceCode/SystemMonitorMessage/SystemInfoReportResponse.cpp \
+    ../../sourceCode/SystemMonitorMessage/SystemInfoRequest.cpp \
+    ../../sourceCode/SystemMonitor/Build.cpp
 
 HEADERS += \
     ../../sourceCode/SystemMonitor/SystemMonitorProcess.h \
@@ -117,7 +120,10 @@ HEADERS += \
     ../../sourceCode/Network/TcpState.h \
     ../../sourceCode/Network/Component.h \
     ../../sourceCode/IoPlatformWrapper/SocketWrapper.h \
-    ../../sourceCode/IoPlatformWrapper/SocketWrapperDef.h
+    ../../sourceCode/IoPlatformWrapper/SocketWrapperDef.h \
+    ../../sourceCode/SystemMonitorMessage/SystemInfoReportResponse.h \
+    ../../sourceCode/SystemMonitorMessage/SystemInfoRequest.h \
+    ../../sourceCode/SystemMonitor/Build.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

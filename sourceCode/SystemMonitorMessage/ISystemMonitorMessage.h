@@ -6,8 +6,9 @@ namespace SystemMonitorMessage {
 enum SystemMonitorType
 {
     MonitorRequest,
+    MonitorResponse,
     MonitorReport,
-    MonitorResponse
+    MonitorReportResponse
 };
 
 class ISystemMonitorMessage : public IpcMessage::IIpcMessage
