@@ -69,7 +69,23 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/IoPlatformWrapper/SocketWrapper.cpp \
     ../../sourceCode/SystemMonitorMessage/SystemInfoReportResponse.cpp \
     ../../sourceCode/SystemMonitorMessage/SystemInfoRequest.cpp \
-    ../../sourceCode/SystemMonitor/Build.cpp
+    ../../sourceCode/SystemMonitor/Build.cpp \
+    ../../sourceCode/EventHandler/EventIdGenerator.cpp \
+    ../../sourceCode/EventHandler/IEvent.cpp \
+    ../../sourceCode/EventHandler/IEventQueue.cpp \
+    ../../sourceCode/EventHandler/ListEventQueue.cpp \
+    ../../sourceCode/TimerHandler/EventTimer.cpp \
+    ../../sourceCode/TimerHandler/ITimer.cpp \
+    ../../sourceCode/TimerHandler/ITimerQueue.cpp \
+    ../../sourceCode/TimerHandler/ListTimerQueue.cpp \
+    ../../sourceCode/TimerHandler/TimerIdGenerator.cpp \
+    ../../sourceCode/Core/ICoreLoop.cpp \
+    ../../sourceCode/Core/EventLoop.cpp \
+    ../../sourceCode/Core/TimeLoop.cpp \
+    ../../sourceCode/Core/LoopMain.cpp \
+    ../../sourceCode/Io/IIoControl.cpp \
+    ../../sourceCode/Io/IoControlEventsHandler.cpp \
+    ../../sourceCode/Core/IoLoop.cpp
 
 HEADERS += \
     ../../sourceCode/SystemMonitor/SystemMonitorProcess.h \
@@ -123,7 +139,26 @@ HEADERS += \
     ../../sourceCode/IoPlatformWrapper/SocketWrapperDef.h \
     ../../sourceCode/SystemMonitorMessage/SystemInfoReportResponse.h \
     ../../sourceCode/SystemMonitorMessage/SystemInfoRequest.h \
-    ../../sourceCode/SystemMonitor/Build.h
+    ../../sourceCode/SystemMonitor/Build.h \
+    ../../sourceCode/EventHandler/Component.h \
+    ../../sourceCode/EventHandler/EventIdGenerator.h \
+    ../../sourceCode/EventHandler/IEvent.h \
+    ../../sourceCode/EventHandler/IEventQueue.h \
+    ../../sourceCode/EventHandler/ListEventQueue.h \
+    ../../sourceCode/TimerHandler/Component.h \
+    ../../sourceCode/TimerHandler/EventTimer.h \
+    ../../sourceCode/TimerHandler/ITimer.h \
+    ../../sourceCode/TimerHandler/ITimerQueue.h \
+    ../../sourceCode/TimerHandler/ListTimerQueue.h \
+    ../../sourceCode/TimerHandler/TimerIdGenerator.h \
+    ../../sourceCode/Core/ICoreLoop.h \
+    ../../sourceCode/Core/EventLoop.h \
+    ../../sourceCode/Core/TimeLoop.h \
+    ../../sourceCode/Core/LoopMain.h \
+    ../../sourceCode/Io/Component.h \
+    ../../sourceCode/Io/IIoControl.h \
+    ../../sourceCode/Io/IoControlEventsHandler.h \
+    ../../sourceCode/Core/IoLoop.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

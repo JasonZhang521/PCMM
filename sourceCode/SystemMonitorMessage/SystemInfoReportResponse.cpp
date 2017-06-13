@@ -1,4 +1,7 @@
 #include "SystemInfoReportResponse.h"
+#include "WriteBuffer.h"
+#include "ReadBuffer.h"
+#include "Trace.h"
 namespace SystemMonitorMessage {
 
 SystemInfoReportResponse::SystemInfoReportResponse()
@@ -14,7 +17,7 @@ void SystemInfoReportResponse::serialize(Serialize::WriteBuffer& writeBuffer) co
 
 void SystemInfoReportResponse::unserialize(Serialize::ReadBuffer& readBuffer)
 {
-
+    static_cast<void>(readBuffer);
 }
 
 SystemMonitorType SystemInfoReportResponse::getSystemMonitorType() const

@@ -19,7 +19,7 @@ struct IoFdEvent
 using IoFdEventMap = std::map<int, IoFdEvent>;
 
 
-class IoControlEvent : public IIoControl, public EventHandler::IEvent
+class IoControlEventsHandler : public IIoControl, public EventHandler::IEvent
 {
     uint64_t eventId_;
     SocketFdSet readFds_;
@@ -27,8 +27,8 @@ class IoControlEvent : public IIoControl, public EventHandler::IEvent
     SocketFdSet exceptFds_;
     IoFdEventMap fdEventMap_;
 public:
-    IoControlEvent();
-    virtual ~IoControlEvent();
+    IoControlEventsHandler();
+    virtual ~IoControlEventsHandler();
     virtual void registerIoFd(int fd, IoFdType type, EventHandler::IEvent* IEvent);
     virtual void unRegisterIoFd(int fd);
     virtual uint64_t getEventId() const;

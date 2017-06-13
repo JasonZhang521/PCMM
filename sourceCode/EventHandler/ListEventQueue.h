@@ -19,7 +19,7 @@ public:
     virtual ~ListEventQueue();
     virtual void AddEvent(IEvent*);
     virtual void deleteEvent(uint64_t eventID);
-    virtual void executeEvents();
+    virtual void executeEvents(unsigned int executeTime);
     virtual std::ostream& operator<<(std::ostream& os) const;
 
 public:

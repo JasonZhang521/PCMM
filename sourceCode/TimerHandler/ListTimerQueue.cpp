@@ -73,18 +73,19 @@ void ListTimerQueue::executeTimers()
              timerInList->onTime();
              delete timerInList;
              it = timersList_.erase(it);
-             uint64_t singleTimerElapse = singleStat.getElapseTimeAsMilliSecond();
+             const uint64_t singleTimerElapse = singleStat.getElapseTimeAsMilliSecond();
              if (singleTimerElapse > MaxRunningDurationForSingleTimer)
              {
                  TRACE_WARNING("Timer is executing more than " << MaxRunningDurationForSingleTimer
                               << "ms, Timer Information" << timerInList);
+                 break;
              }
         }
         else
         {
             break;
         }
-        uint64_t totalElapse = totalStat.getElapseTimeAsMilliSecond();
+        const uint64_t totalElapse = totalStat.getElapseTimeAsMilliSecond();
         if (totalElapse > MaxRunningDurationForTimersInOneLoop)
         {
             TRACE_DEBUG("Timers is executing more than " << MaxRunningDurationForTimersInOneLoop << "ms");

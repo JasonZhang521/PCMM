@@ -1,6 +1,8 @@
 #ifndef SYSTEMINFOREPORTRESPONSE_H
 #define SYSTEMINFOREPORTRESPONSE_H
 #include "ISystemMonitorMessage.h"
+#include "Component.h"
+#include "Macro.h"
 
 namespace SystemMonitorMessage {
 
@@ -13,6 +15,9 @@ protected:
     virtual void unserialize(Serialize::ReadBuffer& readBuffer);
 
     virtual SystemMonitorType getSystemMonitorType() const;
+
+public:
+    GETCLASSNAME(SystemMonitorMessage)
 };
 
 }

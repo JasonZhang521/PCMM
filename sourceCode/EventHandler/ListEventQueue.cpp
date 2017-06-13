@@ -37,7 +37,7 @@ void ListEventQueue::deleteEvent(uint64_t eventID)
     }
 }
 
-void ListEventQueue::executeEvents()
+void ListEventQueue::executeEvents(unsigned int executeTime)
 {
     TimeStat totalStat;
     while (!eventsList_.empty())
@@ -46,15 +46,21 @@ void ListEventQueue::executeEvents()
         std::unique_ptr<IEvent> event(eventsList_.front());
         eventsList_.pop_front();
         event->run();
-        uint64_t singleTimerElapse = singleStat.getElapseTimeAsMilliSecond();
+        const uint64_t singleTimerElapse = singleStat.getElapseTimeAsMilliSecond();
         if (singleTimerElapse > MaxRunningDurationForSingleTimer)
         {
             TRACE_WARNING("Event is executing more than " << MaxRunningDurationForSingleEvent
                          << "ms, Timer Information" << event.get());
+            break;
+        }
+        const uint64_t totalElapse = totalStat.getElapseTimeAsMilliSecond();
+        if (totalElapse > executeTime)
+        {
+            break;
         }
     }
 
-    uint64_t totalElapse = totalStat.getElapseTimeAsMilliSecond();
+    const uint64_t totalElapse = totalStat.getElapseTimeAsMilliSecond();
     if (totalElapse > MaxRunningDurationForEventsInOneLoop)
     {
         TRACE_WARNING("Timers is executing more than " << MaxRunningDurationForTimersInOneLoop << "ms");

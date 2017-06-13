@@ -1,4 +1,4 @@
-#include "IoControlEvent.h"
+#include "IoControlEventsHandler.h"
 #include "SocketWrapper.h"
 #include "EventIdGenerator.h"
 #include "Generic.h"
@@ -7,7 +7,7 @@
 
 namespace Io {
 
-IoControlEvent::IoControlEvent()
+IoControlEventsHandler::IoControlEventsHandler()
     :eventId_(EventHandler::EventIdGenerator::generateEventId())
 {
     IoPlatformWrapper::FdZero(&readFds_);
@@ -15,14 +15,14 @@ IoControlEvent::IoControlEvent()
     IoPlatformWrapper::FdZero(&exceptFds_);
 }
 
-IoControlEvent::~IoControlEvent()
+IoControlEventsHandler::~IoControlEventsHandler()
 {
     IoPlatformWrapper::FdZero(&readFds_);
     IoPlatformWrapper::FdZero(&writeFds_);
     IoPlatformWrapper::FdZero(&exceptFds_);
 }
 
-void IoControlEvent::registerIoFd(int fd, IoFdType type, EventHandler::IEvent* event)
+void IoControlEventsHandler::registerIoFd(int fd, IoFdType type, EventHandler::IEvent* event)
 {
     TRACE_NOTICE("fd = " << fd << ", type = " << type << ", event = " << event);
 
@@ -46,7 +46,7 @@ void IoControlEvent::registerIoFd(int fd, IoFdType type, EventHandler::IEvent* e
     fdEventMap_[fd] = IoFdEvent(type, event);
 }
 
-void IoControlEvent::unRegisterIoFd(int fd)
+void IoControlEventsHandler::unRegisterIoFd(int fd)
 {
     TRACE_NOTICE("fd = " << fd);
 
@@ -75,12 +75,12 @@ void IoControlEvent::unRegisterIoFd(int fd)
     }
 }
 
-uint64_t IoControlEvent::getEventId() const
+uint64_t IoControlEventsHandler::getEventId() const
 {
     return eventId_;
 }
 
-void IoControlEvent::run(EventHandler::EventFlag flag)
+void IoControlEventsHandler::run(EventHandler::EventFlag flag)
 {
     TRACE_DEBUG("flag = " << EventFlagString(flag));
     if (fdEventMap_.empty())
@@ -121,7 +121,7 @@ void IoControlEvent::run(EventHandler::EventFlag flag)
     }
 }
 
-std::ostream& IoControlEvent::operator<< (std::ostream& os) const
+std::ostream& IoControlEventsHandler::operator<< (std::ostream& os) const
 {
     os << "[";
 
