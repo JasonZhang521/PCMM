@@ -17,7 +17,8 @@ class ListEventQueue : public IEventQueue
 public:
     ListEventQueue();
     virtual ~ListEventQueue();
-    virtual void AddEvent(IEvent*);
+protected:
+    virtual void addEvent(IEvent*);
     virtual void deleteEvent(uint64_t eventID);
     virtual void executeEvents(unsigned int executeTime);
     virtual std::ostream& operator<<(std::ostream& os) const;

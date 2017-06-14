@@ -1,20 +1,29 @@
-#ifndef IOLOOP_H
-#define IOLOOP_H
+#ifndef _CORE_IOLOOP_H_
+#define _CORE_IOLOOP_H_
+#include "IIoControl.h"
 #include <memory>
 
 namespace Io {
     class IIoControl;
 }
 
+namespace EventHandler
+{
+    class IEvent;
+}
+
 namespace Core {
 
-class IoLoop : public ICoreLoop
+class IoLoop
 {
-    std::shared_ptr<IIoControl> timerQueue_;
+    std::shared_ptr<Io::IIoControl> ioControl_;
 public:
-    IoLoop();
+    IoLoop(std::shared_ptr<Io::IIoControl> ioControl);
+    void runLoop(unsigned int executeTime);
+    void registerIo(int fd, Io::IoFdType type, EventHandler::IEvent* event);
+    void deRegisterIo(int fd);
 };
 
 }
 
-#endif // IOLOOP_H
+#endif // _CORE_IOLOOP_H_

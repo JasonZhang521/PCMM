@@ -15,15 +15,9 @@ ListTimerQueue::ListTimerQueue()
 
 ListTimerQueue::~ListTimerQueue()
 {
-    TimersList::iterator it = timersList_.begin();
-    for (; it != timersList_.end(); ++it)
-    {
-        delete (*it);
-        *it = nullptr;
-    }
 }
 
-void ListTimerQueue::AddTimer(ITimer* timer)
+void ListTimerQueue::addTimer(ITimer* timer)
 {
     if (timersList_.empty())
     {
@@ -93,10 +87,10 @@ void ListTimerQueue::executeTimers()
     }
 }
 
-std::ostream& ListTimerQueue::operator<<(std::ostream& os)
+std::ostream& ListTimerQueue::operator<<(std::ostream& os) const
 {
     os << "[";
-    for (TimersList::iterator it = timersList_.begin(); it != timersList_.end(); ++it)
+    for (TimersList::const_iterator it = timersList_.cbegin(); it != timersList_.cend(); ++it)
     {
         os << "timer=" << *it;
     }

@@ -1,6 +1,7 @@
 #include "IoControlEventsHandler.h"
 #include "SocketWrapper.h"
 #include "EventIdGenerator.h"
+#include "IEvent.h"
 #include "Generic.h"
 #include <string>
 #include "Trace.h"
@@ -8,7 +9,6 @@
 namespace Io {
 
 IoControlEventsHandler::IoControlEventsHandler()
-    :eventId_(EventHandler::EventIdGenerator::generateEventId())
 {
     IoPlatformWrapper::FdZero(&readFds_);
     IoPlatformWrapper::FdZero(&writeFds_);
@@ -75,14 +75,9 @@ void IoControlEventsHandler::unRegisterIoFd(int fd)
     }
 }
 
-uint64_t IoControlEventsHandler::getEventId() const
+void IoControlEventsHandler::run()
 {
-    return eventId_;
-}
-
-void IoControlEventsHandler::run(EventHandler::EventFlag flag)
-{
-    TRACE_DEBUG("flag = " << EventFlagString(flag));
+    TRACE_ENTER();
     if (fdEventMap_.empty())
     {
         TRACE_WARNING("No fd to be handled!");
@@ -95,28 +90,19 @@ void IoControlEventsHandler::run(EventHandler::EventFlag flag)
         int fd = rit->first;
         EventHandler::IEvent* event = rit->second.fdEvent;
         IoFdType fdType = rit->second.fdType;
-        switch (flag) {
-        case EventHandler::EventFlag::Event_IoRead:
-            if (fdType & IoFdType::IoFdRead && IoPlatformWrapper::FdIsSet(fd, &readFds_))
-            {
-                event->run(flag);
-            }
-            break;
-        case EventHandler::EventFlag::Event_IoWrite:
-            if (fdType & IoFdType::IoFdWrite && IoPlatformWrapper::FdIsSet(fd, &writeFds_))
-            {
-                event->run(flag);
-            }
-            break;
-        case EventHandler::EventFlag::Event_IoExcept:
-            if (fdType & IoFdType::IoFdExcept && IoPlatformWrapper::FdIsSet(fd, &exceptFds_))
-            {
-                event->run(flag);
-            }
-            break;
-        default:
-            TRACE_WARNING("Error Event Flag = " << EventFlagString(flag));
-            break;
+        if (fdType & IoFdType::IoFdRead && IoPlatformWrapper::FdIsSet(fd, &readFds_))
+        {
+            event->run(EventHandler::EventFlag::Event_IoRead);
+        }
+
+        if (fdType & IoFdType::IoFdWrite && IoPlatformWrapper::FdIsSet(fd, &writeFds_))
+        {
+            event->run(EventHandler::EventFlag::Event_IoWrite);
+        }
+
+        if (fdType & IoFdType::IoFdExcept && IoPlatformWrapper::FdIsSet(fd, &exceptFds_))
+        {
+            event->run(EventHandler::EventFlag::Event_IoExcept);
         }
     }
 }

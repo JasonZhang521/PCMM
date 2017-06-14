@@ -1,20 +1,37 @@
-#ifndef LOOPMAIN_H
-#define LOOPMAIN_H
+#ifndef _CORE_LOOPMAIN_H_
+#define _CORE_LOOPMAIN_H_
+#include "EventLoop.h"
+#include "IoLoop.h"
+#include "TimerLoop.h"
 #include <memory>
 
+namespace TimerHandler {
+class ITimer;
+}
+
+namespace EventHandler {
+class IEvent;
+}
 namespace Core {
 
 class LoopMain
 {
-    std::unique_ptr<ICoreLoop> eventLoop_;
-    std::unique_ptr<ICoreLoop> timeLoop_;
-    std::unique_ptr<ICoreLoop> ioLoop_;
+    EventLoop eventLoop_;
+    TimerLoop timeLoop_;
+    IoLoop ioLoop_;
+    unsigned int timeExcuteInOneLoop;
 public:
     LoopMain();
-    void loop;
+    void registerTimer(TimerHandler::ITimer* timer);
+    void deRegisterTimer(uint64_t timerID);
+    void registerEvent(EventHandler::IEvent* event);
+    void deRegisterEvent(uint64_t eventID);
+    void registerIo(int fd, Io::IoFdType type, EventHandler::IEvent* IEvent);
+    void deRegisterIo(int fd);
+    void loop();
 
 };
 
 }
 
-#endif // LOOPMAIN_H
+#endif // _CORE_LOOPMAIN_H_

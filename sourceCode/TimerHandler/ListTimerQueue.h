@@ -14,12 +14,12 @@ class ListTimerQueue : public ITimerQueue
     TimersList timersList_;
 public:
     ListTimerQueue();
+    virtual ~ListTimerQueue();
 protected:
-    ~ListTimerQueue();
-    virtual void AddTimer(ITimer*);
+    virtual void addTimer(ITimer*);
     virtual void deleteTimer(uint64_t timerID);
     virtual void executeTimers();
-    virtual std::ostream& operator<<(std::ostream& os);
+    virtual std::ostream& operator<<(std::ostream& os) const;
 
 public:
      GETCLASSNAME(ListTimerQueue)

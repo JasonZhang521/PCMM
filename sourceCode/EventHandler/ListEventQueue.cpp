@@ -13,13 +13,9 @@ ListEventQueue::ListEventQueue()
 
 ListEventQueue::~ListEventQueue()
 {
-    for (EventList::iterator it = eventsList_.begin(); it != eventsList_.end(); ++it)
-    {
-        delete (*it);
-    }
 }
 
-void ListEventQueue::AddEvent(IEvent* event)
+void ListEventQueue::addEvent(IEvent* event)
 {
     eventsList_.push_back(event);
 }

@@ -22,8 +22,9 @@ INCLUDEPATH += ../../sourceCode/Serialize \
                ../../sourceCode/TraceLog \
                ../../sourceCode/Configure \
                ../../sourceCode/EventHandler \
-               ../../sourceCode/TimeHandler \
+               ../../sourceCode/TimerHandler \
                ../../sourceCode/Network \
+               ../../sourceCode/Io \
                ../../sourceCode/IoPlatformWrapper \
                ../../sourceCode/Connection \
                ../../sourceCode/Environment \
@@ -79,13 +80,12 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/TimerHandler/ITimerQueue.cpp \
     ../../sourceCode/TimerHandler/ListTimerQueue.cpp \
     ../../sourceCode/TimerHandler/TimerIdGenerator.cpp \
-    ../../sourceCode/Core/ICoreLoop.cpp \
     ../../sourceCode/Core/EventLoop.cpp \
-    ../../sourceCode/Core/TimeLoop.cpp \
     ../../sourceCode/Core/LoopMain.cpp \
     ../../sourceCode/Io/IIoControl.cpp \
     ../../sourceCode/Io/IoControlEventsHandler.cpp \
-    ../../sourceCode/Core/IoLoop.cpp
+    ../../sourceCode/Core/IoLoop.cpp \
+    ../../sourceCode/Core/TimerLoop.cpp
 
 HEADERS += \
     ../../sourceCode/SystemMonitor/SystemMonitorProcess.h \
@@ -151,14 +151,14 @@ HEADERS += \
     ../../sourceCode/TimerHandler/ITimerQueue.h \
     ../../sourceCode/TimerHandler/ListTimerQueue.h \
     ../../sourceCode/TimerHandler/TimerIdGenerator.h \
-    ../../sourceCode/Core/ICoreLoop.h \
     ../../sourceCode/Core/EventLoop.h \
-    ../../sourceCode/Core/TimeLoop.h \
     ../../sourceCode/Core/LoopMain.h \
     ../../sourceCode/Io/Component.h \
     ../../sourceCode/Io/IIoControl.h \
     ../../sourceCode/Io/IoControlEventsHandler.h \
-    ../../sourceCode/Core/IoLoop.h
+    ../../sourceCode/Core/IoLoop.h \
+    ../../sourceCode/Core/TimerLoop.h \
+    ../../sourceCode/Common/Singleton.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

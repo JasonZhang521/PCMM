@@ -2,10 +2,13 @@
 #define _IO_IOCONTROLEVENT_H_
 #include "SocketWrapperDef.h"
 #include "IIoControl.h"
-#include "IEvent.h"
 #include "Component.h"
 #include "Macro.h"
 #include <map>
+
+namespace EventHandler {
+class IEvent;
+}
 
 namespace Io {
 
@@ -19,9 +22,8 @@ struct IoFdEvent
 using IoFdEventMap = std::map<int, IoFdEvent>;
 
 
-class IoControlEventsHandler : public IIoControl, public EventHandler::IEvent
+class IoControlEventsHandler : public IIoControl
 {
-    uint64_t eventId_;
     SocketFdSet readFds_;
     SocketFdSet writeFds_;
     SocketFdSet exceptFds_;
@@ -29,10 +31,10 @@ class IoControlEventsHandler : public IIoControl, public EventHandler::IEvent
 public:
     IoControlEventsHandler();
     virtual ~IoControlEventsHandler();
-    virtual void registerIoFd(int fd, IoFdType type, EventHandler::IEvent* IEvent);
+protected:
+    virtual void registerIoFd(int fd, IoFdType type, EventHandler::IEvent* event);
     virtual void unRegisterIoFd(int fd);
-    virtual uint64_t getEventId() const;
-    virtual void run(EventHandler::EventFlag flag = EventHandler::EventFlag::Event_NoFlag);
+    virtual void run();
     virtual std::ostream& operator<< (std::ostream& os) const;
 
 public:
