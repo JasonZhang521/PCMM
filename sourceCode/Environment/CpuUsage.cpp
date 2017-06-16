@@ -11,12 +11,8 @@
 #endif
 namespace Environment {
 
-#ifdef WIN32
-
-#else
-
 CpuUsage::CpuUsage()
-    : nCpu_(get_nprocs())
+    : nCpu_(0)
     , statFilePath_("/proc/stat")
     , preRawDatas_(nCpu_ + 1, CpuUsageRawData(CPU_USAGE_TYPE_NUMBER, 0))
     , curRawDatas_(nCpu_ + 1, CpuUsageRawData(CPU_USAGE_TYPE_NUMBER, 0))
@@ -27,6 +23,7 @@ CpuUsage::CpuUsage()
 
 void CpuUsage::init()
 {
+    nCpu_ = getCpuNumer();
     getCpuUsageFromProcStatFile();
 }
 
@@ -95,9 +92,21 @@ void CpuUsage::getCpuUsageFromProcStatFile()
     }
 }
 
+unsigned int CpuUsage::getCpuNumer()
+{
+#ifdef WIN32
+    return 0;
+#else
+    return get_nprocs();
+#endif
+}
+
 void CpuUsage::update()
 {
+#ifdef WIN32
+#else
     getCpuUsageFromProcStatFile();
+#endif
     CpuUsageRawDatasDiffCalculator diffRawDataCalculator;
     usageRawDatas_ = diffRawDataCalculator(curRawDatas_, preRawDatas_);
     CpuUsageEntrysCalculator usageEntryCalculator;
@@ -113,7 +122,5 @@ const CpuUsageEntrys& CpuUsage::getCpuUsageEntrys() const
 {
     return usageEntrys_;
 }
-
-#endif
 
 }

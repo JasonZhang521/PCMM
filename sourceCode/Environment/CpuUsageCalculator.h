@@ -4,8 +4,7 @@
 #include <functional>
 
 namespace Environment {
-#ifdef WIN32
-#else
+
 class CpuUsageEntryCalculator : public std::unary_function<CpuUsageRawData, CpuUsageEntry>
 {
 public:
@@ -29,8 +28,6 @@ class CpuUsageRawDatasDiffCalculator : public std::binary_function<CpuUsageRawDa
 public:
     CpuUsageRawDatas operator() (const CpuUsageRawDatas& curDatas, const CpuUsageRawDatas& preDatas);
 };
-
-#endif
 
 }
 

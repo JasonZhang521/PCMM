@@ -225,5 +225,11 @@ void CpuUsageInfo::unserialize(Serialize::ReadBuffer& readBuffer)
     }
 }
 
+std::ostream& CpuUsageInfo::operator <<(std::ostream& os) const
+{
+    os << "[Cpu usage information:" << cpuUsageEntrys_ << "]";
+    return os;
+}
+
 }
 

@@ -24,7 +24,7 @@ class TcpClient : public ITcpClient, public EventHandler::IEvent
     uint64_t eventId_;  
     TcpState state_;
     std::shared_ptr<TcpSocket> socket_;
-    std::shared_ptr<Connection::IConnectionTx> connectionTx;
+    std::shared_ptr<Connection::IConnectionTx> connectionTx_;
 public:
     TcpClient(const IpSocketEndpoint& localEndpoint,
               const IpSocketEndpoint& remoteEndpoint,

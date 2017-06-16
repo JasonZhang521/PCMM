@@ -3,9 +3,6 @@
 #include <iostream>
 namespace Environment {
 
-#ifdef WIN32
-#else
-
 CpuUsageEntry CpuUsageEntryCalculator::operator() (const CpuUsageRawData& data)
 {
     CpuUsageEntry entry;
@@ -72,5 +69,4 @@ CpuUsageRawDatas CpuUsageRawDatasDiffCalculator::operator() (const CpuUsageRawDa
     }
 }
 
-#endif
 }

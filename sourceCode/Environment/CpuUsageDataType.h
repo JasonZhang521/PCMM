@@ -6,8 +6,6 @@
 
 namespace Environment {
 
-#ifdef WIN32
-#else
 enum CpuUsageType
 {
     CPU_USER        = 0,
@@ -24,8 +22,6 @@ enum CpuUsageType
 
 using CpuUsageRawData = std::vector<uint64_t>;
 using CpuUsageRawDatas = std::vector<CpuUsageRawData>;
-
-#endif
 
 class CpuUsageEntry
 {
@@ -72,6 +68,22 @@ inline std::ostream& operator<< (std::ostream& os, const CpuUsageEntry& entry)
 }
 
 using CpuUsageEntrys = std::vector<CpuUsageEntry>;
+inline std::ostream& operator<< (std::ostream& os, const CpuUsageEntrys& entrys)
+{
+    int index = 0;
+    for (CpuUsageEntrys::const_iterator it = entrys.cbegin(); it != entrys.cend(); ++it, ++index)
+    {
+        if (0 == index)
+        {
+            os << "[cpu:" << *it << "]";
+        }
+        else
+        {
+            os << ", [cpu" << index << ":" << *it << "]";
+        }
+    }
+    return os;
+}
 
 }
 

@@ -69,9 +69,16 @@ public:
     void serialize(Serialize::WriteBuffer& writeBuffer) const;
     void unserialize(Serialize::ReadBuffer& readBuffer);
 
+    std::ostream& operator <<(std::ostream& os) const;
+
 public:
      GETCLASSNAME(CpuUsageInfo)
 };
+
+inline std::ostream& operator <<(std::ostream& os, const CpuUsageInfo& cpuUsageInfo)
+{
+    return cpuUsageInfo.operator <<(os);
+}
 
 }
 

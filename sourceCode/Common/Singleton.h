@@ -5,20 +5,20 @@
 template <typename T>
 class Singleton
 {
-    static std::unique_ptr<T> instance;
+    static std::unique_ptr<T> instance_;
 public:
     static T& instance();
 };
 
 template <typename T>
-static T& Singleton::instance()
+T& Singleton<T>::instance()
 {
-    if (!instance)
+    if (!instance_)
     {
-        instance = std::unique_ptr<T>(new T());
+        instance_ = std::unique_ptr<T>(new T());
     }
 
-    return *instance;
+    return *instance_;
 }
 
 #endif // SINGLETON_H

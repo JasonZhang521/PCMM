@@ -85,7 +85,13 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/Io/IIoControl.cpp \
     ../../sourceCode/Io/IoControlEventsHandler.cpp \
     ../../sourceCode/Core/IoLoop.cpp \
-    ../../sourceCode/Core/TimerLoop.cpp
+    ../../sourceCode/Core/TimerLoop.cpp \
+    ../../sourceCode/Connection/IConnectionTx.cpp \
+    ../../sourceCode/Ipc/IpcConnectionTx.cpp \
+    ../../sourceCode/SystemMonitor/SystemMonitorHandler.cpp \
+    ../../sourceCode/SystemMonitor/SystemInfoCollector.cpp \
+    ../../sourceCode/SystemMonitor/SystemMonitorConnectionTx.cpp \
+    ../../sourceCode/SystemMonitor/ISystemMonitorHandler.cpp
 
 HEADERS += \
     ../../sourceCode/SystemMonitor/SystemMonitorProcess.h \
@@ -158,7 +164,13 @@ HEADERS += \
     ../../sourceCode/Io/IoControlEventsHandler.h \
     ../../sourceCode/Core/IoLoop.h \
     ../../sourceCode/Core/TimerLoop.h \
-    ../../sourceCode/Common/Singleton.h
+    ../../sourceCode/Common/Singleton.h \
+    ../../sourceCode/Ipc/IpcConnectionTx.h \
+    ../../sourceCode/SystemMonitor/SystemMonitorHandler.h \
+    ../../sourceCode/SystemMonitor/SystemInfoCollector.h \
+    ../../sourceCode/SystemMonitor/Component.h \
+    ../../sourceCode/SystemMonitor/SystemMonitorConnectionTx.h \
+    ../../sourceCode/SystemMonitor/ISystemMonitorHandler.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

@@ -15,7 +15,7 @@ TcpClient::TcpClient(const IpSocketEndpoint& localEndpoint,
     :eventId_(EventHandler::EventIdGenerator::generateEventId())
     ,state_(TcpState::Tcp_Closed)
     ,socket_(new TcpSocket(localEndpoint, remoteEndpoint))
-    ,connectionTx(tx)
+    ,connectionTx_(tx)
 {
     if (!tx)
     {
@@ -47,7 +47,7 @@ TcpResult TcpClient::connect()
         {
             TRACE_NOTICE(socket_->getErrorInfo());
             state_ = TcpState::Tcp_Connecting;
-            connectionTx->onConnect();
+            connectionTx_->onConnect();
             return TcpResult::Success;    
         }
         else
@@ -89,7 +89,7 @@ TcpResult TcpClient::receive()
     }
     else
     {
-        connectionTx->onReceive(readBuffer);
+        connectionTx_->onReceive(readBuffer);
         return TcpResult::Success;
     }
 }
@@ -105,7 +105,7 @@ TcpResult TcpClient::disconnect()
     }
     else
     {
-        connectionTx->onDisconnect();
+        connectionTx_->onDisconnect();
         return TcpResult::Success;
     }
 }

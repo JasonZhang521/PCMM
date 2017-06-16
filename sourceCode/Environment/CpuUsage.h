@@ -6,9 +6,7 @@
 #include <string>
 
 namespace Environment {
-#ifdef WIN32
 
-#else
 class CpuUsage
 {
     unsigned int nCpu_;
@@ -25,12 +23,12 @@ public:
 private:
     void init();
     void getCpuUsageFromProcStatFile();
+    unsigned int getCpuNumer();
 
 public:
      GETCLASSNAME(CpuUsage)
 };
 
-#endif
 
 }
 
