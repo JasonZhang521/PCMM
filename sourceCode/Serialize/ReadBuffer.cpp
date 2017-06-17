@@ -1,4 +1,6 @@
 #include "ReadBuffer.h"
+#include "Trace.h"
+#include <exception>
 
 namespace Serialize {
 
@@ -28,17 +30,17 @@ bool ReadBuffer::read(void* newBuffer, unsigned int readSize)
     return true;
 }
 
-bool ReadBuffer::setDataSize(unsigned int dataSize)
+void ReadBuffer::setDataSize(unsigned int dataSize)
 {
     if (dataSize > bufferSize_)
     {
-        return false;
+        TRACE_ERROR("Data size is bigger than the buffer size: data size = " << dataSize << ", buffer size = " << bufferSize_);
+        throw std::out_of_range("Data size is bigger than the buffer size");
     }
     dataSize_ = dataSize;
-    return true;
 }
 
-char* ReadBuffer::getBuffer() const
+void* ReadBuffer::getBuffer() const
 {
     return buffer_;
 }

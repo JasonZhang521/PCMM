@@ -5,16 +5,32 @@
 
 namespace TimerHandler {
 
+enum class TimerType
+{
+    PeriodTimer,
+    SingleTimer
+};
+
+std::string timerTypeToString(TimerType type);
+
 class ITimer
 {
+    const uint64_t timerId_;
+    const uint64_t period_;
+    uint64_t expiredTime_;
+    TimerType timerType_;
 public:
-    ITimer();
+    ITimer(uint64_t period, TimerType type = TimerType::SingleTimer);
     virtual ~ITimer();
     virtual void onTime() = 0;
-    virtual bool isExpired() = 0;
-    virtual uint64_t getExpiredTime() const = 0;
-    virtual uint64_t getTimerId() const = 0;
     virtual std::ostream& operator<<(std::ostream& os) = 0;
+    bool isExpired();
+    uint64_t getTimerId() const;
+    uint64_t getExpiredTime() const;
+    uint64_t getPeriod() const;
+    TimerType getTimerType() const;
+protected:
+    void resetTimer();
 };
 
 std::ostream& operator<<(std::ostream& os, ITimer* timer);

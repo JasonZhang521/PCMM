@@ -1,4 +1,5 @@
 #include "IEvent.h"
+#include "EventIdGenerator.h"
 #include <string>
 
 namespace EventHandler {
@@ -22,6 +23,7 @@ std::string EventFlagString(EventFlag flag)
 }
 
 IEvent::IEvent()
+    :eventId_(EventHandler::EventIdGenerator::generateEventId())
 {
 
 }
@@ -29,6 +31,11 @@ IEvent::IEvent()
 IEvent::~IEvent()
 {
 
+}
+
+uint64_t IEvent::getEventId() const
+{
+    return eventId_;
 }
 
 std::ostream& operator<< (std::ostream& os, const IEvent* event)

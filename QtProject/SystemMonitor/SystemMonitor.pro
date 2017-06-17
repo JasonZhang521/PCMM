@@ -24,9 +24,10 @@ INCLUDEPATH += ../../sourceCode/Serialize \
                ../../sourceCode/EventHandler \
                ../../sourceCode/TimerHandler \
                ../../sourceCode/Network \
+               ../../sourceCode/Ipc \
                ../../sourceCode/Io \
-               ../../sourceCode/IoPlatformWrapper \
                ../../sourceCode/Connection \
+               ../../sourceCode/IoPlatformWrapper \
                ../../sourceCode/Environment \
                ../../sourceCode/IpcMessage \
                ../../sourceCode/SystemMonitorMessage
@@ -42,7 +43,6 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/Ipc/IpcConnectionTcpStrategy.cpp \
     ../../sourceCode/IpcMessage/IpcMessageIdGenerator.cpp \
     ../../sourceCode/IpcMessage/IIpcMessage.cpp \
-    ../../sourceCode/Connection/IConnectionRx.cpp \
     ../../sourceCode/Common/FilePathHandler.cpp \
     ../../sourceCode/Common/LocalTime.cpp \
     ../../sourceCode/Common/Random.cpp \
@@ -68,7 +68,6 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/Network/TcpServer.cpp \
     ../../sourceCode/Network/TcpSocket.cpp \
     ../../sourceCode/IoPlatformWrapper/SocketWrapper.cpp \
-    ../../sourceCode/SystemMonitorMessage/SystemInfoReportResponse.cpp \
     ../../sourceCode/SystemMonitorMessage/SystemInfoRequest.cpp \
     ../../sourceCode/SystemMonitor/Build.cpp \
     ../../sourceCode/EventHandler/EventIdGenerator.cpp \
@@ -86,12 +85,19 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/Io/IoControlEventsHandler.cpp \
     ../../sourceCode/Core/IoLoop.cpp \
     ../../sourceCode/Core/TimerLoop.cpp \
-    ../../sourceCode/Connection/IConnectionTx.cpp \
-    ../../sourceCode/Ipc/IpcConnectionTx.cpp \
     ../../sourceCode/SystemMonitor/SystemMonitorHandler.cpp \
     ../../sourceCode/SystemMonitor/SystemInfoCollector.cpp \
     ../../sourceCode/SystemMonitor/SystemMonitorConnectionTx.cpp \
-    ../../sourceCode/SystemMonitor/ISystemMonitorHandler.cpp
+    ../../sourceCode/SystemMonitor/ISystemMonitorHandler.cpp \
+    ../../sourceCode/Io/IIoEvent.cpp \
+    ../../sourceCode/Connection/IConnectionRx.cpp \
+    ../../sourceCode/Connection/IConnectionTx.cpp \
+    ../../sourceCode/Connection/IConnectionMessage.cpp \
+    ../../sourceCode/Ipc/IIpcClient.cpp \
+    ../../sourceCode/Network/ITcpConnectionReceiver.cpp \
+    ../../sourceCode/Ipc/IIpcConnectionReceiver.cpp \
+    ../../sourceCode/IpcMessage/IIpcMessageFactory.cpp \
+    ../../sourceCode/SystemMonitorMessage/SystemMonitorMessageFactory.cpp
 
 HEADERS += \
     ../../sourceCode/SystemMonitor/SystemMonitorProcess.h \
@@ -102,8 +108,6 @@ HEADERS += \
     ../../sourceCode/IpcMessage/IpcMessageIdGenerator.h \
     ../../sourceCode/IpcMessage/IIpcMessage.h \
     ../../sourceCode/IpcMessage/IpcMessageType.h \
-    ../../sourceCode/Connection/IConnectionRx.h \
-    ../../sourceCode/Connection/IConnectionTx.h \
     ../../sourceCode/Common/App.h \
     ../../sourceCode/Common/AppConst.h \
     ../../sourceCode/Common/FilePathHandler.h \
@@ -143,7 +147,6 @@ HEADERS += \
     ../../sourceCode/Network/Component.h \
     ../../sourceCode/IoPlatformWrapper/SocketWrapper.h \
     ../../sourceCode/IoPlatformWrapper/SocketWrapperDef.h \
-    ../../sourceCode/SystemMonitorMessage/SystemInfoReportResponse.h \
     ../../sourceCode/SystemMonitorMessage/SystemInfoRequest.h \
     ../../sourceCode/SystemMonitor/Build.h \
     ../../sourceCode/EventHandler/Component.h \
@@ -165,12 +168,21 @@ HEADERS += \
     ../../sourceCode/Core/IoLoop.h \
     ../../sourceCode/Core/TimerLoop.h \
     ../../sourceCode/Common/Singleton.h \
-    ../../sourceCode/Ipc/IpcConnectionTx.h \
-    ../../sourceCode/SystemMonitor/SystemMonitorHandler.h \
     ../../sourceCode/SystemMonitor/SystemInfoCollector.h \
     ../../sourceCode/SystemMonitor/Component.h \
     ../../sourceCode/SystemMonitor/SystemMonitorConnectionTx.h \
-    ../../sourceCode/SystemMonitor/ISystemMonitorHandler.h
+    ../../sourceCode/SystemMonitor/ISystemMonitorHandler.h \
+    ../../sourceCode/SystemMonitor/SystemMonitorHandler.h \
+    ../../sourceCode/Serialize/Component.h \
+    ../../sourceCode/Io/IIoEvent.h \
+    ../../sourceCode/Connection/IConnectionTx.h \
+    ../../sourceCode/Connection/IConnectionRx.h \
+    ../../sourceCode/Connection/IConnectionMessage.h \
+    ../../sourceCode/Ipc/IIpcClient.h \
+    ../../sourceCode/Network/ITcpConnectionReceiver.h \
+    ../../sourceCode/Ipc/IIpcConnectionReceiver.h \
+    ../../sourceCode/IpcMessage/IIpcMessageFactory.h \
+    ../../sourceCode/SystemMonitorMessage/SystemMonitorMessageFactory.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

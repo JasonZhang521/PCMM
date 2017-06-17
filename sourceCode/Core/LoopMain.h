@@ -26,7 +26,7 @@ public:
     void deRegisterTimer(uint64_t timerID);
     void registerEvent(EventHandler::IEvent* event);
     void deRegisterEvent(uint64_t eventID);
-    void registerIo(int fd, Io::IoFdType type, EventHandler::IEvent* IEvent);
+    void registerIo(int fd, Io::IoFdType type, Io::IIoEvent* IEvent);
     void deRegisterIo(int fd);
     void loop();
 

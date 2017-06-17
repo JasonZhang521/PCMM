@@ -12,15 +12,9 @@ SystemInfoMessage::SystemInfoMessage()
 
 }
 
-SystemInfoMessage::SystemInfoMessage(const Environment::CpuUsageInfo& cpuUsageInfo, SystemMonitorType monitorType)
+SystemInfoMessage::SystemInfoMessage(const Environment::CpuUsageInfo& cpuUsageInfo)
     : cpuUsageInfo_(cpuUsageInfo)
-    , systemMonitorType_(monitorType)
 {
-    if (systemMonitorType_ != MonitorResponse && systemMonitorType_ != MonitorReport)
-    {
-        TRACE_ERROR("Error system monitor type:" << systemMonitorType_);
-        throw std::invalid_argument("Error system monitor type:");
-    }
 }
 
 const Environment::CpuUsageInfo& SystemInfoMessage::getCpuUsageInfo() const
@@ -38,7 +32,7 @@ void SystemInfoMessage::serialize(Serialize::WriteBuffer& writeBuffer) const
 {
     TRACE_ENTER();
     writeBuffer.write<uint8_t>(static_cast<uint8_t>(IpcMessage::IpcMessageType::IpcMessage_SystemMonitor));
-    writeBuffer.write<uint8_t>(static_cast<uint8_t>(systemMonitorType_));
+    writeBuffer.write<uint8_t>(static_cast<uint8_t>(IpcMessage::MonitorMessage));
     cpuUsageInfo_.serialize(writeBuffer);
 }
 
@@ -54,18 +48,18 @@ void SystemInfoMessage::unserialize(Serialize::ReadBuffer& readBuffer)
         throw std::runtime_error("Receive IPC message with error message type");
     }
     readBuffer.read<uint8_t>(temp);
-    systemMonitorType_ = static_cast<SystemMonitorType>(temp);
-    if (systemMonitorType_ != MonitorResponse && systemMonitorType_ != MonitorReport)
+    IpcMessage::SystemMonitorType systemMonitorType = static_cast<IpcMessage::SystemMonitorType>(temp);
+    if (systemMonitorType != IpcMessage::MonitorMessage)
     {
-        TRACE_ERROR("Receive system infomation message with error system monitor type:" << systemMonitorType_);
+        TRACE_ERROR("Receive system infomation message with error system monitor type:" << IpcMessage::MonitorMessage);
         throw std::invalid_argument("Receive system infomation message with error system monitor type:");
     }
     cpuUsageInfo_.unserialize(readBuffer);
 }
 
-SystemMonitorType SystemInfoMessage::getSystemMonitorType() const
+IpcMessage::SystemMonitorType SystemInfoMessage::getSystemMonitorType() const
 {
-    return systemMonitorType_;
+    return IpcMessage::MonitorMessage;
 }
 
 }

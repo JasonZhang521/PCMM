@@ -4,7 +4,6 @@
 
 namespace Serialize {
 class WriteBuffer;
-class ReadBuffer;
 }
 
 namespace Network {

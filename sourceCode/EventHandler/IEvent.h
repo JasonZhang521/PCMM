@@ -17,10 +17,11 @@ std::string EventFlagString(EventFlag flag);
 
 class IEvent
 {
+    uint64_t eventId_;
 public:
     IEvent();
     virtual ~IEvent();
-    virtual uint64_t getEventId() const = 0;
+    virtual uint64_t getEventId() const;
     virtual void run(EventFlag flag = EventFlag::Event_NoFlag) = 0;
     virtual std::ostream& operator<< (std::ostream& os) const = 0;
 };

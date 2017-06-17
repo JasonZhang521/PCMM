@@ -1,6 +1,8 @@
 #ifndef _SERIALIZE_READBUFFER_H_
 #define _SERIALIZE_READBUFFER_H_
 #include "BufferToData.h"
+#include "Component.h"
+#include "Macro.h"
 namespace Serialize {
 
 class ReadBuffer
@@ -29,13 +31,27 @@ public:
 
     bool read(void* newBuffer, unsigned int readSize);
 
-    bool setDataSize(unsigned int dataSize);
-    char* getBuffer() const;
-    unsigned int getBufferSize() const;
+    template <typename T>
+    bool peek(T& val, unsigned int start = 0)
+    {
+        if (pos_ + start + sizeof(T) > dataSize_)
+        {
+            return false;
+        }
+        val = BufferToData::Read<T>(buffer_ + pos_ + start);
+        return true;
+    }
+
+    void* getBuffer() const;
     unsigned int getDataSize() const;
+    void setDataSize(unsigned int dataSize);
+    unsigned int getBufferSize() const;
 
     void swap(ReadBuffer& buffer);
     bool operator==(const ReadBuffer& buffer);
+
+public:
+    GETCLASSNAME(ReadBuffer)
 };
 
 }

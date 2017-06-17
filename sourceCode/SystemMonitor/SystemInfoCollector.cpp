@@ -7,19 +7,15 @@
 
 namespace SystemMonitor {
 
-SystemInfoCollector::SystemInfoCollector()
+SystemInfoCollector::SystemInfoCollector(std::shared_ptr<ISystemMonitorHandler> monitorHandler)
     :eventId_(EventHandler::EventIdGenerator::generateEventId())
+    ,monitorHandler_(monitorHandler)
 {
     init();
 }
 SystemInfoCollector::~SystemInfoCollector()
 {
 
-}
-
-const Environment::CpuUsageInfo& SystemInfoCollector::getCpuUsageInfo() const
-{
-    return cpuUsageInfo_;
 }
 
 uint64_t SystemInfoCollector::getEventId() const
@@ -31,13 +27,12 @@ void SystemInfoCollector::run(EventHandler::EventFlag flag)
 {
     static_cast<void> (flag);
     Singleton<Environment::CpuUsage>::instance().update();
-    cpuUsageInfo_ = Environment::CpuUsageInfo(Singleton<Environment::CpuUsage>::instance().getCpuUsageEntrys());
-}
+ }
 
 std::ostream& SystemInfoCollector::operator<< (std::ostream& os) const
 {
     os << "["
-       << "cpu information:" << cpuUsageInfo_
+       << "eventId_:" << eventId_
        << "]";
     return os;
 }

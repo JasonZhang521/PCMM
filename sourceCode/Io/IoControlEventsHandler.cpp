@@ -1,7 +1,7 @@
 #include "IoControlEventsHandler.h"
 #include "SocketWrapper.h"
 #include "EventIdGenerator.h"
-#include "IEvent.h"
+#include "IIoEvent.h"
 #include "Generic.h"
 #include <string>
 #include "Trace.h"
@@ -22,7 +22,7 @@ IoControlEventsHandler::~IoControlEventsHandler()
     IoPlatformWrapper::FdZero(&exceptFds_);
 }
 
-void IoControlEventsHandler::registerIoFd(int fd, IoFdType type, EventHandler::IEvent* event)
+void IoControlEventsHandler::registerIoFd(int fd, IoFdType type, IIoEvent* event)
 {
     TRACE_NOTICE("fd = " << fd << ", type = " << type << ", event = " << event);
 
@@ -88,7 +88,7 @@ void IoControlEventsHandler::run()
     for (; rit != fdEventMap_.rend(); ++rit)
     {
         int fd = rit->first;
-        EventHandler::IEvent* event = rit->second.fdEvent;
+        IIoEvent* event = rit->second.fdEvent;
         IoFdType fdType = rit->second.fdType;
         if (fdType & IoFdType::IoFdRead && IoPlatformWrapper::FdIsSet(fd, &readFds_))
         {

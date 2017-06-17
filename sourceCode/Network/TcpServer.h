@@ -2,7 +2,7 @@
 #define TCPSERVER_H
 #include "ITcpServer.h"
 #include "ITcpClient.h"
-#include "IEvent.h"
+#include "IIoEvent.h"
 #include "TcpSocket.h"
 #include "TcpState.h"
 #include "Component.h"
@@ -11,9 +11,8 @@
 
 namespace Network {
 
-class TcpServer : public ITcpServer, public EventHandler::IEvent
+class TcpServer : public ITcpServer, public Io::IIoEvent
 {
-    uint64_t eventId_;
     TcpSocket socket_;
     TcpState state_;
     using Clients = std::vector<ITcpClient*>;

@@ -2,24 +2,26 @@
 #define SYSTEMMONITORHANDLER_H
 #include "ISystemMonitorHandler.h"
 #include "SystemInfoCollector.h"
-#include "IConnectionTx.h"
 #include "Component.h"
 #include "Macro.h"
 #include <memory>
 
-namespace Connection {
-class connectionRx;
-class connectionTx;
+namespace Ipc {
+    class IIpcClient;
+    class IConnectionTx;
+}
+
+namespace TimerHandler {
+    class ITimer;
 }
 
 namespace SystemMonitor {
 
 class SystemMonitorHandler : public ISystemMonitorHandler
 {
-    std::shared_ptr<Connection::IConnectionRx> connectionRx_;
-    SystemInfoCollector collector;
+    std::shared_ptr<Ipc::IIpcClient> ipcClient_;
 public:
-    SystemMonitorHandler(std::shared_ptr<Connection::IConnectionRx> connectionRx);
+    SystemMonitorHandler(std::shared_ptr<Ipc::IIpcClient> ipcClient);
     ~SystemMonitorHandler();
 private:
     virtual void reportSystemInfo();

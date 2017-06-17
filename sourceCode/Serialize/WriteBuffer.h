@@ -1,6 +1,8 @@
 #ifndef _SERIALIZE_WRITEBUFFER_H_
 #define _SERIALIZE_WRITEBUFFER_H_
 #include "DataToBuffer.h"
+#include "Component.h"
+#include "Macro.h"
 
 namespace Serialize {
 
@@ -27,16 +29,22 @@ public:
     }
 
     void write(const void* newBuffer, unsigned int writeSize);
-    char* getBuffer() const;
+
+    void* getBuffer() const;
     unsigned int getBufferSize() const;
     unsigned int getDataSize() const;
+
     void swap(WriteBuffer& buffer);
     bool operator==(const WriteBuffer& buffer);
+
 private:
     void resizeBuffer(unsigned int additionSize);
 
 public:
     const static unsigned int DefaultWriteBufferSize;
+
+public:
+    GETCLASSNAME(WriteBuffer)
 };
 
 }

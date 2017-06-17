@@ -13,10 +13,10 @@ public:
 protected:
     virtual void serialize(Serialize::WriteBuffer& writeBuffer) const;
     virtual void unserialize(Serialize::ReadBuffer& readBuffer);
-    virtual SystemMonitorType getSystemMonitorType() const;
+    virtual IpcMessage::SystemMonitorType getSystemMonitorType() const;
 
 public:
-    GETCLASSNAME(SystemInfoMessage)
+    GETCLASSNAME(SystemInfoRequest)
 };
 
 }

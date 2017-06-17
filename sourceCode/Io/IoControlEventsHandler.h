@@ -6,18 +6,14 @@
 #include "Macro.h"
 #include <map>
 
-namespace EventHandler {
-class IEvent;
-}
-
 namespace Io {
 
 struct IoFdEvent
 {
     IoFdEvent() : fdType(IoFdNoType), fdEvent(nullptr) {}
-    IoFdEvent(IoFdType type, EventHandler::IEvent* event) : fdType(type), fdEvent(event) {}
+    IoFdEvent(IoFdType type, IIoEvent* event) : fdType(type), fdEvent(event) {}
     IoFdType fdType;
-    EventHandler::IEvent* fdEvent;
+    IIoEvent* fdEvent;
 };
 using IoFdEventMap = std::map<int, IoFdEvent>;
 
@@ -32,7 +28,7 @@ public:
     IoControlEventsHandler();
     virtual ~IoControlEventsHandler();
 protected:
-    virtual void registerIoFd(int fd, IoFdType type, EventHandler::IEvent* event);
+    virtual void registerIoFd(int fd, IoFdType type, IIoEvent* event);
     virtual void unRegisterIoFd(int fd);
     virtual void run();
     virtual std::ostream& operator<< (std::ostream& os) const;

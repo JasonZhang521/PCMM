@@ -5,6 +5,10 @@ namespace Serialize {
 class WriteBuffer;
 }
 
+namespace IpcMessage {
+class IIpcMessage;
+}
+
 namespace Ipc {
 
 class IIpcConnectionClientStrategy
@@ -13,7 +17,7 @@ public:
     IIpcConnectionClientStrategy();
     virtual ~IIpcConnectionClientStrategy();
     virtual void connect() = 0;
-    virtual void send(Serialize::WriteBuffer& writeBuffer) = 0;
+    virtual void send(const IpcMessage::IIpcMessage& msg) = 0;
     virtual void disconnect() = 0;
 };
 

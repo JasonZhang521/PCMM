@@ -5,8 +5,7 @@
 namespace Network {
 
 TcpServer::TcpServer(const IpSocketEndpoint& localEndpoint)
-    :eventId_(EventHandler::EventIdGenerator::generateEventId())
-    ,socket_(localEndpoint)
+    :socket_(localEndpoint)
     ,state_(TcpState::Tcp_Closed)
 {
 }

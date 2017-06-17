@@ -1,4 +1,5 @@
 #include "IpcClient.h"
+#include "IIpcMessage.h"
 #include "IIpcConnectionClientStrategy.h"
 #include "Trace.h"
 
@@ -21,10 +22,10 @@ void IpcClient::connect()
     strategy_->connect();
 }
 
-void IpcClient::send(Serialize::WriteBuffer& writeBuffer)
+void IpcClient::send(const IpcMessage::IIpcMessage& msg)
 {
     TRACE_ENTER();
-    strategy_->send(writeBuffer);
+    strategy_->send(msg);
 }
 
 void IpcClient::disconnect()

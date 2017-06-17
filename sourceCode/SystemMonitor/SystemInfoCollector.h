@@ -13,14 +13,15 @@ namespace Environment {
 
 namespace SystemMonitor {
 
+class ISystemMonitorHandler;
+
 class SystemInfoCollector : public EventHandler::IEvent
 {
     uint64_t eventId_;
-    Environment::CpuUsageInfo cpuUsageInfo_;
+    std::shared_ptr<ISystemMonitorHandler> monitorHandler_;
 public:
-    SystemInfoCollector();
+    SystemInfoCollector(std::shared_ptr<ISystemMonitorHandler> monitorHandler);
     virtual ~SystemInfoCollector();
-    const Environment::CpuUsageInfo& getCpuUsageInfo() const;
 protected:
     virtual uint64_t getEventId() const;
     virtual void run(EventHandler::EventFlag flag = EventHandler::EventFlag::Event_NoFlag);

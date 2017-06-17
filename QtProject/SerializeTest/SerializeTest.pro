@@ -14,7 +14,9 @@ INCLUDEPATH += ../../sourceCode/gtest/googletest/include \
                ../../sourceCode/gtest/googletest/ \
                ../../sourceCode/gtest/googlemock/ \
                ../../sourceCode/Serialize \
-               ../../sourceCode/Common
+               ../../sourceCode/Common \
+               ../../sourceCode/Configure \
+               ../../sourceCode/TraceLog
 
 
 SOURCES += \
@@ -37,7 +39,11 @@ SOURCES += \
     ../../sourceCode/Common/Random.cpp \
     ../../sourceCode/SerializeTest/BufferAndDataTest.cpp \
     ../../sourceCode/SerializeTest/ReadWriteBufferTest.cpp \
-    ../../sourceCode/gtest/googletest/src/gtest_main.cc
+    ../../sourceCode/gtest/googletest/src/gtest_main.cc \
+    ../../sourceCode/Configure/Configure.cpp \
+    ../../sourceCode/Configure/ExceptionConfigure.cpp \
+    ../../sourceCode/Configure/TraceLogConfigure.cpp \
+    ../../sourceCode/Common/LocalTime.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -97,4 +103,13 @@ HEADERS += \
     ../../sourceCode/Serialize/DataToBuffer.h \
     ../../sourceCode/Serialize/ReadBuffer.h \
     ../../sourceCode/Serialize/WriteBuffer.h \
-    ../../sourceCode/Common/Random.h
+    ../../sourceCode/Common/Random.h \
+    ../../sourceCode/TraceLog/Trace.h \
+    ../../sourceCode/TraceLog/TraceBuf.h \
+    ../../sourceCode/TraceLog/TraceConsole.h \
+    ../../sourceCode/TraceLog/TraceFile.h \
+    ../../sourceCode/Configure/Configure.h \
+    ../../sourceCode/Configure/Configure_Define.h \
+    ../../sourceCode/Configure/ExceptionConfigure.h \
+    ../../sourceCode/Configure/TraceLogConfigure.h \
+    ../../sourceCode/Common/LocalTime.h

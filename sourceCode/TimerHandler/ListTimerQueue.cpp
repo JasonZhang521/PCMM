@@ -65,7 +65,6 @@ void ListTimerQueue::executeTimers()
         {
              TimeStat singleStat;
              timerInList->onTime();
-             delete timerInList;
              it = timersList_.erase(it);
              const uint64_t singleTimerElapse = singleStat.getElapseTimeAsMilliSecond();
              if (singleTimerElapse > MaxRunningDurationForSingleTimer)

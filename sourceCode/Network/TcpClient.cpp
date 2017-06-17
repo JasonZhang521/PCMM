@@ -12,8 +12,7 @@ namespace Network {
 TcpClient::TcpClient(const IpSocketEndpoint& localEndpoint,
                      const IpSocketEndpoint& remoteEndpoint,
                      std::shared_ptr<Connection::IConnectionTx> tx)
-    :eventId_(EventHandler::EventIdGenerator::generateEventId())
-    ,state_(TcpState::Tcp_Closed)
+    :state_(TcpState::Tcp_Closed)
     ,socket_(new TcpSocket(localEndpoint, remoteEndpoint))
     ,connectionTx_(tx)
 {
@@ -66,7 +65,7 @@ TcpResult TcpClient::connect()
 TcpResult TcpClient::send(const Serialize::WriteBuffer& buffer)
 {
     TRACE_ENTER();
-    if (SOCKET_ERROR == socket_->send(buffer.getBuffer(), buffer.getDataSize(), SOCKET_FLAG_NONE))
+    if (SOCKET_ERROR == socket_->send(reinterpret_cast<SocketDataBuffer>(buffer.getBuffer()), buffer.getDataSize(), SOCKET_FLAG_NONE))
     {
         TRACE_WARNING(socket_->getErrorInfo());
         return TcpResult::Failed;
@@ -81,7 +80,7 @@ TcpResult TcpClient::receive()
 {
     TRACE_ENTER();
     Serialize::ReadBuffer readBuffer;
-    int numOfBytesReceived = socket_->recv(readBuffer.getBuffer(), readBuffer.getBufferSize(), SOCKET_FLAG_NONE);
+    int numOfBytesReceived = socket_->recv(reinterpret_cast<SocketDataBuffer>(readBuffer.getBuffer()), readBuffer.getBufferSize(), SOCKET_FLAG_NONE);
     if (SOCKET_ERROR == numOfBytesReceived)
     {
         TRACE_WARNING(socket_->getErrorInfo());
@@ -89,6 +88,7 @@ TcpResult TcpClient::receive()
     }
     else
     {
+        readBuffer.setDataSize(numOfBytesReceived);
         connectionTx_->onReceive(readBuffer);
         return TcpResult::Success;
     }
@@ -133,6 +133,16 @@ void TcpClient::run(EventHandler::EventFlag flag)
             receive();
         }
     }
+}
+
+std::ostream& TcpClient::operator<< (std::ostream& os) const
+{
+    return os;
+}
+
+int TcpClient::getIoHandle()
+{
+    return socket_->getFd();
 }
 
 }

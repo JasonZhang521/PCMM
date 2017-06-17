@@ -19,7 +19,7 @@ static void TestHelp(const std::vector<T>& vVal)
     {
         writeBuffer.write(*it);
     }
-    std::copy(writeBuffer.getBuffer(), writeBuffer.getBuffer() + writeBuffer.getDataSize(), readBuffer.getBuffer());
+    std::copy(reinterpret_cast<char*>(writeBuffer.getBuffer()), reinterpret_cast<char*>(writeBuffer.getBuffer()) + writeBuffer.getDataSize(), reinterpret_cast<char*>(readBuffer.getBuffer()));
     readBuffer.setDataSize(writeBuffer.getDataSize());
 
     T readVal;
@@ -166,7 +166,7 @@ TEST_F(ReadWriteBufferTest, TestString)
         writeBuffer.write(len);
         writeBuffer.write(str.c_str(), len);
     }
-    std::copy(writeBuffer.getBuffer(), writeBuffer.getBuffer() + writeBuffer.getDataSize(), readBuffer.getBuffer());
+    std::copy(reinterpret_cast<char*>(writeBuffer.getBuffer()), reinterpret_cast<char*>(writeBuffer.getBuffer()) + writeBuffer.getDataSize(), reinterpret_cast<char*>(readBuffer.getBuffer()));
     readBuffer.setDataSize(writeBuffer.getDataSize());
 
     for (std::vector<std::string>::const_iterator it = vec.begin(); it != vec.end(); ++it)
@@ -211,7 +211,7 @@ TEST_F(ReadWriteBufferTest, TestCombination)
     writeBuffer.write(isTrue);
 
     Serialize::ReadBuffer readBuffer;
-    std::copy(writeBuffer.getBuffer(), writeBuffer.getBuffer() + writeBuffer.getDataSize(), readBuffer.getBuffer());
+    std::copy(reinterpret_cast<char*>(writeBuffer.getBuffer()), reinterpret_cast<char*>(writeBuffer.getBuffer()) + writeBuffer.getDataSize(), reinterpret_cast<char*>(readBuffer.getBuffer()));
     readBuffer.setDataSize(writeBuffer.getDataSize());
 
     char buffer[256];
@@ -287,27 +287,27 @@ TEST_F(ReadWriteBufferTest, ReadBufferSwap)
     readBuffer1.setDataSize(8);
     for (unsigned int i = 0; i < 8; ++i)
     {
-        *(readBuffer1.getBuffer() + i) = static_cast<char>(i);
+        *(reinterpret_cast<char*>(readBuffer1.getBuffer()) + i) = static_cast<char>(i);
     }
     Serialize::ReadBuffer readBuffer2(20);
     readBuffer2.setDataSize(18);
     for (unsigned int i = 0; i < 18; ++i)
     {
-        *(readBuffer2.getBuffer() + i) = static_cast<char>(2 * i);
+        *(reinterpret_cast<char*>(readBuffer2.getBuffer()) + i) = static_cast<char>(2 * i);
     }
 
     Serialize::ReadBuffer readBuffer3(10);
     readBuffer3.setDataSize(8);
     for (unsigned int i = 0; i < 8; ++i)
     {
-        *(readBuffer3.getBuffer() + i) = static_cast<char>(i);
+        *(reinterpret_cast<char*>(readBuffer3.getBuffer()) + i) = static_cast<char>(i);
     }
 
     Serialize::ReadBuffer readBuffer4(20);
     readBuffer4.setDataSize(18);
     for (unsigned int i = 0; i < 18; ++i)
     {
-        *(readBuffer4.getBuffer() + i) = static_cast<char>(2 * i);
+        *(reinterpret_cast<char*>(readBuffer4.getBuffer()) + i) = static_cast<char>(2 * i);
     }
 
     readBuffer3.swap(readBuffer4);

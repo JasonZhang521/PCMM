@@ -1,4 +1,5 @@
 #include "WriteBuffer.h"
+#include "Trace.h"
 #include <algorithm>
 #include <iostream>
 
@@ -30,7 +31,7 @@ void WriteBuffer::write(const void* newBuffer, unsigned int writeSize)
     dataSize_ += writeSize;
 }
 
-char* WriteBuffer::getBuffer() const
+void* WriteBuffer::getBuffer() const
 {
     return buffer_;
 }

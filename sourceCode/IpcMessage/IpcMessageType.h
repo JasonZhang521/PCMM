@@ -8,5 +8,11 @@ enum IpcMessageType
     IpcMessage_SystemMonitor
 };
 
+enum SystemMonitorType
+{
+    MonitorRequest,  // request the system information
+    MonitorMessage  // system information message
+};
+
 }
 #endif // _IPCMESSAGE_IPCMESSAGETYPE_H_

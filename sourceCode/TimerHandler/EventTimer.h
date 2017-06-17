@@ -3,6 +3,7 @@
 
 #include "ITimer.h"
 #include <stdint.h>
+#include <memory>
 
 namespace EventHandler {
     class IEvent;
@@ -11,17 +12,14 @@ namespace TimerHandler {
 
 class EventTimer : public ITimer
 {
-    uint64_t timerId_;
-    uint64_t expiredTime_;
     EventHandler::IEvent* event_;
 public:
-    EventTimer(uint32_t interval, EventHandler::IEvent* event);
+    EventTimer(uint32_t period, TimerType type, EventHandler::IEvent* event);
     virtual ~EventTimer();
 protected:
     virtual void onTime();
     virtual bool isExpired();
     virtual uint64_t getExpiredTime() const;
-    virtual uint64_t getTimerId() const;
     virtual std::ostream& operator<<(std::ostream& os);
 };
 

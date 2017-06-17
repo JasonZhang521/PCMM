@@ -1,11 +1,10 @@
-#ifndef ICONNECTIONRX_H
-#define ICONNECTIONRX_H
+#ifndef _CONNECTION_ICONNECTIONRX_H
+#define _CONNECTION_ICONNECTIONRX_H
 
-namespace Serialize {
-class WriteBuffer;
-}
 
 namespace Connection {
+
+class IConnectionMessage;
 
 class IConnectionRx
 {
@@ -14,9 +13,9 @@ public:
     virtual ~IConnectionRx();
 
     virtual void connect() = 0;
-    virtual void send(Serialize::WriteBuffer& writeBuffer) = 0;
+    virtual void send(const IConnectionMessage& msg) = 0;
     virtual void disconnect() = 0;
 };
 
 }
-#endif // ICONNECTIONRX_H
+#endif // _CONNECTION_ICONNECTIONRX_H

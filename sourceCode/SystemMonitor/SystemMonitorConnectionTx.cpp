@@ -5,41 +5,50 @@
 #include <stdint.h>
 
 namespace SystemMonitor {
-SystemMonitorConnectionTx::SystemMonitorConnectionTx(std::shared_ptr<ISystemMonitorHandler> monitorHandler)
+SystemMonitorConnectionReceiver::SystemMonitorConnectionReceiver(std::shared_ptr<ISystemMonitorHandler> monitorHandler)
     :monitorHandler_(monitorHandler)
 {
 }
 
-SystemMonitorConnectionTx::~SystemMonitorConnectionTx()
+SystemMonitorConnectionReceiver::~SystemMonitorConnectionReceiver()
 {
 
 }
 
-void SystemMonitorHandler::onConnect()
+void SystemMonitorConnectionReceiver::onConnect()
 {
 
 }
 
-void SystemMonitorHandler::onReceive(Serialize::ReadBuffer& readBuffer)
+void SystemMonitorConnectionReceiver::onReceive(std::unique_ptr<IpcMessage::IIpcMessage> msg)
 {
     TRACE_ENTER();
-    uint8_t type = 0xFF;
-    readBuffer.read(type);
-    SystemMonitorMessage::SystemMonitorType systemMonitorType = static_cast<SystemMonitorMessage::SystemMonitorType>(type);
-    switch (systemMonitorType)
+    if (!msg)
     {
-    case SystemMonitorMessage::SystemMonitorType::MonitorReportResponse:
-        break;
-    case SystemMonitorMessage::SystemMonitorType::MonitorRequest:
-        monitorHandler_->reportSystemInfo();
-        break;
-    default:
-        TRACE_ERROR("Unsupported message! message type = " << systemMonitorType);
-        break;
+        TRACE_ERROR("Invalid message!");
+        return;
+    }
+    SystemMonitorMessage::ISystemMonitorMessage* message = dynamic_cast<SystemMonitorMessage::ISystemMonitorMessage*>(msg.get());
+    if (message != nullptr)
+    {
+        IpcMessage::SystemMonitorType systemMonitorType = message->getSystemMonitorType();
+        switch (systemMonitorType)
+        {
+        case IpcMessage::SystemMonitorType::MonitorRequest:
+            monitorHandler_->reportSystemInfo();
+            break;
+        default:
+            TRACE_ERROR("Unsupported message! monitor type = " << systemMonitorType);
+            break;
+        }
+    }
+    else
+    {
+        TRACE_ERROR("Unsupported message! message type = " << msg->getMessageType());
     }
 }
 
-void SystemMonitorHandler::onDisconnect()
+void SystemMonitorConnectionReceiver::onDisconnect()
 {
 
 }

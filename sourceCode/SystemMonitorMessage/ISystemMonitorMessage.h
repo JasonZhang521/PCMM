@@ -3,14 +3,6 @@
 #include "IIpcMessage.h"
 namespace SystemMonitorMessage {
 
-enum SystemMonitorType
-{
-    MonitorRequest,
-    MonitorResponse,
-    MonitorReport,
-    MonitorReportResponse
-};
-
 class ISystemMonitorMessage : public IpcMessage::IIpcMessage
 {
 public:
@@ -20,7 +12,7 @@ public:
     virtual void serialize(Serialize::WriteBuffer& writeBuffer) const = 0;
     virtual void unserialize(Serialize::ReadBuffer& readBuffer) = 0;
 
-    virtual SystemMonitorType getSystemMonitorType() const = 0;
+    virtual IpcMessage::SystemMonitorType getSystemMonitorType() const = 0;
 };
 
 }

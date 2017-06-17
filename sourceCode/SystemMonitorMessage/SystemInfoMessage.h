@@ -10,17 +10,16 @@ namespace SystemMonitorMessage {
 class SystemInfoMessage : public ISystemMonitorMessage
 {
     Environment::CpuUsageInfo cpuUsageInfo_;
-    SystemMonitorType systemMonitorType_;
 public:
     SystemInfoMessage();
-    SystemInfoMessage(const Environment::CpuUsageInfo& cpuUsageInfo, SystemMonitorType monitorType);
+    SystemInfoMessage(const Environment::CpuUsageInfo& cpuUsageInfo);
     const Environment::CpuUsageInfo& getCpuUsageInfo() const;
+    virtual ~SystemInfoMessage();
 
 private:
-    ~SystemInfoMessage();
     virtual void serialize(Serialize::WriteBuffer& writeBuffer) const;
     virtual void unserialize(Serialize::ReadBuffer& readBuffer);
-    virtual SystemMonitorType getSystemMonitorType() const;
+    virtual IpcMessage::SystemMonitorType getSystemMonitorType() const;
 
 public:
     GETCLASSNAME(SystemInfoMessage)

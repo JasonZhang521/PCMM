@@ -33,7 +33,7 @@ void LoopMain::deRegisterEvent(uint64_t eventID)
     eventLoop_.deRegisterEvent(eventID);
 }
 
-void LoopMain::registerIo(int fd, Io::IoFdType type, EventHandler::IEvent* event)
+void LoopMain::registerIo(int fd, Io::IoFdType type, Io::IIoEvent* event)
 {
     ioLoop_.registerIo(fd, type, event);
 }
