@@ -1,8 +1,8 @@
-#ifndef _IO_COMPONENT_H_
-#define _IO_COMPONENT_H_
+#ifndef _IPC_COMPONENT_H_
+#define _IPC_COMPONENT_H_
 #include <string>
 namespace Ipc
 {
 inline static std::string component(){return std::string("Ipc");}
 }
-#endif // _IO_COMPONENT_H_
+#endif // _IPC_COMPONENT_H_

@@ -18,8 +18,6 @@ public:
     virtual ~EventTimer();
 protected:
     virtual void onTime();
-    virtual bool isExpired();
-    virtual uint64_t getExpiredTime() const;
     virtual std::ostream& operator<<(std::ostream& os);
 };
 

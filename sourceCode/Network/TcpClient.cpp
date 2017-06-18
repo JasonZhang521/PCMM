@@ -1,6 +1,6 @@
 #include "TcpClient.h"
 #include "TcpSocket.h"
-#include "IConnectionTx.h"
+#include "ITcpConnectionReceiver.h"
 #include "WriteBuffer.h"
 #include "ReadBuffer.h"
 #include "EventIdGenerator.h"
@@ -11,16 +11,23 @@ namespace Network {
 
 TcpClient::TcpClient(const IpSocketEndpoint& localEndpoint,
                      const IpSocketEndpoint& remoteEndpoint,
-                     std::shared_ptr<Connection::IConnectionTx> tx)
+                     std::shared_ptr<ITcpConnectionReceiver> receiver)
     :state_(TcpState::Tcp_Closed)
     ,socket_(new TcpSocket(localEndpoint, remoteEndpoint))
-    ,connectionTx_(tx)
+    ,tcpConnectionReceiver_(receiver)
 {
-    if (!tx)
+    if (!receiver)
     {
-        TRACE_ERROR("Initial Tcp Client with null connectionTx, local = " << localEndpoint << ", remote = " << remoteEndpoint);
-        App::ExitWithCoredump();
+        TRACE_ERROR("Initial Tcp Client with null connection connection receiver, local = " << localEndpoint << ", remote = " << remoteEndpoint);
+        throw std::invalid_argument("Initial Tcp Client with null connection connection receiver");
     }
+}
+
+TcpClient::TcpClient(const IpSocketEndpoint& localEndpoint, const IpSocketEndpoint& remoteEndpoint)
+    :state_(TcpState::Tcp_Closed)
+    ,socket_(new TcpSocket(localEndpoint, remoteEndpoint))
+{
+
 }
 
 TcpClient::~TcpClient()
@@ -46,7 +53,7 @@ TcpResult TcpClient::connect()
         {
             TRACE_NOTICE(socket_->getErrorInfo());
             state_ = TcpState::Tcp_Connecting;
-            connectionTx_->onConnect();
+            tcpConnectionReceiver_->onConnect();
             return TcpResult::Success;    
         }
         else
@@ -89,7 +96,7 @@ TcpResult TcpClient::receive()
     else
     {
         readBuffer.setDataSize(numOfBytesReceived);
-        connectionTx_->onReceive(readBuffer);
+        tcpConnectionReceiver_->onReceive(readBuffer);
         return TcpResult::Success;
     }
 }
@@ -105,7 +112,7 @@ TcpResult TcpClient::disconnect()
     }
     else
     {
-        connectionTx_->onDisconnect();
+        tcpConnectionReceiver_->onDisconnect();
         return TcpResult::Success;
     }
 }
@@ -143,6 +150,11 @@ std::ostream& TcpClient::operator<< (std::ostream& os) const
 int TcpClient::getIoHandle()
 {
     return socket_->getFd();
+}
+
+void TcpClient::setConnectionReceiver(std::shared_ptr<ITcpConnectionReceiver> receiver)
+{
+    tcpConnectionReceiver_ = receiver;
 }
 
 }

@@ -1,5 +1,5 @@
-#ifndef SYSTEMMONITORCONNECTIONTX_H
-#define SYSTEMMONITORCONNECTIONTX_H
+#ifndef _SYSTEMMONITOR_SYSTEMMONITORCONNECTIONRECEIVER_H_
+#define _SYSTEMMONITOR_SYSTEMMONITORCONNECTIONRECEIVER_H_
 #include "ISystemMonitorHandler.h"
 #include "IIpcConnectionReceiver.h"
 #include "Component.h"
@@ -24,9 +24,9 @@ protected:
     virtual void onDisconnect();
 
 public:
-     GETCLASSNAME(SystemInfoCollector)
+     GETCLASSNAME(SystemMonitorConnectionReceiver)
 };
 
 }
 
-#endif // SYSTEMMONITORCONNECTIONTX_H
+#endif // _SYSTEMMONITOR_SYSTEMMONITORCONNECTIONRECEIVER_H_

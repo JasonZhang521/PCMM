@@ -22,8 +22,9 @@ IoControlEventsHandler::~IoControlEventsHandler()
     IoPlatformWrapper::FdZero(&exceptFds_);
 }
 
-void IoControlEventsHandler::registerIoFd(int fd, IoFdType type, IIoEvent* event)
+void IoControlEventsHandler::registerIoFd(IoFdType type, IIoEvent* event)
 {
+    int fd = event->getIoHandle();
     TRACE_NOTICE("fd = " << fd << ", type = " << type << ", event = " << event);
 
     if (type & IoFdType::IoFdRead)

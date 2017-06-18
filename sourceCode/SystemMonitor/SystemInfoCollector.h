@@ -1,5 +1,5 @@
-#ifndef SYSTEMINFOCOLLECTOR_H
-#define SYSTEMINFOCOLLECTOR_H
+#ifndef _SYSTEMMONITOR_SYSTEMINFOCOLLECTOR_H_
+#define _SYSTEMMONITOR_SYSTEMINFOCOLLECTOR_H_
 #include "IEvent.h"
 #include "CpuUsageInfo.h"
 #include "Component.h"
@@ -34,4 +34,4 @@ public:
 };
 
 }
-#endif // SYSTEMINFOCOLLECTOR_H
+#endif // _SYSTEMMONITOR_SYSTEMINFOCOLLECTOR_H_

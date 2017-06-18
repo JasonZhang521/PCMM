@@ -1,5 +1,5 @@
-#ifndef SYSTEMMONITORHANDLER_H
-#define SYSTEMMONITORHANDLER_H
+#ifndef _SYSTEMMONITOR_SYSTEMMONITORHANDLER_H_
+#define _SYSTEMMONITOR_SYSTEMMONITORHANDLER_H_
 #include "ISystemMonitorHandler.h"
 #include "SystemInfoCollector.h"
 #include "Component.h"
@@ -32,4 +32,4 @@ public:
 
 }
 
-#endif // SYSTEMMONITORHANDLER_H
+#endif // _SYSTEMMONITOR_SYSTEMMONITORHANDLER_H_

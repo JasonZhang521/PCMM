@@ -1,7 +1,6 @@
 #include "SystemInfoCollector.h"
 #include "EventIdGenerator.h"
 #include "CpuUsage.h"
-#include "Singleton.h"
 #include "Trace.h"
 #include "App.h"
 
@@ -26,7 +25,7 @@ uint64_t SystemInfoCollector::getEventId() const
 void SystemInfoCollector::run(EventHandler::EventFlag flag)
 {
     static_cast<void> (flag);
-    Singleton<Environment::CpuUsage>::instance().update();
+    Environment::CpuUsage::instance().update();
  }
 
 std::ostream& SystemInfoCollector::operator<< (std::ostream& os) const
@@ -39,7 +38,7 @@ std::ostream& SystemInfoCollector::operator<< (std::ostream& os) const
 
 void SystemInfoCollector::init()
 {
-    Singleton<Environment::CpuUsage>::instance().update();
+    Environment::CpuUsage::instance().update();
 }
 
 }

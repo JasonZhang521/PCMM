@@ -19,7 +19,7 @@ std::string IpcConnectionTypeString(IpcConnectionType type)
     case IpcConnectionType::IpcConnection_Server:
         return std::string("Ipc Server");
     default:
-        return std::string("");
+        return std::string("None");
     }
 }
 
@@ -36,23 +36,58 @@ IpcConnectionTcpStrategy::IpcConnectionTcpStrategy(IpcConnectionType type,
 {
     if (type_ == IpcConnectionType::IpcConnection_Client)
     {
-        if (!client_)
+        if (!client_ || server)
         {
             TRACE_ERROR("null Ipc client");
-            App::ExitWithCoredump();
+            throw std::invalid_argument("null Ipc client!");
         }
         client_->init();
     }
     else if (type_ == IpcConnectionType::IpcConnection_Server)
     {
-        if (!server_)
+        if (!server_ || client)
         {
             TRACE_ERROR("null Ipc server");
-            App::ExitWithCoredump();
+            throw std::invalid_argument("null Ipc server!");
         }
+    }
+    else
+    {
+        TRACE_ERROR("invalid connection type!");
+        throw std::invalid_argument("invalid connection type!");
     }
 }
 
+IpcConnectionTcpStrategy::IpcConnectionTcpStrategy(IpcConnectionType type,
+                                                   std::shared_ptr<Network::ITcpClient> client,
+                                                   std::shared_ptr<Network::ITcpServer> server)
+    : type_(type)
+    , client_(client)
+    , server_(server)
+{
+    if (type_ == IpcConnectionType::IpcConnection_Client)
+    {
+        if (!client_ || server)
+        {
+            TRACE_ERROR("null Ipc client");
+            throw std::invalid_argument("null Ipc client!");
+        }
+        client_->init();
+    }
+    else if (type_ == IpcConnectionType::IpcConnection_Server)
+    {
+        if (!server_ || client)
+        {
+            TRACE_ERROR("null Ipc server");
+            throw std::invalid_argument("null Ipc server!");
+        }
+    }
+    else
+    {
+        TRACE_ERROR("invalid connection type!");
+        throw std::invalid_argument("invalid connection type!");
+    }
+}
 
 IpcConnectionTcpStrategy::~IpcConnectionTcpStrategy()
 {
@@ -89,13 +124,27 @@ void IpcConnectionTcpStrategy::disconnect()
     }
 }
 
+void IpcConnectionTcpStrategy::setIpcConnectionReceiver(std::shared_ptr<IIpcConnectionReceiver> receiver)
+{
+    TRACE_ENTER();
+    connectionReceiver_ = receiver;
+}
+
+void IpcConnectionTcpStrategy::setIpcMessageFactory(std::shared_ptr<IpcMessage::IIpcMessageFactory> factory)
+{
+    TRACE_ENTER();
+    ipcMessageFactory_ = factory;
+}
+
 void IpcConnectionTcpStrategy::onConnect()
 {
+    TRACE_ENTER();
     connectionReceiver_->onConnect();
 }
 
 void IpcConnectionTcpStrategy::onReceive(Serialize::ReadBuffer& readBuffer)
 {
+    TRACE_ENTER();
     uint8_t messageType = static_cast<uint8_t>(IpcMessage::IpcMessage_None);
     readBuffer.peek(messageType);
     uint8_t monitorType = 0xff;
@@ -109,10 +158,16 @@ void IpcConnectionTcpStrategy::onReceive(Serialize::ReadBuffer& readBuffer)
         std::unique_ptr<IpcMessage::IIpcMessage> msg(ipcMessageFactory_->createMessage(monitorType));
         connectionReceiver_->onReceive(std::move(msg));
     }
+    else
+    {
+        TRACE_WARNING("receive unsupport Message! message type = " << static_cast<int>(messageType)
+                      << ", monitor type = " << static_cast<int>(monitorType));
+    }
 }
 
 void IpcConnectionTcpStrategy::onDisconnect()
 {
+    TRACE_ENTER();
     connectionReceiver_->onDisconnect();
 }
 

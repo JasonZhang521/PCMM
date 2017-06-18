@@ -19,8 +19,10 @@ class IpcClient : public IIpcClient
     std::shared_ptr<IIpcConnectionClientStrategy> strategy_;
 public:
     IpcClient(std::shared_ptr<IIpcConnectionClientStrategy> strategy);
-private:
+    IpcClient();
     virtual ~IpcClient();
+private:   
+    virtual void setConnectionStrategy(std::shared_ptr<IIpcConnectionClientStrategy> strategy);
     virtual void connect();
     virtual void send(const IpcMessage::IIpcMessage& msg);
     virtual void disconnect();

@@ -4,6 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <memory>
 
 #ifdef WIN32
 #else
@@ -111,6 +112,12 @@ void CpuUsage::update()
     usageRawDatas_ = diffRawDataCalculator(curRawDatas_, preRawDatas_);
     CpuUsageEntrysCalculator usageEntryCalculator;
     usageEntrys_ = usageEntryCalculator(usageRawDatas_);
+}
+
+CpuUsage& CpuUsage::instance()
+{
+    static std::unique_ptr<CpuUsage> instance(new CpuUsage());
+    return *instance;
 }
 
 const CpuUsageRawDatas& CpuUsage::getCpuUsageRawDatas() const

@@ -33,9 +33,9 @@ void LoopMain::deRegisterEvent(uint64_t eventID)
     eventLoop_.deRegisterEvent(eventID);
 }
 
-void LoopMain::registerIo(int fd, Io::IoFdType type, Io::IIoEvent* event)
+void LoopMain::registerIo(Io::IoFdType type, Io::IIoEvent* event)
 {
-    ioLoop_.registerIo(fd, type, event);
+    ioLoop_.registerIo(type, event);
 }
 
 void LoopMain::deRegisterIo(int fd)
@@ -45,6 +45,8 @@ void LoopMain::deRegisterIo(int fd)
 
 void LoopMain::loop()
 {
-
+    ioLoop_.runLoop(500);
+    eventLoop_.runLoop(500);
+    timeLoop_.runLoop();
 }
 }

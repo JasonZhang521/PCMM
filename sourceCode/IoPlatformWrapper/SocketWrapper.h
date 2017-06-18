@@ -4,6 +4,7 @@
 #include <string>
 
 #ifdef WIN32
+#include <winsock2.h>
 #else
 #include <string.h>
 #include <arpa/inet.h>

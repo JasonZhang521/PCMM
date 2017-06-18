@@ -26,6 +26,9 @@ private:
     unsigned int getCpuNumer();
 
 public:
+      static CpuUsage& instance();
+
+public:
      GETCLASSNAME(CpuUsage)
 };
 

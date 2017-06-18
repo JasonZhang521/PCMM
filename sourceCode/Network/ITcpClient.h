@@ -1,6 +1,7 @@
 #ifndef _NETWORK_ITCPCLIENT_H_
 #define _NETWORK_ITCPCLIENT_H_
 #include "TcpResult.h"
+#include <memory>
 
 namespace Serialize {
 class WriteBuffer;
@@ -10,7 +11,7 @@ namespace Network {
 
 class TcpBuffer;
 class IpSocketEndpoint;
-
+class ITcpConnectionReceiver;
 class ITcpClient
 {
 public:
@@ -22,6 +23,7 @@ public:
     virtual TcpResult receive() = 0;
     virtual TcpResult disconnect() = 0;
     virtual TcpResult cleanup() = 0;
+    virtual void setConnectionReceiver(std::shared_ptr<ITcpConnectionReceiver> receiver) = 0;
 };
 
 }

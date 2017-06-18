@@ -11,9 +11,20 @@ IpcClient::IpcClient(std::shared_ptr<IIpcConnectionClientStrategy> strategy)
 
 }
 
+IpcClient::IpcClient()
+{
+
+}
+
 IpcClient::~IpcClient()
 {
 
+}
+
+void IpcClient::setConnectionStrategy(std::shared_ptr<IIpcConnectionClientStrategy> strategy)
+{
+    TRACE_ENTER();
+    strategy_ = strategy;
 }
 
 void IpcClient::connect()

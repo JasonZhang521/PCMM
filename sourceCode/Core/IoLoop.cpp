@@ -16,11 +16,11 @@ void IoLoop::runLoop(unsigned int executeTime)
     }
 }
 
-void IoLoop::registerIo(int fd, Io::IoFdType type, Io::IIoEvent* event)
+void IoLoop::registerIo(Io::IoFdType type, Io::IIoEvent* event)
 {
     if (ioControl_)
     {
-        ioControl_->registerIoFd(fd, type, event);
+        ioControl_->registerIoFd(type, event);
     }
 }
 

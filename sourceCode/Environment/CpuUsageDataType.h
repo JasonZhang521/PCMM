@@ -60,8 +60,6 @@ public:
     static const CpuUsageEntry Null;
 };
 
-const CpuUsageEntry CpuUsageEntry::Null = CpuUsageEntry();
-
 inline std::ostream& operator<< (std::ostream& os, const CpuUsageEntry& entry)
 {
 	return entry.operator<<(os);

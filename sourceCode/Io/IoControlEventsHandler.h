@@ -28,7 +28,7 @@ public:
     IoControlEventsHandler();
     virtual ~IoControlEventsHandler();
 protected:
-    virtual void registerIoFd(int fd, IoFdType type, IIoEvent* event);
+    virtual void registerIoFd(IoFdType type, IIoEvent* event);
     virtual void unRegisterIoFd(int fd);
     virtual void run();
     virtual std::ostream& operator<< (std::ostream& os) const;
