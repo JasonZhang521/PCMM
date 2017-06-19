@@ -9,6 +9,7 @@ public:
     ITcpServer();
     ~ITcpServer();
     virtual TcpResult init() = 0;
+    virtual TcpResult bind() = 0;
     virtual TcpResult listen(int backlog) = 0;
     virtual TcpResult accept(int flag) = 0;
     virtual TcpResult disconnect() = 0;

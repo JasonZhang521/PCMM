@@ -4,7 +4,7 @@
 #include "SystemMonitorConnectionReceiver.h"
 #include "SystemMonitorMessageFactory.h"
 #include "IpcClient.h"
-#include "IpcConnectionTcpStrategy.h"
+#include "IpcConnectionTcpClientStrategy.h"
 #include "TcpClient.h"
 #include "IpSocketEndpoint.h"
 #include "EventTimer.h"
@@ -27,9 +27,9 @@ void SystemMonitorProcess::process()
 
 
     // Ipc client strategy
-    Ipc::IpcConnectionTcpStrategy* ipcConnectionClientStrategyPtr =
-            new Ipc::IpcConnectionTcpStrategy(Ipc::IpcConnectionType::IpcConnection_Client, tcpClient, nullptr);
-    std::shared_ptr<Ipc::IpcConnectionTcpStrategy> ipcConnectionClientStrategy(ipcConnectionClientStrategyPtr);
+    Ipc::IpcConnectionTcpClientStrategy* ipcConnectionClientStrategyPtr =
+            new Ipc::IpcConnectionTcpClientStrategy(tcpClient);
+    std::shared_ptr<Ipc::IpcConnectionTcpClientStrategy> ipcConnectionClientStrategy(ipcConnectionClientStrategyPtr);
 
     // Ipc client
     Ipc::IpcClient* ipcClientPtr = new Ipc::IpcClient(ipcConnectionClientStrategy);

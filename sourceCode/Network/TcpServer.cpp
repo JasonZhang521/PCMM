@@ -21,6 +21,21 @@ TcpResult TcpServer::init()
     return TcpResult::Success;
 }
 
+TcpResult TcpServer::bind()
+{
+    TRACE_ENTER();
+    int ret = socket_.bind();
+    if (SOCKET_ERROR == ret)
+    {
+        TRACE_WARNING(socket_.getErrorInfo());
+        return TcpResult::Failed;
+    }
+    else
+    {
+        return TcpResult::Success;
+    }
+}
+
 TcpResult TcpServer::listen(int backlog)
 {
     TRACE_ENTER();

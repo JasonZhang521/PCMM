@@ -22,6 +22,7 @@ public:
 private:
     virtual ~TcpServer();
     virtual TcpResult init();
+    virtual TcpResult bind();
     virtual TcpResult listen(int backlog);
     virtual TcpResult accept(int flag);
     virtual TcpResult disconnect();
