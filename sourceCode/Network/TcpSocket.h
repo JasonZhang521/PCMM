@@ -23,7 +23,9 @@ public:
     // For server
     TcpSocket(const IpSocketEndpoint& localEndpoint);
     // For accept client for server
-    TcpSocket(const SocketAddressFamily& family, const SocketHandle& fd);
+    TcpSocket(const SocketHandle& fd,
+              const IpSocketEndpoint& localEndpoint,
+              const IpSocketEndpoint& remoteEndpoint);
     // For client
     TcpSocket(const IpSocketEndpoint& localEndpoint, const IpSocketEndpoint& remoteEndpoint);
 

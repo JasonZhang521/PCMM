@@ -30,6 +30,13 @@ TcpClient::TcpClient(const IpSocketEndpoint& localEndpoint, const IpSocketEndpoi
 
 }
 
+TcpClient::TcpClient(std::shared_ptr<TcpSocket> socket)
+    :state_(TcpState::Tcp_Closed)
+    ,socket_(socket)
+{
+
+}
+
 TcpClient::~TcpClient()
 {
 }

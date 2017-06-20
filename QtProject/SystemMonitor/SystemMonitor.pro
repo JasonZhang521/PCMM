@@ -43,7 +43,7 @@ INCLUDEPATH += ../../sourceCode/Serialize \
 SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/Ipc/IpcClient.cpp \
-    ../../sourceCode/Ipc/IpcConnectionTcpStrategy.cpp \
+    ../../sourceCode/Ipc/IpcConnectionTcpClientStrategy.cpp \
     ../../sourceCode/IpcMessage/IpcMessageIdGenerator.cpp \
     ../../sourceCode/IpcMessage/IIpcMessage.cpp \
     ../../sourceCode/Common/FilePathHandler.cpp \
@@ -108,7 +108,7 @@ HEADERS += \
     ../../sourceCode/Ipc/Component.h \
     ../../sourceCode/Ipc/IIpcConnectionClientStrategy.h \
     ../../sourceCode/Ipc/IpcClient.h \
-    ../../sourceCode/Ipc/IpcConnectionTcpStrategy.h \
+    ../../sourceCode/Ipc/IpcConnectionTcpClientStrategy.h \
     ../../sourceCode/IpcMessage/IpcMessageIdGenerator.h \
     ../../sourceCode/IpcMessage/IIpcMessage.h \
     ../../sourceCode/IpcMessage/IpcMessageType.h \

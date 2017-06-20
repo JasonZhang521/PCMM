@@ -10,16 +10,29 @@ TcpSocket::TcpSocket(const IpSocketEndpoint& localEndpoint)
 {
 }
 
-TcpSocket::TcpSocket(const SocketAddressFamily& family, const SocketHandle& fd)
-    :SocketImp(family, SOCKET_SOCK_STREAM, SOCKET_IPPROTO_TCP, fd)
+TcpSocket::TcpSocket(const SocketHandle& fd,
+                     const IpSocketEndpoint& localEndpoint,
+                     const IpSocketEndpoint& remoteEndpoint)
+    :SocketImp(localEndpoint.getSocketAddressFamily(), SOCKET_SOCK_STREAM, SOCKET_IPPROTO_TCP, fd)
     ,type_(TcpSocketType::TcpServerClient)
+    ,localEndpoint_(localEndpoint)
+    ,remoteEndpoint_(remoteEndpoint)
 {
+    TRACE_DEBUG("localEndpoint:" << localEndpoint << ", remoteEndpoint:" << remoteEndpoint);
+    if (localEndpoint_.getSocketAddressFamily() == IPFamilyType::IPFamilyInvalid ||
+        localEndpoint_.getSocketAddressFamily() != remoteEndpoint_.getSocketAddressFamily())
+    {
+        TRACE_ERROR("localEndpoint address family is different from the remoteEndpoint, local = "
+                    << localEndpoint_ << ", remote = " << remoteEndpoint_);
+        throw std::invalid_argument(std::string("address family is different between local and remote ip address"));
+    }
 }
 
 TcpSocket::TcpSocket(const IpSocketEndpoint& localEndpoint, const IpSocketEndpoint& remoteEndpoint)
     :SocketImp(localEndpoint.getSocketAddressFamily(), SOCKET_SOCK_STREAM, SOCKET_IPPROTO_TCP)
     ,type_(TcpSocketType::TcpClient)
-    ,localEndpoint_(localEndpoint), remoteEndpoint_(remoteEndpoint)
+    ,localEndpoint_(localEndpoint)
+    ,remoteEndpoint_(remoteEndpoint)
 {
     TRACE_DEBUG("localEndpoint:" << localEndpoint << ", remoteEndpoint:" << remoteEndpoint);
     if (localEndpoint_.getSocketAddressFamily() == IPFamilyType::IPFamilyInvalid ||

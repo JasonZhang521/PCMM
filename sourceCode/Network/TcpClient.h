@@ -25,6 +25,7 @@ public:
               const IpSocketEndpoint& remoteEndpoint,
               std::shared_ptr<ITcpConnectionReceiver> receiver);
     TcpClient(const IpSocketEndpoint& localEndpoint, const IpSocketEndpoint& remoteEndpoint);
+    TcpClient(std::shared_ptr<TcpSocket> socket);
     virtual ~TcpClient();
 private:
     virtual TcpResult init();
