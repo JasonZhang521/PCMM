@@ -14,7 +14,7 @@ SystemMonitorMessageFactory::~SystemMonitorMessageFactory()
 
 }
 
-IpcMessage::IIpcMessage* SystemMonitorMessageFactory::createMessage(IpcMessage::IpcMessageIntType type)
+IpcMessage::IIpcMessage* SystemMonitorMessageFactory::createMessage(IpcMessage::IpcMessageIntType type) const
 {
     if (static_cast<IpcMessage::SystemMonitorType>(type) == IpcMessage::MonitorRequest)
     {
@@ -27,7 +27,7 @@ IpcMessage::IIpcMessage* SystemMonitorMessageFactory::createMessage(IpcMessage::
     else
     {
         TRACE_ERROR("Only support message type: MonitorRequest and MonitorMessage!");
-        throw std::invalid_argument("Only support message type: MonitorRequest and MonitorMessage!");
+        return nullptr;
     }
 }
 }

@@ -53,8 +53,9 @@ void SystemMonitorProcess::process()
             factory(new SystemMonitorMessage::SystemMonitorMessageFactory());
 
     // Set ipcConnectionTcpStrategy
-    static_cast<Ipc::IIpcConnectionClientStrategy*>(ipcConnectionClientStrategyPtr)->setIpcConnectionReceiver(systemMonitorConnectionReceiver);
-    static_cast<Ipc::IIpcConnectionClientStrategy*>(ipcConnectionClientStrategyPtr)->setIpcMessageFactory(factory);
+    Ipc::IIpcConnectionClientStrategy* strategy = static_cast<Ipc::IIpcConnectionClientStrategy*>(ipcConnectionClientStrategyPtr);
+    strategy->setIpcConnectionReceiver(systemMonitorConnectionReceiver);
+    strategy->addIpcMessageFactory(IpcMessage::IpcMessageType::IpcMessage_SystemMonitor, factory);
 
     // SystemInfoCollector
     SystemInfoCollector* systemInfoCollectorPtr = new SystemInfoCollector(systemMonitorHandler);

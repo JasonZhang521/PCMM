@@ -11,10 +11,10 @@ namespace Ipc {
 
 IpcConnectionTcpClientStrategy::IpcConnectionTcpClientStrategy(
                                                    std::shared_ptr<IIpcConnectionReceiver> connectionReceiver,
-                                                   std::shared_ptr<IpcMessage::IIpcMessageFactory> ipcMessageFactory,
+                                                   IpcMessageFactroyMap ipcMessageFactories,
                                                    std::shared_ptr<Network::ITcpClient> client)
 : connectionReceiver_(connectionReceiver)
-, ipcMessageFactory_(ipcMessageFactory)
+, ipcMessageFactories_(ipcMessageFactories)
 , client_(client)
 {
     if (!client_)
@@ -69,10 +69,10 @@ void IpcConnectionTcpClientStrategy::setIpcConnectionReceiver(std::shared_ptr<II
     connectionReceiver_ = receiver;
 }
 
-void IpcConnectionTcpClientStrategy::setIpcMessageFactory(std::shared_ptr<IpcMessage::IIpcMessageFactory> factory)
+void IpcConnectionTcpClientStrategy::addIpcMessageFactory(IpcMessage::IpcMessageType ipcMessageType,
+                                  std::shared_ptr<IpcMessage::IIpcMessageFactory> factory)
 {
-    TRACE_ENTER();
-    ipcMessageFactory_ = factory;
+    ipcMessageFactories_[ipcMessageType] = factory;
 }
 
 void IpcConnectionTcpClientStrategy::onConnect()
@@ -86,21 +86,31 @@ void IpcConnectionTcpClientStrategy::onReceive(Serialize::ReadBuffer& readBuffer
     TRACE_ENTER();
     uint8_t messageType = static_cast<uint8_t>(IpcMessage::IpcMessage_None);
     readBuffer.peek(messageType);
-    uint8_t monitorType = 0xff;
-    readBuffer.peek(monitorType);
 
-    const bool isIpcMessage = (messageType != IpcMessage::IpcMessage_SystemMonitor);
-    const bool isMonitorType = (monitorType == IpcMessage::MonitorMessage ||
-                                monitorType == IpcMessage::MonitorRequest);
-    if (isIpcMessage && isMonitorType)
+    IpcMessageFactroyMap::iterator
+            it = ipcMessageFactories_.find(static_cast<IpcMessage::IpcMessageType>(messageType));
+    if (it != ipcMessageFactories_.end())
     {
-        std::unique_ptr<IpcMessage::IIpcMessage> msg(ipcMessageFactory_->createMessage(monitorType));
-        connectionReceiver_->onReceive(std::move(msg));
+        std::shared_ptr<IpcMessage::IIpcMessageFactory>& factory = it->second;
+        uint8_t ipcApplicationType = 0xff;
+        readBuffer.peek(ipcApplicationType);
+        std::unique_ptr<IpcMessage::IIpcMessage> msg(factory->createMessage(ipcApplicationType));
+        if (msg)
+        {
+            connectionReceiver_->onReceive(std::move(msg));
+        }
+        else
+        {
+            TRACE_WARNING("Recieve error message, wrong application type = "
+                          << static_cast<int>(ipcApplicationType)
+                          << ", for ipc type = "
+                          << static_cast<int>(messageType));
+        }
     }
     else
     {
-        TRACE_WARNING("receive unsupport Message! message type = " << static_cast<int>(messageType)
-                      << ", monitor type = " << static_cast<int>(monitorType));
+        TRACE_WARNING("Recieve error message, wrong ipc message type = "
+                      << static_cast<int>(messageType));
     }
 }
 

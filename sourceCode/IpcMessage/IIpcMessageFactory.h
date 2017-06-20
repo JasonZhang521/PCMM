@@ -12,7 +12,7 @@ class IIpcMessageFactory
 public:
     IIpcMessageFactory();
     virtual ~IIpcMessageFactory();
-    virtual IIpcMessage* createMessage(IpcMessageIntType type) = 0;
+    virtual IIpcMessage* createMessage(IpcMessageIntType type) const = 0;
 };
 
 }

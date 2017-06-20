@@ -7,6 +7,7 @@
 #include "Macro.h"
 #include <memory>
 #include <string>
+#include <map>
 
 namespace Network {
 class ITcpClient;
@@ -20,12 +21,13 @@ class IpcConnectionTcpClientStrategy : public IIpcConnectionClientStrategy,
                                        public Network::ITcpConnectionReceiver
 {
     std::shared_ptr<IIpcConnectionReceiver> connectionReceiver_;
-    std::shared_ptr<IpcMessage::IIpcMessageFactory> ipcMessageFactory_;
+    using IpcMessageFactroyMap = std::map<IpcMessage::IpcMessageType, std::shared_ptr<IpcMessage::IIpcMessageFactory> >;
+    IpcMessageFactroyMap ipcMessageFactories_;
     std::shared_ptr<Network::ITcpClient> client_;
 public:
     IpcConnectionTcpClientStrategy(std::shared_ptr<IIpcConnectionReceiver> connectionReceiver,
-                             std::shared_ptr<IpcMessage::IIpcMessageFactory> ipcMessageFactory,
-                             std::shared_ptr<Network::ITcpClient> client);
+                                   IpcMessageFactroyMap ipcMessageFactories,
+                                   std::shared_ptr<Network::ITcpClient> client);
     IpcConnectionTcpClientStrategy(std::shared_ptr<Network::ITcpClient> client);
     virtual ~IpcConnectionTcpClientStrategy();
 private:
@@ -33,7 +35,9 @@ private:
     virtual void send(const IpcMessage::IIpcMessage& msg);
     virtual void disconnect();
     virtual void setIpcConnectionReceiver(std::shared_ptr<IIpcConnectionReceiver> receiver);
-    virtual void setIpcMessageFactory(std::shared_ptr<IpcMessage::IIpcMessageFactory> factory);
+    virtual void addIpcMessageFactory(IpcMessage::IpcMessageType ipcMessageType,
+                                      std::shared_ptr<IpcMessage::IIpcMessageFactory> factory);
+
 
     virtual void onConnect();
     virtual void onReceive(Serialize::ReadBuffer& readBuffer);

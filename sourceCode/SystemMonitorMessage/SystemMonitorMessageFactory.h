@@ -10,7 +10,7 @@ class SystemMonitorMessageFactory : public IpcMessage::IIpcMessageFactory
 public:
     SystemMonitorMessageFactory();
     virtual ~SystemMonitorMessageFactory();
-    virtual IpcMessage::IIpcMessage* createMessage(IpcMessage::IpcMessageIntType type);
+    virtual IpcMessage::IIpcMessage* createMessage(IpcMessage::IpcMessageIntType type) const;
 public:
     GETCLASSNAME(SystemMonitorMessageFactory)
 };
