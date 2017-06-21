@@ -30,6 +30,8 @@ public:
     void deRegisterIo(int fd);
     void loop();
 
+public:
+      static LoopMain& instance();
 };
 
 }

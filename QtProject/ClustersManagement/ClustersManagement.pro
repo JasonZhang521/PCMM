@@ -18,8 +18,9 @@ SOURCES += \
     ../../sourceCode/Ipc/IpcConnectionTcpClientStrategy.cpp \
     ../../sourceCode/Ipc/IIpcConnectionAcceptor.cpp \
     ../../sourceCode/ClustersManagement/ClustersManagementHandler.cpp \
-    ../../sourceCode/ClustersManagement/ClusterConnectionAcceptor.cpp \
-    ../../sourceCode/ClustersManagement/IClustersManagementHandler.cpp
+    ../../sourceCode/ClustersManagement/IClustersManagementHandler.cpp \
+    ../../sourceCode/ClustersManagement/ClustersMgtConnectionAcceptor.cpp \
+    ../../sourceCode/ClustersManagement/ClustersMgtConnectionReceiver.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -202,8 +203,9 @@ HEADERS += \
     ../../sourceCode/Ipc/IpcConnectionTcpClientStrategy.h \
     ../../sourceCode/Ipc/IIpcConnectionAcceptor.h \
     ../../sourceCode/ClustersManagement/ClustersManagementHandler.h \
-    ../../sourceCode/ClustersManagement/ClusterConnectionAcceptor.h \
-    ../../sourceCode/ClustersManagement/IClustersManagementHandler.h
+    ../../sourceCode/ClustersManagement/IClustersManagementHandler.h \
+    ../../sourceCode/ClustersManagement/ClustersMgtConnectionAcceptor.h \
+    ../../sourceCode/ClustersManagement/ClustersMgtConnectionReceiver.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

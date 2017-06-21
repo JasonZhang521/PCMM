@@ -8,8 +8,9 @@ class ClustersManagementHandler
 {
 public:
     ClustersManagementHandler();
-    ~ClustersManagementHandler();
+    virtual ~ClustersManagementHandler();
     virtual void addAcceptedIpcClient(int fd, std::shared_ptr<Ipc::IpcClient> ipcClient);
+    virtual void forwardIpcMessage(std::unique_ptr<IpcMessage::IIpcMessage> msg);
 };
 
 }

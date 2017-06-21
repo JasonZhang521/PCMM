@@ -1,16 +1,17 @@
-#ifndef CLUSTERCONNECTIONACCEPTOR_H
-#define CLUSTERCONNECTIONACCEPTOR_H
+#ifndef _CLUSTERSMANAGEMENT_CLUSTERCONNECTIONACCEPTOR_H_
+#define _CLUSTERSMANAGEMENT_CLUSTERCONNECTIONACCEPTOR_H_
 #include "IIpcConnectionAcceptor.h"
 #include <memory>
 
 namespace ClustersManagement {
+
 class IClustersManagementHandler;
-class ClusterConnectionAcceptor : public Ipc::IIpcConnectionAcceptor
+class ClustersMgtConnectionAcceptor : public Ipc::IIpcConnectionAcceptor
 {
     std::shared_ptr<IClustersManagementHandler> clustersManagementHandler_;
 public:
-    ClusterConnectionAcceptor();
-    ~ClusterConnectionAcceptor();
+    ClustersMgtConnectionAcceptor();
+    ~ClustersMgtConnectionAcceptor();
     virtual void onAccept(int fd,
                           const Network::IpSocketEndpoint& localEndPoint,
                           const Network::IpSocketEndpoint& remoteEndPoint);
@@ -21,4 +22,4 @@ private:
 };
 
 }
-#endif // CLUSTERCONNECTIONACCEPTOR_H
+#endif // _CLUSTERSMANAGEMENT_CLUSTERCONNECTIONACCEPTOR_H_

@@ -3,6 +3,7 @@
 #include "ListTimerQueue.h"
 #include "IoControlEventsHandler.h"
 #include "AppConst.h"
+#include "Singleton.h"
 namespace Core {
 LoopMain::LoopMain()
     : eventLoop_(std::shared_ptr<EventHandler::IEventQueue>(new EventHandler::ListEventQueue()))
@@ -49,4 +50,11 @@ void LoopMain::loop()
     eventLoop_.runLoop(500);
     timeLoop_.runLoop();
 }
+
+LoopMain& LoopMain::instance()
+{
+    static std::unique_ptr<LoopMain> instance(new LoopMain());
+    return *instance;
+}
+
 }
