@@ -3,7 +3,7 @@ QT -= gui
 
 CONFIG += c++11
 
-TARGET = ClustersManagement
+TARGET = ClusterManagement
 CONFIG += console
 CONFIG -= app_bundle
 CONFIG += c++11
@@ -17,10 +17,12 @@ SOURCES += \
     ../../sourceCode/Ipc/IpcConnectionTcpServerStrategy.cpp \
     ../../sourceCode/Ipc/IpcConnectionTcpClientStrategy.cpp \
     ../../sourceCode/Ipc/IIpcConnectionAcceptor.cpp \
-    ../../sourceCode/ClustersManagement/ClustersManagementHandler.cpp \
-    ../../sourceCode/ClustersManagement/IClustersManagementHandler.cpp \
-    ../../sourceCode/ClustersManagement/ClustersMgtConnectionAcceptor.cpp \
-    ../../sourceCode/ClustersManagement/ClustersMgtConnectionReceiver.cpp
+    ../../sourceCode/ClusterManagement/ClusterMgtClientsManagement.cpp \
+    ../../sourceCode/ClusterManagement/ClusterMgtConnectionAcceptor.cpp \
+    ../../sourceCode/ClusterManagement/ClusterMgtConnectionReceiver.cpp \
+    ../../sourceCode/ClusterManagement/IClusterMgtClientsManagement.cpp \
+    ../../sourceCode/ClusterManagement/IClusterMgtController.cpp \
+    ../../sourceCode/ClusterManagement/ClusterMgtController.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -202,10 +204,13 @@ HEADERS += \
     ../../sourceCode/Ipc/IpcConnectionTcpServerStrategy.h \
     ../../sourceCode/Ipc/IpcConnectionTcpClientStrategy.h \
     ../../sourceCode/Ipc/IIpcConnectionAcceptor.h \
-    ../../sourceCode/ClustersManagement/ClustersManagementHandler.h \
-    ../../sourceCode/ClustersManagement/IClustersManagementHandler.h \
-    ../../sourceCode/ClustersManagement/ClustersMgtConnectionAcceptor.h \
-    ../../sourceCode/ClustersManagement/ClustersMgtConnectionReceiver.h
+    ../../sourceCode/ClusterManagement/IClusterMgtClientsManagement.h \
+    ../../sourceCode/ClusterManagement/ClusterMgtConnectionReceiver.h \
+    ../../sourceCode/ClusterManagement/ClusterMgtConnectionAcceptor.h \
+    ../../sourceCode/ClusterManagement/ClusterMgtClientsManagement.h \
+    ../../sourceCode/ClusterManagement/Component.h \
+    ../../sourceCode/ClusterManagement/IClusterMgtController.h \
+    ../../sourceCode/ClusterManagement/ClusterMgtController.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

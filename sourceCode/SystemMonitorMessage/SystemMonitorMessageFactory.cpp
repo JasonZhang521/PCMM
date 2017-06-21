@@ -16,11 +16,11 @@ SystemMonitorMessageFactory::~SystemMonitorMessageFactory()
 
 IpcMessage::IIpcMessage* SystemMonitorMessageFactory::createMessage(IpcMessage::IpcMessageIntType type) const
 {
-    if (static_cast<IpcMessage::SystemMonitorType>(type) == IpcMessage::MonitorRequest)
+    if (static_cast<IpcMessage::SystemMonitorType>(type) == IpcMessage::SystemInfoRequest)
     {
         return new SystemInfoRequest();
     }
-    else if (static_cast<IpcMessage::SystemMonitorType>(type) == IpcMessage::MonitorMessage)
+    else if (static_cast<IpcMessage::SystemMonitorType>(type) == IpcMessage::SystemInfoMessage)
     {
         return new SystemInfoMessage();
     }

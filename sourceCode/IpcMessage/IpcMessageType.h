@@ -10,8 +10,8 @@ enum IpcMessageType
 
 enum SystemMonitorType
 {
-    MonitorRequest,  // request the system information
-    MonitorMessage  // system information message
+    SystemInfoRequest,  // request the system information
+    SystemInfoMessage  // system information message
 };
 
 }

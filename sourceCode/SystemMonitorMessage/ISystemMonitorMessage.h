@@ -13,6 +13,7 @@ public:
     virtual void unserialize(Serialize::ReadBuffer& readBuffer) = 0;
 
     virtual IpcMessage::SystemMonitorType getSystemMonitorType() const = 0;
+    virtual std::ostream& operator<< (std::ostream& os) const = 0;
 };
 
 }

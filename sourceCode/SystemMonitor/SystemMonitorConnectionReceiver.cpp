@@ -39,7 +39,7 @@ void SystemMonitorConnectionReceiver::onReceive(std::unique_ptr<IpcMessage::IIpc
         IpcMessage::SystemMonitorType systemMonitorType = message->getSystemMonitorType();
         switch (systemMonitorType)
         {
-        case IpcMessage::SystemMonitorType::MonitorRequest:
+        case IpcMessage::SystemMonitorType::SystemInfoRequest:
             monitorHandler_->reportSystemInfo();
             break;
         default:

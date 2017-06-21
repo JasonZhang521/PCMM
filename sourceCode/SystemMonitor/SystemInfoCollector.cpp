@@ -2,7 +2,6 @@
 #include "EventIdGenerator.h"
 #include "CpuUsage.h"
 #include "Trace.h"
-#include "App.h"
 
 namespace SystemMonitor {
 
