@@ -18,4 +18,14 @@ uint64_t IIpcMessage::getMessageId() const
     return messageId_;
 }
 
+const std::string& IIpcMessage::getDestnation() const
+{
+    return destnation_;
+}
+
+void IIpcMessage::setDestnation(const std::string& destnation)
+{
+    destnation_ = destnation;
+}
+
 }

@@ -27,6 +27,19 @@ void ClusterMgtClientsManagment::addAcceptedIpcClient(const std::string& remoteE
     clients_[remoteEndPoint] = ipcClient;
 }
 
+void ClusterMgtClientsManagment::handleMessage(const IpcMessage::IIpcMessage& msg)
+{
+    const std::string& dest = msg.getDestnation();
+    if (dest.empty())
+    {
+        broadcastMsg(msg);
+    }
+    else
+    {
+        throw std::runtime_error("not completed yet!");
+    }
+}
+
 void ClusterMgtClientsManagment::forwardIpcMessage(const std::string& remoteEndPoint, const IpcMessage::IIpcMessage& msg)
 {
     TRACE_DEBUG("Forward msg to:" << remoteEndPoint << ", msg = " << msg);

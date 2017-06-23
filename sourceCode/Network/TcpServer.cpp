@@ -10,6 +10,14 @@ TcpServer::TcpServer(const IpSocketEndpoint& localEndpoint)
 {
 }
 
+TcpServer::TcpServer(const IpSocketEndpoint& localEndpoint, std::shared_ptr<ITcpConnectionAcceptor> acceptor)
+    :socket_(localEndpoint)
+    ,state_(TcpState::Tcp_Closed)
+    ,tcpConnectionAcceptor_(acceptor)
+{
+
+}
+
 TcpServer::~TcpServer()
 {
 }
@@ -63,6 +71,7 @@ TcpResult TcpServer::accept(int flag)
     }
     else
     {
+        tcpConnectionAcceptor_->onAccept(fd, socket_.getLocalEndpoint(), remoteEndPoint);
         return TcpResult::Success;
     }
 }
@@ -93,6 +102,12 @@ TcpResult TcpServer::cleanup()
     {
         return TcpResult::Success;
     }
+}
+
+void TcpServer::setConnectionAcceptor(std::shared_ptr<ITcpConnectionAcceptor> acceptor)
+{
+    TRACE_ENTER();
+    tcpConnectionAcceptor_ = acceptor;
 }
 
 void TcpServer::run(EventHandler::EventFlag flag)

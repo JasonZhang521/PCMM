@@ -22,7 +22,8 @@ SOURCES += \
     ../../sourceCode/ClusterManagement/ClusterMgtConnectionReceiver.cpp \
     ../../sourceCode/ClusterManagement/IClusterMgtClientsManagement.cpp \
     ../../sourceCode/ClusterManagement/IClusterMgtController.cpp \
-    ../../sourceCode/ClusterManagement/ClusterMgtController.cpp
+    ../../sourceCode/ClusterManagement/ClusterMgtController.cpp \
+    ../../sourceCode/ClusterManagement/ClusterManagementProcess.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -210,7 +211,9 @@ HEADERS += \
     ../../sourceCode/ClusterManagement/ClusterMgtClientsManagement.h \
     ../../sourceCode/ClusterManagement/Component.h \
     ../../sourceCode/ClusterManagement/IClusterMgtController.h \
-    ../../sourceCode/ClusterManagement/ClusterMgtController.h
+    ../../sourceCode/ClusterManagement/ClusterMgtController.h \
+    ../../sourceCode/ClusterManagement/ClusterMgtClientType.h \
+    ../../sourceCode/ClusterManagement/ClusterManagementProcess.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

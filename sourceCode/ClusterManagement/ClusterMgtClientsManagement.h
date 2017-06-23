@@ -17,8 +17,10 @@ public:
     ClusterMgtClientsManagment();
     virtual ~ClusterMgtClientsManagment();
     virtual void addAcceptedIpcClient(const std::string& remoteEndPoint, std::shared_ptr<Ipc::IIpcClient> ipcClient);
-    virtual void forwardIpcMessage(const std::string& remoteEndPoint, const IpcMessage::IIpcMessage& msg);
-    virtual void broadcastMsg(const IpcMessage::IIpcMessage& msg);
+    virtual void handleMessage(const IpcMessage::IIpcMessage& msg);
+private:
+    void forwardIpcMessage(const std::string& remoteEndPoint, const IpcMessage::IIpcMessage& msg);
+    void broadcastMsg(const IpcMessage::IIpcMessage& msg);
 
 public:
     GETCLASSNAME(ClusterMgtClientsManagment)

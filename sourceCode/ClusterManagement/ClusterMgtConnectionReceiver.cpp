@@ -1,8 +1,10 @@
 #include "ClusterMgtConnectionReceiver.h"
+#include "IClusterMgtController.h"
 
 namespace ClusterManagement {
-ClusterMgtConnectionReceiver::ClusterMgtConnectionReceiver(std::shared_ptr<IClusterMgtController> clusterMgtController)
-    :clusterMgtController_(clusterMgtController)
+ClusterMgtConnectionReceiver::ClusterMgtConnectionReceiver(ClientType type, std::shared_ptr<IClusterMgtController> clusterMgtController)
+    :clientType_(type)
+    ,clusterMgtController_(clusterMgtController)
 {
 }
 
@@ -18,7 +20,7 @@ void ClusterMgtConnectionReceiver::onConnect()
 
 void ClusterMgtConnectionReceiver::onReceive(std::unique_ptr<IpcMessage::IIpcMessage> msg)
 {
-
+    clusterMgtController_->handleMessage(*msg, clientType_);
 }
 
 void ClusterMgtConnectionReceiver::onDisconnect()
