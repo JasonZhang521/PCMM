@@ -6,6 +6,7 @@
 #include "IpcServer.h"
 #include "TcpServer.h"
 #include "IpSocketEndpoint.h"
+#include "LoopMain.h"
 namespace ClusterManagement {
 ClusterManagementProcess::ClusterManagementProcess()
 {
@@ -19,7 +20,7 @@ void ClusterManagementProcess::process()
 
     // create the Ipc server, will set the tcp acceptor later
     Network::IpSocketEndpoint localEndPoint("192.168.5.135:7000");
-    Network::ITcpServer* tcpServerPtr = new Network::TcpServer(localEndPoint);
+    Network::TcpServer* tcpServerPtr = new Network::TcpServer(localEndPoint);
     std::shared_ptr<Network::ITcpServer> tcpServer(tcpServerPtr);
 
     // create the Tcp server strategy,  this is the Tcp acceptor also
@@ -42,6 +43,15 @@ void ClusterManagementProcess::process()
     // add the client manger to the  mananger control
     std::shared_ptr<IClusterMgtClientsManagement> clientsManager(new ClusterMgtClientsManagment(ipcServer));
     clusterMgtController->addClientManager(NodeType, clientsManager);
+
+
+    std::unique_ptr<Core::LoopMain> loopMain(new Core::LoopMain());
+
+    loopMain->registerIo(Io::IoFdType::IoFdRead, tcpServerPtr);
+
+
+    // run
+    loopMain->loop();
 
 }
 

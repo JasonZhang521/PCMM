@@ -20,8 +20,8 @@ class TcpServer : public ITcpServer, public Io::IIoEvent
 public:
     TcpServer(const IpSocketEndpoint& localEndpoint);
     TcpServer(const IpSocketEndpoint& localEndpoint, std::shared_ptr<ITcpConnectionAcceptor> acceptor);
-private:
     virtual ~TcpServer();
+private:
     virtual TcpResult init();
     virtual TcpResult bind();
     virtual TcpResult listen(int backlog);
