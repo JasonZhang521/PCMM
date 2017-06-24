@@ -1,7 +1,6 @@
 #ifndef _IPCMESSAGE_IIPCMESSAGE_H_
 #define _IPCMESSAGE_IIPCMESSAGE_H_
 #include "IpcMessageType.h"
-#include "IConnectionMessage.h"
 #include <stdint.h>
 #include <string>
 #include <ostream>

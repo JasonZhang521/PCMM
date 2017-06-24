@@ -23,7 +23,8 @@ SOURCES += \
     ../../sourceCode/ClusterManagement/IClusterMgtClientsManagement.cpp \
     ../../sourceCode/ClusterManagement/IClusterMgtController.cpp \
     ../../sourceCode/ClusterManagement/ClusterMgtController.cpp \
-    ../../sourceCode/ClusterManagement/ClusterManagementProcess.cpp
+    ../../sourceCode/ClusterManagement/ClusterManagementProcess.cpp \
+    ../../sourceCode/ClusterManagement/ClusterManagementMain.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -99,17 +100,12 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/Io/IoControlEventsHandler.cpp \
     ../../sourceCode/Core/IoLoop.cpp \
     ../../sourceCode/Core/TimerLoop.cpp \
-    ../../sourceCode/SystemMonitor/SystemMonitorHandler.cpp \
-    ../../sourceCode/SystemMonitor/SystemInfoCollector.cpp \
-    ../../sourceCode/SystemMonitor/ISystemMonitorHandler.cpp \
     ../../sourceCode/Io/IIoEvent.cpp \
     ../../sourceCode/Ipc/IIpcClient.cpp \
     ../../sourceCode/Network/ITcpConnectionReceiver.cpp \
     ../../sourceCode/Ipc/IIpcConnectionReceiver.cpp \
     ../../sourceCode/IpcMessage/IIpcMessageFactory.cpp \
     ../../sourceCode/SystemMonitorMessage/SystemMonitorMessageFactory.cpp \
-    ../../sourceCode/SystemMonitor/SystemMonitorConnectionReceiver.cpp \
-    ../../sourceCode/SystemMonitor/SystemmMonitorMain.cpp \
     ../../sourceCode/Configure/Configure.cpp \
     ../../sourceCode/Configure/ExceptionConfigure.cpp \
     ../../sourceCode/Configure/TraceLogConfigure.cpp \
@@ -181,10 +177,6 @@ HEADERS += \
     ../../sourceCode/Core/IoLoop.h \
     ../../sourceCode/Core/TimerLoop.h \
     ../../sourceCode/Common/Singleton.h \
-    ../../sourceCode/SystemMonitor/SystemInfoCollector.h \
-    ../../sourceCode/SystemMonitor/Component.h \
-    ../../sourceCode/SystemMonitor/ISystemMonitorHandler.h \
-    ../../sourceCode/SystemMonitor/SystemMonitorHandler.h \
     ../../sourceCode/Serialize/Component.h \
     ../../sourceCode/Io/IIoEvent.h \
     ../../sourceCode/Ipc/IIpcClient.h \
@@ -192,7 +184,6 @@ HEADERS += \
     ../../sourceCode/Ipc/IIpcConnectionReceiver.h \
     ../../sourceCode/IpcMessage/IIpcMessageFactory.h \
     ../../sourceCode/SystemMonitorMessage/SystemMonitorMessageFactory.h \
-    ../../sourceCode/SystemMonitor/SystemMonitorConnectionReceiver.h \
     ../../sourceCode/Configure/Configure.h \
     ../../sourceCode/Configure/Configure_Define.h \
     ../../sourceCode/Configure/ExceptionConfigure.h \
