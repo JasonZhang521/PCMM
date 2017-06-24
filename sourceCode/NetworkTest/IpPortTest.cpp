@@ -34,7 +34,9 @@ static void testIpPortConstructor1(unsigned short port)
         WriteBuffer writeBuffer;
         ipPort.serialize(writeBuffer);
         ReadBuffer readBuffer;
-        std::copy(writeBuffer.getBuffer(), writeBuffer.getBuffer() + writeBuffer.getDataSize(), readBuffer.getBuffer());
+        std::copy(static_cast<uint8_t*>(writeBuffer.getBuffer()), 
+				  static_cast<uint8_t*>(writeBuffer.getBuffer()) + writeBuffer.getDataSize(), 
+				  static_cast<uint8_t*>(readBuffer.getBuffer()));
         readBuffer.setDataSize(writeBuffer.getDataSize());
         IpPort ipPortRead;
         ipPortRead.unserialize(readBuffer);
