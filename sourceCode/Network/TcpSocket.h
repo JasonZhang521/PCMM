@@ -37,9 +37,14 @@ public:
     int connect() const;
     int accept(IpSocketEndpoint& remoteEndPoint, SocketFlag flag) const;
 
+    std::string toString() const;
+    std::ostream& operator<< (std::ostream& os) const;
+
 public:
      GETCLASSNAME(SocketImp)
 };
+
+std::ostream& operator<< (std::ostream& os, const TcpSocket& socket);
 
 }
 #endif // _NETWORK_TCPSOCKET_H

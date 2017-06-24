@@ -15,6 +15,24 @@ ClusterMgtController::~ClusterMgtController()
 
 }
 
+void ClusterMgtController::startup()
+{
+    for (ClientsManagementMap::iterator it = clientsManager_.begin(); it != clientsManager_.end(); ++it)
+    {
+        std::shared_ptr<IClusterMgtClientsManagement> clusterMgtClientManagement = it->second;
+        clusterMgtClientManagement->startup();
+    }
+}
+
+void ClusterMgtController::shutdown()
+{
+    for (ClientsManagementMap::iterator it = clientsManager_.begin(); it != clientsManager_.end(); ++it)
+    {
+        std::shared_ptr<IClusterMgtClientsManagement> clusterMgtClientManagement = it->second;
+        clusterMgtClientManagement->shutdown();
+    }
+}
+
 void ClusterMgtController::addAcceptedIpcClient(const std::string& remoteEndPoint, std::shared_ptr<Ipc::IIpcClient> ipcClient, ClientType type)
 {
     ClientsManagementMap::iterator it = clientsManager_.find(type);

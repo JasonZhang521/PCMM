@@ -30,6 +30,8 @@ private:
     virtual TcpResult cleanup();
     virtual void setConnectionAcceptor(std::shared_ptr<ITcpConnectionAcceptor> acceptor);
     virtual void run(EventHandler::EventFlag flag = EventHandler::EventFlag::Event_NoFlag);
+    virtual std::ostream& operator<< (std::ostream& os) const;
+    virtual int getIoHandle();
 
 public:
      GETCLASSNAME(TcpServer)

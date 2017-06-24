@@ -1,11 +1,13 @@
 #include "ClusterMgtClientsManagement.h"
 #include "IIpcClient.h"
+#include "IIpcServer.h"
 #include "IIpcMessage.h"
 #include "Trace.h"
 
 namespace ClusterManagement {
 
-ClusterMgtClientsManagment::ClusterMgtClientsManagment()
+ClusterMgtClientsManagment::ClusterMgtClientsManagment(std::shared_ptr<Ipc::IIpcServer> ipcServer)
+    :ipcServer_(ipcServer)
 {
 
 }
@@ -13,6 +15,18 @@ ClusterMgtClientsManagment::ClusterMgtClientsManagment()
 ClusterMgtClientsManagment::~ClusterMgtClientsManagment()
 {
 
+}
+
+void ClusterMgtClientsManagment::startup()
+{
+    TRACE_ENTER();
+    ipcServer_->startup();
+}
+
+void ClusterMgtClientsManagment::shutdown()
+{
+    TRACE_ENTER();
+    ipcServer_->shutdown();
 }
 
 void ClusterMgtClientsManagment::addAcceptedIpcClient(const std::string& remoteEndPoint, std::shared_ptr<Ipc::IIpcClient> ipcClient)

@@ -5,4 +5,10 @@ IClusterMgtController::IClusterMgtController()
 {
 
 }
+
+IClusterMgtController::~IClusterMgtController()
+{
+
+}
+
 }

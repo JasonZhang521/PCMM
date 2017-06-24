@@ -112,7 +112,24 @@ void TcpServer::setConnectionAcceptor(std::shared_ptr<ITcpConnectionAcceptor> ac
 
 void TcpServer::run(EventHandler::EventFlag flag)
 {
+    TRACE_ENTER();
     static_cast<void>(flag);
+    accept(0);
+    listen(0);
+}
+
+std::ostream& TcpServer::operator<< (std::ostream& os) const
+{
+    os << "["
+       << "tcpSocket=" << socket_
+       << ", state=" << static_cast<int>(state_)
+       << "]";
+    return os;
+}
+
+int TcpServer::getIoHandle()
+{
+    return socket_.getFd();
 }
 
 }

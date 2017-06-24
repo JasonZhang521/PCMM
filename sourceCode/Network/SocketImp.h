@@ -3,6 +3,8 @@
 #include "SocketWrapper.h"
 #include "Component.h"
 #include "Macro.h"
+#include <sstream>
+#include <string>
 
 namespace Network {
 
@@ -110,6 +112,13 @@ public:
     inline int setBlocking(bool blocking)
     {
         return IoPlatformWrapper::SetBlocking(fd_, blocking);
+    }
+
+    inline std::string toString() const
+    {
+        std::stringstream ss;
+        ss << "[" << "addressFamily=" << addrFamily_ <<", socketType=" << type_ << ", socketProtocol=" << protocol_ << ", fd=" << fd_ << "]";
+        return ss.str();
     }
 
 public:

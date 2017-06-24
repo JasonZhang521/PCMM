@@ -1,5 +1,6 @@
 #include "TcpSocket.h"
 #include "Trace.h"
+#include <sstream>
 
 namespace Network {
 
@@ -108,6 +109,27 @@ int TcpSocket::accept(IpSocketEndpoint& remoteEndPoint, SocketFlag flags) const
         TRACE_ERROR("remoteEndpoint address family is invalid");
         throw std::invalid_argument(std::string("remote address family is invalid"));
     }
+}
+
+std::string TcpSocket::toString() const
+{
+    std::stringstream ss;
+    ss << "["
+       << SocketImp::toString()
+       << "[tcpType=" << static_cast<int>(type_) << ", localEndpoint=" << localEndpoint_.toString() << "remoteEndpoint=" << remoteEndpoint_.toString() << "]"
+       << "]";
+    return ss.str();
+}
+
+std::ostream& TcpSocket::operator<< (std::ostream& os) const
+{
+    os << toString();
+    return os;
+}
+
+std::ostream& operator<< (std::ostream& os, const TcpSocket& socket)
+{
+    return socket.operator <<(os);
 }
 
 }

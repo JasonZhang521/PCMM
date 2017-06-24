@@ -14,26 +14,34 @@ ClusterManagementProcess::ClusterManagementProcess()
 
 void ClusterManagementProcess::process()
 {
+    // create the Cluster mananger control
+    std::shared_ptr<IClusterMgtController> clusterMgtController(new ClusterMgtController());
 
-    IpSocketEndpoint localEndPoint("192.168.5.135:7000");
+    // create the Ipc server, will set the tcp acceptor later
+    Network::IpSocketEndpoint localEndPoint("192.168.5.135:7000");
     Network::ITcpServer* tcpServerPtr = new Network::TcpServer(localEndPoint);
     std::shared_ptr<Network::ITcpServer> tcpServer(tcpServerPtr);
 
-
+    // create the Tcp server strategy,  this is the Tcp acceptor also
     Ipc::IpcConnectionTcpServerStrategy* strategyPtr = new Ipc::IpcConnectionTcpServerStrategy(tcpServer);
     std::shared_ptr<Ipc::IpcConnectionTcpServerStrategy> strategy(strategyPtr);
 
+    // set the Tcp acceptor
+    tcpServer->setConnectionAcceptor(strategy);
+
+    // create the Ipc server, will set the ipc acceptor later
     Ipc::IIpcServer* ipcServerPtr = new Ipc::IpcServer(strategy);
+    std::shared_ptr<Ipc::IIpcServer> ipcServer(ipcServerPtr);
 
-    std::shared_ptr<IClusterMgtController> clusterMgtController(new ClusterMgtController());
-    std::shared_ptr<IClusterMgtClientsManagement> clientsManager(new ClusterMgtClientsManagment());
-    clusterMgtController->addClientManager(NodeType, clientsManager);
-
-    ClusterMgtConnectionAcceptor* acceptorPtr = new ClusterMgtConnectionAcceptor(clusterMgtController);
+    // create ipc acceptor
+    ClusterMgtConnectionAcceptor* acceptorPtr = new ClusterMgtConnectionAcceptor(NodeType, clusterMgtController);
     std::shared_ptr<Ipc::IIpcConnectionAcceptor> acceptor(acceptorPtr);
-
+    // set the ipc acceptor
     strategyPtr->setIpcConnectionAcceptor(acceptor);
 
+    // add the client manger to the  mananger control
+    std::shared_ptr<IClusterMgtClientsManagement> clientsManager(new ClusterMgtClientsManagment(ipcServer));
+    clusterMgtController->addClientManager(NodeType, clientsManager);
 
 }
 

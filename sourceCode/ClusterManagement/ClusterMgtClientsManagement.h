@@ -7,15 +7,22 @@
 #include <string>
 #include <memory>
 
+namespace Ipc {
+class IIpcServer;
+}
+
 namespace ClusterManagement {
 
 class ClusterMgtClientsManagment : public IClusterMgtClientsManagement
 {
     using IpcClientsMap = std::unordered_map<std::string, std::shared_ptr<Ipc::IIpcClient> >;
     IpcClientsMap clients_;
+    std::shared_ptr<Ipc::IIpcServer> ipcServer_;
 public:
-    ClusterMgtClientsManagment();
+    ClusterMgtClientsManagment(std::shared_ptr<Ipc::IIpcServer> ipcServer);
     virtual ~ClusterMgtClientsManagment();
+    virtual void startup();
+    virtual void shutdown();
     virtual void addAcceptedIpcClient(const std::string& remoteEndPoint, std::shared_ptr<Ipc::IIpcClient> ipcClient);
     virtual void handleMessage(const IpcMessage::IIpcMessage& msg);
 private:
