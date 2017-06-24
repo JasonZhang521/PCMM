@@ -39,8 +39,13 @@ add_subdirectory(Serialize)
 add_subdirectory(Io)
 add_subdirectory(IoPlatformWrapper)
 add_subdirectory(Ipc)
+add_subdirectory(IpcMessage)
 add_subdirectory(Connection)
 add_subdirectory(Environment)
+add_subdirectory(Core)
+add_subdirectory(SystemMonitor)
+add_subdirectory(SystemMonitorMessage)
+add_subdirectory(ClusterManagement)
 
 #Unit test
 add_subdirectory(ConfigureTest)

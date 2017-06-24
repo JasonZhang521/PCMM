@@ -1,18 +1,22 @@
-aux_source_directory(. environment_SRCS)
+aux_source_directory(. core_SRCS)
 
 include_directories ("${PROJECT_SOURCE_DIR}/TraceLog"
 "${PROJECT_SOURCE_DIR}/Common"
 "${PROJECT_SOURCE_DIR}/Configure"
-"${PROJECT_SOURCE_DIR}/Serialize"
+"${PROJECT_SOURCE_DIR}/EventHandler"
+"${PROJECT_SOURCE_DIR}/TimerHandler"
 "${PROJECT_SOURCE_DIR}/IoPlatformWrapper"
+"${PROJECT_SOURCE_DIR}/Io"
 )
 
-add_library(environment  ${environment_SRCS})
+add_library(core  ${core_SRCS})
 
-target_link_libraries(environment
+target_link_libraries(core
 	                  configure
 		              common
-					  serialize
+					  eventhandler
+					  timerhandler
 					  ioplatformwrapper
+					  io
 		             )
 

@@ -1,18 +1,19 @@
-aux_source_directory(. environment_SRCS)
+aux_source_directory(. ipcmessage_SRCS)
 
 include_directories ("${PROJECT_SOURCE_DIR}/TraceLog"
 "${PROJECT_SOURCE_DIR}/Common"
 "${PROJECT_SOURCE_DIR}/Configure"
+"${PROJECT_SOURCE_DIR}/Connection"
+"${PROJECT_SOURCE_DIR}/Network"
 "${PROJECT_SOURCE_DIR}/Serialize"
-"${PROJECT_SOURCE_DIR}/IoPlatformWrapper"
 )
 
-add_library(environment  ${environment_SRCS})
+add_library(ipcmessage  ${ipcmessage_SRCS})
 
-target_link_libraries(environment
+target_link_libraries(ipcmessage
 	                  configure
 		              common
+		              network 
 					  serialize
-					  ioplatformwrapper
 		             )
 

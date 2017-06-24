@@ -1,4 +1,4 @@
-aux_source_directory(. timehandler_SRCS)
+aux_source_directory(. timerhandler_SRCS)
 
 include_directories ("${PROJECT_SOURCE_DIR}/TraceLog"
 "${PROJECT_SOURCE_DIR}/Common"
@@ -6,10 +6,11 @@ include_directories ("${PROJECT_SOURCE_DIR}/TraceLog"
 "${PROJECT_SOURCE_DIR}/EventHandler"
 )
 
-add_library(timehandler  ${timehandler_SRCS})
+add_library(timerhandler  ${timerhandler_SRCS})
 
-target_link_libraries(timehandler ${SSH_LIBs}
+target_link_libraries(timerhandler ${SSH_LIBs}
 	                  configure
 		              common
+					  eventhandler
 		             )
 
