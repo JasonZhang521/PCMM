@@ -20,8 +20,8 @@ SystemMonitorProcess::SystemMonitorProcess()
 void SystemMonitorProcess::process()
 {
     // Tcp client
-    Network::IpSocketEndpoint localEndpoint(std::string("192.168.5.1:5678"));
-    Network::IpSocketEndpoint remoteEndpoint(std::string("192.168.5.138:6678"));
+    Network::IpSocketEndpoint localEndpoint(std::string("127.0.0.1:8000"));
+    Network::IpSocketEndpoint remoteEndpoint(std::string("127.0.0.1:7000"));
     Network::TcpClient* tcpClientPtr = new Network::TcpClient(localEndpoint, remoteEndpoint);
     std::shared_ptr<Network::TcpClient> tcpClient(tcpClientPtr);
 

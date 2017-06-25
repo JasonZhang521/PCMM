@@ -19,7 +19,7 @@ void ClusterManagementProcess::process()
     std::shared_ptr<IClusterMgtController> clusterMgtController(new ClusterMgtController());
 
     // create the Ipc server, will set the tcp acceptor later
-    Network::IpSocketEndpoint localEndPoint("192.168.5.135:7000");
+    Network::IpSocketEndpoint localEndPoint("172.0.0.1:7000");
     Network::TcpServer* tcpServerPtr = new Network::TcpServer(localEndPoint);
     std::shared_ptr<Network::ITcpServer> tcpServer(tcpServerPtr);
 
