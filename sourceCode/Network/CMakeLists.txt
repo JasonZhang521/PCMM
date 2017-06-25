@@ -7,14 +7,16 @@ include_directories ("${PROJECT_SOURCE_DIR}/TraceLog"
 "${PROJECT_SOURCE_DIR}/Serialize"
 "${PROJECT_SOURCE_DIR}/Io"
 "${PROJECT_SOURCE_DIR}/IoPlatformWrapper"
-"${PROJECT_SOURCE_DIR}/Connection"
 )
 
 add_library(network  ${network_SRCS})
 
 target_link_libraries(network ${SSH_LIBs}
 	                  configure
+					  eventhandler
+					  serialize
 		              common
 					  io
+					  ioplatformwrapper
 		             )
 
