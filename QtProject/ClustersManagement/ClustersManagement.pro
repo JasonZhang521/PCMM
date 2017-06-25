@@ -54,8 +54,7 @@ INCLUDEPATH += ../../sourceCode/Serialize \
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
-    ../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
+SOURCES +=../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/Ipc/IpcClient.cpp \
     ../../sourceCode/IpcMessage/IpcMessageIdGenerator.cpp \
     ../../sourceCode/IpcMessage/IIpcMessage.cpp \

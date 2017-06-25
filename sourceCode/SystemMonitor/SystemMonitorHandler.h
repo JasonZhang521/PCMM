@@ -25,6 +25,8 @@ public:
     ~SystemMonitorHandler();
 private:
     virtual void reportSystemInfo();
+    virtual void startup();
+    virtual void shutdown();
 
 public:
      GETCLASSNAME(SystemInfoCollector)

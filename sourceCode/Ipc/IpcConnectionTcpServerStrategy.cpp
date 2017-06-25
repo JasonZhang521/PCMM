@@ -1,6 +1,7 @@
 #include "IpcConnectionTcpServerStrategy.h"
 #include "IIpcConnectionAcceptor.h"
 #include "ITcpServer.h"
+#include "IpSocketEndpoint.h"
 #include "Trace.h"
 
 namespace Ipc {
@@ -33,6 +34,7 @@ IpcConnectionTcpServerStrategy::~IpcConnectionTcpServerStrategy()
 
 void IpcConnectionTcpServerStrategy::startup()
 {
+    TRACE_ENTER();
     server_->bind();
     int backlog = 0;
     server_->listen(backlog);
@@ -40,18 +42,22 @@ void IpcConnectionTcpServerStrategy::startup()
 
 void IpcConnectionTcpServerStrategy::shutdown()
 {
-
+    TRACE_ENTER();
+    server_->disconnect();
+    server_->cleanup();
 }
-
+#include <iostream>
 void IpcConnectionTcpServerStrategy::onAccept(int fd,
                       const Network::IpSocketEndpoint& localEndPoint,
                       const Network::IpSocketEndpoint& remoteEndPoint)
 {
+    TRACE_NOTICE("Client = " << remoteEndPoint << " connected to " << localEndPoint);
     connectionAcceptor_->onAccept(fd, localEndPoint, remoteEndPoint);
 }
 
 void  IpcConnectionTcpServerStrategy::setIpcConnectionAcceptor(std::shared_ptr<IIpcConnectionAcceptor> acceptor)
 {
+    TRACE_ENTER();
     connectionAcceptor_ = acceptor;
 }
 

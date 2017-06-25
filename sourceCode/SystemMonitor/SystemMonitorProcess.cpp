@@ -37,7 +37,7 @@ void SystemMonitorProcess::process()
 
     // SystemMonitorHandler
     SystemMonitorHandler* systemMonitorHandlerPtr = new SystemMonitorHandler(ipcClient);
-    std::shared_ptr<SystemMonitorHandler> systemMonitorHandler(systemMonitorHandlerPtr);
+    std::shared_ptr<ISystemMonitorHandler> systemMonitorHandler(systemMonitorHandlerPtr);
 
     // SystemMonitorConnectionReceiver
     std::shared_ptr<SystemMonitorConnectionReceiver>
@@ -71,7 +71,7 @@ void SystemMonitorProcess::process()
     Io::IIoEvent* ioEvent = tcpClient.get();
     loopMain->registerIo(Io::IoFdType::IoFdRead, ioEvent);
 
-
+    systemMonitorHandler->startup();
     // run
     loopMain->loop();
 }

@@ -29,7 +29,6 @@ public:
     virtual void serialize(Serialize::WriteBuffer& writeBuffer) const;
     virtual void unserialize(Serialize::ReadBuffer& readBuffer);
     std::string toString() const;
-    std::ostream& operator<<(std::ostream& os) const;
 
     SocketAddressFamily getSocketAddressFamily() const;
     IpAddress getIpAddress() const;
@@ -45,8 +44,8 @@ public:
     static const IpSocketEndpoint Null;
 };
 
-std::ostream& operator<<(std::ostream& os, const IpSocketEndpoint& ipSocketEndpoint);
-
 }
+
+std::ostream& operator<<(std::ostream& os, const Network::IpSocketEndpoint& ipSocketEndpoint);
 
 #endif // _NETWORK_IPSOCKETENDPOINT_H_

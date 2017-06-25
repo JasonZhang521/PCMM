@@ -22,4 +22,14 @@ void SystemMonitorHandler::reportSystemInfo()
     ipcClient_->send(message);
 }
 
+void SystemMonitorHandler::startup()
+{
+    ipcClient_->connect();
+}
+
+void SystemMonitorHandler::shutdown()
+{
+    ipcClient_->disconnect();
+}
+
 }

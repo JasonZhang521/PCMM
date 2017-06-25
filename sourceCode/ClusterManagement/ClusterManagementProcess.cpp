@@ -49,7 +49,7 @@ void ClusterManagementProcess::process()
 
     loopMain->registerIo(Io::IoFdType::IoFdRead, tcpServerPtr);
 
-
+    clusterMgtController->startup();
     // run
     loopMain->loop();
 

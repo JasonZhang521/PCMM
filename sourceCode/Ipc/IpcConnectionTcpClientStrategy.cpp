@@ -97,6 +97,7 @@ void IpcConnectionTcpClientStrategy::onReceive(Serialize::ReadBuffer& readBuffer
         std::unique_ptr<IpcMessage::IIpcMessage> msg(factory->createMessage(ipcApplicationType));
         if (msg)
         {
+            TRACE_DEBUG("Receive ipc msg:" << *msg);
             connectionReceiver_->onReceive(std::move(msg));
         }
         else

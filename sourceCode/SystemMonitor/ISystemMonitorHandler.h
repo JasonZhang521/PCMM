@@ -8,6 +8,8 @@ public:
     ISystemMonitorHandler();
     ~ISystemMonitorHandler();
     virtual void reportSystemInfo() = 0;
+    virtual void startup() = 0;
+    virtual void shutdown() = 0;
 };
 
 }
