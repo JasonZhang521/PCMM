@@ -20,8 +20,8 @@ TcpSocket::TcpSocket(const SocketHandle& fd,
     ,remoteEndpoint_(remoteEndpoint)
 {
     TRACE_DEBUG("localEndpoint:" << localEndpoint << ", remoteEndpoint:" << remoteEndpoint);
-    if (localEndpoint_.getSocketAddressFamily() == IPFamilyType::IPFamilyInvalid ||
-        localEndpoint_.getSocketAddressFamily() != remoteEndpoint_.getSocketAddressFamily())
+    if (localEndpoint_.getIpFamilyType() == IPFamilyType::IPFamilyInvalid ||
+        localEndpoint_.getIpFamilyType() != remoteEndpoint_.getIpFamilyType())
     {
         TRACE_ERROR("localEndpoint address family is different from the remoteEndpoint, local = "
                     << localEndpoint_ << ", remote = " << remoteEndpoint_);
@@ -36,8 +36,8 @@ TcpSocket::TcpSocket(const IpSocketEndpoint& localEndpoint, const IpSocketEndpoi
     ,remoteEndpoint_(remoteEndpoint)
 {
     TRACE_DEBUG("localEndpoint:" << localEndpoint << ", remoteEndpoint:" << remoteEndpoint);
-    if (localEndpoint_.getSocketAddressFamily() == IPFamilyType::IPFamilyInvalid ||
-        localEndpoint_.getSocketAddressFamily() != remoteEndpoint_.getSocketAddressFamily())
+    if (localEndpoint_.getIpFamilyType() == IPFamilyType::IPFamilyInvalid ||
+        localEndpoint_.getIpFamilyType() != remoteEndpoint_.getIpFamilyType())
     {
         TRACE_ERROR("localEndpoint address family is different from the remoteEndpoint, local = "
                     << localEndpoint_ << ", remote = " << remoteEndpoint_);
