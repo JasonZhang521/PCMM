@@ -55,7 +55,7 @@ void IpSocketEndpoint::parse(const std::string& ipAndPort)
     int         count     = 0;
     while (result != nullptr)
     {
-        result = strtok(const_cast<char*>(tokenizer), ".");
+        result = strtok(nullptr, ".");
         ++count;
     }
 
