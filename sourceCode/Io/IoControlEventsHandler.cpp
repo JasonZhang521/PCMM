@@ -85,6 +85,10 @@ void IoControlEventsHandler::run()
     }
     IoFdEventMap::reverse_iterator rit = fdEventMap_.rbegin();
     int maxFdNum = rit->first + 1;
+    SocketTimeVal timeout;
+    timeout.tv_sec = 0;
+    timeout.tv_usec = 500;
+    IoPlatformWrapper::Select(maxFdNum, &readFds_, &writeFds_, &exceptFds_, &timeout);
     IoPlatformWrapper::Select(maxFdNum, &readFds_, &writeFds_, &exceptFds_, nullptr);
     for (; rit != fdEventMap_.rend(); ++rit)
     {
