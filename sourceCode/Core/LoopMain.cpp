@@ -4,6 +4,8 @@
 #include "IoControlEventsHandler.h"
 #include "AppConst.h"
 #include "Singleton.h"
+#include "TimeStat.h"
+#include "Sleep.h"
 namespace Core {
 LoopMain::LoopMain()
     : eventLoop_(std::shared_ptr<EventHandler::IEventQueue>(new EventHandler::ListEventQueue()))
@@ -46,9 +48,18 @@ void LoopMain::deRegisterIo(int fd)
 
 void LoopMain::loop()
 {
-    ioLoop_.runLoop(500);
-    eventLoop_.runLoop(500);
+    int32_t remainingTime = MaxRunningTimeInOneLoop;
+    TimeStat timeStat;
+    ioLoop_.runLoop();
+    remainingTime = remainingTime - timeStat.getElapseTimeAsMilliSecond();
+    eventLoop_.runLoop(666);
+    remainingTime = remainingTime - timeStat.getElapseTimeAsMilliSecond();
     timeLoop_.runLoop();
+    remainingTime = remainingTime - timeStat.getElapseTimeAsMilliSecond();
+    if (remainingTime > 0)
+    {
+        System::Sleep(remainingTime);
+    }
 }
 
 LoopMain& LoopMain::instance()

@@ -8,8 +8,9 @@ IoLoop::IoLoop(std::shared_ptr<Io::IIoControl> ioControl)
 
 }
 
-void IoLoop::runLoop(unsigned int executeTime)
+void IoLoop::runLoop()
 {
+
     if (ioControl_)
     {
         ioControl_->run();

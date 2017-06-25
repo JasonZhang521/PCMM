@@ -204,7 +204,8 @@ HEADERS += \
     ../../sourceCode/ClusterManagement/IClusterMgtController.h \
     ../../sourceCode/ClusterManagement/ClusterMgtController.h \
     ../../sourceCode/ClusterManagement/ClusterMgtClientType.h \
-    ../../sourceCode/ClusterManagement/ClusterManagementProcess.h
+    ../../sourceCode/ClusterManagement/ClusterManagementProcess.h \
+    ../../sourceCode/Common/Sleep.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

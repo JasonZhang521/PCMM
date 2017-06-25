@@ -19,7 +19,7 @@ class IoLoop
     std::shared_ptr<Io::IIoControl> ioControl_;
 public:
     IoLoop(std::shared_ptr<Io::IIoControl> ioControl);
-    void runLoop(unsigned int executeTime);
+    void runLoop();
     void registerIo(Io::IoFdType type, Io::IIoEvent* event);
     void deRegisterIo(int fd);
 };
