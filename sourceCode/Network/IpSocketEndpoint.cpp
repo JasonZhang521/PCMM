@@ -129,6 +129,11 @@ std::string IpSocketEndpoint::toString() const
     return ipAddress_.toString() + ":" + ipPort_.toString();
 }
 
+IPFamilyType IpSocketEndpoint::getIpFamilyType() const
+{
+    return ipAddress_.getIPFamilyType();
+}
+
 SocketAddressFamily IpSocketEndpoint::getSocketAddressFamily() const
 {
     if (IPFamilyV4 == ipAddress_.getIPFamilyType())

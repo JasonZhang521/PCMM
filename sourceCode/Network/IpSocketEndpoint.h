@@ -30,6 +30,7 @@ public:
     virtual void unserialize(Serialize::ReadBuffer& readBuffer);
     std::string toString() const;
 
+    IPFamilyType getIpFamilyType() const;
     SocketAddressFamily getSocketAddressFamily() const;
     IpAddress getIpAddress() const;
     IpPort getIpPort() const;

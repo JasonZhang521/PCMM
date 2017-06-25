@@ -51,11 +51,11 @@ TcpSocket::~TcpSocket()
 
 int TcpSocket::bind() const
 {
-    if (IPFamilyType::IPFamilyV4 == localEndpoint_.getSocketAddressFamily())
+    if (IPFamilyType::IPFamilyV4 == localEndpoint_.getIpFamilyType())
     {
         return SocketImp::bind(reinterpret_cast<const SocketAddress*>(&localEndpoint_.getIpAddress().getAddressIpv4()), sizeof(SocketAddress));
     }
-    else if(IPFamilyType::IPFamilyV6 == localEndpoint_.getSocketAddressFamily())
+    else if(IPFamilyType::IPFamilyV6 == localEndpoint_.getIpFamilyType())
     {
        return SocketImp::bind(reinterpret_cast<const SocketAddress*>(&localEndpoint_.getIpAddress().getAddressIpv6()), sizeof(SocketAddress));
     }
@@ -68,11 +68,11 @@ int TcpSocket::bind() const
 
 int TcpSocket::connect() const
 {
-    if (IPFamilyType::IPFamilyV4 == remoteEndpoint_.getSocketAddressFamily())
+    if (IPFamilyType::IPFamilyV4 == remoteEndpoint_.getIpFamilyType())
     {
         return SocketImp::connect(reinterpret_cast<const SocketAddress*>(&remoteEndpoint_.getIpAddress().getAddressIpv4()), sizeof(SocketAddress));
     }
-    else if(IPFamilyType::IPFamilyV6 == remoteEndpoint_.getSocketAddressFamily())
+    else if(IPFamilyType::IPFamilyV6 == remoteEndpoint_.getIpFamilyType())
     {
        return SocketImp::connect(reinterpret_cast<const SocketAddress*>(&remoteEndpoint_.getIpAddress().getAddressIpv6()), sizeof(SocketAddress));
     }
@@ -85,7 +85,7 @@ int TcpSocket::connect() const
 
 int TcpSocket::accept(IpSocketEndpoint& remoteEndPoint, SocketFlag flags) const
 {
-    if (IPFamilyType::IPFamilyV4 == localEndpoint_.getSocketAddressFamily())
+    if (IPFamilyType::IPFamilyV4 == localEndpoint_.getIpFamilyType())
     {
         SocketAddresstLength len = 0;
         SocketAddress address;
@@ -95,7 +95,7 @@ int TcpSocket::accept(IpSocketEndpoint& remoteEndPoint, SocketFlag flags) const
                                           IpPort(IoPlatformWrapper::SocketAddressToAddressIn(address).sin_port));
         return fd;
     }
-    else if(IPFamilyType::IPFamilyV6 == localEndpoint_.getSocketAddressFamily())
+    else if(IPFamilyType::IPFamilyV6 == localEndpoint_.getIpFamilyType())
     {
         SocketAddress address;
         SocketAddresstLength len = 0;
