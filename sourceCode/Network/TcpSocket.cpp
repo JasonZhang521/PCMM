@@ -9,6 +9,7 @@ TcpSocket::TcpSocket(const IpSocketEndpoint& localEndpoint)
     ,type_(TcpSocketType::TcpServer)
     ,localEndpoint_(localEndpoint)
 {
+    setBlocking(false);
 }
 
 TcpSocket::TcpSocket(const SocketHandle& fd,
@@ -27,6 +28,7 @@ TcpSocket::TcpSocket(const SocketHandle& fd,
                     << localEndpoint_ << ", remote = " << remoteEndpoint_);
         throw std::invalid_argument(std::string("address family is different between local and remote ip address"));
     }
+    setBlocking(false);
 }
 
 TcpSocket::TcpSocket(const IpSocketEndpoint& localEndpoint, const IpSocketEndpoint& remoteEndpoint)
@@ -43,6 +45,7 @@ TcpSocket::TcpSocket(const IpSocketEndpoint& localEndpoint, const IpSocketEndpoi
                     << localEndpoint_ << ", remote = " << remoteEndpoint_);
         throw std::invalid_argument(std::string("address family is different between local and remote ip address"));
     }
+    setBlocking(false);
 }
 
 TcpSocket::~TcpSocket()

@@ -25,7 +25,11 @@ CpuUsage::CpuUsage()
 void CpuUsage::init()
 {
     nCpu_ = getCpuNumer();
+
+#ifdef WIN32
+#else
     getCpuUsageFromProcStatFile();
+#endif
 }
 
 /*

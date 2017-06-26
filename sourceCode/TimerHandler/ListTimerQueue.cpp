@@ -5,6 +5,9 @@
 #include "App.h"
 #include "AppConst.h"
 #include "Trace.h"
+#include <iostream>
+
+
 
 namespace TimerHandler {
 
@@ -57,15 +60,21 @@ void ListTimerQueue::deleteTimer(uint64_t timerID)
 
 void ListTimerQueue::executeTimers()
 {
+    std::cout << "executeTimers" << std::endl;
     TimeStat totalStat;
     for (TimersList::iterator it = timersList_.begin(); it != timersList_.end(); ++it)
     {
+
         ITimer* timerInList = *it;
         if (timerInList->isExpired())
         {
+            std::cout << "executeTimers, timer expired!!!!!!!!!!!!" << std::endl;
              TimeStat singleStat;
              timerInList->onTime();
-             it = timersList_.erase(it);
+             if (timerInList->getTimerType() != TimerType::PeriodTimer)
+             {
+                it = timersList_.erase(it);
+             }
              const uint64_t singleTimerElapse = singleStat.getElapseTimeAsMilliSecond();
              if (singleTimerElapse > MaxRunningDurationForSingleTimer)
              {

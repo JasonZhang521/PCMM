@@ -6,6 +6,7 @@
 #include "Singleton.h"
 #include "TimeStat.h"
 #include "Sleep.h"
+#include <iostream>
 namespace Core {
 LoopMain::LoopMain()
     : eventLoop_(std::shared_ptr<EventHandler::IEventQueue>(new EventHandler::ListEventQueue()))
@@ -48,17 +49,27 @@ void LoopMain::deRegisterIo(int fd)
 
 void LoopMain::loop()
 {
-    int32_t remainingTime = MaxRunningTimeInOneLoop;
-    TimeStat timeStat;
-    ioLoop_.runLoop();
-    remainingTime = remainingTime - timeStat.getElapseTimeAsMilliSecond();
-    eventLoop_.runLoop(666);
-    remainingTime = remainingTime - timeStat.getElapseTimeAsMilliSecond();
-    timeLoop_.runLoop();
-    remainingTime = remainingTime - timeStat.getElapseTimeAsMilliSecond();
-    if (remainingTime > 0)
+    while (true)
     {
-        System::Sleep(remainingTime);
+        int32_t remainingTime = MaxRunningTimeInOneLoop;
+        TimeStat timeStat;
+        ioLoop_.runLoop();
+        remainingTime = remainingTime - timeStat.getElapseTimeAsMilliSecond();
+        eventLoop_.runLoop(666);
+        remainingTime = remainingTime - timeStat.getElapseTimeAsMilliSecond();
+        timeLoop_.runLoop();
+        remainingTime = remainingTime - timeStat.getElapseTimeAsMilliSecond();
+        if (remainingTime > 0)
+        {
+            if (remainingTime < 50)
+            {
+                System::Sleep(remainingTime);
+            }
+            else
+            {
+                System::Sleep(50);
+            }
+        }
     }
 }
 
