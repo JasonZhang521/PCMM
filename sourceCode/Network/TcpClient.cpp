@@ -140,6 +140,7 @@ TcpResult TcpClient::cleanup()
 
 void TcpClient::run(EventHandler::EventFlag flag)
 {
+    TRACE_ENTER();
     if (state_ == TcpState::Tcp_Established)
     {
         if (flag == EventHandler::EventFlag::Event_IoRead)
@@ -156,11 +157,13 @@ std::ostream& TcpClient::operator<< (std::ostream& os) const
 
 int TcpClient::getIoHandle()
 {
+    TRACE_ENTER();
     return socket_->getFd();
 }
 
 void TcpClient::setConnectionReceiver(std::shared_ptr<ITcpConnectionReceiver> receiver)
 {
+    TRACE_ENTER();
     tcpConnectionReceiver_ = receiver;
 }
 

@@ -54,6 +54,7 @@ TcpSocket::~TcpSocket()
 
 int TcpSocket::bind() const
 {
+    TRACE_ENTER();
     if (IPFamilyType::IPFamilyV4 == localEndpoint_.getIpFamilyType())
     {
         return SocketImp::bind(reinterpret_cast<const SocketAddress*>(&localEndpoint_.getIpAddress().getAddressIpv4()), sizeof(SocketAddress));
@@ -71,6 +72,7 @@ int TcpSocket::bind() const
 
 int TcpSocket::connect() const
 {
+    TRACE_ENTER();
     if (IPFamilyType::IPFamilyV4 == remoteEndpoint_.getIpFamilyType())
     {
         return SocketImp::connect(reinterpret_cast<const SocketAddress*>(&remoteEndpoint_.getIpAddress().getAddressIpv4()), sizeof(SocketAddress));
@@ -88,6 +90,7 @@ int TcpSocket::connect() const
 
 int TcpSocket::accept(IpSocketEndpoint& remoteEndPoint, SocketFlag flags) const
 {
+    TRACE_ENTER();
     if (IPFamilyType::IPFamilyV4 == localEndpoint_.getIpFamilyType())
     {
         SocketAddresstLength len = 0;
