@@ -34,9 +34,12 @@ IpcConnectionTcpServerStrategy::~IpcConnectionTcpServerStrategy()
 
 void IpcConnectionTcpServerStrategy::startup()
 {
-    TRACE_ENTER();
+    TRACE_DEBUG("Tcp server init!");
+    server_->init();
+    TRACE_DEBUG("Tcp server bind!");
     server_->bind();
     int backlog = 0;
+    TRACE_DEBUG("Tcp server start to listen!");
     server_->listen(backlog);
 }
 

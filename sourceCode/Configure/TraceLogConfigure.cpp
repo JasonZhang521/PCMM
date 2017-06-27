@@ -8,8 +8,8 @@
 #include "TraceLogConfigure.h"
 
 TraceLogConfigure::TraceLogConfigure()
-:level_(TRACE_LOG_NOTICE)
-,target_(TRACE_LOG_TO_FILE)
+:level_(TRACE_LOG_DEBUG)
+,target_(TRACE_LOG_TO_CONSOLE)
 ,filePath_(TraceLogFilePath)
 ,logBufSize_(LogBufSize)
 ,logLineNumberInFile_(0)

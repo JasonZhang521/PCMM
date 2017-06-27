@@ -1,4 +1,5 @@
 #include "IpSocketEndpoint.h"
+#include "string.h"
 #include <stdexcept>
 namespace Network {
 
@@ -168,6 +169,26 @@ void IpSocketEndpoint::setIpAddress(const IpAddress& address)
 void IpSocketEndpoint::setIpPort(const IpPort& port)
 {
     ipPort_ = port;
+}
+
+SocketAddressIn IpSocketEndpoint::getSocketAddressIpv4() const
+{
+    SocketAddressIn address;
+    memset(&address, 0, sizeof(SocketAddressIn));
+    address.sin_family = SOCKET_AF_INET;
+    address.sin_port = ipPort_.getPort();
+    address.sin_addr = ipAddress_.getAddressIpv4();
+    return address;
+}
+
+SocketAddressIn6 IpSocketEndpoint::getSocketAddressIpv6() const
+{
+    SocketAddressIn6 address;
+    memset(&address, 0, sizeof(SocketAddressIn6));
+    address.sin6_family = SOCKET_AF_INET6;
+    address.sin6_port = ipPort_.getPort();
+    address.sin6_addr = ipAddress_.getAddressIpv6();
+    return address;
 }
 
 } // out of namespace

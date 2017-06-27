@@ -54,14 +54,16 @@ TcpSocket::~TcpSocket()
 
 int TcpSocket::bind() const
 {
-    TRACE_ENTER();
+    TRACE_DEBUG("bind to:" << localEndpoint_);
     if (IPFamilyType::IPFamilyV4 == localEndpoint_.getIpFamilyType())
     {
-        return SocketImp::bind(reinterpret_cast<const SocketAddress*>(&localEndpoint_.getIpAddress().getAddressIpv4()), sizeof(SocketAddress));
+        const SocketAddressIn address = localEndpoint_.getSocketAddressIpv4();
+        return SocketImp::bind(reinterpret_cast<const SocketAddress*>(&address), sizeof(SocketAddress));
     }
     else if(IPFamilyType::IPFamilyV6 == localEndpoint_.getIpFamilyType())
     {
-       return SocketImp::bind(reinterpret_cast<const SocketAddress*>(&localEndpoint_.getIpAddress().getAddressIpv6()), sizeof(SocketAddress));
+       const SocketAddressIn6 address = localEndpoint_.getSocketAddressIpv6();
+       return SocketImp::bind(reinterpret_cast<const SocketAddress*>(&address), sizeof(SocketAddress));
     }
     else
     {
@@ -72,14 +74,16 @@ int TcpSocket::bind() const
 
 int TcpSocket::connect() const
 {
-    TRACE_ENTER();
+    TRACE_DEBUG("connect to:" << remoteEndpoint_);
     if (IPFamilyType::IPFamilyV4 == remoteEndpoint_.getIpFamilyType())
     {
-        return SocketImp::connect(reinterpret_cast<const SocketAddress*>(&remoteEndpoint_.getIpAddress().getAddressIpv4()), sizeof(SocketAddress));
+        const SocketAddressIn address = remoteEndpoint_.getSocketAddressIpv4();
+        return SocketImp::connect(reinterpret_cast<const SocketAddress*>(&address), sizeof(SocketAddress));
     }
     else if(IPFamilyType::IPFamilyV6 == remoteEndpoint_.getIpFamilyType())
     {
-       return SocketImp::connect(reinterpret_cast<const SocketAddress*>(&remoteEndpoint_.getIpAddress().getAddressIpv6()), sizeof(SocketAddress));
+       const SocketAddressIn6 address = remoteEndpoint_.getSocketAddressIpv6();
+       return SocketImp::connect(reinterpret_cast<const SocketAddress*>(&address), sizeof(SocketAddress));
     }
     else
     {
@@ -99,6 +103,7 @@ int TcpSocket::accept(IpSocketEndpoint& remoteEndPoint, SocketFlag flags) const
         int fd = SocketImp::accept(&address, &len, flags);
         remoteEndPoint = IpSocketEndpoint(IpAddress(IoPlatformWrapper::getInetAddressFromSocketAddress(address)),
                                           IpPort(IoPlatformWrapper::SocketAddressToAddressIn(address).sin_port));
+        TRACE_DEBUG("accepted： fd = " << fd << ", remoteEndPoint = " << remoteEndPoint);
         return fd;
     }
     else if(IPFamilyType::IPFamilyV6 == localEndpoint_.getIpFamilyType())
@@ -122,7 +127,7 @@ std::string TcpSocket::toString() const
     std::stringstream ss;
     ss << "["
        << SocketImp::toString()
-       << "[tcpType=" << static_cast<int>(type_) << ", localEndpoint=" << localEndpoint_.toString() << "remoteEndpoint=" << remoteEndpoint_.toString() << "]"
+       << "[tcpType=" << static_cast<int>(type_) << ", localEndpoint=" << localEndpoint_.toString() << ", remoteEndpoint=" << remoteEndpoint_.toString() << "]"
        << "]";
     return ss.str();
 }

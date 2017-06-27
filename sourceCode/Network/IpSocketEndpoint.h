@@ -36,6 +36,8 @@ public:
     IpPort getIpPort() const;
     void setIpAddress(const IpAddress& address);
     void setIpPort(const IpPort& port);
+    SocketAddressIn getSocketAddressIpv4() const;
+    SocketAddressIn6 getSocketAddressIpv6() const;
 
 private:
     void parse(const std::string& ipAndPort);

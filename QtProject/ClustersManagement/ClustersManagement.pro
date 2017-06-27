@@ -204,7 +204,11 @@ HEADERS += \
     ../../sourceCode/ClusterManagement/ClusterMgtController.h \
     ../../sourceCode/ClusterManagement/ClusterMgtClientType.h \
     ../../sourceCode/ClusterManagement/ClusterManagementProcess.h \
-    ../../sourceCode/Common/Sleep.h
+    ../../sourceCode/Common/Sleep.h \
+    ../../sourceCode/TraceLog/Trace.h \
+    ../../sourceCode/TraceLog/TraceBuf.h \
+    ../../sourceCode/TraceLog/TraceConsole.h \
+    ../../sourceCode/TraceLog/TraceFile.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

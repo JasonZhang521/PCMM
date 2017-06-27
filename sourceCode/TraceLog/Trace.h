@@ -14,9 +14,11 @@
 #include "TraceFile.h"
 #include "TraceBuf.h"
 //General TRACE
-#define TRACE_ENTER()            TRACE_PRINT(TRACE_LOG_NOTICE, "")
+#define TRACE_ENTER()            TRACE_PRINT(TRACE_LOG_DEBUG3, "")
 
-#define TRACE_ENTER_DEBUG()            TRACE_PRINT(TRACE_LOG_NOTICE, "")
+#define TRACE_ENTER_DEBUG()      TRACE_PRINT(TRACE_LOG_DEBUG3, "")
+
+#define TRACE_DEBUG3(traceStr)   TRACE_PRINT(TRACE_LOG_DEBUG3, traceStr)
 
 #define TRACE_DEBUG(traceStr)    TRACE_PRINT(TRACE_LOG_DEBUG, traceStr)
 
