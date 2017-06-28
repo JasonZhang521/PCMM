@@ -27,11 +27,11 @@ public:
     void registerEvent(EventHandler::IEvent* event);
     void deRegisterEvent(uint64_t eventID);
     void registerIo(Io::IoFdType type, Io::IIoEvent* IEvent);
-    void deRegisterIo(int fd);
+    void deRegisterIo(int fd, Io::IoFdType type);
     void loop();
 
 public:
-      static LoopMain& instance();
+    static LoopMain& instance();
 };
 
 }

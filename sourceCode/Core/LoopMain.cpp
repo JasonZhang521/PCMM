@@ -42,9 +42,9 @@ void LoopMain::registerIo(Io::IoFdType type, Io::IIoEvent* event)
     ioLoop_.registerIo(type, event);
 }
 
-void LoopMain::deRegisterIo(int fd)
+void LoopMain::deRegisterIo(int fd, Io::IoFdType type)
 {
-    ioLoop_.deRegisterIo(fd);
+    ioLoop_.deRegisterIo(fd, type);
 }
 
 void LoopMain::loop()

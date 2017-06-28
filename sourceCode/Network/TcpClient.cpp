@@ -1,13 +1,52 @@
 #include "TcpClient.h"
 #include "TcpSocket.h"
 #include "ITcpConnectionReceiver.h"
+#include "IpSocketEndpoint.h"
 #include "WriteBuffer.h"
 #include "ReadBuffer.h"
 #include "EventIdGenerator.h"
+#include "LoopMain.h"
 #include "Trace.h"
 #include "App.h"
 
 namespace Network {
+
+
+TcpClient::ConnectionTimer::ConnectionTimer(ITcpClient* client)
+    : TimerHandler::ITimer(3000)
+    , client_(client)
+    , state_(Connecting)
+{
+    if (client == nullptr)
+    {
+        throw std::invalid_argument("nullptr for tcp client!");
+    }
+}
+
+void TcpClient::ConnectionTimer::onTime()
+{
+    TRACE_WARNING("Tcp client connect to server timeout, state = " << static_cast<int>(state_) << " client:" << *dynamic_cast<TcpClient*>(client_)->socket_);
+    switch (state_) {
+    case Connecting:
+         client_->disconnect();
+         state_ = DisConnecting;
+        break;
+    case DisConnecting:
+        client_->restart();
+        client_->connect();
+        state_ = Connecting;
+        break;
+    default:
+        break;
+    }
+    resetTimer();
+    Core::LoopMain::instance().registerTimer(this);
+}
+
+std::ostream& TcpClient::ConnectionTimer::operator<<(std::ostream& os)
+{
+    return os;
+}
 
 TcpClient::TcpClient(const IpSocketEndpoint& localEndpoint,
                      const IpSocketEndpoint& remoteEndpoint,
@@ -56,16 +95,29 @@ TcpResult TcpClient::connect()
 
     if (SOCKET_ERROR == ret)
     {
-        if (SOCKET_EINPROGRESS == socket_->getErrorNo())
+        int errorNo = socket_->getErrorNo();
+        if (SOCKET_EINPROGRESS == errorNo || SOCKET_EWOULDBLOCK == errorNo)
         {
-            TRACE_NOTICE(socket_->getErrorInfo());
+            TRACE_NOTICE(socket_->getErrorInfo() << " socket = " << *socket_);
             state_ = TcpState::Tcp_Connecting;
-            tcpConnectionReceiver_->onConnect();
+            if (!connectionTimer_)
+            {
+                connectionTimer_ = std::shared_ptr<ConnectionTimer>(new ConnectionTimer(this));
+                Core::LoopMain::instance().registerTimer(connectionTimer_.get());
+                Core::LoopMain::instance().registerIo(Io::IoFdType::IoFdWrite, this);
+            }
             return TcpResult::Success;    
+        }
+        else if (SOCKET_SUCCESS == errorNo)
+        {
+            TRACE_NOTICE("client connect to server successfully, socket = " << *socket_);
+            state_ = TcpState::Tcp_Established;
+            tcpConnectionReceiver_->onConnect();
+            return TcpResult::Success;
         }
         else
         {
-            TRACE_WARNING(socket_->getErrorInfo());
+            TRACE_WARNING(socket_->getErrorInfo() << ", socket = " << *socket_);
             return TcpResult::Failed;
         }
     }
@@ -138,6 +190,13 @@ TcpResult TcpClient::cleanup()
     }
 }
 
+TcpResult TcpClient::restart()
+{
+    TRACE_ENTER();
+    socket_ = std::shared_ptr<TcpSocket>(new TcpSocket(socket_->getRemoteEndpoint(), socket_->getRemoteEndpoint()));
+    return TcpResult::Success;
+}
+
 void TcpClient::run(EventHandler::EventFlag flag)
 {
     TRACE_ENTER();
@@ -148,10 +207,25 @@ void TcpClient::run(EventHandler::EventFlag flag)
             receive();
         }
     }
+    else if (state_ == TcpState::Tcp_Connecting)
+    {
+        if (flag == EventHandler::EventFlag::Event_IoWrite)
+        {
+            TRACE_NOTICE("client connect to server successfully, socket = " << *socket_);
+            state_ = TcpState::Tcp_Established;
+            Core::LoopMain::instance().deRegisterIo(getIoHandle(), Io::IoFdType::IoFdWrite);
+            Core::LoopMain::instance().deRegisterTimer(connectionTimer_->getTimerId());
+        }
+    }
 }
 
 std::ostream& TcpClient::operator<< (std::ostream& os) const
 {
+    os << "["
+       << "Tcpclient: state=" << toString(state_)
+       << "socket=" << *socket_
+       << "]";
+
     return os;
 }
 
@@ -166,5 +240,6 @@ void TcpClient::setConnectionReceiver(std::shared_ptr<ITcpConnectionReceiver> re
     TRACE_ENTER();
     tcpConnectionReceiver_ = receiver;
 }
+
 
 }

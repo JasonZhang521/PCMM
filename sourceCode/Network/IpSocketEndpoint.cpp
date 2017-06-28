@@ -191,10 +191,17 @@ SocketAddressIn6 IpSocketEndpoint::getSocketAddressIpv6() const
     return address;
 }
 
-} // out of namespace
-
-std::ostream& operator<<(std::ostream& os, const Network::IpSocketEndpoint& ipSocketEndpoint)
+std::ostream& IpSocketEndpoint::operator<<(std::ostream& os) const
 {
-    os << ipSocketEndpoint.toString();
+    os << toString();
     return os;
 }
+
+std::ostream& operator<<(std::ostream& os, const IpSocketEndpoint& ipSocketEndpoint)
+{
+    return ipSocketEndpoint.operator<<(os);
+}
+
+} // out of namespace
+
+

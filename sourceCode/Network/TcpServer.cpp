@@ -62,6 +62,7 @@ TcpResult TcpServer::listen(int backlog)
 TcpResult TcpServer::accept(int flag)
 {
     TRACE_ENTER();
+    TRACE_NOTICE("accept");
     IpSocketEndpoint remoteEndPoint;
     int fd = socket_.accept(remoteEndPoint, flag);
     if (SOCKET_ERROR == fd)
@@ -71,6 +72,7 @@ TcpResult TcpServer::accept(int flag)
     }
     else
     {
+        TRACE_NOTICE("Client connected， client = " << remoteEndPoint);
         tcpConnectionAcceptor_->onAccept(fd, socket_.getLocalEndpoint(), remoteEndPoint);
         return TcpResult::Success;
     }
@@ -115,7 +117,7 @@ void TcpServer::run(EventHandler::EventFlag flag)
     TRACE_ENTER();
     static_cast<void>(flag);
     accept(0);
-    listen(0);
+    // listen(0);
 }
 
 std::ostream& TcpServer::operator<< (std::ostream& os) const

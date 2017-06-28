@@ -38,6 +38,7 @@ TcpSocket::TcpSocket(const IpSocketEndpoint& localEndpoint, const IpSocketEndpoi
     ,remoteEndpoint_(remoteEndpoint)
 {
     TRACE_DEBUG("localEndpoint:" << localEndpoint << ", remoteEndpoint:" << remoteEndpoint);
+
     if (localEndpoint_.getIpFamilyType() == IPFamilyType::IPFamilyInvalid ||
         localEndpoint_.getIpFamilyType() != remoteEndpoint_.getIpFamilyType())
     {

@@ -27,52 +27,43 @@ void IoControlEventsHandler::registerIoFd(IoFdType type, IIoEvent* event)
     int fd = event->getIoHandle();
     TRACE_NOTICE("fd = " << fd << ", type = " << type << ", event = " << event);
 
-    if (type & IoFdType::IoFdRead)
+    IoFdEventMap::iterator it = fdEventMap_.find(fd);
+    if (it != fdEventMap_.end())
     {
-        IoPlatformWrapper::FdSet(fd, &readFds_);
-    }
-    else if(type & IoFdType::IoFdWrite)
-    {
-        IoPlatformWrapper::FdSet(fd, &writeFds_);
-    }
-    else if (type & IoFdType::IoFdExcept)
-    {
-        IoPlatformWrapper::FdSet(fd, &exceptFds_);
+        IoFdEvent& event = it->second;
+        if ((event.fdType & type) != IoFdType::IoFdNoType)
+        {
+            TRACE_NOTICE("fd = " << fd << ", IoFdType = " << static_cast<int>(type) << " has already registered!");
+            return;
+        }
+        else
+        {
+            event.fdType = (event.fdType | type);
+            addToFdSet(fd, type);
+        }
     }
     else
     {
-        throw std::invalid_argument(std::string("Invalid fd type: ") + lexical_cast<std::string>(static_cast<uint32_t>(type)));
+        fdEventMap_[fd] = IoFdEvent(type, event);
+        addToFdSet(fd, type);
     }
-
-    fdEventMap_[fd] = IoFdEvent(type, event);
 }
 
-void IoControlEventsHandler::unRegisterIoFd(int fd)
+void IoControlEventsHandler::unRegisterIoFd(int fd, IoFdType type)
 {
-    TRACE_NOTICE("fd = " << fd);
+    TRACE_NOTICE("fd = " << fd << ", type = " << static_cast<int>(type));
 
     IoFdEventMap::iterator it = fdEventMap_.find(fd);
     if (it != fdEventMap_.end())
     {
-        const IoFdEvent& event = it->second;
-        fdEventMap_.erase(it);
+        IoFdEvent& event = it->second;
+        event.fdType &= ~type;
+        if (event.fdType == IoFdType::IoFdNoType)
+        {
+            fdEventMap_.erase(it);
+        }
 
-        if (event.fdType & IoFdType::IoFdRead)
-        {
-            IoPlatformWrapper::FdClear(fd, &readFds_);
-        }
-        else if(event.fdType & IoFdType::IoFdWrite)
-        {
-            IoPlatformWrapper::FdClear(fd, &writeFds_);
-        }
-        else if (event.fdType & IoFdType::IoFdExcept)
-        {
-            IoPlatformWrapper::FdClear(fd, &exceptFds_);
-        }
-        else
-        {
-            return;
-        }
+        removeFromFdSet(fd, type);
     }
 }
 
@@ -89,12 +80,12 @@ void IoControlEventsHandler::run()
     timeout.tv_sec = 0;
     timeout.tv_usec = 500;
     IoPlatformWrapper::Select(maxFdNum, &readFds_, &writeFds_, &exceptFds_, &timeout);
-    IoPlatformWrapper::Select(maxFdNum, &readFds_, &writeFds_, &exceptFds_, nullptr);
+
     for (; rit != fdEventMap_.rend(); ++rit)
     {
         int fd = rit->first;
         IIoEvent* event = rit->second.fdEvent;
-        IoFdType fdType = rit->second.fdType;
+        uint32_t fdType = rit->second.fdType;
         if (fdType & IoFdType::IoFdRead && IoPlatformWrapper::FdIsSet(fd, &readFds_))
         {
             event->run(EventHandler::EventFlag::Event_IoRead);
@@ -123,6 +114,46 @@ std::ostream& IoControlEventsHandler::operator<< (std::ostream& os) const
     os << "]";
 
     return os;
+}
+
+void IoControlEventsHandler::addToFdSet(int fd, IoFdType type)
+{
+    if (type & IoFdType::IoFdRead)
+    {
+        IoPlatformWrapper::FdSet(fd, &readFds_);
+    }
+    else if(type & IoFdType::IoFdWrite)
+    {
+        IoPlatformWrapper::FdSet(fd, &writeFds_);
+    }
+    else if (type & IoFdType::IoFdExcept)
+    {
+        IoPlatformWrapper::FdSet(fd, &exceptFds_);
+    }
+    else
+    {
+        throw std::invalid_argument(std::string("Invalid fd type: ") + lexical_cast<std::string>(static_cast<uint32_t>(type)));
+    }
+}
+
+void IoControlEventsHandler::removeFromFdSet(int fd, IoFdType type)
+{
+    if (type & IoFdType::IoFdRead)
+    {
+        IoPlatformWrapper::FdClear(fd, &readFds_);
+    }
+    else if(type & IoFdType::IoFdWrite)
+    {
+        IoPlatformWrapper::FdClear(fd, &writeFds_);
+    }
+    else if (type & IoFdType::IoFdExcept)
+    {
+        IoPlatformWrapper::FdClear(fd, &exceptFds_);
+    }
+    else
+    {
+        throw std::invalid_argument(std::string("Invalid fd type: ") + lexical_cast<std::string>(static_cast<uint32_t>(type)));
+    }
 }
 
 }

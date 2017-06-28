@@ -60,7 +60,6 @@ void ListTimerQueue::deleteTimer(uint64_t timerID)
 
 void ListTimerQueue::executeTimers()
 {
-    std::cout << "executeTimers" << std::endl;
     TimeStat totalStat;
     for (TimersList::iterator it = timersList_.begin(); it != timersList_.end(); ++it)
     {

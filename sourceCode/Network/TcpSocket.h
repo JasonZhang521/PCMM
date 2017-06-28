@@ -21,7 +21,7 @@ class TcpSocket : public SocketImp
     IpSocketEndpoint remoteEndpoint_;
 public:
     // For server
-    TcpSocket(const IpSocketEndpoint& localEndpoint);
+    explicit TcpSocket(const IpSocketEndpoint& localEndpoint);
     // For accept client for server
     TcpSocket(const SocketHandle& fd,
               const IpSocketEndpoint& localEndpoint,

@@ -24,7 +24,8 @@ SOURCES += \
     ../../sourceCode/ClusterManagement/IClusterMgtController.cpp \
     ../../sourceCode/ClusterManagement/ClusterMgtController.cpp \
     ../../sourceCode/ClusterManagement/ClusterManagementProcess.cpp \
-    ../../sourceCode/ClusterManagement/ClusterManagementMain.cpp
+    ../../sourceCode/ClusterManagement/ClusterManagementMain.cpp \
+    ../../sourceCode/Network/TcpState.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings

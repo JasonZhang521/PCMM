@@ -20,7 +20,7 @@ public:
     IIoControl();
     virtual ~IIoControl();
     virtual void registerIoFd(IoFdType type, IIoEvent* IEvent) = 0;
-    virtual void unRegisterIoFd(int fd) = 0;
+    virtual void unRegisterIoFd(int fd, IoFdType type) = 0;
     virtual void run() = 0;
     virtual std::ostream& operator<< (std::ostream& os) const = 0;
 };

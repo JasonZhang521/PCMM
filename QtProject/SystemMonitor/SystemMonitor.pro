@@ -101,7 +101,8 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/Configure/Configure.cpp \
     ../../sourceCode/Configure/ExceptionConfigure.cpp \
     ../../sourceCode/Configure/TraceLogConfigure.cpp \
-    ../../sourceCode/Environment/CpuUsageDataType.cpp
+    ../../sourceCode/Environment/CpuUsageDataType.cpp \
+    ../../sourceCode/Network/TcpState.cpp
 
 HEADERS += \
     ../../sourceCode/SystemMonitor/SystemMonitorProcess.h \

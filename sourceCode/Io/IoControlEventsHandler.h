@@ -12,7 +12,7 @@ struct IoFdEvent
 {
     IoFdEvent() : fdType(IoFdNoType), fdEvent(nullptr) {}
     IoFdEvent(IoFdType type, IIoEvent* event) : fdType(type), fdEvent(event) {}
-    IoFdType fdType;
+    uint32_t fdType;
     IIoEvent* fdEvent;
 };
 using IoFdEventMap = std::map<int, IoFdEvent>;
@@ -29,9 +29,12 @@ public:
     virtual ~IoControlEventsHandler();
 protected:
     virtual void registerIoFd(IoFdType type, IIoEvent* event);
-    virtual void unRegisterIoFd(int fd);
+    virtual void unRegisterIoFd(int fd, IoFdType type);
     virtual void run();
     virtual std::ostream& operator<< (std::ostream& os) const;
+private:
+    void addToFdSet(int fd, IoFdType type);
+    void removeFromFdSet(int fd, IoFdType type);
 
 public:
      GETCLASSNAME(IoControlEvent)

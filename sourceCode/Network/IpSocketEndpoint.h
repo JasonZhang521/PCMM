@@ -39,6 +39,8 @@ public:
     SocketAddressIn getSocketAddressIpv4() const;
     SocketAddressIn6 getSocketAddressIpv6() const;
 
+    std::ostream& operator<<(std::ostream& os) const;
+
 private:
     void parse(const std::string& ipAndPort);
     void parseIpAndPortV4(const std::string& ipAndPort);
@@ -47,8 +49,10 @@ public:
     static const IpSocketEndpoint Null;
 };
 
+std::ostream& operator<<(std::ostream& os, const IpSocketEndpoint& ipSocketEndpoint);
+
 }
 
-std::ostream& operator<<(std::ostream& os, const Network::IpSocketEndpoint& ipSocketEndpoint);
+
 
 #endif // _NETWORK_IPSOCKETENDPOINT_H_

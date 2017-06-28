@@ -65,15 +65,14 @@ void SystemMonitorProcess::process()
     TimerHandler::EventTimer* timerPtr = new TimerHandler::EventTimer(5000, TimerHandler::TimerType::PeriodTimer, systemInfoCollectorPtr);
     std::unique_ptr<TimerHandler::EventTimer> eTimer(timerPtr);
 
-    std::unique_ptr<Core::LoopMain> loopMain(new Core::LoopMain());
-    loopMain->registerTimer(timerPtr);
+    Core::LoopMain::instance().registerTimer(timerPtr);
 
     Io::IIoEvent* ioEvent = tcpClient.get();
-    loopMain->registerIo(Io::IoFdType::IoFdRead, ioEvent);
+    Core::LoopMain::instance().registerIo(Io::IoFdType::IoFdRead, ioEvent);
 
     systemMonitorHandler->startup();
     // run
-    loopMain->loop();
+    Core::LoopMain::instance().loop();
 }
 
 }

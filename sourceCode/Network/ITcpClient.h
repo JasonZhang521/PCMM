@@ -23,6 +23,7 @@ public:
     virtual TcpResult receive() = 0;
     virtual TcpResult disconnect() = 0;
     virtual TcpResult cleanup() = 0;
+    virtual TcpResult restart() = 0;
     virtual void setConnectionReceiver(std::shared_ptr<ITcpConnectionReceiver> receiver) = 0;
 };
 

@@ -25,11 +25,11 @@ void IoLoop::registerIo(Io::IoFdType type, Io::IIoEvent* event)
     }
 }
 
-void IoLoop::deRegisterIo(int fd)
+void IoLoop::deRegisterIo(int fd, Io::IoFdType type)
 {
     if (ioControl_)
     {
-        ioControl_->unRegisterIoFd(fd);
+        ioControl_->unRegisterIoFd(fd, type);
     }
 }
 

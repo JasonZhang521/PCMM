@@ -38,7 +38,7 @@ void IpcConnectionTcpServerStrategy::startup()
     server_->init();
     TRACE_DEBUG("Tcp server bind!");
     server_->bind();
-    int backlog = 0;
+    int backlog = SOMAXCONN;
     TRACE_DEBUG("Tcp server start to listen!");
     server_->listen(backlog);
 }
