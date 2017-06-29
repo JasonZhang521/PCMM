@@ -9,7 +9,6 @@ TcpSocket::TcpSocket(const IpSocketEndpoint& localEndpoint)
     ,type_(TcpSocketType::TcpServer)
     ,localEndpoint_(localEndpoint)
 {
-    setBlocking(false);
 }
 
 TcpSocket::TcpSocket(const SocketHandle& fd,
@@ -28,7 +27,6 @@ TcpSocket::TcpSocket(const SocketHandle& fd,
                     << localEndpoint_ << ", remote = " << remoteEndpoint_);
         throw std::invalid_argument(std::string("address family is different between local and remote ip address"));
     }
-    setBlocking(false);
 }
 
 TcpSocket::TcpSocket(const IpSocketEndpoint& localEndpoint, const IpSocketEndpoint& remoteEndpoint)
@@ -46,7 +44,6 @@ TcpSocket::TcpSocket(const IpSocketEndpoint& localEndpoint, const IpSocketEndpoi
                     << localEndpoint_ << ", remote = " << remoteEndpoint_);
         throw std::invalid_argument(std::string("address family is different between local and remote ip address"));
     }
-    setBlocking(false);
 }
 
 TcpSocket::~TcpSocket()
@@ -104,7 +101,7 @@ int TcpSocket::accept(IpSocketEndpoint& remoteEndPoint, SocketFlag flags) const
         int fd = SocketImp::accept(&address, &len, flags);
         remoteEndPoint = IpSocketEndpoint(IpAddress(IoPlatformWrapper::getInetAddressFromSocketAddress(address)),
                                           IpPort(IoPlatformWrapper::SocketAddressToAddressIn(address).sin_port));
-        TRACE_DEBUG("accepted： fd = " << fd << ", remoteEndPoint = " << remoteEndPoint);
+        TRACE_DEBUG("accepted: fd = " << fd << ", remoteEndPoint = " << remoteEndPoint);
         return fd;
     }
     else if(IPFamilyType::IPFamilyV6 == localEndpoint_.getIpFamilyType())

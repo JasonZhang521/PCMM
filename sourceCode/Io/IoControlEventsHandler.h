@@ -33,8 +33,11 @@ protected:
     virtual void run();
     virtual std::ostream& operator<< (std::ostream& os) const;
 private:
-    void addToFdSet(int fd, IoFdType type);
-    void removeFromFdSet(int fd, IoFdType type);
+    void addToFdSet(int fd, uint32_t type);
+    void removeFromFdSet(int fd, uint32_t type);
+
+    void clearFdSet(uint32_t type);
+    void clearAllFdSet();
 
 public:
      GETCLASSNAME(IoControlEvent)

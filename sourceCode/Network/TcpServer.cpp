@@ -47,7 +47,9 @@ TcpResult TcpServer::bind()
 TcpResult TcpServer::listen(int backlog)
 {
     TRACE_ENTER();
+    TRACE_NOTICE("before listen!");
     int ret = socket_.listen(backlog);
+    TRACE_NOTICE("after listen!");
     if (SOCKET_ERROR == ret)
     {
         TRACE_WARNING(socket_.getErrorInfo());
@@ -62,7 +64,6 @@ TcpResult TcpServer::listen(int backlog)
 TcpResult TcpServer::accept(int flag)
 {
     TRACE_ENTER();
-    TRACE_NOTICE("accept");
     IpSocketEndpoint remoteEndPoint;
     int fd = socket_.accept(remoteEndPoint, flag);
     if (SOCKET_ERROR == fd)

@@ -84,6 +84,7 @@ TcpResult TcpClient::init()
 {
     TRACE_ENTER();
     socket_->init();
+    socket_->bind();
     return TcpResult::Success;
 }
 

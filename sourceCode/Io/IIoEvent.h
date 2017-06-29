@@ -14,6 +14,8 @@ public:
     virtual int getIoHandle() = 0;
 };
 
+std::ostream& operator<< (std::ostream& os, const IIoEvent& event);
+
 }
 
 #endif // IIOEVENT_H

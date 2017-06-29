@@ -37,7 +37,27 @@ public:
 
     inline int init()
     {
-        return IoPlatformWrapper::InitSocket();
+        int ret = IoPlatformWrapper::InitSocket();
+        if ( ret != SOCKET_SUCCESS)
+        {
+            return ret;
+        }
+        int yes = 1;
+        // set reuse address
+        ret = setSockOpt(SOL_SOCKET, SO_REUSEADDR, reinterpret_cast<SocketOptVal>(&yes), sizeof(yes));
+        if ( ret != SOCKET_SUCCESS)
+        {
+            return ret;
+        }
+
+        // set non-blocking
+        ret = setBlocking(false);
+        if ( ret != SOCKET_SUCCESS)
+        {
+            return ret;
+        }
+
+        return SOCKET_SUCCESS;
     }
 
     inline int bind(const SocketAddress* localAddress, SocketAddresstLength addrLen) const
@@ -92,13 +112,13 @@ public:
         return IoPlatformWrapper::SendTo(fd_, buf, bufLen, flags, destAddr, addrLen);
     }
 
-    inline int setsockopt(SocketOptLevel level, SocketOptName optname,
+    inline int setSockOpt(SocketOptLevel level, SocketOptName optname,
                           const SocketOptVal optval, SocketOptLength optlen)
     {
         return IoPlatformWrapper::SetSockOpt(fd_, level, optname, optval, optlen);
     }
 
-    inline int getsockopt(SocketOptLevel level, SocketOptName optname,
+    inline int getSockOpt(SocketOptLevel level, SocketOptName optname,
                           SocketOptVal optval, SocketOptLength* optlen)
     {
         return IoPlatformWrapper::GetSockOpt(fd_, level, optname, optval, optlen);
