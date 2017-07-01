@@ -19,7 +19,7 @@ TcpSocket::TcpSocket(const SocketHandle& fd,
     ,localEndpoint_(localEndpoint)
     ,remoteEndpoint_(remoteEndpoint)
 {
-    TRACE_DEBUG("localEndpoint:" << localEndpoint << ", remoteEndpoint:" << remoteEndpoint);
+    TRACE_DEBUG("fd:" << fd << ", localEndpoint:" << localEndpoint << ", remoteEndpoint:" << remoteEndpoint);
     if (localEndpoint_.getIpFamilyType() == IPFamilyType::IPFamilyInvalid ||
         localEndpoint_.getIpFamilyType() != remoteEndpoint_.getIpFamilyType())
     {
@@ -95,7 +95,7 @@ int TcpSocket::accept(IpSocketEndpoint& remoteEndPoint, SocketFlag flags) const
     TRACE_ENTER();
     if (IPFamilyType::IPFamilyV4 == localEndpoint_.getIpFamilyType())
     {
-        SocketAddresstLength len = 0;
+        SocketAddresstLength len = sizeof(SocketAddress);
         SocketAddress address;
 
         int fd = SocketImp::accept(&address, &len, flags);
@@ -107,7 +107,7 @@ int TcpSocket::accept(IpSocketEndpoint& remoteEndPoint, SocketFlag flags) const
     else if(IPFamilyType::IPFamilyV6 == localEndpoint_.getIpFamilyType())
     {
         SocketAddress address;
-        SocketAddresstLength len = 0;
+        SocketAddresstLength len = sizeof(SocketAddress);
         int fd = SocketImp::accept(&address, &len, flags);
         remoteEndPoint = IpSocketEndpoint(IpAddress(IoPlatformWrapper::getInet6AddressFromSocketAddress(address)),
                                           IpPort(IoPlatformWrapper::SocketAddressToAddressIn6(address).sin6_port));

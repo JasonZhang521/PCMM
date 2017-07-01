@@ -5,6 +5,7 @@
 #include "Macro.h"
 #include <sstream>
 #include <string>
+#include <iostream>
 
 namespace Network {
 

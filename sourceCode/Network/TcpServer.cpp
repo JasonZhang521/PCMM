@@ -47,9 +47,7 @@ TcpResult TcpServer::bind()
 TcpResult TcpServer::listen(int backlog)
 {
     TRACE_ENTER();
-    TRACE_NOTICE("before listen!");
     int ret = socket_.listen(backlog);
-    TRACE_NOTICE("after listen!");
     if (SOCKET_ERROR == ret)
     {
         TRACE_WARNING(socket_.getErrorInfo());
@@ -73,7 +71,7 @@ TcpResult TcpServer::accept(int flag)
     }
     else
     {
-        TRACE_NOTICE("Client connected， client = " << remoteEndPoint);
+        TRACE_NOTICE("Client connected, client = " << remoteEndPoint);
         tcpConnectionAcceptor_->onAccept(fd, socket_.getLocalEndpoint(), remoteEndPoint);
         return TcpResult::Success;
     }

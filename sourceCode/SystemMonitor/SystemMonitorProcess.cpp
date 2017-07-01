@@ -21,9 +21,10 @@ void SystemMonitorProcess::process()
 {
     // Tcp client
     Network::IpSocketEndpoint localEndpoint(std::string("127.0.0.1:8000"));
-    Network::IpSocketEndpoint remoteEndpoint(std::string("127.0.0.1:7000"));
+    Network::IpSocketEndpoint remoteEndpoint(std::string("127.0.0.1:7001"));
     Network::TcpClient* tcpClientPtr = new Network::TcpClient(localEndpoint, remoteEndpoint);
-    std::shared_ptr<Network::TcpClient> tcpClient(tcpClientPtr);
+    std::shared_ptr<Network::ITcpClient> tcpClient(tcpClientPtr);
+    tcpClient->bind();
 
 
     // Ipc client strategy
@@ -67,7 +68,7 @@ void SystemMonitorProcess::process()
 
     Core::LoopMain::instance().registerTimer(timerPtr);
 
-    Io::IIoEvent* ioEvent = tcpClient.get();
+    Io::IIoEvent* ioEvent = tcpClientPtr;
     Core::LoopMain::instance().registerIo(Io::IoFdType::IoFdRead, ioEvent);
 
     systemMonitorHandler->startup();

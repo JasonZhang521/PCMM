@@ -65,11 +65,11 @@ IpAddress::IpAddress(const std::string& address)
     ::memset(&addr_.ipv4, 0, sizeof(SocketInetAddress));
     ::memset(&addr_.ipv6, 0, sizeof(SocketInet6Address));
 
-    if (IoPlatformWrapper::InetPton(SOCKET_AF_INET, address.c_str(), &addr_.ipv4))
+    if (IoPlatformWrapper::InetPton(SOCKET_AF_INET, address.c_str(), &addr_.ipv4.s_addr))
     {
         ipType_ = IPFamilyV4;
     }
-    else if(IoPlatformWrapper::InetPton(SOCKET_AF_INET, address.c_str(), &addr_.ipv6))
+    else if(IoPlatformWrapper::InetPton(SOCKET_AF_INET, address.c_str(), &addr_.ipv6.s6_addr))
     {
         ipType_ = IPFamilyV6;
     }

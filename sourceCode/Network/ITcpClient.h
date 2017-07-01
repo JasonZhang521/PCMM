@@ -18,6 +18,7 @@ public:
     ITcpClient();
     virtual ~ITcpClient();
     virtual TcpResult init() = 0;
+    virtual TcpResult bind() = 0;
     virtual TcpResult connect() = 0;
     virtual TcpResult send(const Serialize::WriteBuffer&) = 0;
     virtual TcpResult receive() = 0;

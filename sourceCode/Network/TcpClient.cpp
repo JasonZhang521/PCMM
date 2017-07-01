@@ -73,7 +73,6 @@ TcpClient::TcpClient(std::shared_ptr<TcpSocket> socket)
     :state_(TcpState::Tcp_Closed)
     ,socket_(socket)
 {
-
 }
 
 TcpClient::~TcpClient()
@@ -83,9 +82,29 @@ TcpClient::~TcpClient()
 TcpResult TcpClient::init()
 {
     TRACE_ENTER();
-    socket_->init();
-    socket_->bind();
-    return TcpResult::Success;
+    if (SOCKET_SUCCESS == socket_->init())
+    {
+       return TcpResult::Success;
+    }
+    else
+    {
+        return TcpResult::Failed;
+    }
+}
+
+TcpResult TcpClient::bind()
+{
+    TRACE_ENTER();
+    if (SOCKET_SUCCESS == socket_->bind())
+    {
+       TRACE_NOTICE("tcp client bind successfully! bind to:" << socket_->getLocalEndpoint());
+       return TcpResult::Success;
+    }
+    else
+    {
+        TRACE_NOTICE("tcp client bind error! bind to:" << socket_->getLocalEndpoint() << ", error info:" << socket_->getErrorInfo());
+        return TcpResult::Failed;
+    }
 }
 
 TcpResult TcpClient::connect()

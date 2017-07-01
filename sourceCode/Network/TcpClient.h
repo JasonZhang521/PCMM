@@ -49,6 +49,7 @@ public:
     virtual ~TcpClient();
 private:
     virtual TcpResult init();
+    virtual TcpResult bind();
     virtual TcpResult connect();
     virtual TcpResult send(const Serialize::WriteBuffer&);
     virtual TcpResult receive();
