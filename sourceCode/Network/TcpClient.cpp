@@ -127,7 +127,7 @@ TcpResult TcpClient::connect()
     if (SOCKET_ERROR == ret)
     {
         int errorNo = socket_->getErrorNo();
-        if (SOCKET_EINPROGRESS == errorNo || SOCKET_EWOULDBLOCK == errorNo)
+        if (SOCKET_EINPROGRESS == errorNo || SOCKET_EAGAIN == errorNo)
         {
             TRACE_NOTICE(socket_->getErrorInfo() << " socket = " << *socket_);
             state_ = TcpState::Tcp_Connecting;
