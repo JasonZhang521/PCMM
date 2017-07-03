@@ -24,6 +24,11 @@ TcpClient::ConnectionTimer::ConnectionTimer(ITcpClient* client)
     }
 }
 
+TcpClient::ConnectionTimer::~ConnectionTimer()
+{
+    Core::LoopMain::instance().deRegisterTimer(this->getTimerId());
+}
+
 void TcpClient::ConnectionTimer::onTime()
 {
     TRACE_WARNING("Tcp client connect to server timeout, state = " << static_cast<int>(state_) << " client:" << *dynamic_cast<TcpClient*>(client_)->socket_);
@@ -34,6 +39,7 @@ void TcpClient::ConnectionTimer::onTime()
          state_ = DisConnecting;
          if (connectTryCount_ < 100)
          {
+            resetTimer();
             Core::LoopMain::instance().registerTimer(this);
          }
         break;
@@ -45,8 +51,6 @@ void TcpClient::ConnectionTimer::onTime()
     default:
         break;
     }
-    resetTimer();
-    Core::LoopMain::instance().registerTimer(this);
 }
 
 std::ostream& TcpClient::ConnectionTimer::operator<<(std::ostream& os)

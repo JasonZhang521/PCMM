@@ -27,6 +27,7 @@ class TcpClient : public ITcpClient, public Io::IIoEvent
         };
 
         ConnectionTimer(ITcpClient* client);
+        ~ConnectionTimer();
         virtual void onTime();
         virtual std::ostream& operator<<(std::ostream& os);
     private:

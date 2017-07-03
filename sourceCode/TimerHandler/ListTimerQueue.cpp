@@ -51,9 +51,7 @@ void ListTimerQueue::deleteTimer(uint64_t timerID)
        ITimer* timerInList = *it;
        if (timerInList->getTimerId() == timerID)
        {
-           delete timerInList;
-           timersList_.erase(it);
-           return;
+           it = timersList_.erase(it);
        }
     }
 }
@@ -67,7 +65,6 @@ void ListTimerQueue::executeTimers()
         ITimer* timerInList = *it;
         if (timerInList->isExpired())
         {
-            std::cout << "executeTimers, timer expired!!!!!!!!!!!!" << std::endl;
              TimeStat singleStat;
              timerInList->onTime();
              if (timerInList->getTimerType() != TimerType::PeriodTimer)
