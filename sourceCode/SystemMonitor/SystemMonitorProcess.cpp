@@ -9,6 +9,8 @@
 #include "IpSocketEndpoint.h"
 #include "EventTimer.h"
 #include "LoopMain.h"
+#include "NetworkEnv.h"
+#include "IpAddress.h"
 #include <memory>
 
 namespace SystemMonitor {
@@ -19,6 +21,11 @@ SystemMonitorProcess::SystemMonitorProcess()
 
 void SystemMonitorProcess::process()
 {
+    Network::IpAddresses ipAddresses = Network::NetworkEnv::getLocalIpAddress();
+    for (auto ipAddress : ipAddresses)
+    {
+        std::cout << ipAddress << std::endl;
+    }
     // Tcp client
     Network::IpSocketEndpoint localEndpoint(std::string("127.0.0.1:8000"));
     Network::IpSocketEndpoint remoteEndpoint(std::string("127.0.0.1:7001"));

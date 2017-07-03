@@ -1,6 +1,7 @@
 #ifndef NETWORKENV_H
 #define NETWORKENV_H
 #include <vector>
+#include <string>
 #include <IpAddress.h>
 
 namespace Network {
@@ -11,6 +12,7 @@ class NetworkEnv
 public:
     NetworkEnv();
     static IpAddresses getLocalIpAddress();
+    static std::string getHostName();
 };
 }
 

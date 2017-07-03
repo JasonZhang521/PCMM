@@ -58,4 +58,10 @@ public:
 } ;
 
 }
+
+inline std::ostream& operator<<(std::ostream& os, const Network::IpAddress& ipAddress)
+{
+    return ipAddress.operator <<(os);
+}
+
 #endif // _NETWORK_IPADDRESS_H_

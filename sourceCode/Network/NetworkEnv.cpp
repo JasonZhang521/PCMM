@@ -37,4 +37,11 @@ IpAddresses NetworkEnv::getLocalIpAddress()
     return addresses;
 }
 
+std::string NetworkEnv::getHostName()
+{
+    std::string hostname;
+    IoPlatformWrapper::GetHostName(hostname);
+    return hostname;
+}
+
 }
