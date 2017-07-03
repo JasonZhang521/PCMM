@@ -3,7 +3,7 @@
 
 #include <string>
 namespace TimerHandler {
-inline static std::string component(){return std::string("SshWrapper");}
+inline static std::string component(){return std::string("TimerHandler");}
 }
 
 #endif // _TIMERHANDLER_COMPONENT_H_

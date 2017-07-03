@@ -32,6 +32,7 @@ class TcpClient : public ITcpClient, public Io::IIoEvent
     private:
         ITcpClient* client_;
         ConnectState state_;
+        unsigned int connectTryCount_;
     public:
         GETCLASSNAME(ConnectionTimer)
     };

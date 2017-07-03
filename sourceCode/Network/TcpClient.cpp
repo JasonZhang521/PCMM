@@ -16,6 +16,7 @@ TcpClient::ConnectionTimer::ConnectionTimer(ITcpClient* client)
     : TimerHandler::ITimer(3000)
     , client_(client)
     , state_(Connecting)
+    , connectTryCount_(0)
 {
     if (client == nullptr)
     {
@@ -28,8 +29,13 @@ void TcpClient::ConnectionTimer::onTime()
     TRACE_WARNING("Tcp client connect to server timeout, state = " << static_cast<int>(state_) << " client:" << *dynamic_cast<TcpClient*>(client_)->socket_);
     switch (state_) {
     case Connecting:
+         connectTryCount_++;
          client_->disconnect();
          state_ = DisConnecting;
+         if (connectTryCount_ < 100)
+         {
+            Core::LoopMain::instance().registerTimer(this);
+         }
         break;
     case DisConnecting:
         client_->restart();
@@ -111,6 +117,7 @@ TcpResult TcpClient::connect()
 {
     TRACE_DEBUG("localEndpoint:" << socket_->getLocalEndpoint() << ", remoteEndpoint:" << socket_->getRemoteEndpoint());
 
+    // connect
     int ret = socket_->connect();
 
     if (SOCKET_ERROR == ret)
@@ -128,13 +135,6 @@ TcpResult TcpClient::connect()
             }
             return TcpResult::Success;    
         }
-        else if (SOCKET_SUCCESS == errorNo)
-        {
-            TRACE_NOTICE("client connect to server successfully, socket = " << *socket_);
-            state_ = TcpState::Tcp_Established;
-            tcpConnectionReceiver_->onConnect();
-            return TcpResult::Success;
-        }
         else
         {
             TRACE_WARNING(socket_->getErrorInfo() << ", socket = " << *socket_);
@@ -143,6 +143,13 @@ TcpResult TcpClient::connect()
     }
     else
     {
+        TRACE_NOTICE("client connect to server successfully, socket = " << *socket_);
+
+        // register the IO
+        Io::IIoEvent* ioEvent = this;
+        Core::LoopMain::instance().registerIo(Io::IoFdType::IoFdRead, ioEvent);
+        Core::LoopMain::instance().deRegisterTimer(connectionTimer_->getTimerId());
+
         state_ = TcpState::Tcp_Established;
         return TcpResult::Success;
     }
@@ -183,6 +190,10 @@ TcpResult TcpClient::receive()
 TcpResult TcpClient::disconnect()
 {
     TRACE_ENTER();
+    // deregister the IO
+    Core::LoopMain::instance().deRegisterIo(getIoHandle(), Io::IoFdType::IoFdWrite);
+    Core::LoopMain::instance().deRegisterIo(socket_->getFd(), Io::IoFdType::IoFdRead);
+
     state_ = TcpState::Tcp_Closed;
     if (SOCKET_ERROR == socket_->close())
     {
@@ -232,6 +243,10 @@ void TcpClient::run(EventHandler::EventFlag flag)
         if (flag == EventHandler::EventFlag::Event_IoWrite)
         {
             TRACE_NOTICE("client connect to server successfully, socket = " << *socket_);
+            // register the IO
+            Io::IIoEvent* ioEvent = this;
+            Core::LoopMain::instance().registerIo(Io::IoFdType::IoFdRead, ioEvent);
+
             state_ = TcpState::Tcp_Established;
             Core::LoopMain::instance().deRegisterIo(getIoHandle(), Io::IoFdType::IoFdWrite);
             Core::LoopMain::instance().deRegisterTimer(connectionTimer_->getTimerId());

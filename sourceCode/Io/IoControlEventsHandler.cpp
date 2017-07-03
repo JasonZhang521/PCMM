@@ -72,7 +72,8 @@ void IoControlEventsHandler::run()
     TRACE_ENTER();
     if (fdEventMap_.empty())
     {
-        TRACE_WARNING("No fd to be handled!");
+        TRACE_DEBUG3("No fd to be handled!");
+        return;
     }
 
     clearAllFdSet();
