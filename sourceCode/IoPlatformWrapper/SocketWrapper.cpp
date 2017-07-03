@@ -114,4 +114,16 @@ int SetBlocking(SocketHandle sockfd, bool blocking)
 #endif
 }
 
+int GetHostName(std::string& hostname)
+{
+    char name[128];
+    memset(name, 0, 128);
+    int ret = gethostname(name, 128);
+    if (ret == 0)
+    {
+        hostname = std::string(name);
+    }
+    return ret;
+}
+
 }

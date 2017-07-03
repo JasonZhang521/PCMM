@@ -33,6 +33,13 @@ inline SocketInet6Address& getInet6AddressFromSocketAddress(SocketAddress& addre
 {
     return *reinterpret_cast<SocketInet6Address*>(&SocketAddressToAddressIn6(address).sin6_addr);
 }
+
+inline std::string InetNtoa(SocketInetAddress address)
+{
+    char* addrStr = inet_ntoa(address);
+    return std::string(addrStr);
+}
+
 // Ip address handling end
 
 #ifdef WIN32
@@ -243,6 +250,13 @@ inline unsigned short Htons(unsigned short hostshort)
 inline unsigned short Ntohs(unsigned short netshort)
 {
     return ntohs(netshort);
+}
+
+int GetHostName(std::string& hostname);
+
+inline SocketHostent* GetHostByName(const std::string& hostname)
+{
+    return gethostbyname(hostname.c_str());
 }
 
 }

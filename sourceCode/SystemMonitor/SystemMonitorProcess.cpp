@@ -19,51 +19,6 @@ SystemMonitorProcess::SystemMonitorProcess()
 
 void SystemMonitorProcess::process()
 {
-    WSADATA wsaData;
-    // Initialize Winsock
-    int iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
-    if (iResult != 0) {
-        printf("WSAStartup failed: %d\n", iResult);
-        return;
-    }
-
-    char hostName[100];
-    memset(hostName, 0, 100);
-    std::cout << "0" << std::endl;
-    gethostname(hostName, 100);
-    std::cout << "hostName = " << hostName << std::endl;
-
-    struct hostent* host = gethostbyname(hostName);
-    for (int i = 0;i<10 ;++i)
-    {
-        if (host->h_addr_list[i] == nullptr)
-        {
-            break;
-        }
-        const char* ipAddr = inet_ntoa(*((struct in_addr *)host->h_addr_list[i]));
-        std::cout << "Ip address:" << ipAddr << std::endl;
-    }
-    struct addrinfo *result = NULL;
-    struct addrinfo hints;
-    memset(&hints, 0, sizeof(addrinfo));
-    hints.ai_family = AF_INET;
-    hints.ai_socktype = SOCK_STREAM;
-    hints.ai_protocol = IPPROTO_TCP;
-    hints.ai_flags = AI_PASSIVE;
-    std::cout << "2" << std::endl;
-    iResult = getaddrinfo(NULL, "8000", &hints, &result);
-    std::cout << "3" << std::endl;
-     struct addrinfo *ptr = result;
-    for (; ptr != nullptr; ptr = ptr->ai_next)
-    {
-        SocketAddressIn *addr = (SocketAddressIn*)(ptr->ai_addr);
-        std::cout << "family:" << addr->sin_family
-                  << ", addr:" << (int)addr->sin_addr.S_un.S_un_b.s_b1 << "."
-                             << (int)addr->sin_addr.S_un.S_un_b.s_b2 << "."
-                             << (int)addr->sin_addr.S_un.S_un_b.s_b3 << "."
-                             << (int)addr->sin_addr.S_un.S_un_b.s_b4
-                  << ", port:" << addr->sin_port << std::endl;
-    }
     // Tcp client
     Network::IpSocketEndpoint localEndpoint(std::string("127.0.0.1:8000"));
     Network::IpSocketEndpoint remoteEndpoint(std::string("127.0.0.1:7001"));

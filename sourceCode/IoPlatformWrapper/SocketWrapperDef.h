@@ -52,6 +52,7 @@ using SocketOptLevel = int;
 using SocketOptName = int;
 using SocketOptVal = char*;
 using SocketOptLength = int;
+using SocketHostent = struct hostent;
 
 // const value
 const SocketHandle InvalidSocketHandle = INVALID_SOCKET;

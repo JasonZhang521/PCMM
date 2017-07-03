@@ -102,7 +102,8 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/Configure/ExceptionConfigure.cpp \
     ../../sourceCode/Configure/TraceLogConfigure.cpp \
     ../../sourceCode/Environment/CpuUsageDataType.cpp \
-    ../../sourceCode/Network/TcpState.cpp
+    ../../sourceCode/Network/TcpState.cpp \
+    ../../sourceCode/Network/NetworkEnv.cpp
 
 HEADERS += \
     ../../sourceCode/SystemMonitor/SystemMonitorProcess.h \
@@ -187,7 +188,8 @@ HEADERS += \
     ../../sourceCode/Configure/Configure.h \
     ../../sourceCode/Configure/Configure_Define.h \
     ../../sourceCode/Configure/ExceptionConfigure.h \
-    ../../sourceCode/Configure/TraceLogConfigure.h
+    ../../sourceCode/Configure/TraceLogConfigure.h \
+    ../../sourceCode/Network/NetworkEnv.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
