@@ -35,8 +35,7 @@ private:
     virtual void send(const IpcMessage::IIpcMessage& msg);
     virtual void disconnect();
     virtual void setIpcConnectionReceiver(std::shared_ptr<IIpcConnectionReceiver> receiver);
-    virtual void addIpcMessageFactory(IpcMessage::IpcMessageType ipcMessageType,
-                                      std::shared_ptr<IpcMessage::IIpcMessageFactory> factory);
+    virtual void addIpcMessageFactory(std::shared_ptr<IpcMessage::IIpcMessageFactory> factory);
 
 
     virtual void onConnect();

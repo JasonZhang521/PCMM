@@ -103,7 +103,8 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/Configure/TraceLogConfigure.cpp \
     ../../sourceCode/Environment/CpuUsageDataType.cpp \
     ../../sourceCode/Network/TcpState.cpp \
-    ../../sourceCode/Network/NetworkEnv.cpp
+    ../../sourceCode/Network/NetworkEnv.cpp \
+    ../../sourceCode/Ipc/IpcClientCreator.cpp
 
 HEADERS += \
     ../../sourceCode/SystemMonitor/SystemMonitorProcess.h \
@@ -189,7 +190,8 @@ HEADERS += \
     ../../sourceCode/Configure/Configure_Define.h \
     ../../sourceCode/Configure/ExceptionConfigure.h \
     ../../sourceCode/Configure/TraceLogConfigure.h \
-    ../../sourceCode/Network/NetworkEnv.h
+    ../../sourceCode/Network/NetworkEnv.h \
+    ../../sourceCode/Ipc/IpcClientCreator.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

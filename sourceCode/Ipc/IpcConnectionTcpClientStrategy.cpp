@@ -69,10 +69,9 @@ void IpcConnectionTcpClientStrategy::setIpcConnectionReceiver(std::shared_ptr<II
     connectionReceiver_ = receiver;
 }
 
-void IpcConnectionTcpClientStrategy::addIpcMessageFactory(IpcMessage::IpcMessageType ipcMessageType,
-                                  std::shared_ptr<IpcMessage::IIpcMessageFactory> factory)
+void IpcConnectionTcpClientStrategy::addIpcMessageFactory(std::shared_ptr<IpcMessage::IIpcMessageFactory> factory)
 {
-    ipcMessageFactories_[ipcMessageType] = factory;
+    ipcMessageFactories_[factory->messageType()] = factory;
 }
 
 void IpcConnectionTcpClientStrategy::onConnect()

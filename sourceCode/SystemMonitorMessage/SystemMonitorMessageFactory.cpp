@@ -4,7 +4,9 @@
 #include "Trace.h"
 
 namespace SystemMonitorMessage {
+
 SystemMonitorMessageFactory::SystemMonitorMessageFactory()
+    :IpcMessage::IIpcMessageFactory(IpcMessage::IpcMessage_SystemMonitor)
 {
 
 }
