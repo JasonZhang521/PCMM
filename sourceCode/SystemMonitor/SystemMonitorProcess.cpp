@@ -5,6 +5,7 @@
 #include "SystemMonitorMessageFactory.h"
 #include "IpcClient.h"
 #include "IpcConnectionTcpClientStrategy.h"
+#include "IpcClientCreator.h"
 #include "TcpClient.h"
 #include "IpSocketEndpoint.h"
 #include "EventTimer.h"
@@ -26,44 +27,27 @@ void SystemMonitorProcess::process()
     {
         std::cout << ipAddress << std::endl;
     }
-    // Tcp client
+
+    // Local and remote endpoint.
     Network::IpSocketEndpoint localEndpoint(std::string("127.0.0.1:8000"));
     Network::IpSocketEndpoint remoteEndpoint(std::string("127.0.0.1:7001"));
-    Network::TcpClient* tcpClientPtr = new Network::TcpClient(localEndpoint, remoteEndpoint);
-    std::shared_ptr<Network::ITcpClient> tcpClient(tcpClientPtr);
-    tcpClient->bind();
-
-
-    // Ipc client strategy
-    Ipc::IpcConnectionTcpClientStrategy* ipcConnectionClientStrategyPtr =
-            new Ipc::IpcConnectionTcpClientStrategy(tcpClient);
-    std::shared_ptr<Ipc::IpcConnectionTcpClientStrategy> ipcConnectionClientStrategy(ipcConnectionClientStrategyPtr);
-
-    // Ipc client
-    Ipc::IpcClient* ipcClientPtr = new Ipc::IpcClient(ipcConnectionClientStrategy);
-    std::shared_ptr<Ipc::IpcClient> ipcClient(ipcClientPtr);
 
     // SystemMonitorHandler
-    SystemMonitorHandler* systemMonitorHandlerPtr = new SystemMonitorHandler(ipcClient);
+    SystemMonitorHandler* systemMonitorHandlerPtr = new SystemMonitorHandler();
     std::shared_ptr<ISystemMonitorHandler> systemMonitorHandler(systemMonitorHandlerPtr);
 
     // SystemMonitorConnectionReceiver
     std::shared_ptr<SystemMonitorConnectionReceiver>
             systemMonitorConnectionReceiver(new SystemMonitorConnectionReceiver(systemMonitorHandler));
 
-
-    // tcp connection receiver
-
-    static_cast<Network::ITcpClient*>(tcpClientPtr)->setConnectionReceiver(ipcConnectionClientStrategy);
-
     // System monitor factory
     std::shared_ptr<IpcMessage::IIpcMessageFactory>
             factory(new SystemMonitorMessage::SystemMonitorMessageFactory());
 
-    // Set ipcConnectionTcpStrategy
-    Ipc::IIpcConnectionClientStrategy* strategy = static_cast<Ipc::IIpcConnectionClientStrategy*>(ipcConnectionClientStrategyPtr);
-    strategy->setIpcConnectionReceiver(systemMonitorConnectionReceiver);
-    strategy->addIpcMessageFactory(factory);
+    Ipc::IIpcClient* ipcClientPtr = Ipc::IpcClientCreator::CreateWithTcpClientStrategy(localEndpoint, remoteEndpoint, systemMonitorConnectionReceiver, factory);
+    std::shared_ptr<Ipc::IIpcClient> ipcClient(ipcClientPtr);
+
+    systemMonitorHandlerPtr->setIpcClient(ipcClient);
 
     // SystemInfoCollector
     SystemInfoCollector* systemInfoCollectorPtr = new SystemInfoCollector(systemMonitorHandler);

@@ -22,7 +22,9 @@ class SystemMonitorHandler : public ISystemMonitorHandler
     std::shared_ptr<Ipc::IIpcClient> ipcClient_;
 public:
     SystemMonitorHandler(std::shared_ptr<Ipc::IIpcClient> ipcClient);
+    SystemMonitorHandler();
     ~SystemMonitorHandler();
+    virtual void setIpcClient(std::shared_ptr<Ipc::IIpcClient> ipcClient);
 private:
     virtual void reportSystemInfo();
     virtual void startup();

@@ -74,9 +74,8 @@ void ListTimerQueue::executeTimers()
              const uint64_t singleTimerElapse = singleStat.getElapseTimeAsMilliSecond();
              if (singleTimerElapse > MaxRunningDurationForSingleTimer)
              {
-                 TRACE_WARNING("Timer is executing more than " << MaxRunningDurationForSingleTimer
+                 TRACE_NOTICE("Timer is executing more than " << MaxRunningDurationForSingleTimer
                               << "ms, Timer Information" << timerInList);
-                 break;
              }
         }
         else

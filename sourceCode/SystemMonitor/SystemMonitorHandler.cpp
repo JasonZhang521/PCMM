@@ -11,9 +11,19 @@ SystemMonitorHandler::SystemMonitorHandler(std::shared_ptr<Ipc::IIpcClient> ipcC
 
 }
 
+SystemMonitorHandler::SystemMonitorHandler()
+{
+
+}
+
 SystemMonitorHandler::~SystemMonitorHandler()
 {
 
+}
+
+void SystemMonitorHandler::setIpcClient(std::shared_ptr<Ipc::IIpcClient> ipcClient)
+{
+    ipcClient_ = ipcClient;
 }
 
 void SystemMonitorHandler::reportSystemInfo()

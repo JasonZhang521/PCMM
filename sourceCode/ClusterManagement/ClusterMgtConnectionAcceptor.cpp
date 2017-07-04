@@ -57,7 +57,7 @@ void ClusterMgtConnectionAcceptor::createClusterConnection(int fd,
     // Set ipcConnectionTcpStrategy
     Ipc::IIpcConnectionClientStrategy* ipcConnectionClientStrategyPtr = ipcConnectionClientStrategy.get();
     ipcConnectionClientStrategyPtr->setIpcConnectionReceiver(clustersMgtConnectionReceiver);
-    ipcConnectionClientStrategyPtr->addIpcMessageFactory(IpcMessage::IpcMessageType::IpcMessage_SystemMonitor, factory);
+    ipcConnectionClientStrategyPtr->addIpcMessageFactory(factory);
 
     clusterMgtController_->addAcceptedIpcClient(remoteEndPoint.toString(), ipcClient, clientType_);
 

@@ -55,6 +55,15 @@ void TcpClient::ConnectionTimer::onTime()
 
 std::ostream& TcpClient::ConnectionTimer::operator<<(std::ostream& os)
 {
+    os << "["
+       << "timerId=" << getTimerId()
+       << ", period=" << getPeriod()
+       << ", expiredTime=" << getExpiredTime()
+       << ", timerType=" << timerTypeToString(getTimerType())
+       << ", tcpClient=" << client_
+       << ", state=" << state_
+       << ", connectTryCount=" << connectTryCount_
+       << "]";
     return os;
 }
 
@@ -120,7 +129,10 @@ TcpResult TcpClient::bind()
 TcpResult TcpClient::connect()
 {
     TRACE_DEBUG("localEndpoint:" << socket_->getLocalEndpoint() << ", remoteEndpoint:" << socket_->getRemoteEndpoint());
-
+    if (!connectionTimer_)
+    {
+        connectionTimer_ = std::shared_ptr<ConnectionTimer>(new ConnectionTimer(this));
+    }
     // connect
     int ret = socket_->connect();
 
@@ -131,17 +143,14 @@ TcpResult TcpClient::connect()
         {
             TRACE_NOTICE(socket_->getErrorInfo() << " socket = " << *socket_);
             state_ = TcpState::Tcp_Connecting;
-            if (!connectionTimer_)
-            {
-                connectionTimer_ = std::shared_ptr<ConnectionTimer>(new ConnectionTimer(this));
-                Core::LoopMain::instance().registerTimer(connectionTimer_.get());
-                Core::LoopMain::instance().registerIo(Io::IoFdType::IoFdWrite, this);
-            }
+            Core::LoopMain::instance().registerTimer(connectionTimer_.get());
+            Core::LoopMain::instance().registerIo(Io::IoFdType::IoFdWrite, this);
             return TcpResult::Success;    
         }
         else
         {
             TRACE_WARNING(socket_->getErrorInfo() << ", socket = " << *socket_);
+            Core::LoopMain::instance().registerTimer(connectionTimer_.get());
             return TcpResult::Failed;
         }
     }
