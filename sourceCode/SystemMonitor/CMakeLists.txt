@@ -13,6 +13,7 @@ include_directories ("${PROJECT_SOURCE_DIR}/Environment"
                      "${PROJECT_SOURCE_DIR}/TimerHandler"
                      "${PROJECT_SOURCE_DIR}/TraceLog"
                      "${PROJECT_SOURCE_DIR}/Serialize"
+                     "${PROJECT_SOURCE_DIR}/Network"
 )
 add_executable(smd.elf ${smd_SRCS})
 target_link_libraries (smd.elf

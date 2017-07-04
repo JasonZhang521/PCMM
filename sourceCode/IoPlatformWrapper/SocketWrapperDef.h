@@ -51,8 +51,8 @@ using SocketInet6Address = struct in6_addr;
 using SocketOptLevel = int;
 using SocketOptName = int;
 using SocketOptVal = char*;
-using SocketOptLength = int;
 using SocketHostent = struct hostent;
+using SocketOptLength = int;
 
 // const value
 const SocketHandle InvalidSocketHandle = INVALID_SOCKET;
@@ -153,6 +153,7 @@ using SocketOptLevel = int;
 using SocketOptName = int;
 using SocketOptVal = void*;
 using SocketOptLength = socklen_t;
+using SocketHostent = struct hostent;
 
 // const value
 const SocketHandle InvalidSocketHandle = -1;
