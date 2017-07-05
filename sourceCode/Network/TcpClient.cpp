@@ -45,6 +45,7 @@ void TcpClient::ConnectionTimer::onTime()
         break;
     case DisConnecting:
         client_->restart();
+		client_->init();
         client_->connect();
         state_ = Connecting;
         break;
@@ -147,7 +148,7 @@ TcpResult TcpClient::connect()
             Core::LoopMain::instance().registerTimer(connectionTimer_.get());
             Core::LoopMain::instance().registerIo(Io::IoFdType::IoFdWrite, this);
             return TcpResult::Success;    
-        }
+        }    
         else
         {
             TRACE_WARNING(socket_->getErrorInfo() << ", socket = " << *socket_);
@@ -172,6 +173,7 @@ TcpResult TcpClient::connect()
 TcpResult TcpClient::send(const Serialize::WriteBuffer& buffer)
 {
     TRACE_ENTER();
+	TRACE_NOTICE("send");
     if (SOCKET_ERROR == socket_->send(reinterpret_cast<SocketDataBuffer>(buffer.getBuffer()), buffer.getDataSize(), SOCKET_FLAG_NONE))
     {
         TRACE_WARNING("send message error: error information = " << socket_->getErrorInfo());
@@ -186,14 +188,23 @@ TcpResult TcpClient::send(const Serialize::WriteBuffer& buffer)
 TcpResult TcpClient::receive()
 {
     TRACE_ENTER();
-    TRACE_NOTICE("TcpClient::receive()");
     Serialize::ReadBuffer readBuffer;
     int numOfBytesReceived = socket_->recv(reinterpret_cast<SocketDataBuffer>(readBuffer.getBuffer()), readBuffer.getBufferSize(), SOCKET_FLAG_NONE);
+	TRACE_NOTICE("receive:" << numOfBytesReceived);
+
     if (SOCKET_ERROR == numOfBytesReceived)
     {
         TRACE_WARNING("receive error, error info = " << socket_->getErrorInfo());
         return TcpResult::Failed;
     }
+	else if (0 == numOfBytesReceived)
+	{
+		TRACE_NOTICE("Tcp server is disconnected! try to re-connect");
+		disconnect();
+		restart();
+		init();
+		connect();
+	}
     else
     {
         readBuffer.setDataSize(numOfBytesReceived);
