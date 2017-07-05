@@ -34,7 +34,7 @@ void ClusterMgtConnectionAcceptor::createClusterConnection(int fd,
                                                         const Network::IpSocketEndpoint& remoteEndPoint)
 {
     std::shared_ptr<Network::TcpSocket> socket(new Network::TcpSocket(fd, localEndPoint, remoteEndPoint));
-    Network::TcpClient* tcpAcceptedClientPtr = new Network::TcpClient(socket);
+    Network::TcpClient* tcpAcceptedClientPtr = new Network::TcpClient(socket, Network::TcpState::Tcp_Established);
     std::shared_ptr<Network::ITcpClient> tcpAcceptedClient(tcpAcceptedClientPtr);
 
     // Ipc client strategy
@@ -60,7 +60,7 @@ void ClusterMgtConnectionAcceptor::createClusterConnection(int fd,
     ipcConnectionClientStrategyPtr->addIpcMessageFactory(factory);
 
     clusterMgtController_->addAcceptedIpcClient(remoteEndPoint.toString(), ipcClient, clientType_);
-
+    tcpAcceptedClient->init();
     Core::LoopMain::instance().registerIo(Io::IoFdType::IoFdRead, tcpAcceptedClientPtr);
 }
 

@@ -23,6 +23,7 @@ public:
 private:
     void init();
     void getCpuUsageFromProcStatFile();
+    void getFakeCpuUsage();
     unsigned int getCpuNumer();
 
 public:

@@ -82,10 +82,9 @@ void IpcConnectionTcpClientStrategy::onConnect()
 
 void IpcConnectionTcpClientStrategy::onReceive(Serialize::ReadBuffer& readBuffer)
 {
-    TRACE_ENTER();
     uint8_t messageType = static_cast<uint8_t>(IpcMessage::IpcMessage_None);
     readBuffer.peek(messageType);
-
+    TRACE_DEBUG("Receive ipc message: message type = " << messageType);
     IpcMessageFactroyMap::iterator
             it = ipcMessageFactories_.find(static_cast<IpcMessage::IpcMessageType>(messageType));
     if (it != ipcMessageFactories_.end())

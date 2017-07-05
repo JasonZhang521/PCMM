@@ -1,4 +1,5 @@
 #include "SystemInfoCollector.h"
+#include "ISystemMonitorHandler.h"
 #include "EventIdGenerator.h"
 #include "CpuUsage.h"
 #include "Trace.h"
@@ -23,8 +24,11 @@ uint64_t SystemInfoCollector::getEventId() const
 
 void SystemInfoCollector::run(EventHandler::EventFlag flag)
 {
+    TRACE_ENTER();
+    TRACE_DEBUG("SystemInfoCollector::run");
     static_cast<void> (flag);
     Environment::CpuUsage::instance().update();
+    monitorHandler_->reportSystemInfo();
  }
 
 std::ostream& SystemInfoCollector::operator<< (std::ostream& os) const

@@ -88,8 +88,8 @@ TcpClient::TcpClient(const IpSocketEndpoint& localEndpoint, const IpSocketEndpoi
 
 }
 
-TcpClient::TcpClient(std::shared_ptr<TcpSocket> socket)
-    :state_(TcpState::Tcp_Closed)
+TcpClient::TcpClient(std::shared_ptr<TcpSocket> socket, TcpState state)
+    :state_(state)
     ,socket_(socket)
 {
 }
@@ -107,6 +107,7 @@ TcpResult TcpClient::init()
     }
     else
     {
+        TRACE_WARNING("Tcp client init failed! error infomation:" << socket_->getErrorInfo());
         return TcpResult::Failed;
     }
 }
@@ -173,7 +174,7 @@ TcpResult TcpClient::send(const Serialize::WriteBuffer& buffer)
     TRACE_ENTER();
     if (SOCKET_ERROR == socket_->send(reinterpret_cast<SocketDataBuffer>(buffer.getBuffer()), buffer.getDataSize(), SOCKET_FLAG_NONE))
     {
-        TRACE_WARNING(socket_->getErrorInfo());
+        TRACE_WARNING("send message error: error information = " << socket_->getErrorInfo());
         return TcpResult::Failed;
     }
     else
@@ -185,11 +186,12 @@ TcpResult TcpClient::send(const Serialize::WriteBuffer& buffer)
 TcpResult TcpClient::receive()
 {
     TRACE_ENTER();
+    TRACE_NOTICE("TcpClient::receive()");
     Serialize::ReadBuffer readBuffer;
     int numOfBytesReceived = socket_->recv(reinterpret_cast<SocketDataBuffer>(readBuffer.getBuffer()), readBuffer.getBufferSize(), SOCKET_FLAG_NONE);
     if (SOCKET_ERROR == numOfBytesReceived)
     {
-        TRACE_WARNING(socket_->getErrorInfo());
+        TRACE_WARNING("receive error, error info = " << socket_->getErrorInfo());
         return TcpResult::Failed;
     }
     else
@@ -244,6 +246,7 @@ TcpResult TcpClient::restart()
 void TcpClient::run(EventHandler::EventFlag flag)
 {
     TRACE_ENTER();
+    TRACE_NOTICE("fd = " << socket_->getFd() << ", flag = " << EventFlagString(flag));
     if (state_ == TcpState::Tcp_Established)
     {
         if (flag == EventHandler::EventFlag::Event_IoRead)
@@ -271,7 +274,7 @@ std::ostream& TcpClient::operator<< (std::ostream& os) const
 {
     os << "["
        << "Tcpclient: state=" << toString(state_)
-       << "socket=" << *socket_
+       << ", socket=" << *socket_
        << "]";
 
     return os;

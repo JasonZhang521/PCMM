@@ -8,7 +8,7 @@
 #include "TraceLogConfigure.h"
 
 TraceLogConfigure::TraceLogConfigure()
-:level_(TRACE_LOG_DEBUG)
+:level_(TRACE_LOG_NOTICE)
 ,target_(TRACE_LOG_TO_CONSOLE)
 ,filePath_(TraceLogFilePath)
 ,logBufSize_(LogBufSize)
@@ -33,6 +33,24 @@ void TraceLogConfigure::setTraceLogLevel(TraceLogLevel traceLogLevel)
 TraceLogLevel TraceLogConfigure::getTraceLogLevel() const
 {
   return level_;
+}
+
+std::string TraceLogConfigure::getTraceLogLevelString() const
+{
+    switch (level_) {
+    case TRACE_LOG_ERROR:
+        return std::string("ERROR");
+    case TRACE_LOG_WARNING:
+        return std::string("WARNING");
+    case TRACE_LOG_NOTICE:
+        return std::string("NOTICE");
+    case TRACE_LOG_DEBUG:
+        return std::string("DEBUG");
+    case TRACE_LOG_DEBUG3:
+        return std::string("DEBUG3");
+    default:
+        return std::string("");
+    }
 }
 
 void TraceLogConfigure::setTraceLogTarget(TraceLogTarget target)

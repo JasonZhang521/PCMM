@@ -13,7 +13,7 @@
 namespace Environment {
 
 CpuUsage::CpuUsage()
-    : nCpu_(0)
+    : nCpu_(getCpuNumer())
     , statFilePath_("/proc/stat")
     , preRawDatas_(nCpu_ + 1, CpuUsageRawData(CPU_USAGE_TYPE_NUMBER, 0))
     , curRawDatas_(nCpu_ + 1, CpuUsageRawData(CPU_USAGE_TYPE_NUMBER, 0))
@@ -24,9 +24,8 @@ CpuUsage::CpuUsage()
 
 void CpuUsage::init()
 {
-    nCpu_ = getCpuNumer();
-
 #ifdef WIN32
+    getFakeCpuUsage();
 #else
     getCpuUsageFromProcStatFile();
 #endif
@@ -97,10 +96,28 @@ void CpuUsage::getCpuUsageFromProcStatFile()
     }
 }
 
+void CpuUsage::getFakeCpuUsage()
+{
+    // save the curRawDatas;
+    preRawDatas_.swap(curRawDatas_);
+    for (unsigned int i = 0; i < nCpu_ + 1; ++i)
+    {
+        curRawDatas_[i][CPU_USER] = preRawDatas_[i][CPU_USER] + 5;
+        curRawDatas_[i][CPU_NICE] = preRawDatas_[i][CPU_NICE] + 5;
+        curRawDatas_[i][CPU_SYS] = preRawDatas_[i][CPU_SYS] + 5;
+        curRawDatas_[i][CPU_IDLE] = preRawDatas_[i][CPU_IDLE] + 5;
+        curRawDatas_[i][CPU_IOWAIT] = preRawDatas_[i][CPU_IOWAIT] + 5;
+        curRawDatas_[i][CPU_IRQ] = preRawDatas_[i][CPU_IRQ] + 5;
+        curRawDatas_[i][CPU_SOFTIRQ] = preRawDatas_[i][CPU_SOFTIRQ] + 5;
+        curRawDatas_[i][CPU_STEALSTOLEN] = preRawDatas_[i][CPU_STEALSTOLEN] + 5;
+        curRawDatas_[i][CPU_GUEST] = preRawDatas_[i][CPU_GUEST] + 5;
+    }
+}
+
 unsigned int CpuUsage::getCpuNumer()
 {
 #ifdef WIN32
-    return 0;
+    return 1;
 #else
     return get_nprocs();
 #endif
@@ -109,6 +126,7 @@ unsigned int CpuUsage::getCpuNumer()
 void CpuUsage::update()
 {
 #ifdef WIN32
+    getFakeCpuUsage();
 #else
     getCpuUsageFromProcStatFile();
 #endif
