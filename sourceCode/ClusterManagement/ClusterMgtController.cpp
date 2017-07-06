@@ -49,10 +49,16 @@ void ClusterMgtController::handleMessage(const IpcMessage::IIpcMessage& msg, Cli
 {
     switch (fromClientType) {
     case NodeType:
-        clientsManager_[UiType]->handleMessage(msg);
+        if (clientsManager_[UiType])
+        {
+            clientsManager_[UiType]->handleMessage(msg);
+        }
         break;
     case UiType:
-        clientsManager_[NodeType]->handleMessage(msg);
+        if (clientsManager_[NodeType])
+        {
+            clientsManager_[NodeType]->handleMessage(msg);
+        }
         break;
     default:
         break;

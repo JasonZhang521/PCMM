@@ -17,7 +17,8 @@ SystemMonitorConnectionReceiver::~SystemMonitorConnectionReceiver()
 
 void SystemMonitorConnectionReceiver::onConnect()
 {
-
+    TRACE_ENTER();
+    monitorHandler_->onStartup();
 }
 
 void SystemMonitorConnectionReceiver::onReceive(std::unique_ptr<IpcMessage::IIpcMessage> msg)
@@ -55,7 +56,8 @@ void SystemMonitorConnectionReceiver::onReceive(std::unique_ptr<IpcMessage::IIpc
 
 void SystemMonitorConnectionReceiver::onDisconnect()
 {
-
+    TRACE_ENTER();
+    monitorHandler_->onShutdown();
 }
 
 }

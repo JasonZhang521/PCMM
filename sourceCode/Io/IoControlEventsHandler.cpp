@@ -44,7 +44,7 @@ void IoControlEventsHandler::registerIoFd(IoFdType type, IIoEvent* event)
     }
     else
     {
-        fdEventMap_[fd] = IoFdEvent(type, event);
+        fdEventMap_.insert(std::pair<int, IoFdEvent>(fd, IoFdEvent(type, event)));
         addToFdSet(fd, type);
     }
 }
@@ -85,7 +85,6 @@ void IoControlEventsHandler::run()
         addToFdSet(fd, event.fdType);
     }
 
-
     IoFdEventMap::reverse_iterator rit = fdEventMap_.rbegin();
     int maxFdNum = rit->first + 1;
     SocketTimeVal timeout;
@@ -101,13 +100,11 @@ void IoControlEventsHandler::run()
 
         if (fdType & IoFdType::IoFdRead && IoPlatformWrapper::FdIsSet(fd, &readFds_))
         {
-                    TRACE_NOTICE("read: fd:" << fd << ", event:" << *event << ", fdType:" << fdType);
             event->run(EventHandler::EventFlag::Event_IoRead);
         }
 
         if (fdType & IoFdType::IoFdWrite && IoPlatformWrapper::FdIsSet(fd, &writeFds_))
         {
-                    TRACE_NOTICE("write fd:" << fd << ", event:" << *event << ", fdType:" << fdType);
             event->run(EventHandler::EventFlag::Event_IoWrite);
         }
 

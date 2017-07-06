@@ -29,9 +29,9 @@ void SystemMonitorProcess::process()
     }
 
     // Local and remote endpoint.
-    Network::IpSocketEndpoint localEndpoint(std::string("127.0.0.1:8000"));
-    Network::IpSocketEndpoint remoteEndpoint(std::string("127.0.0.1:7001"));
-
+    Network::IpSocketEndpoint localEndpoint(std::string("192.168.3.1:8000"));
+    //Network::IpSocketEndpoint remoteEndpoint(std::string("127.0.0.1:7001"));
+    Network::IpSocketEndpoint remoteEndpoint(std::string("192.168.3.1:7001"));
     // SystemMonitorHandler
     SystemMonitorHandler* systemMonitorHandlerPtr = new SystemMonitorHandler();
     std::shared_ptr<ISystemMonitorHandler> systemMonitorHandler(systemMonitorHandlerPtr);

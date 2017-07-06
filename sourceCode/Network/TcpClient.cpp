@@ -15,8 +15,6 @@ namespace Network {
 TcpClient::ConnectionTimer::ConnectionTimer(ITcpClient* client)
     : TimerHandler::ITimer(3000)
     , client_(client)
-    , state_(Connecting)
-    , connectTryCount_(0)
 {
     if (client == nullptr)
     {
@@ -31,27 +29,9 @@ TcpClient::ConnectionTimer::~ConnectionTimer()
 
 void TcpClient::ConnectionTimer::onTime()
 {
-    TRACE_WARNING("Tcp client connect to server timeout, state = " << static_cast<int>(state_) << " client:" << *dynamic_cast<TcpClient*>(client_)->socket_);
-    switch (state_) {
-    case Connecting:
-         connectTryCount_++;
-         client_->disconnect();
-         state_ = DisConnecting;
-         if (connectTryCount_ < 100)
-         {
-            resetTimer();
-            Core::LoopMain::instance().registerTimer(this);
-         }
-        break;
-    case DisConnecting:
-        client_->restart();
-		client_->init();
-        client_->connect();
-        state_ = Connecting;
-        break;
-    default:
-        break;
-    }
+    TRACE_WARNING("Tcp client connect to server timeout, " << " client:" << *dynamic_cast<TcpClient*>(client_)->socket_);
+    client_->disconnect();
+    client_->restart();
 }
 
 std::ostream& TcpClient::ConnectionTimer::operator<<(std::ostream& os)
@@ -62,11 +42,10 @@ std::ostream& TcpClient::ConnectionTimer::operator<<(std::ostream& os)
        << ", expiredTime=" << getExpiredTime()
        << ", timerType=" << timerTypeToString(getTimerType())
        << ", tcpClient=" << client_
-       << ", state=" << state_
-       << ", connectTryCount=" << connectTryCount_
        << "]";
     return os;
 }
+
 
 TcpClient::TcpClient(const IpSocketEndpoint& localEndpoint,
                      const IpSocketEndpoint& remoteEndpoint,
@@ -145,6 +124,7 @@ TcpResult TcpClient::connect()
         {
             TRACE_NOTICE(socket_->getErrorInfo() << " socket = " << *socket_);
             state_ = TcpState::Tcp_Connecting;
+            connectionTimer_.reset();
             Core::LoopMain::instance().registerTimer(connectionTimer_.get());
             Core::LoopMain::instance().registerIo(Io::IoFdType::IoFdWrite, this);
             return TcpResult::Success;    
@@ -152,6 +132,7 @@ TcpResult TcpClient::connect()
         else
         {
             TRACE_WARNING(socket_->getErrorInfo() << ", socket = " << *socket_);
+            connectionTimer_.reset();
             Core::LoopMain::instance().registerTimer(connectionTimer_.get());
             return TcpResult::Failed;
         }
@@ -173,10 +154,13 @@ TcpResult TcpClient::connect()
 TcpResult TcpClient::send(const Serialize::WriteBuffer& buffer)
 {
     TRACE_ENTER();
-	TRACE_NOTICE("send");
-    if (SOCKET_ERROR == socket_->send(reinterpret_cast<SocketDataBuffer>(buffer.getBuffer()), buffer.getDataSize(), SOCKET_FLAG_NONE))
+
+    int sendBytes = socket_->send(reinterpret_cast<SocketDataBuffer>(buffer.getBuffer()), buffer.getDataSize(), SOCKET_FLAG_NONE);
+    if (SOCKET_ERROR == sendBytes)
     {
         TRACE_WARNING("send message error: error information = " << socket_->getErrorInfo());
+        disconnect();
+        restart();
         return TcpResult::Failed;
     }
     else
@@ -190,20 +174,19 @@ TcpResult TcpClient::receive()
     TRACE_ENTER();
     Serialize::ReadBuffer readBuffer;
     int numOfBytesReceived = socket_->recv(reinterpret_cast<SocketDataBuffer>(readBuffer.getBuffer()), readBuffer.getBufferSize(), SOCKET_FLAG_NONE);
-	TRACE_NOTICE("receive:" << numOfBytesReceived);
-
     if (SOCKET_ERROR == numOfBytesReceived)
     {
         TRACE_WARNING("receive error, error info = " << socket_->getErrorInfo());
+        disconnect();
+        restart();
         return TcpResult::Failed;
     }
 	else if (0 == numOfBytesReceived)
 	{
 		TRACE_NOTICE("Tcp server is disconnected! try to re-connect");
-		disconnect();
-		restart();
-		init();
-		connect();
+        disconnect();
+        restart();
+        return TcpResult::Failed;
 	}
     else
     {
@@ -221,16 +204,14 @@ TcpResult TcpClient::disconnect()
     Core::LoopMain::instance().deRegisterIo(socket_->getFd(), Io::IoFdType::IoFdRead);
 
     state_ = TcpState::Tcp_Closed;
+    TcpResult ret = TcpResult::Success;
     if (SOCKET_ERROR == socket_->close())
     {
         TRACE_NOTICE(socket_->getErrorInfo());
-        return TcpResult::Failed;
+        ret = TcpResult::Failed;
     }
-    else
-    {
-        tcpConnectionReceiver_->onDisconnect();
-        return TcpResult::Success;
-    }
+    tcpConnectionReceiver_->onDisconnect();
+    return ret;
 }
 
 TcpResult TcpClient::cleanup()
@@ -251,6 +232,7 @@ TcpResult TcpClient::restart()
 {
     TRACE_ENTER();
     socket_ = std::shared_ptr<TcpSocket>(new TcpSocket(socket_->getRemoteEndpoint(), socket_->getRemoteEndpoint()));
+    init();
     return TcpResult::Success;
 }
 

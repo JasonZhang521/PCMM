@@ -20,20 +20,12 @@ class TcpClient : public ITcpClient, public Io::IIoEvent
 {
     struct ConnectionTimer : public TimerHandler::ITimer
     {
-        enum ConnectState
-        {
-            Connecting,
-            DisConnecting
-        };
-
         ConnectionTimer(ITcpClient* client);
         ~ConnectionTimer();
         virtual void onTime();
         virtual std::ostream& operator<<(std::ostream& os);
     private:
         ITcpClient* client_;
-        ConnectState state_;
-        unsigned int connectTryCount_;
     public:
         GETCLASSNAME(ConnectionTimer)
     };
@@ -41,7 +33,7 @@ class TcpClient : public ITcpClient, public Io::IIoEvent
     TcpState state_;
     std::shared_ptr<TcpSocket> socket_;
     std::shared_ptr<ITcpConnectionReceiver> tcpConnectionReceiver_;
-    std::shared_ptr<TimerHandler::ITimer> connectionTimer_;
+    std::shared_ptr<ConnectionTimer> connectionTimer_;
 public:
     TcpClient(const IpSocketEndpoint& localEndpoint,
               const IpSocketEndpoint& remoteEndpoint,

@@ -29,7 +29,6 @@ public:
     uint64_t getExpiredTime() const;
     uint64_t getPeriod() const;
     TimerType getTimerType() const;
-protected:
     void resetTimer();
 };
 

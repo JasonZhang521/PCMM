@@ -10,6 +10,12 @@ namespace IoPlatformWrapper {
 #ifdef WIN32
 int InitSocket()
 {
+    static bool isStartup = false;
+    if (isStartup)
+    {
+        return SOCKET_SUCCESS;
+    }
+
     WORD wVersionRequested = MAKEWORD( 2, 2 );
     WSADATA wsaData;
     int err = WSAStartup( wVersionRequested, &wsaData );
@@ -33,6 +39,7 @@ int InitSocket()
         return UNSUPPORTED_SOCKET_VERION;
     }
 
+    isStartup = true;
     return SOCKET_SUCCESS;
 }
 

@@ -62,6 +62,7 @@ void ClusterMgtConnectionAcceptor::createClusterConnection(int fd,
     clusterMgtController_->addAcceptedIpcClient(remoteEndPoint.toString(), ipcClient, clientType_);
     tcpAcceptedClient->init();
     Core::LoopMain::instance().registerIo(Io::IoFdType::IoFdRead, tcpAcceptedClientPtr);
+    // tcpAcceptedClient->receive();
 }
 
 }
