@@ -59,6 +59,7 @@ void SystemMonitorHandler::reportSystemInfo()
     {
         SystemMonitorMessage::SystemInfoMessage message(Environment::CpuUsageInfo(Environment::CpuUsage::instance().getCpuUsageEntrys()));
         TRACE_DEBUG("report system information:" << message);
+        TRACE_NOTICE("report system information:" << message);
         ipcClient_->send(message);
     }
     else
@@ -69,19 +70,19 @@ void SystemMonitorHandler::reportSystemInfo()
 
 void SystemMonitorHandler::startup()
 {
-    TRACE_ENTER();
+    TRACE_NOTICE("System monitor startup");
     ipcClient_->connect();
 }
 
 void SystemMonitorHandler::shutdown()
 {
-    TRACE_ENTER();
+    TRACE_NOTICE("System monitor shutdown");
     ipcClient_->disconnect();
 }
 
 void SystemMonitorHandler::reStartup()
 {
-    TRACE_ENTER();
+    TRACE_NOTICE("System monitor re-startup");
     if (!systemMonitorRestartTimer_)
     {
         systemMonitorRestartTimer_ = std::shared_ptr<SystemMonitorRestartTimer>(new SystemMonitorRestartTimer(this));
@@ -92,10 +93,12 @@ void SystemMonitorHandler::reStartup()
 
 void SystemMonitorHandler::onStartup()
 {
+    TRACE_NOTICE("System monitor startup done!");
     isStartup_ = true;
 }
 void SystemMonitorHandler::onShutdown()
 {
+    TRACE_NOTICE("System monitor shutdown done!");
     isStartup_ = false;
     reStartup();
 }

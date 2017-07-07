@@ -21,6 +21,7 @@ public:
     virtual void startup();
     virtual void shutdown();
     virtual void addAcceptedIpcClient(const std::string& remoteEndPoint, std::shared_ptr<Ipc::IIpcClient> ipcClient, ClientType type);
+    virtual void removeAcceptedIpcClient(const std::string& remoteEndPoint, ClientType type);
     virtual void handleMessage(const IpcMessage::IIpcMessage& msg, ClientType fromClientType);
     virtual void addClientManager(ClientType type, std::shared_ptr<IClusterMgtClientsManagement> clientManager);
 

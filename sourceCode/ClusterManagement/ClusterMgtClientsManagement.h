@@ -24,6 +24,7 @@ public:
     virtual void startup();
     virtual void shutdown();
     virtual void addAcceptedIpcClient(const std::string& remoteEndPoint, std::shared_ptr<Ipc::IIpcClient> ipcClient);
+    virtual void removeAcceptedIpcClient(const std::string& remoteEndPoint);
     virtual void handleMessage(const IpcMessage::IIpcMessage& msg);
 private:
     void forwardIpcMessage(const std::string& remoteEndPoint, const IpcMessage::IIpcMessage& msg);

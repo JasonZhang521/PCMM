@@ -53,6 +53,7 @@ void IpcConnectionTcpClientStrategy::send(const IpcMessage::IIpcMessage& msg)
     TRACE_ENTER();
     Serialize::WriteBuffer writeBuffer;
     msg.serialize(writeBuffer);
+    TRACE_NOTICE("send msg:" << writeBuffer);
     client_->send(writeBuffer);
 }
 
@@ -85,6 +86,7 @@ void IpcConnectionTcpClientStrategy::onReceive(Serialize::ReadBuffer& readBuffer
     uint8_t messageType = static_cast<uint8_t>(IpcMessage::IpcMessage_None);
     readBuffer.peek(messageType);
     TRACE_DEBUG("Receive ipc message: message type = " << messageType);
+    TRACE_NOTICE("receive msg:" << readBuffer);
     IpcMessageFactroyMap::iterator
             it = ipcMessageFactories_.find(static_cast<IpcMessage::IpcMessageType>(messageType));
     if (it != ipcMessageFactories_.end())
@@ -96,6 +98,7 @@ void IpcConnectionTcpClientStrategy::onReceive(Serialize::ReadBuffer& readBuffer
         if (msg)
         {
             TRACE_DEBUG("Receive ipc msg:" << *msg);
+            msg->unserialize(readBuffer);
             connectionReceiver_->onReceive(std::move(msg));
         }
         else

@@ -35,10 +35,24 @@ void ClusterMgtClientsManagment::addAcceptedIpcClient(const std::string& remoteE
     IpcClientsMap::iterator it= clients_.find(remoteEndPoint);
     if (it != clients_.end())
     {
-        TRACE_NOTICE("Ipc client :" << remoteEndPoint << " has been updated!");
+        TRACE_WARNING("Ipc client :" << remoteEndPoint << " already exist!");
     }
 
     clients_[remoteEndPoint] = ipcClient;
+}
+
+void ClusterMgtClientsManagment::removeAcceptedIpcClient(const std::string& remoteEndPoint)
+{
+    TRACE_DEBUG("remove client:" << remoteEndPoint);
+    IpcClientsMap::iterator it = clients_.find(remoteEndPoint);
+    if (it != clients_.end())
+    {
+        clients_.erase(it);
+    }
+    else
+    {
+        TRACE_WARNING("Ipc client :" << remoteEndPoint << " already been removed!");
+    }
 }
 
 void ClusterMgtClientsManagment::handleMessage(const IpcMessage::IIpcMessage& msg)

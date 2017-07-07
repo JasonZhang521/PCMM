@@ -94,4 +94,19 @@ bool ReadBuffer::operator==(const ReadBuffer& buffer)
     return true;
 }
 
+std::ostream& ReadBuffer::operator << (std::ostream& os) const
+{
+    os << "["
+       << "bufferSize=" << bufferSize_
+       << ", dataSize=" << dataSize_
+       << ", pos=" << pos_
+       << ",stream=";
+    for (unsigned int i = 0; i < dataSize_; ++i)
+    {
+        os << std::hex << (int)buffer_[i];
+    }
+    os << std::dec << "]";
+    return os;
+}
+
 }

@@ -2,6 +2,8 @@
 #define _CLUSTERMANAGEMENT_CLUSTERMGTCONNECTIONACCEPTOR_H_
 #include "IIpcConnectionAcceptor.h"
 #include "ClusterMgtClientType.h"
+#include "Component.h"
+#include "Macro.h"
 #include <memory>
 
 namespace ClusterManagement {
@@ -22,6 +24,8 @@ private:
     void createClusterConnection(int fd,
                                  const Network::IpSocketEndpoint& localEndPoint,
                                  const Network::IpSocketEndpoint& remoteEndPoint);
+public:
+    GETCLASSNAME(ClusterMgtConnectionAcceptor)
 };
 
 }

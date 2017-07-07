@@ -8,6 +8,7 @@
 #include "TcpClient.h"
 #include "SystemMonitorMessageFactory.h"
 #include "LoopMain.h"
+#include "Trace.h"
 
 namespace ClusterManagement {
 ClusterMgtConnectionAcceptor::ClusterMgtConnectionAcceptor(ClientType type, std::shared_ptr<IClusterMgtController> clusterMgtController)

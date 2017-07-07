@@ -240,7 +240,6 @@ TcpResult TcpClient::restart()
 void TcpClient::run(EventHandler::EventFlag flag)
 {
     TRACE_ENTER();
-    TRACE_NOTICE("fd = " << socket_->getFd() << ", flag = " << EventFlagString(flag));
     if (state_ == TcpState::Tcp_Established)
     {
         if (flag == EventHandler::EventFlag::Event_IoRead)

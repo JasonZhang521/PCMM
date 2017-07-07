@@ -85,6 +85,21 @@ bool WriteBuffer::operator==(const WriteBuffer& buffer)
     return true;
 }
 
+std::ostream& WriteBuffer::operator << (std::ostream& os) const
+{
+    os << "["
+       << "bufferSize=" << bufferSize_
+       << ", dataSize=" << dataSize_
+       << ", pos=" << pos_
+       << ",stream=";
+    for (unsigned int i = 0; i < dataSize_; ++i)
+    {
+        os << std::hex << (int)buffer_[i];
+    }
+    os << std::dec << "]";
+    return os;
+}
+
 void WriteBuffer::resizeBuffer(unsigned int additionSize)
 {
     bufferSize_ = bufferSize_ * 2 + additionSize;

@@ -3,6 +3,7 @@
 #include "BufferToData.h"
 #include "Component.h"
 #include "Macro.h"
+#include <ostream>
 namespace Serialize {
 
 class ReadBuffer
@@ -50,10 +51,18 @@ public:
     void swap(ReadBuffer& buffer);
     bool operator==(const ReadBuffer& buffer);
 
+    std::ostream& operator << (std::ostream& os) const;
+
 public:
     GETCLASSNAME(ReadBuffer)
 };
 
 }
+
+inline std::ostream& operator << (std::ostream& os, const Serialize::ReadBuffer& buffer)
+{
+    return buffer.operator <<(os);
+}
+
 
 #endif // _SERIALIZE_READBUFFERR_H_

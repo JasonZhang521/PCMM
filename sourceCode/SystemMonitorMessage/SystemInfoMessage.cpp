@@ -66,8 +66,8 @@ std::ostream& SystemInfoMessage::operator<< (std::ostream& os) const
 {
     os << "["
        << "ipcMessageType=" << static_cast<int>(IpcMessage::IpcMessage_SystemMonitor)
-       << "systemMonitorType=" << static_cast<int>(IpcMessage::SystemInfoMessage)
-       << "cpuUsageInfo=" << cpuUsageInfo_
+       << ", systemMonitorType=" << static_cast<int>(IpcMessage::SystemInfoMessage)
+       << ", cpuUsageInfo=" << cpuUsageInfo_
        << "]";
     return os;
 }

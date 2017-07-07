@@ -36,7 +36,7 @@ public:
 
     void swap(WriteBuffer& buffer);
     bool operator==(const WriteBuffer& buffer);
-
+    std::ostream& operator << (std::ostream& os) const;
 private:
     void resizeBuffer(unsigned int additionSize);
 
@@ -47,6 +47,11 @@ public:
     GETCLASSNAME(WriteBuffer)
 };
 
+}
+
+inline std::ostream& operator << (std::ostream& os, const Serialize::WriteBuffer& buffer)
+{
+    return buffer.operator <<(os);
 }
 
 #endif // WRITEBUFFER_H
