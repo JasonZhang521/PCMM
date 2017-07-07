@@ -124,7 +124,7 @@ TcpResult TcpClient::connect()
         {
             TRACE_NOTICE(socket_->getErrorInfo() << " socket = " << *socket_);
             state_ = TcpState::Tcp_Connecting;
-            connectionTimer_.reset();
+            connectionTimer_->resetTimer();
             Core::LoopMain::instance().registerTimer(connectionTimer_.get());
             Core::LoopMain::instance().registerIo(Io::IoFdType::IoFdWrite, this);
             return TcpResult::Success;    
@@ -132,7 +132,7 @@ TcpResult TcpClient::connect()
         else
         {
             TRACE_WARNING(socket_->getErrorInfo() << ", socket = " << *socket_);
-            connectionTimer_.reset();
+            connectionTimer_->resetTimer();
             Core::LoopMain::instance().registerTimer(connectionTimer_.get());
             return TcpResult::Failed;
         }
@@ -147,6 +147,7 @@ TcpResult TcpClient::connect()
         Core::LoopMain::instance().deRegisterTimer(connectionTimer_->getTimerId());
 
         state_ = TcpState::Tcp_Established;
+        tcpConnectionReceiver_->onConnect();
         return TcpResult::Success;
     }
 }
@@ -259,6 +260,7 @@ void TcpClient::run(EventHandler::EventFlag flag)
             state_ = TcpState::Tcp_Established;
             Core::LoopMain::instance().deRegisterIo(getIoHandle(), Io::IoFdType::IoFdWrite);
             Core::LoopMain::instance().deRegisterTimer(connectionTimer_->getTimerId());
+            tcpConnectionReceiver_->onConnect();
         }
     }
 }

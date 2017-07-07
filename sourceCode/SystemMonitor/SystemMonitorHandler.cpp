@@ -86,7 +86,7 @@ void SystemMonitorHandler::reStartup()
     {
         systemMonitorRestartTimer_ = std::shared_ptr<SystemMonitorRestartTimer>(new SystemMonitorRestartTimer(this));
     }
-    systemMonitorRestartTimer_.reset();
+    systemMonitorRestartTimer_->resetTimer();
     Core::LoopMain::instance().registerTimer(systemMonitorRestartTimer_.get());
 }
 
