@@ -1,4 +1,5 @@
 #include "TcpSocket.h"
+#include "SocketWrapper.h"
 #include "Trace.h"
 #include <sstream>
 
@@ -40,7 +41,8 @@ int TcpSocket::bind() const
     TRACE_DEBUG("bind to:" << localEndpoint_);
     if (IPFamilyType::IPFamilyV4 == localEndpoint_.getIpFamilyType())
     {
-        const SocketAddressIn address = localEndpoint_.getSocketAddressIpv4();
+        SocketAddressIn address = localEndpoint_.getSocketAddressIpv4();
+        address.sin_port = IoPlatformWrapper::Htons(address.sin_port);
         return SocketImp::bind(reinterpret_cast<const SocketAddress*>(&address), sizeof(SocketAddress));
     }
     else if(IPFamilyType::IPFamilyV6 == localEndpoint_.getIpFamilyType())
@@ -60,7 +62,8 @@ int TcpSocket::connect() const
     TRACE_DEBUG("connect to:" << remoteEndpoint_);
     if (IPFamilyType::IPFamilyV4 == remoteEndpoint_.getIpFamilyType())
     {
-        const SocketAddressIn address = remoteEndpoint_.getSocketAddressIpv4();
+        SocketAddressIn address = remoteEndpoint_.getSocketAddressIpv4();
+        address.sin_port = IoPlatformWrapper::Htons(address.sin_port);
         return SocketImp::connect(reinterpret_cast<const SocketAddress*>(&address), sizeof(SocketAddress));
     }
     else if(IPFamilyType::IPFamilyV6 == remoteEndpoint_.getIpFamilyType())
@@ -84,8 +87,8 @@ int TcpSocket::accept(IpSocketEndpoint& remoteEndPoint, SocketFlag flags) const
         SocketAddress address;
 
         int fd = SocketImp::accept(&address, &len, flags);
-        remoteEndPoint = IpSocketEndpoint(IpAddress(IoPlatformWrapper::getInetAddressFromSocketAddress(address)),
-                                          IpPort(IoPlatformWrapper::SocketAddressToAddressIn(address).sin_port));
+        const unsigned short port = IoPlatformWrapper::Ntohs(IoPlatformWrapper::SocketAddressToAddressIn(address).sin_port);
+        remoteEndPoint = IpSocketEndpoint(IpAddress(IoPlatformWrapper::getInetAddressFromSocketAddress(address)), IpPort(port));
         TRACE_DEBUG("accepted: fd = " << fd << ", remoteEndPoint = " << remoteEndPoint);
         return fd;
     }
