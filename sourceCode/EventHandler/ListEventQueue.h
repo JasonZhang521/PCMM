@@ -8,20 +8,37 @@
 namespace EventHandler {
 class IEvent;
 
-// using EventList = std::list<IEvent*>;
-typedef std::list<IEvent*> EventList;
-
 class ListEventQueue : public IEventQueue
 {
+    struct EventCache
+    {
+        enum Op{
+            Add,
+            Delete
+        };
+        Op op_;
+        uint64_t eventId_;
+        IEvent* event_;
+        EventCache(Op op, uint64_t eventId, IEvent* event)
+            :op_(op), eventId_(eventId), event_(event)
+        {}
+    };
+
+    bool isExecuting_;
+    using EventList = std::list<IEvent*>;
     EventList eventsList_;
+    using EventCacheList = std::list<EventCache>;
+    EventCacheList eventCacheList_;
 public:
     ListEventQueue();
     virtual ~ListEventQueue();
 protected:
     virtual void addEvent(IEvent*);
-    virtual void deleteEvent(uint64_t eventID);
+    virtual void deleteEvent(uint64_t eventId);
     virtual void executeEvents(unsigned int executeTime);
     virtual std::ostream& operator<<(std::ostream& os) const;
+private:
+    void refreshEvents();
 
 public:
      GETCLASSNAME(ListEventQueue)

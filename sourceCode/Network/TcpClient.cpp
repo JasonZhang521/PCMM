@@ -201,8 +201,8 @@ TcpResult TcpClient::disconnect()
 {
     TRACE_ENTER();
     // deregister the IO
-    Core::LoopMain::instance().deRegisterIo(getIoHandle(), Io::IoFdType::IoFdWrite);
-    Core::LoopMain::instance().deRegisterIo(socket_->getFd(), Io::IoFdType::IoFdRead);
+    Core::LoopMain::instance().deRegisterIo(Io::IoFdType::IoFdWrite, getIoHandle());
+    Core::LoopMain::instance().deRegisterIo(Io::IoFdType::IoFdRead, getIoHandle());
 
     state_ = TcpState::Tcp_Closed;
     TcpResult ret = TcpResult::Success;
@@ -257,7 +257,7 @@ void TcpClient::run(EventHandler::EventFlag flag)
             Core::LoopMain::instance().registerIo(Io::IoFdType::IoFdRead, ioEvent);
 
             state_ = TcpState::Tcp_Established;
-            Core::LoopMain::instance().deRegisterIo(getIoHandle(), Io::IoFdType::IoFdWrite);
+            Core::LoopMain::instance().deRegisterIo(Io::IoFdType::IoFdWrite, getIoHandle());
             Core::LoopMain::instance().deRegisterTimer(connectionTimer_->getTimerId());
             tcpConnectionReceiver_->onConnect();
         }

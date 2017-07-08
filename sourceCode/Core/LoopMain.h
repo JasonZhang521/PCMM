@@ -27,7 +27,7 @@ public:
     void registerEvent(EventHandler::IEvent* event);
     void deRegisterEvent(uint64_t eventID);
     void registerIo(Io::IoFdType type, Io::IIoEvent* IEvent);
-    void deRegisterIo(int fd, Io::IoFdType type);
+    void deRegisterIo(Io::IoFdType type, int fd);
     void loop();
 
 public:

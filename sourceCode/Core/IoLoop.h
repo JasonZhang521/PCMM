@@ -21,7 +21,7 @@ public:
     IoLoop(std::shared_ptr<Io::IIoControl> ioControl);
     void runLoop();
     void registerIo(Io::IoFdType type, Io::IIoEvent* event);
-    void deRegisterIo(int fd, Io::IoFdType type);
+    void deRegisterIo(Io::IoFdType type, int fd);
 };
 
 }

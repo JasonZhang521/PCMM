@@ -12,6 +12,7 @@
 namespace TimerHandler {
 
 ListTimerQueue::ListTimerQueue()
+    :isExecuting_(false)
 {
 
 }
@@ -22,42 +23,57 @@ ListTimerQueue::~ListTimerQueue()
 
 void ListTimerQueue::addTimer(ITimer* timer)
 {
-    if (timersList_.empty())
+    if (!isExecuting_)
     {
-        timersList_.push_back(timer);
-        return;
+        if (timersList_.empty())
+        {
+            timersList_.push_back(timer);
+            return;
+        }
+        else
+        {
+            TimersList::iterator it = timersList_.end();
+            TimersList::iterator lastIt = it--;
+            for (; it != timersList_.begin(); lastIt = it--)
+            {
+                const ITimer* timerInList = *it;
+                if (timer->getExpiredTime() >= timerInList->getExpiredTime())
+                {
+                    timersList_.insert(lastIt, timer);
+                    return;
+                }
+            }
+            timersList_.push_front( timer);
+        }
     }
     else
     {
-        TimersList::iterator it = timersList_.end();
-        TimersList::iterator lastIt = it--;
-        for (; it != timersList_.begin(); lastIt = it--)
-        {
-            const ITimer* timerInList = *it;
-            if (timer->getExpiredTime() >= timerInList->getExpiredTime())
-            {
-                timersList_.insert(lastIt, timer);
-                return;
-            }
-        }
-        timersList_.push_front( timer);
+        timersCacheList_.push_back(TimerCache(TimerCache::Add, timer->getTimerId(), timer));
     }
 }
 
 void ListTimerQueue::deleteTimer(uint64_t timerID)
 {
-    for (TimersList::iterator it = timersList_.begin(); it != timersList_.end(); ++it)
+    if (!isExecuting_)
     {
-       ITimer* timerInList = *it;
-       if (timerInList->getTimerId() == timerID)
-       {
-           it = timersList_.erase(it);
-       }
+        for (TimersList::iterator it = timersList_.begin(); it != timersList_.end(); ++it)
+        {
+           ITimer* timerInList = *it;
+           if (timerInList->getTimerId() == timerID)
+           {
+               it = timersList_.erase(it);
+           }
+        }
+    }
+    else
+    {
+        timersCacheList_.push_back(TimerCache(TimerCache::Delete, timerID, nullptr));
     }
 }
 
 void ListTimerQueue::executeTimers()
 {
+    isExecuting_ = true;
     TimeStat totalStat;
     for (TimersList::iterator it = timersList_.begin(); it != timersList_.end(); ++it)
     {
@@ -88,6 +104,9 @@ void ListTimerQueue::executeTimers()
             TRACE_DEBUG("Timers is executing more than " << MaxRunningDurationForTimersInOneLoop << "ms");
         }
     }
+    isExecuting_ = false;
+
+    refreshTimers();
 }
 
 std::ostream& ListTimerQueue::operator<<(std::ostream& os) const
@@ -99,6 +118,33 @@ std::ostream& ListTimerQueue::operator<<(std::ostream& os) const
     }
     os << "]";\
     return os;
+}
+
+void ListTimerQueue::refreshTimers()
+{
+    if (isExecuting_)
+    {
+       TRACE_WARNING("Can not refresh timers during execution!");
+       return;
+    }
+
+    for (TimersCacheList::iterator it = timersCacheList_.begin(); it != timersCacheList_.end(); ++it)
+    {
+        TimerCache& timerCache = *it;
+        if (timerCache.op_ == TimerCache::Add)
+        {
+            addTimer(timerCache.timer_);
+        }
+        else if (timerCache.op_ == TimerCache::Delete)
+        {
+            deleteTimer(timerCache.timerId_);
+        }
+        else
+        {
+            TRACE_WARNING("unkown timer operator: timerId = " << timerCache.timerId_ << ", operator = " << static_cast<int>(timerCache.op_));
+        }
+    }
+    timersCacheList_.clear();
 }
 
 std::ostream& operator<<(std::ostream& os, ITimerQueue* timerQueue)

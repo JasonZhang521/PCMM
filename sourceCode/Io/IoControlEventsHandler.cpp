@@ -26,44 +26,56 @@ void IoControlEventsHandler::registerIoFd(IoFdType type, IIoEvent* event)
 {
     int fd = event->getIoHandle();
     TRACE_NOTICE("fd = " << fd << ", type = " << type << ", event = " << event);
-
-    IoFdEventMap::iterator it = fdEventMap_.find(fd);
-    if (it != fdEventMap_.end())
+    if (!isRunning_)
     {
-        IoFdEvent& event = it->second;
-        if ((event.fdType & type) != IoFdType::IoFdNoType)
+        IoFdEventMap::iterator it = fdEventMap_.find(fd);
+        if (it != fdEventMap_.end())
         {
-            TRACE_NOTICE("fd = " << fd << ", IoFdType = " << static_cast<int>(type) << " has already registered!");
-            return;
+            IoFdEvent& event = it->second;
+            if ((event.fdType & type) != IoFdType::IoFdNoType)
+            {
+                TRACE_NOTICE("fd = " << fd << ", IoFdType = " << static_cast<int>(type) << " has already registered!");
+                return;
+            }
+            else
+            {
+                event.fdType = (event.fdType | type);
+                addToFdSet(fd, type);
+            }
         }
         else
         {
-            event.fdType = (event.fdType | type);
+            fdEventMap_.insert(std::pair<int, IoFdEvent>(fd, IoFdEvent(type, event)));
             addToFdSet(fd, type);
         }
     }
     else
     {
-        fdEventMap_.insert(std::pair<int, IoFdEvent>(fd, IoFdEvent(type, event)));
-        addToFdSet(fd, type);
+        ioEventsCacheList_.push_back(IoEventCache(IoEventCache::Register, fd, event, type));
     }
 }
 
-void IoControlEventsHandler::unRegisterIoFd(int fd, IoFdType type)
+void IoControlEventsHandler::unRegisterIoFd(IoFdType type, int fd)
 {
     TRACE_NOTICE("fd = " << fd << ", type = " << static_cast<int>(type));
-
-    IoFdEventMap::iterator it = fdEventMap_.find(fd);
-    if (it != fdEventMap_.end())
+    if (!isRunning_)
     {
-        IoFdEvent& event = it->second;
-        event.fdType &= ~type;
-        if (event.fdType == IoFdType::IoFdNoType)
+        IoFdEventMap::iterator it = fdEventMap_.find(fd);
+        if (it != fdEventMap_.end())
         {
-            fdEventMap_.erase(it);
-        }
+            IoFdEvent& event = it->second;
+            event.fdType &= ~type;
+            if (event.fdType == IoFdType::IoFdNoType)
+            {
+                fdEventMap_.erase(it);
+            }
 
-        removeFromFdSet(fd, type);
+            removeFromFdSet(fd, type);
+        }
+    }
+    else
+    {
+        ioEventsCacheList_.push_back(IoEventCache(IoEventCache::UnRegister, fd, nullptr, type));
     }
 }
 
@@ -73,8 +85,11 @@ void IoControlEventsHandler::run()
     if (fdEventMap_.empty())
     {
         TRACE_DEBUG3("No fd to be handled!");
+        refreshIoEvents();
         return;
     }
+
+    isRunning_ = true;
 
     clearAllFdSet();
     IoFdEventMap::iterator it = fdEventMap_.begin();
@@ -113,6 +128,10 @@ void IoControlEventsHandler::run()
             event->run(EventHandler::EventFlag::Event_IoExcept);
         }
     }
+
+    isRunning_ = false;
+
+    refreshIoEvents();
 }
 
 std::ostream& IoControlEventsHandler::operator<< (std::ostream& os) const
@@ -185,6 +204,33 @@ void IoControlEventsHandler::removeFromFdSet(int fd, uint32_t type)
     {
         IoPlatformWrapper::FdClear(fd, &exceptFds_);
     }
+}
+
+void IoControlEventsHandler::refreshIoEvents()
+{
+    if (isRunning_)
+    {
+       TRACE_WARNING("Can not refresh ioEvent during running!");
+       return;
+    }
+
+    for (IoEventsCacheList::iterator it = ioEventsCacheList_.begin(); it != ioEventsCacheList_.end(); ++it)
+    {
+        IoEventCache& ioEventCache = *it;
+        if (ioEventCache.op_ == IoEventCache::Register)
+        {
+            registerIoFd(ioEventCache.type_, ioEventCache.event_);
+        }
+        else if (ioEventCache.op_ == IoEventCache::UnRegister)
+        {
+            unRegisterIoFd(ioEventCache.type_, ioEventCache.fd_);
+        }
+        else
+        {
+            TRACE_WARNING("unkown event operator: eventId = " << ioEventCache.fd_ << ", operator = " << static_cast<int>(ioEventCache.op_));
+        }
+    }
+    ioEventsCacheList_.clear();
 }
 
 }

@@ -8,6 +8,7 @@
 namespace EventHandler {
 
 ListEventQueue::ListEventQueue()
+    :isExecuting_(false)
 {
 }
 
@@ -17,24 +18,38 @@ ListEventQueue::~ListEventQueue()
 
 void ListEventQueue::addEvent(IEvent* event)
 {
-    eventsList_.push_back(event);
+    if (!isExecuting_)
+    {
+        eventsList_.push_back(event);
+    }
+    else
+    {
+        eventCacheList_.push_back(EventCache(EventCache::Add, event->getEventId(), event));
+    }
 }
 
-void ListEventQueue::deleteEvent(uint64_t eventID)
+void ListEventQueue::deleteEvent(uint64_t eventId)
 {
-    for (EventList::iterator it = eventsList_.begin(); it != eventsList_.end(); ++it)
+    if (!isExecuting_)
     {
-        if (eventID == (*it)->getEventId())
+        for (EventList::iterator it = eventsList_.begin(); it != eventsList_.end(); ++it)
         {
-            eventsList_.erase(it);
-            delete (*it);
-            return;
+            if (eventId == (*it)->getEventId())
+            {
+                eventsList_.erase(it);
+                return;
+            }
         }
+    }
+    else
+    {
+        eventCacheList_.push_back(EventCache(EventCache::Delete, eventId, nullptr));
     }
 }
 
 void ListEventQueue::executeEvents(unsigned int executeTime)
 {
+    isExecuting_ = true;
     TimeStat totalStat;
     while (!eventsList_.empty())
     {
@@ -61,6 +76,37 @@ void ListEventQueue::executeEvents(unsigned int executeTime)
     {
         TRACE_WARNING("Timers is executing more than " << MaxRunningDurationForTimersInOneLoop << "ms");
     }
+    isExecuting_ = false;
+
+    // event should be refresh
+    refreshEvents();
+}
+
+void ListEventQueue::refreshEvents()
+{
+    if (isExecuting_)
+    {
+       TRACE_WARNING("Can not refresh events during execution!");
+       return;
+    }
+
+    for (EventCacheList::iterator it = eventCacheList_.begin(); it != eventCacheList_.end(); ++it)
+    {
+        EventCache& eventCache = *it;
+        if (eventCache.op_ == EventCache::Add)
+        {
+            addEvent(eventCache.event_);
+        }
+        else if (eventCache.op_ == EventCache::Delete)
+        {
+            deleteEvent(eventCache.eventId_);
+        }
+        else
+        {
+            TRACE_WARNING("unkown event operator: eventId = " << eventCache.eventId_ << ", operator = " << static_cast<int>(eventCache.op_));
+        }
+    }
+    eventCacheList_.clear();
 }
 
 std::ostream& ListEventQueue::operator<<(std::ostream& os) const
