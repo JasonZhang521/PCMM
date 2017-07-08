@@ -6,6 +6,7 @@ include_directories ("${PROJECT_SOURCE_DIR}/TraceLog"
 "${PROJECT_SOURCE_DIR}/Connection"
 "${PROJECT_SOURCE_DIR}/Network"
 "${PROJECT_SOURCE_DIR}/Serialize"
+"${PROJECT_SOURCE_DIR}/IoPlatformWrapper"
 )
 
 add_library(ipcmessage  ${ipcmessage_SRCS})

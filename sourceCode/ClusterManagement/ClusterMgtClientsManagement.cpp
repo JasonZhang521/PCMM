@@ -57,7 +57,7 @@ void ClusterMgtClientsManagment::removeAcceptedIpcClient(const std::string& remo
 
 void ClusterMgtClientsManagment::handleMessage(const IpcMessage::IIpcMessage& msg)
 {
-    const std::string& dest = msg.getDestnation();
+    const std::string dest = msg.getDestnation().toString();
     if (dest.empty())
     {
         broadcastMsg(msg);
