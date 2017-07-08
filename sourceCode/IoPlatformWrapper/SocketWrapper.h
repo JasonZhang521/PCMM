@@ -233,6 +233,15 @@ inline int GetSockName(SocketHandle sockfd, SocketAddress *addr, SocketAddresstL
 
 int SetBlocking(SocketHandle sockfd, bool blocking);
 
+
+enum ByteOrder
+{
+    LittleEndian,
+    BigEndian
+};
+
+ByteOrder CheckByteOrder();
+
 inline unsigned long Htonl(unsigned long hostlong)
 {
     return htonl(hostlong);
@@ -251,6 +260,12 @@ inline unsigned short Htons(unsigned short hostshort)
 inline unsigned short Ntohs(unsigned short netshort)
 {
     return ntohs(netshort);
+}
+
+unsigned long long Ntohll(unsigned long long netllong);
+inline unsigned long long Htonll(unsigned long long hostllong)
+{
+    return Ntohll(hostllong);
 }
 
 int GetHostName(std::string& hostname);

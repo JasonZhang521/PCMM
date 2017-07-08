@@ -31,14 +31,37 @@ SystemInfoMessage::~SystemInfoMessage()
 void SystemInfoMessage::serialize(Serialize::WriteBuffer& writeBuffer) const
 {
     TRACE_ENTER();
-    writeBuffer.write<uint8_t>(static_cast<uint8_t>(IpcMessage::IpcMessageType::IpcMessage_SystemMonitor));
-    writeBuffer.write<uint8_t>(static_cast<uint8_t>(IpcMessage::SystemInfoMessage));
-    cpuUsageInfo_.serialize(writeBuffer);
+    write(writeBuffer);
 }
 
 void SystemInfoMessage::unserialize(Serialize::ReadBuffer& readBuffer)
 {
     TRACE_ENTER();
+    read(readBuffer);
+}
+
+IpcMessage::SystemMonitorType SystemInfoMessage::getSystemMonitorType() const
+{
+    return IpcMessage::SystemInfoMessage;
+}
+
+std::ostream& SystemInfoMessage::operator<< (std::ostream& os) const
+{
+    print(os);
+    return os;
+}
+
+void SystemInfoMessage::write(Serialize::WriteBuffer& writeBuffer) const
+{
+    IpcMessage::IIpcMessage::write(writeBuffer);
+    writeBuffer.write<uint8_t>(static_cast<uint8_t>(IpcMessage::IpcMessageType::IpcMessage_SystemMonitor));
+    writeBuffer.write<uint8_t>(static_cast<uint8_t>(IpcMessage::SystemInfoMessage));
+    cpuUsageInfo_.serialize(writeBuffer);
+}
+
+void SystemInfoMessage::read(Serialize::ReadBuffer& readBuffer)
+{
+    IpcMessage::IIpcMessage::read(readBuffer);
     uint8_t temp = 0;
     readBuffer.read<uint8_t>(temp);
     IpcMessage::IpcMessageType type = static_cast<IpcMessage::IpcMessageType>(temp);
@@ -57,19 +80,14 @@ void SystemInfoMessage::unserialize(Serialize::ReadBuffer& readBuffer)
     cpuUsageInfo_.unserialize(readBuffer);
 }
 
-IpcMessage::SystemMonitorType SystemInfoMessage::getSystemMonitorType() const
+void SystemInfoMessage::print(std::ostream& os) const
 {
-    return IpcMessage::SystemInfoMessage;
-}
-
-std::ostream& SystemInfoMessage::operator<< (std::ostream& os) const
-{
-    os << "["
-       << "ipcMessageType=" << static_cast<int>(IpcMessage::IpcMessage_SystemMonitor)
+    os << "[";
+    IpcMessage::IIpcMessage::print(os);
+    os << ", ipcMessageType=" << static_cast<int>(IpcMessage::IpcMessage_SystemMonitor)
        << ", systemMonitorType=" << static_cast<int>(IpcMessage::SystemInfoMessage)
        << ", cpuUsageInfo=" << cpuUsageInfo_
        << "]";
-    return os;
 }
 
 }

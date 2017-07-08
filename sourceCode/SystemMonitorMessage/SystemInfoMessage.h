@@ -21,6 +21,11 @@ private:
     virtual void unserialize(Serialize::ReadBuffer& readBuffer);
     virtual IpcMessage::SystemMonitorType getSystemMonitorType() const;
     virtual std::ostream& operator<< (std::ostream& os) const;
+
+private:
+    void write(Serialize::WriteBuffer& writeBuffer) const;
+    void read(Serialize::ReadBuffer& readBuffer);
+    void print(std::ostream& os) const;
 public:
     GETCLASSNAME(SystemInfoMessage)
 };

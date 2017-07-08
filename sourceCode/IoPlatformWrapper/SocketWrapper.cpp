@@ -121,6 +121,31 @@ int SetBlocking(SocketHandle sockfd, bool blocking)
 #endif
 }
 
+ByteOrder CheckByteOrder()
+{
+    if (htons((short)1) == 1)
+    {
+        return BigEndian;
+    }
+    else
+    {
+        return LittleEndian;
+    }
+}
+
+unsigned long long Ntohll(unsigned long long netllong)
+{
+    if (CheckByteOrder() == BigEndian)
+    {
+        return netllong;
+    }
+    else
+    {
+       return (unsigned long long)ntohl((unsigned long)(netllong >> 32)) |
+       (((unsigned long long)ntohl((unsigned long)(netllong & 0xFFFFFFFF))) << 32);
+    }
+}
+
 int GetHostName(std::string& hostname)
 {
     char name[128];

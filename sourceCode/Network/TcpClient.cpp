@@ -13,7 +13,7 @@ namespace Network {
 
 
 TcpClient::ConnectionTimer::ConnectionTimer(ITcpClient* client)
-    : TimerHandler::ITimer(3000)
+    : TimerHandler::ITimer(30000)
     , client_(client)
 {
     if (client == nullptr)
