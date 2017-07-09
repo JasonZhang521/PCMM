@@ -121,14 +121,18 @@ void IpcConnectionTcpClientStrategy::onReceive(Serialize::ReadBuffer& readBuffer
         if (it != ipcMessageFactories_.end())
         {
             std::shared_ptr<IpcMessage::IIpcMessageFactory>& factory = it->second;
-            uint8_t ipcApplicationType = 0xff;
+            IpcMessage::IpcMessageApplicationIntType ipcApplicationType = 0xff;
             readBuffer.peek(ipcApplicationType, sizeof(messageType));
             std::unique_ptr<IpcMessage::IIpcMessage> msg(factory->createMessage(ipcApplicationType));
             if (msg)
             {
                 TRACE_DEBUG("Receive ipc msg:" << *msg);
                 msg->unserialize(readBuffer);
-                connectionReceiver_->onReceive(std::move(msg));
+                if (shouldForwardToApplication(static_cast<IpcMessage::IpcMessageType>(messageType),
+                                               ipcApplicationType))
+                {
+                    connectionReceiver_->onReceive(std::move(msg));
+                }
             }
             else
             {
@@ -160,6 +164,13 @@ void IpcConnectionTcpClientStrategy::onDisconnect()
         Core::LoopMain::instance().deRegisterTimer(heartbeartTimer_->getTimerId());
     }
     connectionReceiver_->onDisconnect();
+}
+
+bool IpcConnectionTcpClientStrategy::shouldForwardToApplication(IpcMessage::IpcMessageType msgType,
+                                                  IpcMessage::IpcMessageApplicationIntType appType)
+{
+    static_cast<void>(appType);
+    return !(msgType == IpcMessage::IpcMessage_IpcCommunication);
 }
 
 }

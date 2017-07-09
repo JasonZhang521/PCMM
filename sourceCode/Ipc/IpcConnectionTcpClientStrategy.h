@@ -45,11 +45,13 @@ private:
     virtual void setHeartbeatTimer(std::shared_ptr<TimerHandler::ITimer> timer);
     virtual void setConnectionTimer(std::shared_ptr<TimerHandler::ITimer> timer);
 
-
     virtual void onConnect();
     virtual void onReceive(Serialize::ReadBuffer& readBuffer);
     virtual void onDisconnect();
 
+private:
+    bool shouldForwardToApplication(IpcMessage::IpcMessageType msgType,
+                                    IpcMessage::IpcMessageApplicationIntType appType);
 public:
      GETCLASSNAME(IpcConnectionTcpClientStrategy)
 };

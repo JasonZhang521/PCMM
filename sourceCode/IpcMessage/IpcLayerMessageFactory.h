@@ -8,7 +8,7 @@ class IpcLayerMessageFactory : public IIpcMessageFactory
 public:
     IpcLayerMessageFactory();
     virtual ~IpcLayerMessageFactory();
-    virtual IIpcMessage* createMessage(IpcMessageIntType type) const;
+    virtual IIpcMessage* createMessage(IpcMessageApplicationIntType type) const;
 };
 
 }

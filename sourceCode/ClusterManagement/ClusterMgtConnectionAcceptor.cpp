@@ -37,7 +37,9 @@ void ClusterMgtConnectionAcceptor::createClusterConnection(int fd,
                                                         const Network::IpSocketEndpoint& remoteEndpoint)
 {
     std::shared_ptr<Ipc::IIpcConnectionReceiver>
-            clustersMgtConnectionReceiver(new ClusterMgtConnectionReceiver(clientType_, clusterMgtController_));
+            clustersMgtConnectionReceiver(new ClusterMgtConnectionReceiver(clientType_,
+                                                                           clusterMgtController_,
+                                                                           remoteEndpoint.toString()));
 
 
     IpcMessageFactories factories;
@@ -49,7 +51,6 @@ void ClusterMgtConnectionAcceptor::createClusterConnection(int fd,
     std::shared_ptr<Ipc::IIpcClient> ipcClient(tcpAcceptedClientPtr);
 
     clusterMgtController_->addAcceptedIpcClient(remoteEndpoint.toString(), ipcClient, clientType_);
-    // tcpAcceptedClient->receive();
 }
 
 }

@@ -2,6 +2,7 @@
 #include "IpcMessageType.h"
 #include "IpcHeartbeatReport.h"
 #include "IpcAuthorizationRequest.h"
+#include "IpcAuthorizationResponse.h"
 namespace IpcMessage {
 
 IpcLayerMessageFactory::IpcLayerMessageFactory()
@@ -15,7 +16,7 @@ IpcLayerMessageFactory::~IpcLayerMessageFactory()
 
 }
 
-IIpcMessage* IpcLayerMessageFactory::createMessage(IpcMessageIntType type) const
+IIpcMessage* IpcLayerMessageFactory::createMessage(IpcMessageApplicationIntType type) const
 {
     if (type == IpcHeartbeatReportMessage)
     {
@@ -24,6 +25,10 @@ IIpcMessage* IpcLayerMessageFactory::createMessage(IpcMessageIntType type) const
     else if (type == IpcAuthorizationRequstMessage)
     {
         return new IpcAuthorizationRequest();
+    }
+    else if (type == IpcAuthorizationResponseMessage)
+    {
+        return new IpcAuthorizationResponse();
     }
     else
     {

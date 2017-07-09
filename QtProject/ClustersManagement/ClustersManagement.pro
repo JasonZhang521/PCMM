@@ -34,7 +34,8 @@ SOURCES += \
     ../../sourceCode/IpcMessage/IpcMessageType.cpp \
     ../../sourceCode/IpcMessage/IIpcComunicationMessage.cpp \
     ../../sourceCode/IpcMessage/IpcAuthorizationRequest.cpp \
-    ../../sourceCode/IpcMessage/IpcAuthorizationResponse.cpp
+    ../../sourceCode/IpcMessage/IpcAuthorizationResponse.cpp \
+    ../../sourceCode/Ipc/IpcServerCreator.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -226,7 +227,8 @@ HEADERS += \
     ../../sourceCode/IpcMessage/IpcLayerMessageFactory.h \
     ../../sourceCode/IpcMessage/IIpcComunicationMessage.h \
     ../../sourceCode/IpcMessage/IpcAuthorizationRequest.h \
-    ../../sourceCode/IpcMessage/IpcAuthorizationResponse.h
+    ../../sourceCode/IpcMessage/IpcAuthorizationResponse.h \
+    ../../sourceCode/Ipc/IpcServerCreator.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

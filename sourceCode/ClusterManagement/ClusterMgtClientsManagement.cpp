@@ -64,7 +64,8 @@ void ClusterMgtClientsManagment::handleMessage(const IpcMessage::IIpcMessage& ms
     }
     else
     {
-        throw std::runtime_error("not completed yet!");
+        IpcClientsMap::iterator it = clients_.find(dest);
+        forwardIpcMessage(dest, msg);
     }
 }
 

@@ -16,7 +16,7 @@ SystemMonitorMessageFactory::~SystemMonitorMessageFactory()
 
 }
 
-IpcMessage::IIpcMessage* SystemMonitorMessageFactory::createMessage(IpcMessage::IpcMessageIntType type) const
+IpcMessage::IIpcMessage* SystemMonitorMessageFactory::createMessage(IpcMessage::IpcMessageApplicationIntType type) const
 {
     if (static_cast<IpcMessage::SystemMonitorMessageType>(type) == IpcMessage::SystemInfoRequest)
     {

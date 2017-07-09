@@ -4,9 +4,12 @@
 #include "Trace.h"
 
 namespace ClusterManagement {
-ClusterMgtConnectionReceiver::ClusterMgtConnectionReceiver(ClientType type, std::shared_ptr<IClusterMgtController> clusterMgtController)
-    :clientType_(type)
-    ,clusterMgtController_(clusterMgtController)
+ClusterMgtConnectionReceiver::ClusterMgtConnectionReceiver(ClientType type,
+                                                           std::shared_ptr<IClusterMgtController> clusterMgtController,
+                                                           const std::string& remoteIpEndpoint)
+    : clientType_(type)
+    , clusterMgtController_(clusterMgtController)
+    , remoteIpEndpoint_(remoteIpEndpoint)
 {
 }
 
@@ -28,7 +31,8 @@ void ClusterMgtConnectionReceiver::onReceive(std::unique_ptr<IpcMessage::IIpcMes
 
 void ClusterMgtConnectionReceiver::onDisconnect()
 {
-    TRACE_NOTICE("client disconnected!");
+    TRACE_NOTICE("client " << remoteIpEndpoint_ << "disconnected!");
+    clusterMgtController_->removeAcceptedIpcClient(remoteIpEndpoint_, clientType_);
 }
 
 }

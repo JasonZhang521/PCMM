@@ -6,7 +6,7 @@
 namespace IpcMessage {
 
 class IIpcMessage;
-using IpcMessageIntType = uint8_t;
+using IpcMessageApplicationIntType = uint8_t;
 
 class IIpcMessageFactory
 {
@@ -14,7 +14,7 @@ public:
     IIpcMessageFactory();
     IIpcMessageFactory(IpcMessageType type);
     virtual ~IIpcMessageFactory();
-    virtual IIpcMessage* createMessage(IpcMessageIntType type) const = 0;
+    virtual IIpcMessage* createMessage(IpcMessageApplicationIntType type) const = 0;
     virtual IpcMessageType messageType();
 
 private:

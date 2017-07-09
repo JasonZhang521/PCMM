@@ -13,8 +13,11 @@ class ClusterMgtConnectionReceiver : public Ipc::IIpcConnectionReceiver
 {
     ClientType clientType_;
     std::shared_ptr<IClusterMgtController> clusterMgtController_;
+    std::string remoteIpEndpoint_;
 public:
-    ClusterMgtConnectionReceiver(ClientType type, std::shared_ptr<IClusterMgtController> clusterMgtController);
+    ClusterMgtConnectionReceiver(ClientType type,
+                                 std::shared_ptr<IClusterMgtController> clusterMgtController,
+                                 const std::string& remoteIpEndpoint);
     virtual ~ClusterMgtConnectionReceiver();
     virtual void onConnect();
     virtual void onReceive(std::unique_ptr<IpcMessage::IIpcMessage> msg);
