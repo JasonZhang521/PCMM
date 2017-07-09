@@ -9,6 +9,10 @@
 #include <string>
 #include <map>
 
+namespace TimerHandler {
+class ITimer;
+}
+
 namespace Network {
 class ITcpClient;
 }
@@ -24,6 +28,8 @@ class IpcConnectionTcpClientStrategy : public IIpcConnectionClientStrategy,
     using IpcMessageFactroyMap = std::map<IpcMessage::IpcMessageType, std::shared_ptr<IpcMessage::IIpcMessageFactory> >;
     IpcMessageFactroyMap ipcMessageFactories_;
     std::shared_ptr<Network::ITcpClient> client_;
+    std::shared_ptr<TimerHandler::ITimer> heartbeartTimer_;
+    std::shared_ptr<TimerHandler::ITimer> connectionTimer_;
 public:
     IpcConnectionTcpClientStrategy(std::shared_ptr<IIpcConnectionReceiver> connectionReceiver,
                                    IpcMessageFactroyMap ipcMessageFactories,
@@ -36,6 +42,8 @@ private:
     virtual void disconnect();
     virtual void setIpcConnectionReceiver(std::shared_ptr<IIpcConnectionReceiver> receiver);
     virtual void addIpcMessageFactory(std::shared_ptr<IpcMessage::IIpcMessageFactory> factory);
+    virtual void setHeartbeatTimer(std::shared_ptr<TimerHandler::ITimer> timer);
+    virtual void setConnectionTimer(std::shared_ptr<TimerHandler::ITimer> timer);
 
 
     virtual void onConnect();

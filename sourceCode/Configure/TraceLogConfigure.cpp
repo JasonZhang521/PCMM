@@ -8,7 +8,7 @@
 #include "TraceLogConfigure.h"
 
 TraceLogConfigure::TraceLogConfigure()
-:level_(TRACE_LOG_NOTICE)
+:level_(TRACE_LOG_DEBUG)
 ,target_(TRACE_LOG_TO_CONSOLE)
 ,filePath_(TraceLogFilePath)
 ,logBufSize_(LogBufSize)

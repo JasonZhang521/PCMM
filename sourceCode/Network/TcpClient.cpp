@@ -8,12 +8,13 @@
 #include "LoopMain.h"
 #include "Trace.h"
 #include "App.h"
+#include "AppConst.h"
 
 namespace Network {
 
 
 TcpClient::ConnectionTimer::ConnectionTimer(ITcpClient* client)
-    : TimerHandler::ITimer(30000)
+    : TimerHandler::ITimer(ConnectionTimeout)
     , client_(client)
 {
     if (client == nullptr)
@@ -24,7 +25,6 @@ TcpClient::ConnectionTimer::ConnectionTimer(ITcpClient* client)
 
 TcpClient::ConnectionTimer::~ConnectionTimer()
 {
-    Core::LoopMain::instance().deRegisterTimer(this->getTimerId());
 }
 
 void TcpClient::ConnectionTimer::onTime()
@@ -36,12 +36,9 @@ void TcpClient::ConnectionTimer::onTime()
 
 std::ostream& TcpClient::ConnectionTimer::operator<<(std::ostream& os)
 {
-    os << "["
-       << "timerId=" << getTimerId()
-       << ", period=" << getPeriod()
-       << ", expiredTime=" << getExpiredTime()
-       << ", timerType=" << timerTypeToString(getTimerType())
-       << ", tcpClient=" << client_
+    os << "[";
+    TimerHandler::ITimer::print(os);
+    os << ", tcpClient=" << client_
        << "]";
     return os;
 }
@@ -76,6 +73,7 @@ TcpClient::TcpClient(std::shared_ptr<TcpSocket> socket, TcpState state)
 
 TcpClient::~TcpClient()
 {
+    Core::LoopMain::instance().deRegisterIo(Io::IoFdType::IoFdAll, getIoHandle());
 }
 
 TcpResult TcpClient::init()
@@ -184,7 +182,7 @@ TcpResult TcpClient::receive()
     }
 	else if (0 == numOfBytesReceived)
 	{
-		TRACE_NOTICE("Tcp server is disconnected! try to re-connect");
+        TRACE_NOTICE("Tcp remote end is disconnected! try to re-connect");
         disconnect();
         restart();
         return TcpResult::Failed;
@@ -200,9 +198,9 @@ TcpResult TcpClient::receive()
 TcpResult TcpClient::disconnect()
 {
     TRACE_ENTER();
+    TRACE_NOTICE("TcpClient::disconnect");
     // deregister the IO
-    Core::LoopMain::instance().deRegisterIo(Io::IoFdType::IoFdWrite, getIoHandle());
-    Core::LoopMain::instance().deRegisterIo(Io::IoFdType::IoFdRead, getIoHandle());
+    Core::LoopMain::instance().deRegisterIo(Io::IoFdType::IoFdAll, getIoHandle());
 
     state_ = TcpState::Tcp_Closed;
     TcpResult ret = TcpResult::Success;

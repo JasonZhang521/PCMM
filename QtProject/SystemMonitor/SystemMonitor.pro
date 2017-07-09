@@ -104,7 +104,13 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/Environment/CpuUsageDataType.cpp \
     ../../sourceCode/Network/TcpState.cpp \
     ../../sourceCode/Network/NetworkEnv.cpp \
-    ../../sourceCode/Ipc/IpcClientCreator.cpp
+    ../../sourceCode/Ipc/IpcClientCreator.cpp \
+    ../../sourceCode/IpcMessage/IpcMessageType.cpp \
+    ../../sourceCode/Ipc/IpcHeartbeatTimer.cpp \
+    ../../sourceCode/IpcMessage/IpcLayerMessageFactory.cpp \
+    ../../sourceCode/IpcMessage/IpcHeartbeatReport.cpp \
+    ../../sourceCode/Ipc/IpcConnectionTimer.cpp \
+    ../../sourceCode/IpcMessage/IIpcComunicationMessage.cpp
 
 HEADERS += \
     ../../sourceCode/SystemMonitor/SystemMonitorProcess.h \
@@ -191,7 +197,12 @@ HEADERS += \
     ../../sourceCode/Configure/ExceptionConfigure.h \
     ../../sourceCode/Configure/TraceLogConfigure.h \
     ../../sourceCode/Network/NetworkEnv.h \
-    ../../sourceCode/Ipc/IpcClientCreator.h
+    ../../sourceCode/Ipc/IpcClientCreator.h \
+    ../../sourceCode/Ipc/IpcHeartbeatTimer.h \
+    ../../sourceCode/IpcMessage/IpcLayerMessageFactory.h \
+    ../../sourceCode/IpcMessage/IpcHeartbeatReport.h \
+    ../../sourceCode/Ipc/IpcConnectionTimer.h \
+    ../../sourceCode/IpcMessage/IIpcComunicationMessage.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

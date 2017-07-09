@@ -11,7 +11,8 @@ enum IoFdType
     IoFdNoType = 0,
     IoFdRead = 1,
     IoFdWrite = 1 << 2,
-    IoFdExcept = 1 << 3
+    IoFdExcept = 1 << 3,
+    IoFdAll = IoFdRead | IoFdWrite | IoFdExcept
 };
 
 class IIoControl

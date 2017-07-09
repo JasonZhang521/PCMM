@@ -1,6 +1,6 @@
 #include "EventTimer.h"
 #include "IEvent.h"
-
+#include <iostream>
 
 namespace TimerHandler {
 
@@ -12,6 +12,7 @@ EventTimer::EventTimer(uint32_t period, TimerType type, EventHandler::IEvent* ev
 
 EventTimer::~EventTimer()
 {
+    std::cout << "~EventTimer" << std::endl;
 }
 
 void EventTimer::onTime()
@@ -25,13 +26,9 @@ void EventTimer::onTime()
 
 std::ostream& EventTimer::operator<<(std::ostream& os)
 {
-
-    os << "["
-       << "timerId=" << getTimerId()
-       << ", expiredTime=" << getExpiredTime()
-       << ", period=" << getPeriod()
-       << ", timerType=" << timerTypeToString(getTimerType())
-       << ", event=" << event_
+    os << "[";
+    TimerHandler::ITimer::print(os);
+    os << ", event=" << event_
        << "]";
 
     return os;

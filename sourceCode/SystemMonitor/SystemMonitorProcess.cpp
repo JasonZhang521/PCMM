@@ -6,6 +6,7 @@
 #include "IpcClient.h"
 #include "IpcConnectionTcpClientStrategy.h"
 #include "IpcClientCreator.h"
+#include "IpcLayerMessageFactory.h"
 #include "TcpClient.h"
 #include "IpSocketEndpoint.h"
 #include "EventTimer.h"
@@ -13,6 +14,7 @@
 #include "NetworkEnv.h"
 #include "IpAddress.h"
 #include <memory>
+#include <iostream>
 
 namespace SystemMonitor {
 
@@ -30,8 +32,8 @@ void SystemMonitorProcess::process()
 
     // Local and remote endpoint.
     Network::IpSocketEndpoint localEndpoint("0.0.0.0:0");
-    //Network::IpSocketEndpoint remoteEndpoint(std::string("127.0.0.1:23832"));
-    Network::IpSocketEndpoint remoteEndpoint(std::string("192.168.5.138:23832"));
+    Network::IpSocketEndpoint remoteEndpoint(std::string("127.0.0.1:23832"));
+    //Network::IpSocketEndpoint remoteEndpoint(std::string("192.168.5.138:23832"));
     // SystemMonitorHandler
     SystemMonitorHandler* systemMonitorHandlerPtr = new SystemMonitorHandler();
     std::shared_ptr<ISystemMonitorHandler> systemMonitorHandler(systemMonitorHandlerPtr);
@@ -40,11 +42,12 @@ void SystemMonitorProcess::process()
     std::shared_ptr<SystemMonitorConnectionReceiver>
             systemMonitorConnectionReceiver(new SystemMonitorConnectionReceiver(systemMonitorHandler));
 
+    IpcMessageFactories factories;
     // System monitor factory
-    std::shared_ptr<IpcMessage::IIpcMessageFactory>
-            factory(new SystemMonitorMessage::SystemMonitorMessageFactory());
+    factories.push_back(std::shared_ptr<IpcMessage::IIpcMessageFactory>(new SystemMonitorMessage::SystemMonitorMessageFactory()));
+    factories.push_back(std::shared_ptr<IpcMessage::IIpcMessageFactory>(new IpcMessage::IpcLayerMessageFactory()));
 
-    Ipc::IIpcClient* ipcClientPtr = Ipc::IpcClientCreator::CreateWithTcpClientStrategy(localEndpoint, remoteEndpoint, systemMonitorConnectionReceiver, factory);
+    Ipc::IIpcClient* ipcClientPtr = Ipc::IpcClientCreator::CreateWithTcpClientStrategy(localEndpoint, remoteEndpoint, systemMonitorConnectionReceiver, factories);
     std::shared_ptr<Ipc::IIpcClient> ipcClient(ipcClientPtr);
 
     systemMonitorHandlerPtr->setIpcClient(ipcClient);
@@ -62,6 +65,7 @@ void SystemMonitorProcess::process()
     systemMonitorHandler->startup();
     // run
     Core::LoopMain::instance().loop();
+    std::cout << "run to the end----------------" << std::endl;
 }
 
 }

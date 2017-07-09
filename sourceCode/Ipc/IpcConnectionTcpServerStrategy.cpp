@@ -2,6 +2,7 @@
 #include "IIpcConnectionAcceptor.h"
 #include "ITcpServer.h"
 #include "IpSocketEndpoint.h"
+#include "LoopMain.h"
 #include "Trace.h"
 
 namespace Ipc {
@@ -29,7 +30,6 @@ IpcConnectionTcpServerStrategy::IpcConnectionTcpServerStrategy(std::shared_ptr<N
 
 IpcConnectionTcpServerStrategy::~IpcConnectionTcpServerStrategy()
 {
-
 }
 
 void IpcConnectionTcpServerStrategy::startup()

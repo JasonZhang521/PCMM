@@ -1,6 +1,7 @@
 #include "ITimer.h"
 #include "SystemTime.h"
 #include "TimerIdGenerator.h"
+#include "LoopMain.h"
 
 namespace TimerHandler {
 
@@ -27,7 +28,7 @@ ITimer::ITimer(uint64_t period, TimerType type)
 
 ITimer::~ITimer()
 {
-
+    Core::LoopMain::instance().deRegisterTimer(timerId_);
 }
 
 uint64_t ITimer::getTimerId() const
@@ -60,6 +61,17 @@ void ITimer::resetTimer()
 {
     expiredTime_ = SystemTime::expiredTimeStampAsMillisecond(period_);
 }
+
+void ITimer::print(std::ostream& os)
+{
+    os << "["
+       << "timerId=" << getTimerId()
+       << ", period=" << getPeriod()
+       << ", expiredTime=" << getExpiredTime()
+       << ", timerType=" << timerTypeToString(getTimerType())
+       << "]";
+}
+
 
 std::ostream& operator<<(std::ostream& os, ITimer* timer)
 {

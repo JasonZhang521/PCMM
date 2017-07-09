@@ -3,6 +3,10 @@
 #include "IpcMessageType.h"
 #include <memory>
 
+namespace TimerHandler {
+class ITimer;
+}
+
 namespace Serialize {
 class WriteBuffer;
 }
@@ -25,6 +29,8 @@ public:
     virtual void disconnect() = 0;
     virtual void setIpcConnectionReceiver(std::shared_ptr<IIpcConnectionReceiver> receiver) = 0;
     virtual void addIpcMessageFactory(std::shared_ptr<IpcMessage::IIpcMessageFactory> factory) = 0;
+    virtual void setHeartbeatTimer(std::shared_ptr<TimerHandler::ITimer> timer) = 0;
+    virtual void setConnectionTimer(std::shared_ptr<TimerHandler::ITimer> timer) = 0;
 };
 
 }

@@ -23,6 +23,8 @@ class SystemMonitorHandler : public ISystemMonitorHandler
         SystemMonitorRestartTimer(ISystemMonitorHandler* handler);
         virtual void onTime();
         virtual std::ostream& operator<<(std::ostream& os);
+    public:
+         GETCLASSNAME(SystemMonitorRestartTimer)
     };
 
     std::shared_ptr<Ipc::IIpcClient> ipcClient_;
@@ -42,7 +44,7 @@ private:
     virtual void onShutdown();
 
 public:
-     GETCLASSNAME(SystemInfoCollector)
+     GETCLASSNAME(SystemMonitorHandler)
 };
 
 }

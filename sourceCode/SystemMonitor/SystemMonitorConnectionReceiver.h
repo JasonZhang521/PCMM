@@ -23,6 +23,9 @@ protected:
     virtual void onReceive(std::unique_ptr<IpcMessage::IIpcMessage> msg);
     virtual void onDisconnect();
 
+private:
+    void handleSystemMonitorMessage(std::unique_ptr<IpcMessage::IIpcMessage> msg);
+
 public:
      GETCLASSNAME(SystemMonitorConnectionReceiver)
 };

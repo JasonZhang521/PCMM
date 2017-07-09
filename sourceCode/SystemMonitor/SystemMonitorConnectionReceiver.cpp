@@ -1,5 +1,6 @@
 #include "SystemMonitorConnectionReceiver.h"
 #include "ISystemMonitorMessage.h"
+#include "IpcMessageType.h"
 #include "ReadBuffer.h"
 #include "Trace.h"
 #include <stdint.h>
@@ -34,30 +35,51 @@ void SystemMonitorConnectionReceiver::onReceive(std::unique_ptr<IpcMessage::IIpc
         TRACE_WARNING("Invalid message!");
         return;
     }
-    SystemMonitorMessage::ISystemMonitorMessage* message = dynamic_cast<SystemMonitorMessage::ISystemMonitorMessage*>(msg.get());
-    if (message != nullptr)
+
+    IpcMessage::IpcMessageType type = msg->getMessageType();
+    if (type == IpcMessage::IpcMessage_SystemMonitor)
+
+    switch(type)
     {
-        IpcMessage::SystemMonitorType systemMonitorType = message->getSystemMonitorType();
-        switch (systemMonitorType)
-        {
-        case IpcMessage::SystemMonitorType::SystemInfoRequest:
-            monitorHandler_->reportSystemInfo();
-            break;
-        default:
-            TRACE_ERROR("Unsupported message! monitor type = " << systemMonitorType);
-            break;
-        }
+    case IpcMessage::IpcMessage_SystemMonitor:
+        handleSystemMonitorMessage(std::move(msg));
+        break;
+    case IpcMessage::IpcMessage_IpcComunication:
+        TRACE_NOTICE("Unsupport message! message type = " << IpcMessage::IpcMessageTypeString(msg->getMessageType()));
+        break;
+    default:
+        TRACE_ERROR("Unsupported message! message type = " << IpcMessage::IpcMessageTypeString(msg->getMessageType()));
+        break;
     }
-    else
-    {
-        TRACE_ERROR("Unsupported message! message type = " << msg->getMessageType());
-    }
+
 }
 
 void SystemMonitorConnectionReceiver::onDisconnect()
 {
     TRACE_ENTER();
     monitorHandler_->onShutdown();
+}
+
+void SystemMonitorConnectionReceiver::handleSystemMonitorMessage(std::unique_ptr<IpcMessage::IIpcMessage> msg)
+{
+    SystemMonitorMessage::ISystemMonitorMessage* message = dynamic_cast<SystemMonitorMessage::ISystemMonitorMessage*>(msg.get());
+    if (message != nullptr)
+    {
+        IpcMessage::SystemMonitorMessageType systemMonitorType = message->getSystemMonitorType();
+        switch (systemMonitorType)
+        {
+        case IpcMessage::SystemMonitorMessageType::SystemInfoRequest:
+            monitorHandler_->reportSystemInfo();
+            break;
+        default:
+            TRACE_ERROR("Unsupported message! monitor type = " << IpcMessage::SystemMonitorTypeString(systemMonitorType));
+            break;
+        }
+    }
+    else
+    {
+        TRACE_ERROR("Unsupported message! message type = " << IpcMessage::IpcMessageTypeString(msg->getMessageType()));
+    }
 }
 
 }

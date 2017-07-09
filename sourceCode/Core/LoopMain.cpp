@@ -59,6 +59,7 @@ void LoopMain::loop()
         remainingTime = remainingTime - timeStat.getElapseTimeAsMilliSecond();
         timeLoop_.runLoop();
         remainingTime = remainingTime - timeStat.getElapseTimeAsMilliSecond();
+
         if (remainingTime > 0)
         {
             if (remainingTime < 50)
@@ -71,6 +72,7 @@ void LoopMain::loop()
             }
         }
     }
+
 }
 
 LoopMain& LoopMain::instance()

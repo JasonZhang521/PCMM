@@ -25,7 +25,7 @@ uint64_t SystemInfoCollector::getEventId() const
 void SystemInfoCollector::run(EventHandler::EventFlag flag)
 {
     TRACE_ENTER();
-    TRACE_DEBUG("SystemInfoCollector::run");
+    TRACE_NOTICE("+++++++++++++++++++++SystemInfoCollector::run");
     static_cast<void> (flag);
     Environment::CpuUsage::instance().update();
     monitorHandler_->reportSystemInfo();

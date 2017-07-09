@@ -29,6 +29,8 @@ static void TestHelp(const std::vector<T>& vVal)
         readBuffer.read(readVal);
         ASSERT_EQ(val, readVal);
     }
+
+    ASSERT_TRUE(readBuffer.isEndOfData());
 }
 
 TEST_F(ReadWriteBufferTest, TestSameType)

@@ -3,12 +3,13 @@
 #include "IIpcClient.h"
 #include "CpuUsage.h"
 #include "LoopMain.h"
+#include "AppConst.h"
 #include "Trace.h"
 
 namespace SystemMonitor {
 
 SystemMonitorHandler::SystemMonitorRestartTimer::SystemMonitorRestartTimer(ISystemMonitorHandler* handler)
-    : ITimer(3000)
+    : ITimer(SystemMonitorPeriod)
     , handler_(handler)
 {
 
@@ -16,17 +17,13 @@ SystemMonitorHandler::SystemMonitorRestartTimer::SystemMonitorRestartTimer(ISyst
 
 void SystemMonitorHandler::SystemMonitorRestartTimer::onTime()
 {
+    TRACE_DEBUG("System monitor start up!");
     handler_->startup();
 }
 
 std::ostream& SystemMonitorHandler::SystemMonitorRestartTimer::operator<<(std::ostream& os)
 {
-    os << "["
-       << "timerId=" << getTimerId()
-       << ", period=" << getPeriod()
-       << ", expiredTime=" << getExpiredTime()
-       << ", timerType=" << timerTypeToString(getTimerType())
-       << "]";
+    TimerHandler::ITimer::print(os);
     return os;
 }
 

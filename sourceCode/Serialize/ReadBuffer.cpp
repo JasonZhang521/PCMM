@@ -50,6 +50,11 @@ unsigned int ReadBuffer::getBufferSize() const
     return bufferSize_;
 }
 
+bool ReadBuffer::isEndOfData() const
+{
+    return (dataSize_ == pos_);
+}
+
 unsigned int ReadBuffer::getDataSize() const
 {
     return dataSize_;

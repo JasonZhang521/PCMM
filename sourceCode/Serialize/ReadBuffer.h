@@ -47,6 +47,7 @@ public:
     unsigned int getDataSize() const;
     void setDataSize(unsigned int dataSize);
     unsigned int getBufferSize() const;
+    bool isEndOfData() const;
 
     void swap(ReadBuffer& buffer);
     bool operator==(const ReadBuffer& buffer);

@@ -4,6 +4,8 @@
 #include "IIpcMessage.h"
 #include "WriteBuffer.h"
 #include "ReadBuffer.h"
+#include "ITimer.h"
+#include "LoopMain.h"
 #include "Trace.h"
 #include "App.h"
 
@@ -39,7 +41,6 @@ IpcConnectionTcpClientStrategy::IpcConnectionTcpClientStrategy(
 
 IpcConnectionTcpClientStrategy::~IpcConnectionTcpClientStrategy()
 {
-
 }
 
 void IpcConnectionTcpClientStrategy::connect()
@@ -55,6 +56,7 @@ void IpcConnectionTcpClientStrategy::send(const IpcMessage::IIpcMessage& msg)
     msg.serialize(writeBuffer);
     TRACE_NOTICE("send msg:" << writeBuffer);
     client_->send(writeBuffer);
+    heartbeartTimer_->resetTimer();
 }
 
 void IpcConnectionTcpClientStrategy::disconnect()
@@ -62,6 +64,7 @@ void IpcConnectionTcpClientStrategy::disconnect()
     TRACE_ENTER();
     client_->disconnect();
     client_->cleanup();
+    client_->restart();
 }
 
 void IpcConnectionTcpClientStrategy::setIpcConnectionReceiver(std::shared_ptr<IIpcConnectionReceiver> receiver)
@@ -75,50 +78,87 @@ void IpcConnectionTcpClientStrategy::addIpcMessageFactory(std::shared_ptr<IpcMes
     ipcMessageFactories_[factory->messageType()] = factory;
 }
 
+void IpcConnectionTcpClientStrategy::setHeartbeatTimer(std::shared_ptr<TimerHandler::ITimer> timer)
+{
+    heartbeartTimer_ = timer;
+}
+
+void IpcConnectionTcpClientStrategy::setConnectionTimer(std::shared_ptr<TimerHandler::ITimer> timer)
+{
+    connectionTimer_ = timer;
+}
+
+
 void IpcConnectionTcpClientStrategy::onConnect()
 {
     TRACE_ENTER();
     connectionReceiver_->onConnect();
+    if (connectionTimer_)
+    {
+        connectionTimer_->resetTimer();
+        Core::LoopMain::instance().registerTimer(connectionTimer_.get());
+    }
+
+    if (heartbeartTimer_)
+    {
+        heartbeartTimer_->resetTimer();
+        Core::LoopMain::instance().registerTimer(heartbeartTimer_.get());
+    }
 }
 
 void IpcConnectionTcpClientStrategy::onReceive(Serialize::ReadBuffer& readBuffer)
 {
-    uint8_t messageType = static_cast<uint8_t>(IpcMessage::IpcMessage_None);
-    readBuffer.peek(messageType);
-    TRACE_DEBUG("Receive ipc message: message type = " << messageType);
-    TRACE_NOTICE("receive msg:" << readBuffer);
-    IpcMessageFactroyMap::iterator
-            it = ipcMessageFactories_.find(static_cast<IpcMessage::IpcMessageType>(messageType));
-    if (it != ipcMessageFactories_.end())
+    while (!readBuffer.isEndOfData())
     {
-        std::shared_ptr<IpcMessage::IIpcMessageFactory>& factory = it->second;
-        uint8_t ipcApplicationType = 0xff;
-        readBuffer.peek(ipcApplicationType);
-        std::unique_ptr<IpcMessage::IIpcMessage> msg(factory->createMessage(ipcApplicationType));
-        if (msg)
+        uint8_t messageType = static_cast<uint8_t>(IpcMessage::IpcMessage_None);
+        readBuffer.peek(messageType);
+        TRACE_DEBUG("Receive ipc message: message type = "
+                    << IpcMessage::IpcMessageTypeString(static_cast<IpcMessage::IpcMessageType>(messageType))
+                    << ", message stream:" << readBuffer);
+
+        IpcMessageFactroyMap::iterator
+                it = ipcMessageFactories_.find(static_cast<IpcMessage::IpcMessageType>(messageType));
+        if (it != ipcMessageFactories_.end())
         {
-            TRACE_DEBUG("Receive ipc msg:" << *msg);
-            msg->unserialize(readBuffer);
-            connectionReceiver_->onReceive(std::move(msg));
+            std::shared_ptr<IpcMessage::IIpcMessageFactory>& factory = it->second;
+            uint8_t ipcApplicationType = 0xff;
+            readBuffer.peek(ipcApplicationType, sizeof(messageType));
+            std::unique_ptr<IpcMessage::IIpcMessage> msg(factory->createMessage(ipcApplicationType));
+            if (msg)
+            {
+                TRACE_DEBUG("Receive ipc msg:" << *msg);
+                msg->unserialize(readBuffer);
+                connectionReceiver_->onReceive(std::move(msg));
+            }
+            else
+            {
+                TRACE_WARNING("Recieve error message, wrong application type = "
+                              << static_cast<int>(ipcApplicationType)
+                              << ", for ipc type = "
+                              << static_cast<int>(messageType));
+            }
         }
         else
         {
-            TRACE_WARNING("Recieve error message, wrong application type = "
-                          << static_cast<int>(ipcApplicationType)
-                          << ", for ipc type = "
+            TRACE_WARNING("Recieve error message, wrong ipc message type = "
                           << static_cast<int>(messageType));
         }
     }
-    else
-    {
-        TRACE_WARNING("Recieve error message, wrong ipc message type = "
-                      << static_cast<int>(messageType));
-    }
+    connectionTimer_->resetTimer();
 }
 
 void IpcConnectionTcpClientStrategy::onDisconnect()
 {
     TRACE_ENTER();
+    if (connectionTimer_)
+    {
+        Core::LoopMain::instance().deRegisterTimer(connectionTimer_->getTimerId());
+    }
+
+    if (heartbeartTimer_)
+    {
+        Core::LoopMain::instance().deRegisterTimer(heartbeartTimer_->getTimerId());
+    }
     connectionReceiver_->onDisconnect();
 }
 

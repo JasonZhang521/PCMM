@@ -2,11 +2,13 @@
 #include "ClusterMgtConnectionReceiver.h"
 #include "IClusterMgtClientsManagement.h"
 #include "IpcConnectionTcpClientStrategy.h"
+#include "IpcClientCreator.h"
 #include "IClusterMgtController.h"
 #include "IpcClient.h"
 #include "TcpSocket.h"
 #include "TcpClient.h"
 #include "SystemMonitorMessageFactory.h"
+#include "IpcLayerMessageFactory.h"
 #include "LoopMain.h"
 #include "Trace.h"
 
@@ -31,38 +33,22 @@ void ClusterMgtConnectionAcceptor::onAccept(int fd,
 }
 
 void ClusterMgtConnectionAcceptor::createClusterConnection(int fd,
-                                                        const Network::IpSocketEndpoint& localEndPoint,
-                                                        const Network::IpSocketEndpoint& remoteEndPoint)
+                                                        const Network::IpSocketEndpoint& localEndpoint,
+                                                        const Network::IpSocketEndpoint& remoteEndpoint)
 {
-    std::shared_ptr<Network::TcpSocket> socket(new Network::TcpSocket(fd, localEndPoint, remoteEndPoint));
-    Network::TcpClient* tcpAcceptedClientPtr = new Network::TcpClient(socket, Network::TcpState::Tcp_Established);
-    std::shared_ptr<Network::ITcpClient> tcpAcceptedClient(tcpAcceptedClientPtr);
-
-    // Ipc client strategy
-    std::shared_ptr<Ipc::IpcConnectionTcpClientStrategy>
-            ipcConnectionClientStrategy(new Ipc::IpcConnectionTcpClientStrategy(tcpAcceptedClient));
-
-    // tcp connection receiver
-    tcpAcceptedClient->setConnectionReceiver(ipcConnectionClientStrategy);
-
-    // Ipc client
-    Ipc::IpcClient* ipcClientPtr = new Ipc::IpcClient(ipcConnectionClientStrategy);
-    std::shared_ptr<Ipc::IIpcClient> ipcClient(ipcClientPtr);
-
-    // System monitor factory
-    std::shared_ptr<IpcMessage::IIpcMessageFactory>
-            factory(new SystemMonitorMessage::SystemMonitorMessageFactory());
     std::shared_ptr<Ipc::IIpcConnectionReceiver>
             clustersMgtConnectionReceiver(new ClusterMgtConnectionReceiver(clientType_, clusterMgtController_));
 
-    // Set ipcConnectionTcpStrategy
-    Ipc::IIpcConnectionClientStrategy* ipcConnectionClientStrategyPtr = ipcConnectionClientStrategy.get();
-    ipcConnectionClientStrategyPtr->setIpcConnectionReceiver(clustersMgtConnectionReceiver);
-    ipcConnectionClientStrategyPtr->addIpcMessageFactory(factory);
 
-    clusterMgtController_->addAcceptedIpcClient(remoteEndPoint.toString(), ipcClient, clientType_);
-    tcpAcceptedClient->init();
-    Core::LoopMain::instance().registerIo(Io::IoFdType::IoFdRead, tcpAcceptedClientPtr);
+    IpcMessageFactories factories;
+    factories.push_back(std::shared_ptr<IpcMessage::IIpcMessageFactory>(new SystemMonitorMessage::SystemMonitorMessageFactory()));
+    factories.push_back(std::shared_ptr<IpcMessage::IIpcMessageFactory>(new IpcMessage::IpcLayerMessageFactory()));
+
+    Ipc::IIpcClient* tcpAcceptedClientPtr =
+            Ipc::IpcClientCreator::CreateWithTcpClientStrategy(fd, localEndpoint, remoteEndpoint, clustersMgtConnectionReceiver, factories);
+    std::shared_ptr<Ipc::IIpcClient> ipcClient(tcpAcceptedClientPtr);
+
+    clusterMgtController_->addAcceptedIpcClient(remoteEndpoint.toString(), ipcClient, clientType_);
     // tcpAcceptedClient->receive();
 }
 

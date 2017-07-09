@@ -22,52 +22,48 @@ ListTimerQueue::~ListTimerQueue()
 }
 
 void ListTimerQueue::addTimer(ITimer* timer)
-{
+{   
     if (!isExecuting_)
     {
-        if (timersList_.empty())
-        {
-            timersList_.push_back(timer);
-            return;
-        }
-        else
-        {
-            TimersList::iterator it = timersList_.end();
-            TimersList::iterator lastIt = it--;
-            for (; it != timersList_.begin(); lastIt = it--)
-            {
-                const ITimer* timerInList = *it;
-                if (timer->getExpiredTime() >= timerInList->getExpiredTime())
-                {
-                    timersList_.insert(lastIt, timer);
-                    return;
-                }
-            }
-            timersList_.push_front( timer);
-        }
+        TRACE_DEBUG("Add timer:" << timer);
+        timersList_.push_back(timer);
     }
     else
     {
+        TRACE_DEBUG("Add timer to Cache:" << timer);
         timersCacheList_.push_back(TimerCache(TimerCache::Add, timer->getTimerId(), timer));
     }
 }
 
-void ListTimerQueue::deleteTimer(uint64_t timerID)
+void ListTimerQueue::deleteTimer(uint64_t timerId)
 {
+    // delete the adding timer from the cache
+    for (TimersCacheList::iterator it = timersCacheList_.begin(); it != timersCacheList_.end(); ++it)
+    {
+        TimerCache cache = *it;
+        if (cache.timerId_ == timerId && cache.op_ == TimerCache::Add)
+        {
+            TRACE_DEBUG("Delete timer from cache: timer id" << timerId);
+            it = timersCacheList_.erase(it);
+        }
+    }
+
     if (!isExecuting_)
     {
         for (TimersList::iterator it = timersList_.begin(); it != timersList_.end(); ++it)
         {
            ITimer* timerInList = *it;
-           if (timerInList->getTimerId() == timerID)
+           if (timerInList->getTimerId() == timerId)
            {
+               TRACE_DEBUG("Delete timer:" << timerInList);
                it = timersList_.erase(it);
            }
         }
     }
     else
     {
-        timersCacheList_.push_back(TimerCache(TimerCache::Delete, timerID, nullptr));
+        TRACE_DEBUG("Delete timer delay: timer id" << timerId);
+        timersCacheList_.push_back(TimerCache(TimerCache::Delete, timerId, nullptr));
     }
 }
 
@@ -94,10 +90,6 @@ void ListTimerQueue::executeTimers()
                               << "ms, Timer Information" << timerInList);
              }
         }
-        else
-        {
-            break;
-        }
         const uint64_t totalElapse = totalStat.getElapseTimeAsMilliSecond();
         if (totalElapse > MaxRunningDurationForTimersInOneLoop)
         {
@@ -105,7 +97,6 @@ void ListTimerQueue::executeTimers()
         }
     }
     isExecuting_ = false;
-
     refreshTimers();
 }
 

@@ -30,6 +30,8 @@ public:
     uint64_t getPeriod() const;
     TimerType getTimerType() const;
     void resetTimer();
+protected:
+    void print(std::ostream& os);
 };
 
 std::ostream& operator<<(std::ostream& os, ITimer* timer);

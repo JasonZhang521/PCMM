@@ -25,7 +25,14 @@ SOURCES += \
     ../../sourceCode/ClusterManagement/ClusterMgtController.cpp \
     ../../sourceCode/ClusterManagement/ClusterManagementProcess.cpp \
     ../../sourceCode/ClusterManagement/ClusterManagementMain.cpp \
-    ../../sourceCode/Network/TcpState.cpp
+    ../../sourceCode/Network/TcpState.cpp \
+    ../../sourceCode/Ipc/IpcClientCreator.cpp \
+    ../../sourceCode/Ipc/IpcConnectionTimer.cpp \
+    ../../sourceCode/Ipc/IpcHeartbeatTimer.cpp \
+    ../../sourceCode/IpcMessage/IpcLayerMessageFactory.cpp \
+    ../../sourceCode/IpcMessage/IpcHeartbeatReport.cpp \
+    ../../sourceCode/IpcMessage/IpcMessageType.cpp \
+    ../../sourceCode/IpcMessage/IIpcComunicationMessage.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -209,7 +216,13 @@ HEADERS += \
     ../../sourceCode/TraceLog/Trace.h \
     ../../sourceCode/TraceLog/TraceBuf.h \
     ../../sourceCode/TraceLog/TraceConsole.h \
-    ../../sourceCode/TraceLog/TraceFile.h
+    ../../sourceCode/TraceLog/TraceFile.h \
+    ../../sourceCode/Ipc/IpcClientCreator.h \
+    ../../sourceCode/Ipc/IpcConnectionTimer.h \
+    ../../sourceCode/Ipc/IpcHeartbeatTimer.h \
+    ../../sourceCode/IpcMessage/IpcHeartbeatReport.h \
+    ../../sourceCode/IpcMessage/IpcLayerMessageFactory.h \
+    ../../sourceCode/IpcMessage/IIpcComunicationMessage.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
