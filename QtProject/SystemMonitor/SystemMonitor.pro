@@ -110,7 +110,9 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/IpcMessage/IpcLayerMessageFactory.cpp \
     ../../sourceCode/IpcMessage/IpcHeartbeatReport.cpp \
     ../../sourceCode/Ipc/IpcConnectionTimer.cpp \
-    ../../sourceCode/IpcMessage/IIpcComunicationMessage.cpp
+    ../../sourceCode/IpcMessage/IIpcComunicationMessage.cpp \
+    ../../sourceCode/IpcMessage/IpcAuthorizationRequest.cpp \
+    ../../sourceCode/IpcMessage/IpcAuthorizationResponse.cpp
 
 HEADERS += \
     ../../sourceCode/SystemMonitor/SystemMonitorProcess.h \
@@ -202,7 +204,9 @@ HEADERS += \
     ../../sourceCode/IpcMessage/IpcLayerMessageFactory.h \
     ../../sourceCode/IpcMessage/IpcHeartbeatReport.h \
     ../../sourceCode/Ipc/IpcConnectionTimer.h \
-    ../../sourceCode/IpcMessage/IIpcComunicationMessage.h
+    ../../sourceCode/IpcMessage/IIpcComunicationMessage.h \
+    ../../sourceCode/IpcMessage/IpcAuthorizationRequest.h \
+    ../../sourceCode/IpcMessage/IpcAuthorizationResponse.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

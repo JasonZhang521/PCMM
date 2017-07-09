@@ -13,14 +13,14 @@ IpcHeartbeatReport::~IpcHeartbeatReport()
 
 }
 
-IpcMessage::IpcComunicationMessageType IpcHeartbeatReport::getComunicationMessageType() const
+IpcCommunicationMessageType IpcHeartbeatReport::getComunicationMessageType() const
 {
-    return IpcMessage::IpcComunicationMessageType::IpcHeartbeatReportMessage;
+    return IpcMessage::IpcCommunicationMessageType::IpcHeartbeatReportMessage;
 }
 
 void IpcHeartbeatReport::serialize(Serialize::WriteBuffer& writeBuffer) const
 {
-    writeBuffer.write<uint8_t>(static_cast<uint8_t>(IpcMessage_IpcComunication));
+    writeBuffer.write<uint8_t>(static_cast<uint8_t>(IpcMessage_IpcCommunication));
     writeBuffer.write<uint8_t>(static_cast<uint8_t>(IpcHeartbeatReportMessage));
     IIpcMessage::write(writeBuffer);
 }
@@ -35,8 +35,8 @@ void IpcHeartbeatReport::unserialize(Serialize::ReadBuffer& readBuffer)
 std::ostream& IpcHeartbeatReport::operator<< (std::ostream& os) const
 {
     os << "["
-       << ", ipcMessageType=" << IpcMessageTypeString(IpcMessage_IpcComunication)
-       << ", IpcHeartbeatType=" << IpcHeartbeatTypeString(IpcHeartbeatReportMessage);
+       << ", ipcMessageType=" << IpcMessageTypeString(IpcMessage_IpcCommunication)
+       << ", IpcHeartbeatType=" << IpcCommunicationTypeString(IpcHeartbeatReportMessage);
     IpcMessage::IIpcMessage::print(os);
     return os;
 }

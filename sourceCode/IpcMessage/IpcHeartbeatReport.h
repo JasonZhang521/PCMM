@@ -7,7 +7,7 @@ class IpcHeartbeatReport : public IIpcComunicationMessage
 public:
     IpcHeartbeatReport();
     virtual ~IpcHeartbeatReport();
-    virtual IpcMessage::IpcComunicationMessageType getComunicationMessageType() const;
+    virtual IpcCommunicationMessageType getComunicationMessageType() const;
     virtual void serialize(Serialize::WriteBuffer& writeBuffer) const;
     virtual void unserialize(Serialize::ReadBuffer& readBuffer);
     virtual std::ostream& operator<< (std::ostream& os) const;

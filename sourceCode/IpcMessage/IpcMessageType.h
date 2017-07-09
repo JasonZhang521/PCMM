@@ -6,7 +6,7 @@ namespace IpcMessage {
 enum IpcMessageType
 {
     IpcMessage_None,
-    IpcMessage_IpcComunication,
+    IpcMessage_IpcCommunication,
     IpcMessage_SystemMonitor
 };
 std::string IpcMessageTypeString(IpcMessageType type);
@@ -18,11 +18,13 @@ enum SystemMonitorMessageType
 };
 std::string SystemMonitorTypeString(SystemMonitorMessageType type);
 
-enum IpcComunicationMessageType
+enum IpcCommunicationMessageType
 {
-    IpcHeartbeatReportMessage
+    IpcHeartbeatReportMessage,
+    IpcAuthorizationRequstMessage,
+    IpcAuthorizationResponseMessage
 };
-std::string IpcHeartbeatTypeString(IpcComunicationMessageType type);
+std::string IpcCommunicationTypeString(IpcCommunicationMessageType type);
 
 }
 #endif // _IPCMESSAGE_IPCMESSAGETYPE_H_

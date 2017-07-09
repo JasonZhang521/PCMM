@@ -44,7 +44,7 @@ void SystemMonitorConnectionReceiver::onReceive(std::unique_ptr<IpcMessage::IIpc
     case IpcMessage::IpcMessage_SystemMonitor:
         handleSystemMonitorMessage(std::move(msg));
         break;
-    case IpcMessage::IpcMessage_IpcComunication:
+    case IpcMessage::IpcMessage_IpcCommunication:
         TRACE_NOTICE("Unsupport message! message type = " << IpcMessage::IpcMessageTypeString(msg->getMessageType()));
         break;
     default:

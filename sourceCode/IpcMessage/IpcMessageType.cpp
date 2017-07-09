@@ -3,7 +3,7 @@ namespace IpcMessage {
 std::string IpcMessageTypeString(IpcMessageType type)
 {
     switch (type) {
-    case IpcMessage_IpcComunication:
+    case IpcMessage_IpcCommunication:
         return std::string("IpcMessage_IpcComunication");
     case IpcMessage_SystemMonitor:
         return std::string("IpcMessage_SystemMonitor");
@@ -24,7 +24,7 @@ std::string SystemMonitorTypeString(SystemMonitorMessageType type)
     }
 }
 
-std::string IpcHeartbeatTypeString(IpcComunicationMessageType type)
+std::string IpcCommunicationTypeString(IpcCommunicationMessageType type)
 {
     switch (type) {
     case IpcHeartbeatReportMessage:
