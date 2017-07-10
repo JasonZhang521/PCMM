@@ -13,6 +13,7 @@ LoopMain::LoopMain()
     , timeLoop_(std::shared_ptr<TimerHandler::ITimerQueue>(new TimerHandler::ListTimerQueue))
     , ioLoop_(std::shared_ptr<Io::IIoControl>(new Io::IoControlEventsHandler()))
     , timeExcuteInOneLoop(MaxRunningTimeInOneLoop)
+    , stop_(false)
 {
 
 }
@@ -47,9 +48,10 @@ void LoopMain::deRegisterIo(Io::IoFdType type, int fd)
     ioLoop_.deRegisterIo(type, fd);
 }
 
-void LoopMain::loop()
+void LoopMain::loopStart()
 {
-    while (true)
+    stop_ = false;
+    while (!stop_)
     {
         int32_t remainingTime = MaxRunningTimeInOneLoop;
         TimeStat timeStat;
@@ -73,6 +75,11 @@ void LoopMain::loop()
         }
     }
 
+}
+
+void LoopMain::loopStop()
+{
+    stop_ = true;
 }
 
 LoopMain& LoopMain::instance()

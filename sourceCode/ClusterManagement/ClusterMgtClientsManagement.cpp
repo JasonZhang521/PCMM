@@ -57,8 +57,10 @@ void ClusterMgtClientsManagment::removeAcceptedIpcClient(const std::string& remo
 
 void ClusterMgtClientsManagment::handleMessage(const IpcMessage::IIpcMessage& msg)
 {
+    const std::string invalidDest("Invalid_IpAddress:0");
     const std::string dest = msg.getDestnation().toString();
-    if (dest.empty())
+    TRACE_DEBUG("destination:" << dest);
+    if (dest == invalidDest)
     {
         broadcastMsg(msg);
     }
@@ -82,6 +84,7 @@ void ClusterMgtClientsManagment::forwardIpcMessage(const std::string& remoteEndP
 
 void ClusterMgtClientsManagment::broadcastMsg(const IpcMessage::IIpcMessage& msg)
 {
+    TRACE_DEBUG("broad cast message to all client");
     for (IpcClientsMap::iterator it= clients_.begin(); it != clients_.end(); ++it)
     {
         std::shared_ptr<Ipc::IIpcClient>& ipcClient = it->second;

@@ -4,14 +4,20 @@
 #include "Component.h"
 #include "Macro.h"
 
+namespace IpcMessage {
+class IIpcMessageQueue;
+}
+
 namespace UiClient {
 class IUiClientHandler;
 
 class UiIpcConnectionReceiver : public Ipc::IIpcConnectionReceiver
 {
     std::shared_ptr<IUiClientHandler> uiClientHandler_;
+    std::shared_ptr<IpcMessage::IIpcMessageQueue> ipcMessageReceiveQueue_;
 public:
-    UiIpcConnectionReceiver(std::shared_ptr<IUiClientHandler> uiClientHandler);
+    UiIpcConnectionReceiver(std::shared_ptr<IUiClientHandler> uiClientHandler,
+                            std::shared_ptr<IpcMessage::IIpcMessageQueue> ipcMessageReceiveQueue);
     virtual ~UiIpcConnectionReceiver();
     virtual void onConnect();
     virtual void onReceive(std::unique_ptr<IpcMessage::IIpcMessage> msg);

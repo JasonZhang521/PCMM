@@ -15,6 +15,7 @@ public:
     IpcThreadSafeMessageQueue();
     ~IpcThreadSafeMessageQueue();
     virtual bool isEmpty();
+    virtual size_t getSize();
     virtual std::unique_ptr<IIpcMessage> popFront();
     virtual void pushBack(std::unique_ptr<IIpcMessage> msg);
 };

@@ -1,14 +1,17 @@
 #include "UiIpcConnectionReceiver.h"
 #include "UiClientHandler.h"
 #include "IIpcMessage.h"
+#include "IIpcMessageQueue.h"
 #include "IpcMessageType.h"
 #include "ReadBuffer.h"
 #include "Trace.h"
 
 namespace UiClient {
 
-UiIpcConnectionReceiver::UiIpcConnectionReceiver(std::shared_ptr<IUiClientHandler> uiClientHandler)
+UiIpcConnectionReceiver::UiIpcConnectionReceiver(std::shared_ptr<IUiClientHandler> uiClientHandler,
+                                                 std::shared_ptr<IpcMessage::IIpcMessageQueue> ipcMessageReceiveQueue)
     :uiClientHandler_(uiClientHandler)
+    ,ipcMessageReceiveQueue_(ipcMessageReceiveQueue)
 {
 
 }
@@ -63,7 +66,7 @@ void UiIpcConnectionReceiver::onDisconnect()
 
 void UiIpcConnectionReceiver::handleMessage(std::unique_ptr<IpcMessage::IIpcMessage> msg)
 {
-    static_cast<void>(msg);
+    ipcMessageReceiveQueue_->pushBack(std::move(msg));
 }
 
 }

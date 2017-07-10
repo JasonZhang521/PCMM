@@ -1,11 +1,14 @@
 #include "UiClientProcess.h"
 #include "UiClientHandler.h"
 #include "UiIpcConnectionReceiver.h"
+#include "UiClientMessageSendTimer.h"
 #include "SystemMonitorMessageFactory.h"
 #include "IpcClient.h"
 #include "IpcConnectionTcpClientStrategy.h"
 #include "IpcClientCreator.h"
 #include "IpcLayerMessageFactory.h"
+#include "IpcThreadSafeMessageQueue.h"
+#include "IIpcMessage.h"
 #include "TcpClient.h"
 #include "IpSocketEndpoint.h"
 #include "EventTimer.h"
@@ -14,30 +17,56 @@
 #include "IpAddress.h"
 #include "Trace.h"
 #include <memory>
+#include <thread>
 
 namespace UiClient {
 
 UiClientProcess::UiClientProcess()
+    : ipcMessageSendQueue_(new IpcMessage::IpcThreadSafeMessageQueue())
+    , ipcMessageReceiveQueue_(new IpcMessage::IpcThreadSafeMessageQueue())
 {
 
 }
 
 UiClientProcess::~UiClientProcess()
 {
-    uiClientThread_.join();
+    Core::LoopMain::instance().loopStop();
+    uiClientThread_->join();
 }
 
 void UiClientProcess::start()
 {
-     uiClientThread_ = std::thread(std::bind(&UiClientProcess::process, this));
+     uiClientThread_ = std::unique_ptr<std::thread>(new std::thread(std::bind(&UiClientProcess::process, this)));
 }
+bool UiClientProcess::messageReceived()
+{
+    return !ipcMessageReceiveQueue_->isEmpty();
+}
+
+std::unique_ptr<IpcMessage::IIpcMessage> UiClientProcess::getOneMessage()
+{
+    if (!ipcMessageReceiveQueue_->isEmpty())
+    {
+        return ipcMessageReceiveQueue_->popFront();
+    }
+    else
+    {
+        return nullptr;
+    }
+}
+
+void UiClientProcess::sendMessage(std::unique_ptr<IpcMessage::IIpcMessage> msg)
+{
+    ipcMessageSendQueue_->pushBack(std::move(msg));
+}
+
 
 void UiClientProcess::process()
 {
     TRACE_NOTICE("Ui Client is starting!");
     // Local and remote endpoint.
     Network::IpSocketEndpoint localEndpoint("0.0.0.0:0");
-    Network::IpSocketEndpoint remoteEndpoint(std::string("127.0.0.1:23832"));
+    Network::IpSocketEndpoint remoteEndpoint(std::string("127.0.0.1:23833"));
     //Network::IpSocketEndpoint remoteEndpoint(std::string("192.168.5.138:23832"));
     // SystemMonitorHandler
     UiClientHandler* uiClientHandlerPtr = new UiClientHandler();
@@ -45,7 +74,7 @@ void UiClientProcess::process()
 
     // SystemMonitorConnectionReceiver
     std::shared_ptr<UiIpcConnectionReceiver>
-            uiIpcConnectionReceiver(new UiIpcConnectionReceiver(uiClientHandler));
+            uiIpcConnectionReceiver(new UiIpcConnectionReceiver(uiClientHandler, ipcMessageReceiveQueue_));
 
     IpcMessageFactories factories;
     // System monitor factory
@@ -57,8 +86,12 @@ void UiClientProcess::process()
 
     uiClientHandler->setIpcClient(ipcClient);
     uiClientHandler->startup();
+
+    std::shared_ptr<UiClientMessageSendTimer>
+            uiClientMessageSendTimer(new UiClientMessageSendTimer(ipcMessageSendQueue_, ipcClient));
+    Core::LoopMain::instance().registerTimer(uiClientMessageSendTimer.get());
     // run
-    Core::LoopMain::instance().loop();
+    Core::LoopMain::instance().loopStart();
     TRACE_NOTICE("Ui Client has ended!");
 }
 }

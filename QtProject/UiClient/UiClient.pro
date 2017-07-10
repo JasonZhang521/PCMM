@@ -36,8 +36,7 @@ INCLUDEPATH += ../../sourceCode/Serialize \
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
-    ../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
+SOURCES +=../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/Ipc/IpcClient.cpp \
     ../../sourceCode/Ipc/IpcConnectionTcpClientStrategy.cpp \
     ../../sourceCode/IpcMessage/IpcMessageIdGenerator.cpp \
@@ -83,17 +82,12 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/Io/IoControlEventsHandler.cpp \
     ../../sourceCode/Core/IoLoop.cpp \
     ../../sourceCode/Core/TimerLoop.cpp \
-    ../../sourceCode/SystemMonitor/SystemMonitorHandler.cpp \
-    ../../sourceCode/SystemMonitor/SystemInfoCollector.cpp \
-    ../../sourceCode/SystemMonitor/ISystemMonitorHandler.cpp \
     ../../sourceCode/Io/IIoEvent.cpp \
     ../../sourceCode/Ipc/IIpcClient.cpp \
     ../../sourceCode/Network/ITcpConnectionReceiver.cpp \
     ../../sourceCode/Ipc/IIpcConnectionReceiver.cpp \
     ../../sourceCode/IpcMessage/IIpcMessageFactory.cpp \
     ../../sourceCode/SystemMonitorMessage/SystemMonitorMessageFactory.cpp \
-    ../../sourceCode/SystemMonitor/SystemMonitorConnectionReceiver.cpp \
-    ../../sourceCode/SystemMonitor/SystemmMonitorMain.cpp \
     ../../sourceCode/Configure/Configure.cpp \
     ../../sourceCode/Configure/ExceptionConfigure.cpp \
     ../../sourceCode/Configure/TraceLogConfigure.cpp \
@@ -116,10 +110,10 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/UiClient/UiClientMain.cpp \
     ../../sourceCode/IpcMessage/IIpcMessageQueue.cpp \
     ../../sourceCode/Common/Lock.cpp \
-    ../../sourceCode/IpcMessage/IpcThreadSafeMessageQueue.cpp
+    ../../sourceCode/IpcMessage/IpcThreadSafeMessageQueue.cpp \
+    ../../sourceCode/UiClient/UiClientMessageSendTimer.cpp
 
 HEADERS += \
-    ../../sourceCode/SystemMonitor/SystemMonitorProcess.h \
     ../../sourceCode/Ipc/Component.h \
     ../../sourceCode/Ipc/IIpcConnectionClientStrategy.h \
     ../../sourceCode/Ipc/IpcClient.h \
@@ -186,10 +180,6 @@ HEADERS += \
     ../../sourceCode/Core/IoLoop.h \
     ../../sourceCode/Core/TimerLoop.h \
     ../../sourceCode/Common/Singleton.h \
-    ../../sourceCode/SystemMonitor/SystemInfoCollector.h \
-    ../../sourceCode/SystemMonitor/Component.h \
-    ../../sourceCode/SystemMonitor/ISystemMonitorHandler.h \
-    ../../sourceCode/SystemMonitor/SystemMonitorHandler.h \
     ../../sourceCode/Serialize/Component.h \
     ../../sourceCode/Io/IIoEvent.h \
     ../../sourceCode/Ipc/IIpcClient.h \
@@ -197,7 +187,6 @@ HEADERS += \
     ../../sourceCode/Ipc/IIpcConnectionReceiver.h \
     ../../sourceCode/IpcMessage/IIpcMessageFactory.h \
     ../../sourceCode/SystemMonitorMessage/SystemMonitorMessageFactory.h \
-    ../../sourceCode/SystemMonitor/SystemMonitorConnectionReceiver.h \
     ../../sourceCode/Configure/Configure.h \
     ../../sourceCode/Configure/Configure_Define.h \
     ../../sourceCode/Configure/ExceptionConfigure.h \
@@ -218,7 +207,8 @@ HEADERS += \
     ../../sourceCode/UiClient/Component.h \
     ../../sourceCode/IpcMessage/IIpcMessageQueue.h \
     ../../sourceCode/Common/Lock.h \
-    ../../sourceCode/IpcMessage/IpcThreadSafeMessageQueue.h
+    ../../sourceCode/IpcMessage/IpcThreadSafeMessageQueue.h \
+    ../../sourceCode/UiClient/UiClientMessageSendTimer.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

@@ -20,6 +20,7 @@ class LoopMain
     TimerLoop timeLoop_;
     IoLoop ioLoop_;
     unsigned int timeExcuteInOneLoop;
+    bool stop_;
 public:
     LoopMain();
     void registerTimer(TimerHandler::ITimer* timer);
@@ -28,7 +29,8 @@ public:
     void deRegisterEvent(uint64_t eventID);
     void registerIo(Io::IoFdType type, Io::IIoEvent* IEvent);
     void deRegisterIo(Io::IoFdType type, int fd);
-    void loop();
+    void loopStart();
+    void loopStop();
 
 public:
     static LoopMain& instance();

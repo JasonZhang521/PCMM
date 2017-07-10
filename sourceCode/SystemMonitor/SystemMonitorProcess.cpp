@@ -64,7 +64,7 @@ void SystemMonitorProcess::process()
 
     systemMonitorHandler->startup();
     // run
-    Core::LoopMain::instance().loop();
+    Core::LoopMain::instance().loopStart();
     std::cout << "run to the end----------------" << std::endl;
 }
 

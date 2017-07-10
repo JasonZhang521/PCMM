@@ -59,6 +59,7 @@ void ClusterMgtController::removeAcceptedIpcClient(const std::string& remoteEndP
 
 void ClusterMgtController::handleMessage(const IpcMessage::IIpcMessage& msg, ClientType fromClientType)
 {
+    TRACE_DEBUG("fromClientType:" << static_cast<int>(fromClientType));
     switch (fromClientType) {
     case NodeType:
         if (clientsManager_[UiType])

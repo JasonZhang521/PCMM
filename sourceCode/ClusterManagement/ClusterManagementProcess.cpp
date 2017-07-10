@@ -46,7 +46,7 @@ void ClusterManagementProcess::process()
 
     clusterMgtController->startup();
     // run
-    Core::LoopMain::instance().loop();
+    Core::LoopMain::instance().loopStart();
 }
 
 

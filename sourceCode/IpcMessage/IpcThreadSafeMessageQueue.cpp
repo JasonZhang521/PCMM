@@ -1,4 +1,5 @@
 #include "IpcThreadSafeMessageQueue.h"
+#include "IIpcMessage.h"
 #include "Lock.h"
 namespace IpcMessage {
 
@@ -16,6 +17,12 @@ bool IpcThreadSafeMessageQueue::isEmpty()
 {
     Lock lock(mutex_);
     return messageList_.empty();
+}
+
+size_t IpcThreadSafeMessageQueue::getSize()
+{
+    Lock lock(mutex_);
+    return messageList_.size();
 }
 
 std::unique_ptr<IIpcMessage> IpcThreadSafeMessageQueue::popFront()
