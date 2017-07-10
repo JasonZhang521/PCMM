@@ -9,7 +9,6 @@
 
 namespace Ipc {
     class IIpcClient;
-    class IConnectionTx;
 }
 
 namespace SystemMonitor {
