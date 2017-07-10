@@ -22,6 +22,16 @@ UiClientProcess::UiClientProcess()
 
 }
 
+UiClientProcess::~UiClientProcess()
+{
+    uiClientThread_.join();
+}
+
+void UiClientProcess::start()
+{
+     uiClientThread_ = std::thread(std::bind(&UiClientProcess::process, this));
+}
+
 void UiClientProcess::process()
 {
     TRACE_NOTICE("Ui Client is starting!");

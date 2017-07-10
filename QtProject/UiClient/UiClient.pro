@@ -112,7 +112,11 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/UiClient/UiIpcConnectionReceiver.cpp \
     ../../sourceCode/UiClient/IUiClientHandler.cpp \
     ../../sourceCode/UiClient/UiClientHandler.cpp \
-    ../../sourceCode/UiClient/UiClientProcess.cpp
+    ../../sourceCode/UiClient/UiClientProcess.cpp \
+    ../../sourceCode/UiClient/UiClientMain.cpp \
+    ../../sourceCode/IpcMessage/IIpcMessageQueue.cpp \
+    ../../sourceCode/Common/Lock.cpp \
+    ../../sourceCode/IpcMessage/IpcThreadSafeMessageQueue.cpp
 
 HEADERS += \
     ../../sourceCode/SystemMonitor/SystemMonitorProcess.h \
@@ -211,7 +215,10 @@ HEADERS += \
     ../../sourceCode/UiClient/IUiClientHandler.h \
     ../../sourceCode/UiClient/UiClientHandler.h \
     ../../sourceCode/UiClient/UiClientProcess.h \
-    ../../sourceCode/UiClient/Component.h
+    ../../sourceCode/UiClient/Component.h \
+    ../../sourceCode/IpcMessage/IIpcMessageQueue.h \
+    ../../sourceCode/Common/Lock.h \
+    ../../sourceCode/IpcMessage/IpcThreadSafeMessageQueue.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
