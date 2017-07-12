@@ -41,7 +41,9 @@ SOURCES += \
     ../../sourceCode/Environment/DiskUsageInfo.cpp \
     ../../sourceCode/Environment/MomeryUsageInfo.cpp \
     ../../sourceCode/Environment/MiscInfo.cpp \
-    ../../sourceCode/Environment/ComputerNodeInfo.cpp
+    ../../sourceCode/Environment/ComputerNodeInfo.cpp \
+    ../../sourceCode/Environment/CpuInfoDataType.cpp \
+    ../../sourceCode/Common/RemoveCharacter.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -78,7 +80,6 @@ SOURCES +=../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/Common/FilePathHandler.cpp \
     ../../sourceCode/Common/LocalTime.cpp \
     ../../sourceCode/Common/Random.cpp \
-    ../../sourceCode/Common/remove_character.cpp \
     ../../sourceCode/Common/replace_character.cpp \
     ../../sourceCode/Common/SystemTime.cpp \
     ../../sourceCode/Common/TimeStat.cpp \
@@ -143,7 +144,6 @@ HEADERS += \
     ../../sourceCode/Common/Macro.h \
     ../../sourceCode/Common/operator.h \
     ../../sourceCode/Common/Random.h \
-    ../../sourceCode/Common/remove_character.h \
     ../../sourceCode/Common/replace_character.h \
     ../../sourceCode/Common/SystemTime.h \
     ../../sourceCode/Common/TimeStat.h \
@@ -240,7 +240,9 @@ HEADERS += \
     ../../sourceCode/Environment/DiskUsageInfo.h \
     ../../sourceCode/Environment/MomeryUsageInfo.h \
     ../../sourceCode/Environment/MiscInfo.h \
-    ../../sourceCode/Environment/ComputerNodeInfo.h
+    ../../sourceCode/Environment/ComputerNodeInfo.h \
+    ../../sourceCode/Environment/CpuInfoDataType.h \
+    ../../sourceCode/Common/RemoveCharacter.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

@@ -35,7 +35,7 @@ class RemoveCharacter : public std::unary_function<const std::string&, std::stri
 public:
     RemoveCharacter(char specialChar = ' ', unsigned int location = LOCATION_FRONT | LOCATION_END);
     std::string operator()(const std::string &);
-    void setCharacter(char specialChar) {specialChar_ = specialChar;};
+    inline void setCharacter(char specialChar) {specialChar_ = specialChar;}
 };
 
 #endif

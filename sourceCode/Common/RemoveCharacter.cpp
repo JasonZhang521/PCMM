@@ -15,7 +15,7 @@
  *
  * =====================================================================================
  */
-#include "remove_character.h"
+#include "RemoveCharacter.h"
 
 RemoveCharacter::RemoveCharacter(char specialChar, unsigned int location)
 :specialChar_(specialChar)

@@ -48,7 +48,6 @@ void CpuUsage::getCpuUsageFromProcStatFile()
 	
     if (!ifs.good())
     {
-		std::cout << "Failed to open file: " << statFilePath_ << std::endl;
         TRACE_WARNING("Failed to open file: " << statFilePath_ << ", stop reading, try next time." << std::endl);
         return;
     }
@@ -65,7 +64,7 @@ void CpuUsage::getCpuUsageFromProcStatFile()
 	char buffer[128];
 	while(ifs.good())
     {
-		std::fill(buffer, buffer + 128, 46);
+        std::fill(buffer, buffer + 128, 0);
 		ifs.getline(buffer, 128);
 		std::stringstream ss;
 		ss << buffer;
