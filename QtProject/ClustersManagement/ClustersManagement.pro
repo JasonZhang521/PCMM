@@ -35,7 +35,13 @@ SOURCES += \
     ../../sourceCode/IpcMessage/IIpcComunicationMessage.cpp \
     ../../sourceCode/IpcMessage/IpcAuthorizationRequest.cpp \
     ../../sourceCode/IpcMessage/IpcAuthorizationResponse.cpp \
-    ../../sourceCode/Ipc/IpcServerCreator.cpp
+    ../../sourceCode/Ipc/IpcServerCreator.cpp \
+    ../../sourceCode/Environment/CpuInfo.cpp \
+    ../../sourceCode/Environment/NetworkInfo.cpp \
+    ../../sourceCode/Environment/DiskUsageInfo.cpp \
+    ../../sourceCode/Environment/MomeryUsageInfo.cpp \
+    ../../sourceCode/Environment/MiscInfo.cpp \
+    ../../sourceCode/Environment/ComputerNodeInfo.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -228,7 +234,13 @@ HEADERS += \
     ../../sourceCode/IpcMessage/IIpcComunicationMessage.h \
     ../../sourceCode/IpcMessage/IpcAuthorizationRequest.h \
     ../../sourceCode/IpcMessage/IpcAuthorizationResponse.h \
-    ../../sourceCode/Ipc/IpcServerCreator.h
+    ../../sourceCode/Ipc/IpcServerCreator.h \
+    ../../sourceCode/Environment/CpuInfo.h \
+    ../../sourceCode/Environment/NetworkInfo.h \
+    ../../sourceCode/Environment/DiskUsageInfo.h \
+    ../../sourceCode/Environment/MomeryUsageInfo.h \
+    ../../sourceCode/Environment/MiscInfo.h \
+    ../../sourceCode/Environment/ComputerNodeInfo.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
