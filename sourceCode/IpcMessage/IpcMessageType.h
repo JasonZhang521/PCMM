@@ -7,7 +7,8 @@ enum IpcMessageType
 {
     IpcMessage_None,
     IpcMessage_IpcCommunication,
-    IpcMessage_SystemMonitor
+    IpcMessage_SystemMonitor,
+    IpcMessage_ClusterMgt
 };
 std::string IpcMessageTypeString(IpcMessageType type);
 
@@ -25,6 +26,14 @@ enum IpcCommunicationMessageType
     IpcAuthorizationResponseMessage
 };
 std::string IpcCommunicationTypeString(IpcCommunicationMessageType type);
+
+enum IpcClusterMgtMessageType
+{
+    ClusterMgtBrieflyRequestMessage,
+    ClusterMgtBrieflyResponseMessage
+};
+
+std::string IpcClusterMgtTypeToString(IpcClusterMgtMessageType type);
 
 }
 #endif // _IPCMESSAGE_IPCMESSAGETYPE_H_
