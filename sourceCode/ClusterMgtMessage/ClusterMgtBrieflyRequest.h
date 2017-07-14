@@ -1,7 +1,6 @@
 #ifndef CLUSTERMGTBRIEFLYREQUEST_H
 #define CLUSTERMGTBRIEFLYREQUEST_H
 #include "IClusterMgtMessage.h"
-#include "IpcMessageType.h"
 
 namespace ClusterMgtMessage {
 class ClusterMgtBrieflyRequest : public IClusterMgtMessage

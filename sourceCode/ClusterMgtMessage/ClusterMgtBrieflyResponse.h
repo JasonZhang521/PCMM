@@ -7,6 +7,12 @@ class ClusterMgtBrieflyResponse : public IClusterMgtMessage
 {
 public:
     ClusterMgtBrieflyResponse();
+    virtual ~ClusterMgtBrieflyResponse();
+    virtual void serialize(Serialize::WriteBuffer& writeBuffer) const;
+    virtual void unserialize(Serialize::ReadBuffer& readBuffer);
+
+    virtual IpcMessage::IpcClusterMgtMessageType getClusterMgtType() const;
+    virtual std::ostream& operator<< (std::ostream& os) const;
 };
 
 }
