@@ -14,7 +14,7 @@ public:
     virtual void serialize(Serialize::WriteBuffer& writeBuffer) const = 0;
     virtual void unserialize(Serialize::ReadBuffer& readBuffer) = 0;
 
-    virtual IpcMessage::SystemMonitorMessageType getSystemMonitorType() const = 0;
+    virtual IpcMessage::IpcClusterMgtMessageType getClusterMgtType() const = 0;
     virtual std::ostream& operator<< (std::ostream& os) const = 0;
 };
 
