@@ -46,7 +46,8 @@ SOURCES += \
     ../../sourceCode/Common/RemoveCharacter.cpp \
     ../../sourceCode/ClusterMgtMessage/IClusterMgtMessage.cpp \
     ../../sourceCode/ClusterMgtMessage/ClusterMgtBrieflyRequest.cpp \
-    ../../sourceCode/ClusterMgtMessage/ClusterMgtBrieflyResponse.cpp
+    ../../sourceCode/ClusterMgtMessage/ClusterMgtBrieflyResponse.cpp \
+    ../../sourceCode/Environment/CpuInfoBriefly.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -248,7 +249,8 @@ HEADERS += \
     ../../sourceCode/Common/RemoveCharacter.h \
     ../../sourceCode/ClusterMgtMessage/IClusterMgtMessage.h \
     ../../sourceCode/ClusterMgtMessage/ClusterMgtBrieflyRequest.h \
-    ../../sourceCode/ClusterMgtMessage/ClusterMgtBrieflyResponse.h
+    ../../sourceCode/ClusterMgtMessage/ClusterMgtBrieflyResponse.h \
+    ../../sourceCode/Environment/CpuInfoBriefly.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
