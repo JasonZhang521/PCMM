@@ -2,6 +2,7 @@
 #include "RemoveCharacter.h"
 #include "Trace.h"
 #include <sstream>
+#include <memory>
 namespace Environment {
 CpuInfo::CpuInfo()
 {
@@ -45,6 +46,12 @@ void CpuInfo::update()
 const CpuInfoRawDatas CpuInfo::getCpuInfoRawData() const
 {
     return rawDatas_;
+}
+
+CpuInfo& CpuInfo::instance()
+{
+    static std::unique_ptr<CpuInfo> instance(new CpuInfo());
+    return *instance;
 }
 
 void CpuInfo::getCpuInfoFromProcCpuInfoFile()

@@ -10,11 +10,14 @@ class ReadBuffer;
 namespace Environment {
 class CpuInfoBriefly
 {
+    uint16_t numOfCpu_;
     std::string modelName_;
     std::string frequency_;
     int usage_;
 public:
     CpuInfoBriefly();
+    inline void setNumOfCpu(uint16_t num) {numOfCpu_ = num;}
+    inline uint16_t getNumOfCpu() const {return numOfCpu_;}
     inline void setModelName(const std::string& modelName) {modelName_ = modelName;}
     inline const std::string& getModeName() const {return modelName_;}
     inline void setFrequency(const std::string& frequency) {frequency_ = frequency;}

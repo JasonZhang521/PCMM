@@ -14,6 +14,7 @@ public:
     std::ostream& operator << (std::ostream&) const;
     void update();
     const CpuInfoRawDatas getCpuInfoRawData() const;
+    static CpuInfo& instance();
 private:
     void getCpuInfoFromProcCpuInfoFile();
     void clear();
@@ -24,9 +25,10 @@ public:
 
 }
 
-std::ostream& operator << (std::ostream& os, const Environment::CpuInfo& cpuInfo)
+inline std::ostream& operator << (std::ostream& os, const Environment::CpuInfo& cpuInfo)
 {
     return cpuInfo.operator <<(os);
+    return os;
 }
 
 #endif // CPUINFO_H

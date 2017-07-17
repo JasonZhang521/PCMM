@@ -1,6 +1,7 @@
 #ifndef CLUSTERMGTBRIEFLYRESPONSE_H
 #define CLUSTERMGTBRIEFLYRESPONSE_H
 #include "IClusterMgtMessage.h"
+#include "CpuInfoBriefly.h"
 
 namespace ClusterMgtMessage {
 class ClusterMgtBrieflyResponse : public IClusterMgtMessage
