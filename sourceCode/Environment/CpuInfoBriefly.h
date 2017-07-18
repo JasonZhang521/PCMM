@@ -1,5 +1,5 @@
-#ifndef CPUINFOBRIEFLY_H
-#define CPUINFOBRIEFLY_H
+#ifndef _ENVIRONMENT_CPUINFOBRIEFLY_H_
+#define _ENVIRONMENT_CPUINFOBRIEFLY_H_
 #include <string>
 #include <ostream>
 
@@ -32,4 +32,4 @@ public:
 };
 }
 
-#endif // CPUINFOBRIEFLY_H
+#endif // _ENVIRONMENT_CPUINFOBRIEFLY_H_

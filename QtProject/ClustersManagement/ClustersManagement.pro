@@ -48,7 +48,9 @@ SOURCES += \
     ../../sourceCode/ClusterMgtMessage/ClusterMgtBrieflyRequest.cpp \
     ../../sourceCode/ClusterMgtMessage/ClusterMgtBrieflyResponse.cpp \
     ../../sourceCode/Environment/CpuInfoBriefly.cpp \
-    ../../sourceCode/Environment/EnvironmentSystemInfomation.cpp
+    ../../sourceCode/Environment/EnvironmentSystemInfomation.cpp \
+    ../../sourceCode/Environment/MemoryInfo.cpp \
+    ../../sourceCode/Environment/MemoryInfoDataType.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -252,7 +254,9 @@ HEADERS += \
     ../../sourceCode/ClusterMgtMessage/ClusterMgtBrieflyRequest.h \
     ../../sourceCode/ClusterMgtMessage/ClusterMgtBrieflyResponse.h \
     ../../sourceCode/Environment/CpuInfoBriefly.h \
-    ../../sourceCode/Environment/EnvironmentSystemInfomation.h
+    ../../sourceCode/Environment/EnvironmentSystemInfomation.h \
+    ../../sourceCode/Environment/MemoryInfo.h \
+    ../../sourceCode/Environment/MemoryInfoDataType.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
