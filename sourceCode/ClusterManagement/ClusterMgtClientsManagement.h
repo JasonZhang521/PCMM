@@ -30,10 +30,11 @@ public:
     virtual void shutdown();
     virtual void addAcceptedIpcClient(const Network::IpSocketEndpoint& remoteEndPoint, std::shared_ptr<Ipc::IIpcClient> ipcClient);
     virtual void removeAcceptedIpcClient(const Network::IpSocketEndpoint& remoteEndPoint);
-    virtual void handleMessage(const IpcMessage::IIpcMessage& msg, ClientType fromClientType);
+    virtual void handleMessage(const IpcMessage::IIpcMessage& msg, ClientType fromClientType, const Network::IpSocketEndpoint& remoteIpEndpoint);
 private:
     void forwardIpcMessage(const Network::IpSocketEndpoint& remoteEndPoint, const IpcMessage::IIpcMessage& msg);
     void broadcastMsg(const IpcMessage::IIpcMessage& msg);
+    void handleClusterMgtMessage(const IpcMessage::IIpcMessage& msg, const Network::IpSocketEndpoint& remoteIpEndpoint);
 
 public:
     GETCLASSNAME(ClusterMgtClientsManagment)

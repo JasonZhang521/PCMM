@@ -19,7 +19,7 @@ void ClusterMgtController::startup()
 {
     for (ClientsManagementMap::iterator it = clientsManager_.begin(); it != clientsManager_.end(); ++it)
     {
-        std::shared_ptr<IClusterMgtClientsManagement> clusterMgtClientManagement = it->second;
+        std::unique_ptr<IClusterMgtClientsManagement>& clusterMgtClientManagement = it->second;
         clusterMgtClientManagement->startup();
     }
 }
@@ -28,7 +28,7 @@ void ClusterMgtController::shutdown()
 {
     for (ClientsManagementMap::iterator it = clientsManager_.begin(); it != clientsManager_.end(); ++it)
     {
-        std::shared_ptr<IClusterMgtClientsManagement> clusterMgtClientManagement = it->second;
+        std::unique_ptr<IClusterMgtClientsManagement>& clusterMgtClientManagement = it->second;
         clusterMgtClientManagement->shutdown();
     }
 }
@@ -57,14 +57,17 @@ void ClusterMgtController::removeAcceptedIpcClient(const Network::IpSocketEndpoi
     clientsManager_[type]->removeAcceptedIpcClient(remoteEndPoint);
 }
 
-void ClusterMgtController::handleMessage(const IpcMessage::IIpcMessage& msg, ClientType fromClientType)
+void ClusterMgtController::handleMessage(const IpcMessage::IIpcMessage& msg, ClientType fromClientType, const Network::IpSocketEndpoint& remoteIpEndpoint)
 {
     TRACE_DEBUG("fromClientType:" << static_cast<int>(fromClientType));
-    clientsManager_[UiType]->handleMessage(msg, fromClientType);
-    clientsManager_[NodeType]->handleMessage(msg, fromClientType);
+    for (ClientsManagementMap::iterator it = clientsManager_.begin(); it != clientsManager_.end(); ++it)
+    {
+        std::unique_ptr<IClusterMgtClientsManagement>& clusterManagement = it->second;
+        clusterManagement->handleMessage(msg, fromClientType, remoteIpEndpoint);
+    }
 }
 
-void ClusterMgtController::addClientManager(ClientType type, std::shared_ptr<IClusterMgtClientsManagement> clientManager)
+void ClusterMgtController::addClientManager(ClientType type, std::unique_ptr<IClusterMgtClientsManagement> clientManager)
 {
     ClientsManagementMap::iterator it = clientsManager_.find(type);
     if (it != clientsManager_.end())
@@ -72,7 +75,7 @@ void ClusterMgtController::addClientManager(ClientType type, std::shared_ptr<ICl
         TRACE_NOTICE("Client Manager is already exist for client type = " << type);
     }
 
-    clientsManager_[type] = clientManager;
+    clientsManager_[type] = std::move(clientManager);
 }
 
 }

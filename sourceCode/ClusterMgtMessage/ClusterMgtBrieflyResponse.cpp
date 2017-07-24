@@ -17,6 +17,7 @@ void ClusterMgtBrieflyResponse::serialize(Serialize::WriteBuffer& writeBuffer) c
     writeBuffer.write<uint8_t>(static_cast<uint8_t>(IpcMessage::IpcMessageType::IpcMessage_ClusterMgt));
     writeBuffer.write<uint8_t>(static_cast<uint8_t>(IpcMessage::ClusterMgtBrieflyResponseMessage));
     IpcMessage::IIpcMessage::write(writeBuffer);
+    systemInfoBriefly_.serialize(writeBuffer);
 }
 void ClusterMgtBrieflyResponse::unserialize(Serialize::ReadBuffer& readBuffer)
 {
@@ -24,6 +25,7 @@ void ClusterMgtBrieflyResponse::unserialize(Serialize::ReadBuffer& readBuffer)
     readBuffer.read(temp);
     readBuffer.read(temp);
     IpcMessage::IIpcMessage::read(readBuffer);
+    systemInfoBriefly_.unserialize(readBuffer);
 }
 
 IpcMessage::IpcClusterMgtMessageType ClusterMgtBrieflyResponse::getClusterMgtType() const
@@ -40,5 +42,16 @@ std::ostream& ClusterMgtBrieflyResponse::operator<< (std::ostream& os) const
        << "]";
     return os;
 }
+
+void ClusterMgtBrieflyResponse::setSystemInfoBriefly(const Environment::SystemInfoBriefly& info)
+{
+    systemInfoBriefly_ = info;
+}
+
+const Environment::SystemInfoBriefly& ClusterMgtBrieflyResponse::getSystemInfoBriefly() const
+{
+    return systemInfoBriefly_;
+}
+
 
 }

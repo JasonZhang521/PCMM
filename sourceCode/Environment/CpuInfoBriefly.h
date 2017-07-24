@@ -17,6 +17,8 @@ class CpuInfoBriefly
     int usage_;
 public:
     CpuInfoBriefly();
+    CpuInfoBriefly(const CpuInfoBriefly& info);
+    CpuInfoBriefly& operator =(const CpuInfoBriefly& info);
     inline void setNumOfCpu(uint16_t num) {numOfCpu_ = num;}
     inline uint16_t getNumOfCpu() const {return numOfCpu_;}
     inline void setModelName(const std::string& modelName) {modelName_ = modelName;}
@@ -31,6 +33,8 @@ public:
 
     std::ostream& operator <<(std::ostream& os) const;
 
+    void update();
+private:
     void updateCpuInfoBriefly();
 };
 }

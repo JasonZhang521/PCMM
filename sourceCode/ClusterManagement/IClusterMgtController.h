@@ -28,8 +28,8 @@ public:
     virtual void shutdown() = 0;
     virtual void addAcceptedIpcClient(const Network::IpSocketEndpoint& remoteEndPoint, std::shared_ptr<Ipc::IIpcClient> ipcClient, ClientType type) = 0;
     virtual void removeAcceptedIpcClient(const Network::IpSocketEndpoint& remoteEndPoint, ClientType type) = 0;
-    virtual void handleMessage(const IpcMessage::IIpcMessage& msg, ClientType fromClientType) = 0;
-    virtual void addClientManager(ClientType type, std::shared_ptr<IClusterMgtClientsManagement> clientManager) = 0;
+    virtual void handleMessage(const IpcMessage::IIpcMessage& msg, ClientType fromClientType, const Network::IpSocketEndpoint& remoteIpEndpoint) = 0;
+    virtual void addClientManager(ClientType type, std::unique_ptr<IClusterMgtClientsManagement> clientManager) = 0;
 };
 }
 #endif // ICLUSTERMGTCONTROLLER_H

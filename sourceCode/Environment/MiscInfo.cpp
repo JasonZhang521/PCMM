@@ -1,5 +1,8 @@
 #include "MiscInfo.h"
+#include "WriteBuffer.h"
+#include "ReadBuffer.h"
 #include "SystemTime.h"
+#include "SocketWrapper.h"
 #include "Trace.h"
 namespace Environment {
 MiscInfo::MiscInfo()
@@ -7,6 +10,25 @@ MiscInfo::MiscInfo()
     , elapseTimeFromNodeStart_(0)
 {
 
+}
+
+MiscInfo::MiscInfo(const MiscInfo& info)
+    : nodeStartTimeStamp_(info.nodeStartTimeStamp_)
+    , elapseTimeFromNodeStart_(info.elapseTimeFromNodeStart_)
+{
+
+}
+
+MiscInfo& MiscInfo::operator=(const MiscInfo& info)
+{
+    nodeStartTimeStamp_ = info.nodeStartTimeStamp_;
+    elapseTimeFromNodeStart_ = info.elapseTimeFromNodeStart_;
+    return *this;
+}
+
+void MiscInfo::update()
+{
+    updateElapseTimeFromNodeStart();
 }
 
 void MiscInfo::updateElapseTimeFromNodeStart()
@@ -31,6 +53,28 @@ void MiscInfo::updateElapseTimeFromNodeStart()
     ss << elapse;
     elapseTimeFromNodeStart_ = static_cast<uint32_t>(elapse);
     nodeStartTimeStamp_ = SystemTime::currentTimeStampAsSecond();
+}
+
+void MiscInfo::serialize(Serialize::WriteBuffer& writeBuffer) const
+{
+    writeBuffer.write(IoPlatformWrapper::Htonll(nodeStartTimeStamp_));
+    writeBuffer.write(IoPlatformWrapper::Htonl(elapseTimeFromNodeStart_));
+}
+void MiscInfo::unserialize(Serialize::ReadBuffer& readBuffer)
+{
+    readBuffer.read(nodeStartTimeStamp_);
+    nodeStartTimeStamp_ = IoPlatformWrapper::Ntohll(nodeStartTimeStamp_);
+    readBuffer.read(elapseTimeFromNodeStart_);
+    elapseTimeFromNodeStart_ = IoPlatformWrapper::Ntohl(elapseTimeFromNodeStart_);
+}
+
+std::ostream& MiscInfo::operator <<(std::ostream& os) const
+{
+    os << "["
+       << "nodeStartTimeStamp=" << nodeStartTimeStamp_
+       << "elapseTimeFromNodeStart=" << elapseTimeFromNodeStart_
+       << "]";
+    return os;
 }
 
 }

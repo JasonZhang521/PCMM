@@ -1,7 +1,10 @@
 #include "ClusterMgtClientsManagement.h"
+#include "ClusterMgtBrieflyRequest.h"
+#include "ClusterMgtBrieflyResponse.h"
 #include "IIpcClient.h"
 #include "IIpcServer.h"
 #include "IIpcMessage.h"
+#include "IpcMessageType.h"
 #include "Trace.h"
 
 namespace ClusterManagement {
@@ -56,19 +59,36 @@ void ClusterMgtClientsManagment::removeAcceptedIpcClient(const Network::IpSocket
     }
 }
 
-void ClusterMgtClientsManagment::handleMessage(const IpcMessage::IIpcMessage& msg, ClientType fromClientType)
+void ClusterMgtClientsManagment::handleMessage(const IpcMessage::IIpcMessage& msg, ClientType fromClientType, const Network::IpSocketEndpoint& remoteIpEndpoint)
 {
-    const std::string invalidDest("Invalid_IpAddress:0");
-    const std::string dest = msg.getDestnation().toString();
-    TRACE_DEBUG("destination:" << dest);
-    if (dest == invalidDest)
+    IpcMessage::IpcMessageType type = msg.getMessageType();
+    if (type == IpcMessage::IpcMessageType::IpcMessage_ClusterMgt)
     {
-        broadcastMsg(msg);
+        if (fromClientType != clientType_)
+        {
+            return;
+        }
+
+        handleClusterMgtMessage(msg, remoteIpEndpoint);
     }
     else
     {
-        IpcClientsMap::iterator it = clients_.find(dest);
-        forwardIpcMessage(dest, msg);
+        if (fromClientType == clientType_)
+        {
+            return;
+        }
+        const std::string invalidDest("Invalid_IpAddress:0");
+        const std::string dest = msg.getDestnation().toString();
+        TRACE_DEBUG("destination:" << dest);
+        if (dest == invalidDest)
+        {
+            broadcastMsg(msg);
+        }
+        else
+        {
+            IpcClientsMap::iterator it = clients_.find(dest);
+            forwardIpcMessage(dest, msg);
+        }
     }
 }
 
@@ -90,6 +110,24 @@ void ClusterMgtClientsManagment::broadcastMsg(const IpcMessage::IIpcMessage& msg
     {
         std::shared_ptr<Ipc::IIpcClient>& ipcClient = it->second;
         ipcClient->send(msg);
+    }
+}
+
+void ClusterMgtClientsManagment::handleClusterMgtMessage(const IpcMessage::IIpcMessage& msg, const Network::IpSocketEndpoint& remoteIpEndpoint)
+{
+    const ClusterMgtMessage::ClusterMgtBrieflyRequest* request = dynamic_cast<const ClusterMgtMessage::ClusterMgtBrieflyRequest*>(&msg);
+    if (request != nullptr)
+    {
+        ClusterMgtMessage::ClusterMgtBrieflyResponse response;
+        Environment::SystemInfoBriefly info;
+        info.update();
+        response.setSystemInfoBriefly(info);
+        IpcClientsMap::iterator it = clients_.find(remoteIpEndpoint);
+        if (it != clients_.end())
+        {
+            std::shared_ptr<Ipc::IIpcClient>& ipcClient = it->second;
+            ipcClient->send(response);
+        }
     }
 }
 

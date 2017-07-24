@@ -26,7 +26,7 @@ void ClusterMgtConnectionReceiver::onConnect()
 void ClusterMgtConnectionReceiver::onReceive(std::unique_ptr<IpcMessage::IIpcMessage> msg)
 {
     TRACE_NOTICE("clientType:" << static_cast<int>(clientType_) << ", receive message:" << *msg);
-    clusterMgtController_->handleMessage(*msg, clientType_);
+    clusterMgtController_->handleMessage(*msg, clientType_, remoteIpEndpoint_);
 }
 
 void ClusterMgtConnectionReceiver::onDisconnect()

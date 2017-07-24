@@ -3,6 +3,11 @@
 #include "Component.h"
 #include "Macro.h"
 
+namespace Serialize {
+class WriteBuffer;
+class ReadBuffer;
+}
+
 namespace Environment {
 class MiscInfo
 {
@@ -10,6 +15,12 @@ class MiscInfo
     uint32_t elapseTimeFromNodeStart_;  // second
 public:
     MiscInfo();
+    MiscInfo(const MiscInfo& info);
+    MiscInfo& operator=(const MiscInfo& info);
+    void serialize(Serialize::WriteBuffer& writeBuffer) const;
+    void unserialize(Serialize::ReadBuffer& readBuffer);
+    std::ostream& operator <<(std::ostream& os) const;
+    void update();
 private:
     void updateElapseTimeFromNodeStart();
 

@@ -15,6 +15,24 @@ CpuInfoBriefly::CpuInfoBriefly()
 
 }
 
+CpuInfoBriefly::CpuInfoBriefly(const CpuInfoBriefly& info)
+    : numOfCpu_(info.numOfCpu_)
+    , modelName_(info.modelName_)
+    , frequency_(info.frequency_)
+    , usage_(info.usage_)
+{
+
+}
+
+CpuInfoBriefly& CpuInfoBriefly::operator =(const CpuInfoBriefly& info)
+{
+    numOfCpu_ = info.numOfCpu_;
+    modelName_ = info.modelName_;
+    frequency_ = info.frequency_;
+    usage_ = info.usage_;
+    return *this;
+}
+
 void CpuInfoBriefly::serialize(Serialize::WriteBuffer& writeBuffer) const
 {
     writeBuffer.write(IoPlatformWrapper::Htons(numOfCpu_));
@@ -71,6 +89,11 @@ void CpuInfoBriefly::updateCpuInfoBriefly()
         setModelName(rawData[MODEL_NAME]);
         setFrequency(rawData[CPU_MHZ]);
     }
+}
+
+void CpuInfoBriefly::update()
+{
+    updateCpuInfoBriefly();
 }
 
 }

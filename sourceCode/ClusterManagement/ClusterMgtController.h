@@ -18,7 +18,7 @@ class IClusterMgtClientsManagement;
 
 class ClusterMgtController : public IClusterMgtController
 {
-    using ClientsManagementMap = std::map<ClientType, std::shared_ptr<IClusterMgtClientsManagement> >;
+    using ClientsManagementMap = std::map<ClientType, std::unique_ptr<IClusterMgtClientsManagement> >;
     ClientsManagementMap clientsManager_;
 public:
     ClusterMgtController();
@@ -27,8 +27,8 @@ public:
     virtual void shutdown();
     virtual void addAcceptedIpcClient(const Network::IpSocketEndpoint& remoteEndPoint, std::shared_ptr<Ipc::IIpcClient> ipcClient, ClientType type);
     virtual void removeAcceptedIpcClient(const Network::IpSocketEndpoint& remoteEndPoint, ClientType type);
-    virtual void handleMessage(const IpcMessage::IIpcMessage& msg, ClientType fromClientType);
-    virtual void addClientManager(ClientType type, std::shared_ptr<IClusterMgtClientsManagement> clientManager);
+    virtual void handleMessage(const IpcMessage::IIpcMessage& msg, ClientType fromClientType, const Network::IpSocketEndpoint& remoteIpEndpoint);
+    virtual void addClientManager(ClientType type, std::unique_ptr<IClusterMgtClientsManagement> clientManager);
 
 public:
     GETCLASSNAME(ClusterMgtController)

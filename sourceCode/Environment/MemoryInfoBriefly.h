@@ -9,16 +9,19 @@ class ReadBuffer;
 }
 
 namespace Environment {
-class MomeryInfoBriefly
+class MemoryInfoBriefly
 {
     std::string memTotal_;
     std::string memFree_;
 public:
-    MomeryInfoBriefly();
+    MemoryInfoBriefly();
+    MemoryInfoBriefly(const MemoryInfoBriefly& info);
+    MemoryInfoBriefly& operator =(const MemoryInfoBriefly& info);
     void serialize(Serialize::WriteBuffer& writeBuffer) const;
     void unserialize(Serialize::ReadBuffer& readBuffer);
     std::ostream& operator <<(std::ostream& os) const;
-
+    void update();
+private:
     void updateMemUsageInfo();
 };
 }

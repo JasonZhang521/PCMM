@@ -19,10 +19,12 @@ class NetworkInfo
 
 public:
     NetworkInfo();
+    NetworkInfo(const NetworkInfo& info);
+    NetworkInfo& operator =(const NetworkInfo& info);
     void serialize(Serialize::WriteBuffer& writeBuffer) const;
     void unserialize(Serialize::ReadBuffer& readBuffer);
     std::ostream& operator <<(std::ostream& os) const;
-    void updateNetworkInfo();
+    void update();
 private:
     void updateMacAddress();
     void updateIpAddress();

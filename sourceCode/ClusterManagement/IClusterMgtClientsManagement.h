@@ -26,7 +26,7 @@ public:
     virtual void shutdown() = 0;
     virtual void addAcceptedIpcClient(const Network::IpSocketEndpoint& remoteEndPoint, std::shared_ptr<Ipc::IIpcClient> ipcClient) = 0;
     virtual void removeAcceptedIpcClient(const Network::IpSocketEndpoint& remoteEndPoint) = 0;
-    virtual void handleMessage(const IpcMessage::IIpcMessage& msg, ClientType fromClientType) = 0;
+    virtual void handleMessage(const IpcMessage::IIpcMessage& msg, ClientType fromClientType, const Network::IpSocketEndpoint& remoteIpEndpoint) = 0;
 };
 }
 

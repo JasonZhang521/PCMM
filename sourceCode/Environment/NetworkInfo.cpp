@@ -10,6 +10,20 @@ NetworkInfo::NetworkInfo()
 
 }
 
+NetworkInfo::NetworkInfo(const NetworkInfo& info)
+    :macAddress_(info.macAddress_)
+    ,hostIpAddresses_(info.hostIpAddresses_)
+{
+
+}
+
+NetworkInfo& NetworkInfo::operator =(const NetworkInfo& info)
+{
+    macAddress_ = info.macAddress_;
+    hostIpAddresses_ = info.hostIpAddresses_;
+    return *this;
+}
+
 void NetworkInfo::serialize(Serialize::WriteBuffer& writeBuffer) const
 {
     writeBuffer.write(static_cast<uint8_t>(macAddress_.size()));
@@ -55,7 +69,7 @@ std::ostream& NetworkInfo::operator <<(std::ostream& os) const
     return os;
 }
 
-void NetworkInfo::updateNetworkInfo()
+void NetworkInfo::update()
 {
     updateMacAddress();
     updateIpAddress();
