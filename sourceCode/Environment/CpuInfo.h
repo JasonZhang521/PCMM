@@ -3,7 +3,7 @@
 #include "CpuInfoDataType.h"
 #include "Component.h"
 #include "Macro.h"
-#include <iostream>
+#include <ostream>
 
 namespace Environment {
 class CpuInfo

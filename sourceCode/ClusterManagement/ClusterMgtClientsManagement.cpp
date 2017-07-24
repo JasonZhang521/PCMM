@@ -6,8 +6,9 @@
 
 namespace ClusterManagement {
 
-ClusterMgtClientsManagment::ClusterMgtClientsManagment(std::shared_ptr<Ipc::IIpcServer> ipcServer)
-    :ipcServer_(ipcServer)
+ClusterMgtClientsManagment::ClusterMgtClientsManagment(ClientType clientType, std::shared_ptr<Ipc::IIpcServer> ipcServer)
+    : clientType_(clientType)
+    , ipcServer_(ipcServer)
 {
 
 }
@@ -29,7 +30,7 @@ void ClusterMgtClientsManagment::shutdown()
     ipcServer_->shutdown();
 }
 
-void ClusterMgtClientsManagment::addAcceptedIpcClient(const std::string& remoteEndPoint, std::shared_ptr<Ipc::IIpcClient> ipcClient)
+void ClusterMgtClientsManagment::addAcceptedIpcClient(const Network::IpSocketEndpoint& remoteEndPoint, std::shared_ptr<Ipc::IIpcClient> ipcClient)
 {
     TRACE_DEBUG("Add client:" << remoteEndPoint);
     IpcClientsMap::iterator it= clients_.find(remoteEndPoint);
@@ -41,7 +42,7 @@ void ClusterMgtClientsManagment::addAcceptedIpcClient(const std::string& remoteE
     clients_[remoteEndPoint] = ipcClient;
 }
 
-void ClusterMgtClientsManagment::removeAcceptedIpcClient(const std::string& remoteEndPoint)
+void ClusterMgtClientsManagment::removeAcceptedIpcClient(const Network::IpSocketEndpoint& remoteEndPoint)
 {
     TRACE_DEBUG("remove client:" << remoteEndPoint);
     IpcClientsMap::iterator it = clients_.find(remoteEndPoint);
@@ -55,7 +56,7 @@ void ClusterMgtClientsManagment::removeAcceptedIpcClient(const std::string& remo
     }
 }
 
-void ClusterMgtClientsManagment::handleMessage(const IpcMessage::IIpcMessage& msg)
+void ClusterMgtClientsManagment::handleMessage(const IpcMessage::IIpcMessage& msg, ClientType fromClientType)
 {
     const std::string invalidDest("Invalid_IpAddress:0");
     const std::string dest = msg.getDestnation().toString();
@@ -71,7 +72,7 @@ void ClusterMgtClientsManagment::handleMessage(const IpcMessage::IIpcMessage& ms
     }
 }
 
-void ClusterMgtClientsManagment::forwardIpcMessage(const std::string& remoteEndPoint, const IpcMessage::IIpcMessage& msg)
+void ClusterMgtClientsManagment::forwardIpcMessage(const Network::IpSocketEndpoint& remoteEndPoint, const IpcMessage::IIpcMessage& msg)
 {
     TRACE_DEBUG("Forward msg to:" << remoteEndPoint << ", msg = " << msg);
     IpcClientsMap::iterator it = clients_.find(remoteEndPoint);

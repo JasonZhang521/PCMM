@@ -1,5 +1,5 @@
-#ifndef _ENVIRONMENT_MEMORYINFO_H_
-#define _ENVIRONMENT_MEMORYINFO_H_
+#ifndef MEMORYINFO_H
+#define MEMORYINFO_H
 
 namespace Environment {
 class MemoryInfo
@@ -8,5 +8,4 @@ public:
     MemoryInfo();
 };
 }
-
-#endif // _ENVIRONMENT_MEMORYINFO_H_
+#endif // MEMORYINFO_H

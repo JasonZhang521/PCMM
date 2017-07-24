@@ -26,7 +26,7 @@ void ClusterManagementProcess::process()
         std::shared_ptr<Ipc::IIpcConnectionAcceptor> acceptor(acceptorPtr);
         std::shared_ptr<Ipc::IIpcServer> ipcServer(Ipc::IpcServerCreator::CreateWithTcpServer(localEndpoint, acceptor));
         // add the client manger to the  mananger control
-        std::shared_ptr<IClusterMgtClientsManagement> clientsManager(new ClusterMgtClientsManagment(ipcServer));
+        std::shared_ptr<IClusterMgtClientsManagement> clientsManager(new ClusterMgtClientsManagment(NodeType, ipcServer));
         clusterMgtController->addClientManager(NodeType, clientsManager);
     }
 
@@ -39,7 +39,7 @@ void ClusterManagementProcess::process()
         std::shared_ptr<Ipc::IIpcConnectionAcceptor> acceptor(acceptorPtr);
         std::shared_ptr<Ipc::IIpcServer> ipcServer(Ipc::IpcServerCreator::CreateWithTcpServer(localEndpoint, acceptor));
         // add the client manger to the  mananger control
-        std::shared_ptr<IClusterMgtClientsManagement> clientsManager(new ClusterMgtClientsManagment(ipcServer));
+        std::shared_ptr<IClusterMgtClientsManagement> clientsManager(new ClusterMgtClientsManagment(UiType, ipcServer));
         clusterMgtController->addClientManager(UiType, clientsManager);
     }
 

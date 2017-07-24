@@ -3,6 +3,10 @@
 #include "ClusterMgtClientType.h"
 #include <memory>
 
+namespace Network {
+class IpSocketEndpoint;
+}
+
 namespace Ipc {
 class IIpcClient;
 }
@@ -20,9 +24,9 @@ public:
     virtual ~IClusterMgtClientsManagement();
     virtual void startup() = 0;
     virtual void shutdown() = 0;
-    virtual void addAcceptedIpcClient(const std::string& remoteEndPoint, std::shared_ptr<Ipc::IIpcClient> ipcClient) = 0;
-    virtual void removeAcceptedIpcClient(const std::string& remoteEndPoint) = 0;
-    virtual void handleMessage(const IpcMessage::IIpcMessage& msg) = 0;
+    virtual void addAcceptedIpcClient(const Network::IpSocketEndpoint& remoteEndPoint, std::shared_ptr<Ipc::IIpcClient> ipcClient) = 0;
+    virtual void removeAcceptedIpcClient(const Network::IpSocketEndpoint& remoteEndPoint) = 0;
+    virtual void handleMessage(const IpcMessage::IIpcMessage& msg, ClientType fromClientType) = 0;
 };
 }
 

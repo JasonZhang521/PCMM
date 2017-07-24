@@ -12,6 +12,7 @@ public:
     uint16_t generate16(uint16_t max = 0xFFFF, uint16_t min = 0);
     uint8_t generate8(uint8_t max = 0xFF, uint8_t min = 0);
     std::string generateString(uint16_t len);
+    std::string generateUpLetterString(uint16_t len);
 };
 
 #endif // RANDOM_H

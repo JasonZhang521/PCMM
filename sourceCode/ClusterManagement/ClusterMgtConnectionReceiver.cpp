@@ -6,7 +6,7 @@
 namespace ClusterManagement {
 ClusterMgtConnectionReceiver::ClusterMgtConnectionReceiver(ClientType type,
                                                            std::shared_ptr<IClusterMgtController> clusterMgtController,
-                                                           const std::string& remoteIpEndpoint)
+                                                           const Network::IpSocketEndpoint& remoteIpEndpoint)
     : clientType_(type)
     , clusterMgtController_(clusterMgtController)
     , remoteIpEndpoint_(remoteIpEndpoint)

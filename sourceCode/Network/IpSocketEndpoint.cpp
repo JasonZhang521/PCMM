@@ -91,23 +91,23 @@ IpSocketEndpoint& IpSocketEndpoint::operator=(const IpSocketEndpoint& ipSocketEn
     return (*this);
 }
 
-bool IpSocketEndpoint::operator==(const IpSocketEndpoint& ipSocketEndpoint)
+bool IpSocketEndpoint::operator==(const IpSocketEndpoint& ipSocketEndpoint) const
 {
     return (ipAddress_ == ipSocketEndpoint.ipAddress_ && ipPort_ == ipSocketEndpoint.ipPort_);
 }
 
-bool IpSocketEndpoint::operator!=(const IpSocketEndpoint& ipSocketEndpoint)
+bool IpSocketEndpoint::operator!=(const IpSocketEndpoint& ipSocketEndpoint) const
 {
     return !operator==(ipSocketEndpoint);
 }
 
-bool IpSocketEndpoint::operator>(const IpSocketEndpoint& ipSocketEndpoint)
+bool IpSocketEndpoint::operator>(const IpSocketEndpoint& ipSocketEndpoint) const
 {
     return (ipAddress_ > ipSocketEndpoint.ipAddress_ ||
            (ipAddress_ == ipSocketEndpoint.ipAddress_ && ipPort_ > ipSocketEndpoint.ipPort_));
 }
 
-bool IpSocketEndpoint::operator<(const IpSocketEndpoint& ipSocketEndpoint)
+bool IpSocketEndpoint::operator<(const IpSocketEndpoint& ipSocketEndpoint) const
 {
     return (ipAddress_ < ipSocketEndpoint.ipAddress_ ||
            (ipAddress_ == ipSocketEndpoint.ipAddress_ && ipPort_ < ipSocketEndpoint.ipPort_));
@@ -197,11 +197,4 @@ std::ostream& IpSocketEndpoint::operator<<(std::ostream& os) const
     return os;
 }
 
-std::ostream& operator<<(std::ostream& os, const IpSocketEndpoint& ipSocketEndpoint)
-{
-    return ipSocketEndpoint.operator<<(os);
-}
-
 } // out of namespace
-
-

@@ -15,6 +15,7 @@ std::string timerTypeToString(TimerType type);
 
 class ITimer
 {
+protected:
     const uint64_t timerId_;
     const uint64_t period_;
     uint64_t expiredTime_;

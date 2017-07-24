@@ -57,7 +57,7 @@ CpuInfo& CpuInfo::instance()
 void CpuInfo::getCpuInfoFromProcCpuInfoFile()
 {
     std::string cpuInfofileName("/proc/cpuinfo");
-    // for the Linux operation system, the CPU infomation always got from /proc/stat files
+    // for the Linux operation system, the CPU infomation always got from /proc/cpuinfo files
     std::ifstream ifs(cpuInfofileName.c_str());
 
     if (!ifs.good())
@@ -73,7 +73,7 @@ void CpuInfo::getCpuInfoFromProcCpuInfoFile()
     while(ifs.good())
     {
         std::fill(buffer, buffer + 512, 0);
-        ifs.getline(buffer, 128);
+        ifs.getline(buffer, 512);
         std::stringstream ss;
         ss << buffer;
         std::string oneline = ss.str();
@@ -85,7 +85,10 @@ void CpuInfo::getCpuInfoFromProcCpuInfoFile()
         // delete the front and end space
         value = remover(value);
         CpuInfoType cpuInfoType = CpuInfoRawDataAttributeString::getAttributeIndex(attribute);
-        rawData[static_cast<size_t>(cpuInfoType)] = value;
+        if (cpuInfoType != CPUINFO_INVALID)
+        {
+            rawData[static_cast<size_t>(cpuInfoType)] = value;
+        }
         if (cpuInfoType == POWER_MANAGEMENT)
         {
             rawDatas_.push_back(rawData);

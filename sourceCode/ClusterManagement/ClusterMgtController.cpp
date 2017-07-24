@@ -33,7 +33,7 @@ void ClusterMgtController::shutdown()
     }
 }
 
-void ClusterMgtController::addAcceptedIpcClient(const std::string& remoteEndPoint, std::shared_ptr<Ipc::IIpcClient> ipcClient, ClientType type)
+void ClusterMgtController::addAcceptedIpcClient(const Network::IpSocketEndpoint& remoteEndPoint, std::shared_ptr<Ipc::IIpcClient> ipcClient, ClientType type)
 {
     ClientsManagementMap::iterator it = clientsManager_.find(type);
     if (it == clientsManager_.end())
@@ -45,7 +45,7 @@ void ClusterMgtController::addAcceptedIpcClient(const std::string& remoteEndPoin
     clientsManager_[type]->addAcceptedIpcClient(remoteEndPoint, ipcClient);
 }
 
-void ClusterMgtController::removeAcceptedIpcClient(const std::string& remoteEndPoint, ClientType type)
+void ClusterMgtController::removeAcceptedIpcClient(const Network::IpSocketEndpoint& remoteEndPoint, ClientType type)
 {
     ClientsManagementMap::iterator it = clientsManager_.find(type);
     if (it == clientsManager_.end())
@@ -60,22 +60,8 @@ void ClusterMgtController::removeAcceptedIpcClient(const std::string& remoteEndP
 void ClusterMgtController::handleMessage(const IpcMessage::IIpcMessage& msg, ClientType fromClientType)
 {
     TRACE_DEBUG("fromClientType:" << static_cast<int>(fromClientType));
-    switch (fromClientType) {
-    case NodeType:
-        if (clientsManager_[UiType])
-        {
-            clientsManager_[UiType]->handleMessage(msg);
-        }
-        break;
-    case UiType:
-        if (clientsManager_[NodeType])
-        {
-            clientsManager_[NodeType]->handleMessage(msg);
-        }
-        break;
-    default:
-        break;
-    }
+    clientsManager_[UiType]->handleMessage(msg, fromClientType);
+    clientsManager_[NodeType]->handleMessage(msg, fromClientType);
 }
 
 void ClusterMgtController::addClientManager(ClientType type, std::shared_ptr<IClusterMgtClientsManagement> clientManager)

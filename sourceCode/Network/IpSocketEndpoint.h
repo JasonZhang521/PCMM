@@ -21,10 +21,10 @@ public:
     IpSocketEndpoint(const SocketAddress& socketAddress);
 
     IpSocketEndpoint& operator=(const IpSocketEndpoint& ipSocketEndpoint);
-    bool operator==(const IpSocketEndpoint& ipSocketEndpoint);
-    bool operator!=(const IpSocketEndpoint& ipSocketEndpoint);
-    bool operator>(const IpSocketEndpoint& ipSocketEndpoint);
-    bool operator<(const IpSocketEndpoint& ipSocketEndpoint);
+    bool operator==(const IpSocketEndpoint& ipSocketEndpoint) const;
+    bool operator!=(const IpSocketEndpoint& ipSocketEndpoint) const;
+    bool operator>(const IpSocketEndpoint& ipSocketEndpoint) const;
+    bool operator<(const IpSocketEndpoint& ipSocketEndpoint) const;
 
     virtual void serialize(Serialize::WriteBuffer& writeBuffer) const;
     virtual void unserialize(Serialize::ReadBuffer& readBuffer);
@@ -49,10 +49,30 @@ public:
     static const IpSocketEndpoint Null;
 };
 
-std::ostream& operator<<(std::ostream& os, const IpSocketEndpoint& ipSocketEndpoint);
-
+inline std::ostream& operator<<(std::ostream& os, const Network::IpSocketEndpoint& ipSocketEndpoint)
+{
+    return ipSocketEndpoint.operator<<(os);
+}
 }
 
+inline bool operator==(const Network::IpSocketEndpoint& thisSocketEndpoint, const Network::IpSocketEndpoint& thatSocketEndpoint)
+{
+    return thisSocketEndpoint.operator ==(thatSocketEndpoint);
+}
 
+inline bool operator!=(const Network::IpSocketEndpoint& thisSocketEndpoint, const Network::IpSocketEndpoint& thatSocketEndpoint)
+{
+    return thisSocketEndpoint.operator !=(thatSocketEndpoint);
+}
+
+inline bool operator>(const Network::IpSocketEndpoint& thisSocketEndpoint, const Network::IpSocketEndpoint& thatSocketEndpoint)
+{
+    return thisSocketEndpoint.operator >(thatSocketEndpoint);
+}
+
+inline bool operator<(const Network::IpSocketEndpoint& thisSocketEndpoint, const Network::IpSocketEndpoint& thatSocketEndpoint)
+{
+    return thisSocketEndpoint.operator <(thatSocketEndpoint);
+}
 
 #endif // _NETWORK_IPSOCKETENDPOINT_H_

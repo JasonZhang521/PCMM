@@ -1,7 +1,10 @@
 #include "CpuInfoBriefly.h"
+#include "CpuInfo.h"
+#include "CpuUsage.h"
+#include "CpuUsageInfo.h"
+#include "CpuInfoDataType.h"
 #include "WriteBuffer.h"
 #include "ReadBuffer.h"
-#include "CpuInfoDataType.h"
 #include "SocketWrapper.h"
 
 namespace Environment {
@@ -51,6 +54,23 @@ std::ostream& CpuInfoBriefly::operator <<(std::ostream& os) const
        << "usage=" << usage_
        << "]";
     return os;
+}
+
+void CpuInfoBriefly::updateCpuInfoBriefly()
+{
+    CpuUsageInfo cpuUsageInfo(CpuUsage::instance().getCpuUsageEntrys());
+    setUsage(cpuUsageInfo.getAverageUsage());
+
+    CpuInfo::instance().update();
+    CpuInfoRawDatas rawDatas = CpuInfo::instance().getCpuInfoRawData();
+    size_t nCpu = rawDatas.size();
+    setNumOfCpu(nCpu);
+    if (nCpu > 0)
+    {
+        CpuInfoRawData rawData = rawDatas[0];
+        setModelName(rawData[MODEL_NAME]);
+        setFrequency(rawData[CPU_MHZ]);
+    }
 }
 
 }

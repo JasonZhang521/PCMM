@@ -1,6 +1,6 @@
-#include "MemoryInfoDataType.h"
+#include "MemoryUsageInfoDataType.h"
 namespace Environment {
-std::vector<std::string> MemoryInfoRawDataAttributeString::attribute_ =
+std::vector<std::string> MemoryUsageInfoRawDataAttributeString::attribute_ =
 {
     std::string("MemTotal"),
     std::string("MemFree"),
@@ -48,7 +48,7 @@ std::vector<std::string> MemoryInfoRawDataAttributeString::attribute_ =
     std::string("MemoryInfo_Invalid")
 };
 
-std::map<std::string, MemoryInfoType> MemoryInfoRawDataAttributeString::attributeToIndex_ =
+std::map<std::string, MemoryUsageInfoType> MemoryUsageInfoRawDataAttributeString::attributeToIndex_ =
 {
     {std::string("MemTotal"), MEMTOTAL},
     {std::string("MemFree"), MEMFREE},
@@ -95,14 +95,14 @@ std::map<std::string, MemoryInfoType> MemoryInfoRawDataAttributeString::attribut
     {std::string("DirectMap1G"), DIRECTMAP1G}
 };
 
-std::string MemoryInfoRawDataAttributeString::getAttribute(MemoryInfoType type)
+std::string MemoryUsageInfoRawDataAttributeString::getAttribute(MemoryUsageInfoType type)
 {
    return attribute_[static_cast<size_t>(type)];
 }
 
-MemoryInfoType MemoryInfoRawDataAttributeString::getAttributeIndex(const std::string& attribute)
+MemoryUsageInfoType MemoryUsageInfoRawDataAttributeString::getAttributeIndex(const std::string& attribute)
 {
-    std::map<std::string, MemoryInfoType>::iterator it = attributeToIndex_.find(attribute);
+    std::map<std::string, MemoryUsageInfoType>::iterator it = attributeToIndex_.find(attribute);
     if (it != attributeToIndex_.end())
     {
         return it->second;

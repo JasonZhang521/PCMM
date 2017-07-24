@@ -55,3 +55,14 @@ std::string Random::generateString(uint16_t len)
     }
     return str;
 }
+
+std::string Random::generateUpLetterString(uint16_t len)
+{
+    std::string str;
+    str.reserve(len);
+    for (uint16_t i = 0; i < len; ++i)
+    {
+        str.push_back(static_cast<char>(generate8('Z', 'A')));
+    }
+    return str;
+}

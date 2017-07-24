@@ -7,6 +7,7 @@ namespace Serialize {
 class WriteBuffer;
 class ReadBuffer;
 }
+
 namespace Environment {
 class CpuInfoBriefly
 {
@@ -29,6 +30,8 @@ public:
     void unserialize(Serialize::ReadBuffer& readBuffer);
 
     std::ostream& operator <<(std::ostream& os) const;
+
+    void updateCpuInfoBriefly();
 };
 }
 

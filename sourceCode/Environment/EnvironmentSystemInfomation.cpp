@@ -25,8 +25,11 @@ void EnvironmentSystemInfomation::getCpuInfoBriefly(CpuInfoBriefly& cpuInfoBrief
         cpuInfoBriefly.setModelName(rawData[MODEL_NAME]);
         cpuInfoBriefly.setFrequency(rawData[CPU_MHZ]);
     }
+}
 
-
+void EnvironmentSystemInfomation::getMemoryInfoBriefly(MemoryInfoBriefly& memoryInfoBriefly)
+{
+    static_cast<void>(memoryInfoBriefly);
 }
 
 }

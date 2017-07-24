@@ -6,7 +6,7 @@
 
 namespace Environment {
 
-enum MemoryInfoType
+enum MemoryUsageInfoType
 {
     MEMTOTAL,
     MEMFREE,
@@ -54,15 +54,15 @@ enum MemoryInfoType
     MEMORYINFO_INVALID
 };
 const size_t NUM_OF_MEMORY_INFO_ATTRIBUTE = 43;
-using MemoryInfoRawData = std::vector<std::string>;
+using MemoryUsageInfoRawData = std::vector<std::string>;
 
-class MemoryInfoRawDataAttributeString
+class MemoryUsageInfoRawDataAttributeString
 {
     static std::vector<std::string> attribute_;
-    static std::map<std::string, MemoryInfoType> attributeToIndex_;
+    static std::map<std::string, MemoryUsageInfoType> attributeToIndex_;
 public:
-    static std::string getAttribute(MemoryInfoType type);
-    static MemoryInfoType getAttributeIndex(const std::string& attribute);
+    static std::string getAttribute(MemoryUsageInfoType type);
+    static MemoryUsageInfoType getAttributeIndex(const std::string& attribute);
 };
 
 }
