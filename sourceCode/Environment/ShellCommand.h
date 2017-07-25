@@ -1,6 +1,8 @@
 #ifndef SHELLCOMMAND_H
 #define SHELLCOMMAND_H
 #include "ITimer.h"
+#include "Component.h"
+#include "Macro.h"
 #include <string>
 
 namespace Environment {
@@ -16,6 +18,9 @@ public:
     void execute();
     virtual void onTime();
     virtual std::ostream& operator<<(std::ostream& os);
+
+public:
+    GETCLASSNAME(ShellCommand)
 };
 
 }

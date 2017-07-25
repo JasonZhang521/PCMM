@@ -45,6 +45,7 @@ add_subdirectory(Environment)
 add_subdirectory(Core)
 add_subdirectory(SystemMonitor)
 add_subdirectory(SystemMonitorMessage)
+add_subdirectory(ClusterMgtMessage)
 add_subdirectory(ClusterManagement)
 
 #Unit test

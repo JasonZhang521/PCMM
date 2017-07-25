@@ -9,6 +9,7 @@ include_directories ("${PROJECT_SOURCE_DIR}/Environment"
 					 "${PROJECT_SOURCE_DIR}/IoPlatformWrapper"
                      "${PROJECT_SOURCE_DIR}/Core"
                      "${PROJECT_SOURCE_DIR}/SystemMonitorMessage"
+                     "${PROJECT_SOURCE_DIR}/ClusterMgtMessage"
                      "${PROJECT_SOURCE_DIR}/EventHandler"
                      "${PROJECT_SOURCE_DIR}/TimerHandler"
                      "${PROJECT_SOURCE_DIR}/TraceLog"
@@ -27,6 +28,7 @@ target_link_libraries (cmd.elf
 					   ioplatformwrapper
 					   core
 					   systemmonitormessage
+					   clustermgtmessage
 					   eventhandler
 					   timerhandler
 					   serialize

@@ -2,11 +2,14 @@
 #include "RemoveCharacter.h"
 #include "Random.h"
 #include "LoopMain.h"
+#include "SystemErrorInfo.h"
+#include "Trace.h"
 #include <stdlib.h>
-#include <string.h>
 
 #ifndef WIN32
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 #endif
 
 namespace Environment {
@@ -28,7 +31,7 @@ void ShellCommand::execute()
 #ifndef WIN32
     if ((pid_ = fork()) < 0)
     {
-        TRACE_ERROR("fork failed: " << strerror(errno) << std::endl);
+        TRACE_ERROR("fork failed: " << IoPlatformWrapper::GetLastErrorMessage() << std::endl);
     }
     // Child process
     else if (pid_ == 0)
@@ -37,7 +40,8 @@ void ShellCommand::execute()
         {
             RemoveCharacter remover(' ', RemovePlace::LOCATION_FRONT | RemovePlace::LOCATION_MIDDLE | RemovePlace::LOCATION_END);
             const std::string filePrefix = remover(cmd_);
-            outPutFile_ = "." + filePrefix + "." + Random::generateUpLetterString(10);
+			Random random;
+            outPutFile_ = "." + filePrefix + "." + random.generateUpLetterString(10);
         }
         const std::string cmd = cmd_ + " > " + outPutFile_;
         system(cmd.c_str());

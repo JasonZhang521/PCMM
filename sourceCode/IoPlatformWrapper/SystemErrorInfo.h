@@ -1,6 +1,7 @@
 #ifndef SYSTEMERRORINFO_H
 #define SYSTEMERRORINFO_H
 #include <string>
+#include <string.h>
 #ifdef WIN32
 #include <winsock2.h>
 #endif
@@ -26,7 +27,7 @@ inline std::string GetErrorMessageFromErrorCode(int errorCode)
 
 inline std::string GetLastErrorMessage()
 {
-    return GetSocketErrorMessageFromErrorCode(GetLastSocketErrorNo());
+    return GetErrorMessageFromErrorCode(GetLastErrorNo());
 }
 #endif
 
