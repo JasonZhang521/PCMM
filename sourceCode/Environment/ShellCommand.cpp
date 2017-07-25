@@ -3,6 +3,7 @@
 #include "Random.h"
 #include "LoopMain.h"
 #include <stdlib.h>
+#include <string.h>
 
 #ifndef WIN32
 #include <unistd.h>

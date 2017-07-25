@@ -11,6 +11,7 @@ include_directories ("${PROJECT_SOURCE_DIR}/TraceLog"
 "${PROJECT_SOURCE_DIR}/Io"
 "${PROJECT_SOURCE_DIR}/EventHandler"
 "${PROJECT_SOURCE_DIR}/TimerHandler"
+"${PROJECT_SOURCE_DIR}/Core"
 )
 
 add_library(ipc  ${ipc_SRCS})
@@ -21,5 +22,6 @@ target_link_libraries(ipc
 		              network 
 		              ipcmessage 
 					  serialize
+					  core
 		             )
 

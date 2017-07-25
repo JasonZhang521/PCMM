@@ -28,7 +28,7 @@ void MemoryUsageInfo::update()
 {
 #ifdef WIN32
 #else
-    getCpuInfoFromProcCpuInfoFile();
+	getMemoryInfoFromcProcMemoInfoFile();
 #endif
 }
 
