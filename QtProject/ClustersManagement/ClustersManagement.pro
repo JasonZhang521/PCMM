@@ -54,7 +54,8 @@ SOURCES += \
     ../../sourceCode/Environment/MemoryInfo.cpp \
     ../../sourceCode/Network/NetworkEnv.cpp \
     ../../sourceCode/Environment/ShellCommand.cpp \
-    ../../sourceCode/Environment/SystemInfoBriefly.cpp
+    ../../sourceCode/Environment/SystemInfoBriefly.cpp \
+    ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -265,7 +266,8 @@ HEADERS += \
     ../../sourceCode/Environment/MemoryInfo.h \
     ../../sourceCode/Network/NetworkEnv.h \
     ../../sourceCode/Environment/ShellCommand.h \
-    ../../sourceCode/Environment/SystemInfoBriefly.h
+    ../../sourceCode/Environment/SystemInfoBriefly.h \
+    ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

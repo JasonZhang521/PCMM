@@ -43,31 +43,6 @@ int InitSocket()
     return SOCKET_SUCCESS;
 }
 
-std::string GetLastSocketErrorMessage()
-{
-    int nErrno = WSAGetLastError();
-    return GetSocketErrorMessageFromErrorCode(nErrno);
-}
-
-std::string GetSocketErrorMessageFromErrorCode(int errorCode)
-{
-    LPTSTR lpMsgBuf;
-    FormatMessage(
-        FORMAT_MESSAGE_ALLOCATE_BUFFER |
-        FORMAT_MESSAGE_FROM_SYSTEM |
-        FORMAT_MESSAGE_IGNORE_INSERTS,
-        NULL,
-        errorCode,
-        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-        (LPTSTR)&lpMsgBuf,
-        0,
-        NULL
-        );
-    std::string errorMsg = std::string(reinterpret_cast<char*>(lpMsgBuf));
-    LocalFree(lpMsgBuf);
-    return errorMsg;
-}
-
 #if (_WIN32_WINNT < 0x0600)
 int InetPton(SocketAddressFamily af, const char *src, void *dst)
 {

@@ -1,5 +1,6 @@
 #ifndef _NETWORK_SOCKETIMP_H_
 #define _NETWORK_SOCKETIMP_H_
+#include "SystemErrorInfo.h"
 #include "SocketWrapper.h"
 #include "Component.h"
 #include "Macro.h"

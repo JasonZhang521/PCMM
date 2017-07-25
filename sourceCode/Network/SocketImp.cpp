@@ -35,8 +35,8 @@ SocketImp::~SocketImp()
 
 std::string SocketImp::getErrorInfo()
 {
-    const int Errno = IoPlatformWrapper::GetLastSocketErrorNo();
-    const std::string ErrorInfo = IoPlatformWrapper::GetSocketErrorMessageFromErrorCode(Errno);
+    const int Errno = IoPlatformWrapper::GetLastErrorNo();
+    const std::string ErrorInfo = IoPlatformWrapper::GetErrorMessageFromErrorCode(Errno);
     std::stringstream ss;
     ss << "errno = " << Errno << ", errorInfo = " << ErrorInfo;
     return ss.str();
@@ -44,7 +44,7 @@ std::string SocketImp::getErrorInfo()
 
 int SocketImp::getErrorNo()
 {
-    return IoPlatformWrapper::GetLastSocketErrorNo();
+    return IoPlatformWrapper::GetLastErrorNo();
 }
 
 }

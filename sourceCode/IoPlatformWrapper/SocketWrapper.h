@@ -78,15 +78,7 @@ int InetPton(SocketAddressFamily af, const char *src, void *dst);
 const char* InetNtop(SocketAddressFamily af, const void *src, char *dst, SocketAddresstLength size);
 #endif
 
-inline int GetLastSocketErrorNo()
-{
-    return ::WSAGetLastError();
-}
-std::string GetSocketErrorMessageFromErrorCode(int errorCode);
-std::string GetLastSocketErrorMessage();
-
 #else
-
 
 inline int InitSocket()
 {
@@ -108,21 +100,6 @@ inline int Accept(SocketHandle sockfd, SocketAddress* addr, SocketLength *addrle
 	static_cast<void>(flags);
     return ::accept(sockfd, addr, addrlen);
 }
-
-inline int GetLastSocketErrorNo()
-{
-    return errno;
-}
-
-inline std::string GetSocketErrorMessageFromErrorCode(int errorCode)
-{
-    return ::strerror(errno);
-}
-
-inline std::string GetLastSocketErrorMessage()
-{
-    return GetSocketErrorMessageFromErrorCode(GetLastSocketErrorNo());
-};
 
 inline int Poll(SocketPollFdSet* fds, SocketPollFdNumber nfds, int timeout)
 {
