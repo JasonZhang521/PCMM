@@ -29,8 +29,9 @@ INCLUDEPATH += ../../sourceCode/Serialize \
                ../../sourceCode/IoPlatformWrapper \
                ../../sourceCode/Environment \
                ../../sourceCode/IpcMessage \
-               ../../sourceCode/SystemMonitorMessage
-               ../../sourceCode/Serialize
+               ../../sourceCode/SystemMonitorMessage \
+               ../../sourceCode/Serialize \
+               ../../sourceCode/ClusterMgtMessage
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
@@ -44,7 +45,7 @@ SOURCES +=../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/Common/FilePathHandler.cpp \
     ../../sourceCode/Common/LocalTime.cpp \
     ../../sourceCode/Common/Random.cpp \
-    ../../sourceCode/Common/remove_character.cpp \
+    ../../sourceCode/Common/RemoveCharacter.cpp \
     ../../sourceCode/Common/replace_character.cpp \
     ../../sourceCode/Common/SystemTime.cpp \
     ../../sourceCode/Common/TimeStat.cpp \
@@ -111,7 +112,25 @@ SOURCES +=../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/IpcMessage/IIpcMessageQueue.cpp \
     ../../sourceCode/Common/Lock.cpp \
     ../../sourceCode/IpcMessage/IpcThreadSafeMessageQueue.cpp \
-    ../../sourceCode/UiClient/UiClientMessageSendTimer.cpp
+    ../../sourceCode/UiClient/UiClientMessageSendTimer.cpp \
+    ../../sourceCode/ClusterMgtMessage/ClusterMgtBrieflyRequest.cpp \
+    ../../sourceCode/ClusterMgtMessage/ClusterMgtBrieflyResponse.cpp \
+    ../../sourceCode/ClusterMgtMessage/IClusterMgtMessage.cpp \
+    ../../sourceCode/Environment/ComputerNodeInfo.cpp \
+    ../../sourceCode/Environment/CpuInfo.cpp \
+    ../../sourceCode/Environment/CpuInfoBriefly.cpp \
+    ../../sourceCode/Environment/cpuinfodatatype.cpp \
+    ../../sourceCode/Environment/DiskUsageInfo.cpp \
+    ../../sourceCode/Environment/EnvironmentSystemInfomation.cpp \
+    ../../sourceCode/Environment/MemoryInfo.cpp \
+    ../../sourceCode/Environment/MemoryInfoBriefly.cpp \
+    ../../sourceCode/Environment/MemoryUsageInfo.cpp \
+    ../../sourceCode/Environment/MemoryUsageInfoDataType.cpp \
+    ../../sourceCode/Environment/MiscInfo.cpp \
+    ../../sourceCode/Environment/NetworkInfo.cpp \
+    ../../sourceCode/Environment/ShellCommand.cpp \
+    ../../sourceCode/Environment/SystemInfoBriefly.cpp \
+    ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.cpp
 
 HEADERS += \
     ../../sourceCode/Ipc/Component.h \
@@ -129,7 +148,7 @@ HEADERS += \
     ../../sourceCode/Common/Macro.h \
     ../../sourceCode/Common/operator.h \
     ../../sourceCode/Common/Random.h \
-    ../../sourceCode/Common/remove_character.h \
+    ../../sourceCode/Common/RemoveCharacter.h \
     ../../sourceCode/Common/replace_character.h \
     ../../sourceCode/Common/SystemTime.h \
     ../../sourceCode/Common/TimeStat.h \
@@ -208,7 +227,25 @@ HEADERS += \
     ../../sourceCode/IpcMessage/IIpcMessageQueue.h \
     ../../sourceCode/Common/Lock.h \
     ../../sourceCode/IpcMessage/IpcThreadSafeMessageQueue.h \
-    ../../sourceCode/UiClient/UiClientMessageSendTimer.h
+    ../../sourceCode/UiClient/UiClientMessageSendTimer.h \
+    ../../sourceCode/ClusterMgtMessage/ClusterMgtBrieflyRequest.h \
+    ../../sourceCode/ClusterMgtMessage/ClusterMgtBrieflyResponse.h \
+    ../../sourceCode/ClusterMgtMessage/IClusterMgtMessage.h \
+    ../../sourceCode/Environment/ComputerNodeInfo.h \
+    ../../sourceCode/Environment/CpuInfo.h \
+    ../../sourceCode/Environment/CpuInfoBriefly.h \
+    ../../sourceCode/Environment/cpuinfodatatype.h \
+    ../../sourceCode/Environment/DiskUsageInfo.h \
+    ../../sourceCode/Environment/EnvironmentSystemInfomation.h \
+    ../../sourceCode/Environment/MemoryInfo.h \
+    ../../sourceCode/Environment/MemoryInfoBriefly.h \
+    ../../sourceCode/Environment/MemoryUsageInfo.h \
+    ../../sourceCode/Environment/MemoryUsageInfoDataType.h \
+    ../../sourceCode/Environment/MiscInfo.h \
+    ../../sourceCode/Environment/NetworkInfo.h \
+    ../../sourceCode/Environment/ShellCommand.h \
+    ../../sourceCode/Environment/SystemInfoBriefly.h \
+    ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
