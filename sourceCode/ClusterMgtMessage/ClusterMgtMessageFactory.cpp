@@ -4,6 +4,7 @@
 #include "Trace.h"
 namespace ClusterMgtMessage {
 ClusterMgtMessageFactory::ClusterMgtMessageFactory()
+    :IpcMessage::IIpcMessageFactory(IpcMessage::IpcMessage_ClusterMgt)
 {
 
 }
