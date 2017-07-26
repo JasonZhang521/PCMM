@@ -65,7 +65,7 @@ void MemoryInfoBriefly::updateMemUsageInfo()
 {
     MemoryUsageInfo memUsageInfo;
     memUsageInfo.update();
-    MemoryUsageInfoRawData rawData = memUsageInfo.getMemoryUsageInfoRawData();
+    const MemoryUsageInfoRawData& rawData = memUsageInfo.getMemoryUsageInfoRawData();
     memTotal_ = rawData[MEMTOTAL];
     memFree_ = rawData[MEMFREE];
 }

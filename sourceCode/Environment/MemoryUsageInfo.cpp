@@ -79,6 +79,7 @@ void MemoryUsageInfo::getMemoryInfoFromcProcMemoInfoFile()
             rawData[static_cast<size_t>(memInfoType)] = value;
         }
     }
+    rawData_.swap(rawData);
 }
 
 void MemoryUsageInfo::clear()

@@ -61,6 +61,7 @@ void ClusterMgtClientsManagment::removeAcceptedIpcClient(const Network::IpSocket
 
 void ClusterMgtClientsManagment::handleMessage(const IpcMessage::IIpcMessage& msg, ClientType fromClientType, const Network::IpSocketEndpoint& remoteIpEndpoint)
 {
+	TRACE_DEBUG("msg=" << msg << ", fromClientType=" << static_cast<int>(fromClientType) << ", remoteIpEndpoint=" << remoteIpEndpoint);
     IpcMessage::IpcMessageType type = msg.getMessageType();
     if (type == IpcMessage::IpcMessageType::IpcMessage_ClusterMgt)
     {
@@ -115,12 +116,14 @@ void ClusterMgtClientsManagment::broadcastMsg(const IpcMessage::IIpcMessage& msg
 
 void ClusterMgtClientsManagment::handleClusterMgtMessage(const IpcMessage::IIpcMessage& msg, const Network::IpSocketEndpoint& remoteIpEndpoint)
 {
+	TRACE_DEBUG("msg=" << msg << ", remoteIpEndpoint=" << remoteIpEndpoint);
     const ClusterMgtMessage::ClusterMgtBrieflyRequest* request = dynamic_cast<const ClusterMgtMessage::ClusterMgtBrieflyRequest*>(&msg);
     if (request != nullptr)
     {
         ClusterMgtMessage::ClusterMgtBrieflyResponse response;
         Environment::SystemInfoBriefly info;
         info.update();
+		TRACE_DEBUG(info);
         response.setSystemInfoBriefly(info);
         IpcClientsMap::iterator it = clients_.find(remoteIpEndpoint);
         if (it != clients_.end())

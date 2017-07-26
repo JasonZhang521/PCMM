@@ -71,8 +71,8 @@ void MiscInfo::unserialize(Serialize::ReadBuffer& readBuffer)
 std::ostream& MiscInfo::operator <<(std::ostream& os) const
 {
     os << "["
-       << "nodeStartTimeStamp=" << nodeStartTimeStamp_
-       << "elapseTimeFromNodeStart=" << elapseTimeFromNodeStart_
+       << ", nodeStartTimeStamp=" << nodeStartTimeStamp_
+       << ", elapseTimeFromNodeStart=" << elapseTimeFromNodeStart_
        << "]";
     return os;
 }

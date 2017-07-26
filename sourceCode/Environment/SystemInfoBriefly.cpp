@@ -63,9 +63,9 @@ std::ostream& SystemInfoBriefly::operator <<(std::ostream& os) const
 {
     os << "["
        << "cpuInfoBriefly=" << cpuInfoBriefly_
-       << "memoryInfoBriefly=" << memoryInfoBriefly_
-       << "networkInfo=" << networkInfo_
-       << "miscInfo=" << miscInfo_
+       << ", memoryInfoBriefly=" << memoryInfoBriefly_
+       << ", networkInfo=" << networkInfo_
+       << ", miscInfo=" << miscInfo_
        << "]";
     return os;
 }

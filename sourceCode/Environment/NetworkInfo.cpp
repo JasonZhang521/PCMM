@@ -60,7 +60,7 @@ std::ostream& NetworkInfo::operator <<(std::ostream& os) const
 {
     os << "["
        << "macAddress=" << macAddress_
-       << "hostIpAddresses=[";
+       << ", hostIpAddresses=[";
     for (auto ip : hostIpAddresses_)
     {
         os << ip << ",";

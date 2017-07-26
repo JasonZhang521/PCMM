@@ -68,8 +68,8 @@ std::ostream& CpuInfoBriefly::operator <<(std::ostream& os) const
 {
     os << "["
        << "modeName=" << modelName_
-       << "frequency=" << frequency_
-       << "usage=" << usage_
+       << ", frequency=" << frequency_
+       << ", usage=" << usage_
        << "]";
     return os;
 }
