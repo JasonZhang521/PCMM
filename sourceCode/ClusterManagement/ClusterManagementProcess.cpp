@@ -33,7 +33,8 @@ void ClusterManagementProcess::process()
     // create UI server
     {
         // create the Ipc server, will set the tcp acceptor later
-        Network::IpSocketEndpoint localEndpoint("127.0.0.1:23833");
+        // Network::IpSocketEndpoint localEndpoint("127.0.0.1:23833");
+        Network::IpSocketEndpoint localEndpoint("192.168.5.138:23833");
         // create ipc acceptor
         ClusterMgtConnectionAcceptor* acceptorPtr = new ClusterMgtConnectionAcceptor(UiType, clusterMgtController);
         std::shared_ptr<Ipc::IIpcConnectionAcceptor> acceptor(acceptorPtr);
