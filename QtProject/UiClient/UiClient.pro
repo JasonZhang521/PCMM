@@ -119,7 +119,6 @@ SOURCES +=../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/Environment/ComputerNodeInfo.cpp \
     ../../sourceCode/Environment/CpuInfo.cpp \
     ../../sourceCode/Environment/CpuInfoBriefly.cpp \
-    ../../sourceCode/Environment/cpuinfodatatype.cpp \
     ../../sourceCode/Environment/DiskUsageInfo.cpp \
     ../../sourceCode/Environment/EnvironmentSystemInfomation.cpp \
     ../../sourceCode/Environment/MemoryInfo.cpp \
@@ -131,7 +130,8 @@ SOURCES +=../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/Environment/ShellCommand.cpp \
     ../../sourceCode/Environment/SystemInfoBriefly.cpp \
     ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.cpp \
-    ../../sourceCode/ClusterMgtMessage/ClusterMgtMessageFactory.cpp
+    ../../sourceCode/ClusterMgtMessage/ClusterMgtMessageFactory.cpp \
+    ../../sourceCode/Environment/CpuInfoDataType.cpp
 
 HEADERS += \
     ../../sourceCode/Ipc/Component.h \

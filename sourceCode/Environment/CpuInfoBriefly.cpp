@@ -76,6 +76,7 @@ std::ostream& CpuInfoBriefly::operator <<(std::ostream& os) const
 
 void CpuInfoBriefly::updateCpuInfoBriefly()
 {
+    CpuUsage::instance().update();
     CpuUsageInfo cpuUsageInfo(CpuUsage::instance().getCpuUsageEntrys());
     setUsage(cpuUsageInfo.getAverageUsage());
 
