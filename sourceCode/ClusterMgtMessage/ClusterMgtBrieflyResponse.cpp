@@ -39,6 +39,7 @@ std::ostream& ClusterMgtBrieflyResponse::operator<< (std::ostream& os) const
     IpcMessage::IIpcMessage::print(os);
     os << ", ipcMessageType=" << IpcMessage::IpcMessageTypeString(IpcMessage::IpcMessage_ClusterMgt)
        << ", clusterMgtType=" << IpcMessage::IpcClusterMgtTypeToString(IpcMessage::ClusterMgtBrieflyResponseMessage)
+       << ", systemInfoBriefly=" << systemInfoBriefly_
        << "]";
     return os;
 }

@@ -34,4 +34,11 @@ public:
 };
 }
 
+
+inline std::ostream& operator <<(std::ostream& os, const Environment::NetworkInfo& info)
+{
+    return info.operator <<(os);
+}
+
+
 #endif // NETWORKINFO_H

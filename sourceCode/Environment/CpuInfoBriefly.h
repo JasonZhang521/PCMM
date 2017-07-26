@@ -39,4 +39,8 @@ private:
 };
 }
 
+inline std::ostream& operator <<(std::ostream& os, const Environment::CpuInfoBriefly& info)
+{
+    return info.operator <<(os);
+}
 #endif // _ENVIRONMENT_CPUINFOBRIEFLY_H_

@@ -29,4 +29,9 @@ public:
 };
 }
 
+inline std::ostream& operator <<(std::ostream& os, const Environment::MiscInfo& info)
+{
+    return info.operator <<(os);
+}
+
 #endif // MISCINFO_H

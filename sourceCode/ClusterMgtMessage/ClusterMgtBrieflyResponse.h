@@ -22,4 +22,9 @@ public:
 
 }
 
+inline std::ostream& operator<< (std::ostream& os, const ClusterMgtMessage::ClusterMgtBrieflyResponse& response)
+{
+    return response.operator <<(os);
+}
+
 #endif // CLUSTERMGTBRIEFLYRESPONSE_H

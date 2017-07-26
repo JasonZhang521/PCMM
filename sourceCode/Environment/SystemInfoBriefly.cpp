@@ -59,6 +59,17 @@ void SystemInfoBriefly::unserialize(Serialize::ReadBuffer& readBuffer)
     miscInfo_.unserialize(readBuffer);
 }
 
+std::ostream& SystemInfoBriefly::operator <<(std::ostream& os) const
+{
+    os << "["
+       << "cpuInfoBriefly=" << cpuInfoBriefly_
+       << "memoryInfoBriefly=" << memoryInfoBriefly_
+       << "networkInfo=" << networkInfo_
+       << "miscInfo=" << miscInfo_
+       << "]";
+    return os;
+}
+
 void SystemInfoBriefly::update()
 {
     cpuInfoBriefly_.update();

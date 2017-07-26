@@ -24,9 +24,15 @@ public:
 
     void serialize(Serialize::WriteBuffer& writeBuffer) const;
     void unserialize(Serialize::ReadBuffer& readBuffer);
+    std::ostream& operator <<(std::ostream& os) const;
 
     void update();
 };
+}
+
+inline std::ostream& operator <<(std::ostream& os, const Environment::SystemInfoBriefly& info)
+{
+    return info.operator <<(os);
 }
 
 #endif // SYSTEMINFOBRIEFLY_H

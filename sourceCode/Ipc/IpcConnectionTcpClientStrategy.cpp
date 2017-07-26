@@ -146,6 +146,7 @@ void IpcConnectionTcpClientStrategy::onReceive(Serialize::ReadBuffer& readBuffer
         {
             TRACE_WARNING("Recieve error message, wrong ipc message type = "
                           << static_cast<int>(messageType));
+            break;
         }
     }
     connectionTimer_->resetTimer();

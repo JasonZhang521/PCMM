@@ -8,6 +8,7 @@
 #include "IpcClientCreator.h"
 #include "IpcLayerMessageFactory.h"
 #include "IpcThreadSafeMessageQueue.h"
+#include "ClusterMgtMessageFactory.h"
 #include "IIpcMessage.h"
 #include "TcpClient.h"
 #include "IpSocketEndpoint.h"
@@ -66,8 +67,8 @@ void UiClientProcess::process()
     TRACE_NOTICE("Ui Client is starting!");
     // Local and remote endpoint.
     Network::IpSocketEndpoint localEndpoint("0.0.0.0:0");
-    Network::IpSocketEndpoint remoteEndpoint(std::string("127.0.0.1:23833"));
-    //Network::IpSocketEndpoint remoteEndpoint(std::string("192.168.5.138:23832"));
+    //Network::IpSocketEndpoint remoteEndpoint(std::string("127.0.0.1:23833"));
+    Network::IpSocketEndpoint remoteEndpoint(std::string("192.168.5.138:23833"));
     // SystemMonitorHandler
     UiClientHandler* uiClientHandlerPtr = new UiClientHandler();
     std::shared_ptr<IUiClientHandler> uiClientHandler(uiClientHandlerPtr);
@@ -80,6 +81,7 @@ void UiClientProcess::process()
     // System monitor factory
     factories.push_back(std::shared_ptr<IpcMessage::IIpcMessageFactory>(new SystemMonitorMessage::SystemMonitorMessageFactory()));
     factories.push_back(std::shared_ptr<IpcMessage::IIpcMessageFactory>(new IpcMessage::IpcLayerMessageFactory()));
+    factories.push_back(std::shared_ptr<IpcMessage::IIpcMessageFactory>(new ClusterMgtMessage::ClusterMgtMessageFactory()));
 
     Ipc::IIpcClient* ipcClientPtr = Ipc::IpcClientCreator::CreateWithTcpClientStrategy(localEndpoint, remoteEndpoint, uiIpcConnectionReceiver, factories);
     std::shared_ptr<Ipc::IIpcClient> ipcClient(ipcClientPtr);

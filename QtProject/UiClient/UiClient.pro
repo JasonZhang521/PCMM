@@ -130,7 +130,8 @@ SOURCES +=../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/Environment/NetworkInfo.cpp \
     ../../sourceCode/Environment/ShellCommand.cpp \
     ../../sourceCode/Environment/SystemInfoBriefly.cpp \
-    ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.cpp
+    ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.cpp \
+    ../../sourceCode/ClusterMgtMessage/ClusterMgtMessageFactory.cpp
 
 HEADERS += \
     ../../sourceCode/Ipc/Component.h \
@@ -245,7 +246,9 @@ HEADERS += \
     ../../sourceCode/Environment/NetworkInfo.h \
     ../../sourceCode/Environment/ShellCommand.h \
     ../../sourceCode/Environment/SystemInfoBriefly.h \
-    ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.h
+    ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.h \
+    ../../sourceCode/ClusterMgtMessage/Component.h \
+    ../../sourceCode/ClusterMgtMessage/ClusterMgtMessageFactory.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

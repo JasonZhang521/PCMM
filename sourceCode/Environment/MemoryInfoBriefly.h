@@ -26,4 +26,9 @@ private:
 };
 }
 
+inline std::ostream& operator <<(std::ostream& os, const Environment::MemoryInfoBriefly& info)
+{
+    return info.operator <<(os);
+}
+
 #endif // _ENVIRONMENT_MEMORYUSAGEINFO_H_
