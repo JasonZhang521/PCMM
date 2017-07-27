@@ -21,6 +21,11 @@ public:
     void unserialize(Serialize::ReadBuffer& readBuffer);
     std::ostream& operator <<(std::ostream& os) const;
     void update();
+
+	inline const std::string& getMemTotal() const {return memTotal_;}
+	inline void setMemTotal(const std::string& memTotal) {memTotal_ = memTotal;}
+	inline const std::string& getMemFree() const {return memFree_;}
+	inline void setMemFree(const std::string& memFree) {memFree_ = memFree;}
 private:
     void updateMemUsageInfo();
 };

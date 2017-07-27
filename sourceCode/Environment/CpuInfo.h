@@ -13,7 +13,7 @@ public:
     CpuInfo();
     std::ostream& operator << (std::ostream&) const;
     void update();
-    const CpuInfoRawDatas getCpuInfoRawData() const;
+    const CpuInfoRawDatas& getCpuInfoRawData() const;
     static CpuInfo& instance();
 private:
     void getCpuInfoFromProcCpuInfoFile();

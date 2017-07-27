@@ -43,7 +43,7 @@ void CpuInfo::update()
 #endif
 }
 
-const CpuInfoRawDatas CpuInfo::getCpuInfoRawData() const
+const CpuInfoRawDatas& CpuInfo::getCpuInfoRawData() const
 {
     return rawDatas_;
 }
@@ -68,7 +68,6 @@ void CpuInfo::getCpuInfoFromProcCpuInfoFile()
 
     clear();
     CpuInfoRawData rawData(NUM_OF_CPUINFO_ATTRIBUTE, std::string(""));
-    RemoveCharacter remover;
     char buffer[512];
     while(ifs.good())
     {
@@ -80,7 +79,10 @@ void CpuInfo::getCpuInfoFromProcCpuInfoFile()
         size_t posOfSep = oneline.find(':');
         std::string attribute = oneline.substr(0, posOfSep);
         // delete the front and end space
+        RemoveCharacter remover;
         attribute = remover(attribute);
+		remover.setCharacter('\t');
+		attribute = remover(attribute);
         std::string value = oneline.substr(posOfSep + 1, attribute.size() - posOfSep - 1);
         // delete the front and end space
         value = remover(value);

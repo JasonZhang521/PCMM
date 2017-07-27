@@ -6,7 +6,6 @@
 #include "WriteBuffer.h"
 #include "ReadBuffer.h"
 #include "SocketWrapper.h"
-
 namespace Environment {
 CpuInfoBriefly::CpuInfoBriefly()
     :numOfCpu_(0)
@@ -60,14 +59,16 @@ void CpuInfoBriefly::unserialize(Serialize::ReadBuffer& readBuffer)
     readBuffer.read(len);
     readBuffer.read(buffer, len);
     frequency_ = std::string(buffer, len);
-
-    readBuffer.read(usage_);
+	uint8_t usage = 0;
+    readBuffer.read(usage);
+	usage_ = usage;
 }
 
 std::ostream& CpuInfoBriefly::operator <<(std::ostream& os) const
 {
     os << "["
-       << "modeName=" << modelName_
+	   << "numOfCpu=" << numOfCpu_
+       << ", modeName=" << modelName_
        << ", frequency=" << frequency_
        << ", usage=" << usage_
        << "]";
@@ -81,7 +82,7 @@ void CpuInfoBriefly::updateCpuInfoBriefly()
     setUsage(cpuUsageInfo.getAverageUsage());
 
     CpuInfo::instance().update();
-    CpuInfoRawDatas rawDatas = CpuInfo::instance().getCpuInfoRawData();
+    const CpuInfoRawDatas& rawDatas = CpuInfo::instance().getCpuInfoRawData();
     size_t nCpu = rawDatas.size();
     setNumOfCpu(nCpu);
     if (nCpu > 0)

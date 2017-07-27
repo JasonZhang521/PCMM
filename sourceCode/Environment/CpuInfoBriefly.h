@@ -22,7 +22,7 @@ public:
     inline void setNumOfCpu(uint16_t num) {numOfCpu_ = num;}
     inline uint16_t getNumOfCpu() const {return numOfCpu_;}
     inline void setModelName(const std::string& modelName) {modelName_ = modelName;}
-    inline const std::string& getModeName() const {return modelName_;}
+    inline const std::string& getModelName() const {return modelName_;}
     inline void setFrequency(const std::string& frequency) {frequency_ = frequency;}
     inline const std::string& getFrequency() const {return frequency_;}
     inline void setUsage(int usage) {usage_ = usage;}
