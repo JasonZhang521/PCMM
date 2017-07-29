@@ -69,6 +69,12 @@ std::ostream& NetworkInfo::operator <<(std::ostream& os) const
     return os;
 }
 
+bool NetworkInfo::operator ==(const NetworkInfo& info) const
+{
+    return (macAddress_ == info.macAddress_ &&
+            hostIpAddresses_ == info.hostIpAddresses_);
+}
+
 void NetworkInfo::update()
 {
     updateMacAddress();

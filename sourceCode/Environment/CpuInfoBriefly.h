@@ -32,6 +32,7 @@ public:
     void unserialize(Serialize::ReadBuffer& readBuffer);
 
     std::ostream& operator <<(std::ostream& os) const;
+    bool operator ==(const CpuInfoBriefly& info) const;
 
     void update();
 private:

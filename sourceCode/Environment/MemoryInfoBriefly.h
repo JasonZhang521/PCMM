@@ -20,6 +20,7 @@ public:
     void serialize(Serialize::WriteBuffer& writeBuffer) const;
     void unserialize(Serialize::ReadBuffer& readBuffer);
     std::ostream& operator <<(std::ostream& os) const;
+    bool operator ==(const MemoryInfoBriefly& info) const;
     void update();
 
 	inline const std::string& getMemTotal() const {return memTotal_;}

@@ -56,6 +56,12 @@ std::ostream& MemoryInfoBriefly::operator <<(std::ostream& os) const
     return os;
 }
 
+bool MemoryInfoBriefly::operator ==(const MemoryInfoBriefly& info) const
+{
+    return (memTotal_ == info.memTotal_ &&
+            memFree_ == info.memFree_);
+}
+
 void MemoryInfoBriefly::update()
 {
     updateMemUsageInfo();

@@ -75,6 +75,14 @@ std::ostream& CpuInfoBriefly::operator <<(std::ostream& os) const
     return os;
 }
 
+bool CpuInfoBriefly::operator ==(const CpuInfoBriefly& info) const
+{
+    return (numOfCpu_ == info.numOfCpu_ &&
+            modelName_ == info.modelName_ &&
+            frequency_ == info.frequency_ &&
+            usage_ == info.usage_);
+}
+
 void CpuInfoBriefly::updateCpuInfoBriefly()
 {
     CpuUsage::instance().update();

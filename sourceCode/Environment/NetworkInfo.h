@@ -24,6 +24,8 @@ public:
     void serialize(Serialize::WriteBuffer& writeBuffer) const;
     void unserialize(Serialize::ReadBuffer& readBuffer);
     std::ostream& operator <<(std::ostream& os) const;
+    bool operator ==(const NetworkInfo& info) const;
+
     void update();
 
 	void setMacAddress(const std::string& macAddress) {macAddress_ = macAddress;}

@@ -20,6 +20,8 @@ public:
     void serialize(Serialize::WriteBuffer& writeBuffer) const;
     void unserialize(Serialize::ReadBuffer& readBuffer);
     std::ostream& operator <<(std::ostream& os) const;
+    bool operator ==(const MiscInfo& info) const;
+
     void update();
 	void setNodeStartTimeStamp(uint64_t timeStamp) {nodeStartTimeStamp_ = timeStamp;}
 	uint64_t getNodeStartTimeStamp() const {return nodeStartTimeStamp_;}

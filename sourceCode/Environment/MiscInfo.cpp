@@ -77,4 +77,10 @@ std::ostream& MiscInfo::operator <<(std::ostream& os) const
     return os;
 }
 
+bool MiscInfo::operator ==(const MiscInfo& info) const
+{
+    return (nodeStartTimeStamp_ == info.nodeStartTimeStamp_ &&
+            elapseTimeFromNodeStart_ == info.elapseTimeFromNodeStart_);
+}
+
 }
