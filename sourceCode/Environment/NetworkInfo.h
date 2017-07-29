@@ -25,6 +25,12 @@ public:
     void unserialize(Serialize::ReadBuffer& readBuffer);
     std::ostream& operator <<(std::ostream& os) const;
     void update();
+
+	void setMacAddress(const std::string& macAddress) {macAddress_ = macAddress;}
+	const std::string& getMacAddress() const {return macAddress_;}
+	void setHostIpAddresses(const Network::IpAddresses& hostIpAddresses) {hostIpAddresses_ = hostIpAddresses;}
+	const Network::IpAddresses& getHostIpAddresses() const {return hostIpAddresses_;}
+
 private:
     void updateMacAddress();
     void updateIpAddress();

@@ -9,6 +9,7 @@ include_directories ("${PROJECT_SOURCE_DIR}/TraceLog"
 "${PROJECT_SOURCE_DIR}/TimerHandler"
 "${PROJECT_SOURCE_DIR}/Io"
 "${PROJECT_SOURCE_DIR}/Core"
+"${PROJECT_SOURCE_DIR}/Network"
 )
 
 add_library(environment  ${environment_SRCS})
@@ -22,5 +23,6 @@ target_link_libraries(environment
 					  timerhandler
 					  io
 					  core
+					  network
 		             )
 

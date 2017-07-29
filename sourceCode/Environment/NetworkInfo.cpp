@@ -28,7 +28,7 @@ void NetworkInfo::serialize(Serialize::WriteBuffer& writeBuffer) const
 {
     writeBuffer.write(static_cast<uint8_t>(macAddress_.size()));
     writeBuffer.write(macAddress_.c_str(), macAddress_.size());
-    writeBuffer.write(hostIpAddresses_.size());
+    writeBuffer.write(static_cast<uint8_t>(hostIpAddresses_.size()));
     for (auto ip : hostIpAddresses_)
     {
         ip.serialize(writeBuffer);
@@ -87,7 +87,7 @@ void NetworkInfo::updateMacAddress()
     }
 
     char buffer[128];
-    while(ifs.good())
+    if(ifs.good())
     {
         std::fill(buffer, buffer + 128, 0);
         ifs.getline(buffer, 128);

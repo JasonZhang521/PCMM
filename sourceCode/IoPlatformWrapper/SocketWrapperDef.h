@@ -10,6 +10,7 @@
 #include <poll.h>
 #include <errno.h>
 #include <netinet/in.h>
+#include <ifaddrs.h>
 #endif
 
 #define UNSUPPORTED_SOCKET_VERION 0X7FFFFFFF
@@ -53,6 +54,7 @@ using SocketOptName = int;
 using SocketOptVal = char*;
 using SocketHostent = struct hostent;
 using SocketOptLength = int;
+using SocketIfAddress = void;
 
 // const value
 const SocketHandle InvalidSocketHandle = INVALID_SOCKET;
@@ -154,6 +156,7 @@ using SocketOptName = int;
 using SocketOptVal = void*;
 using SocketOptLength = socklen_t;
 using SocketHostent = struct hostent;
+using SocketIfAddress = struct ifaddrs;
 
 // const value
 const SocketHandle InvalidSocketHandle = -1;

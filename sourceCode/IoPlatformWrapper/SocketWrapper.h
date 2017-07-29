@@ -77,6 +77,11 @@ inline const char* InetNtop(SocketAddressFamily af, const void *src, char *dst, 
 int InetPton(SocketAddressFamily af, const char *src, void *dst);
 const char* InetNtop(SocketAddressFamily af, const void *src, char *dst, SocketAddresstLength size);
 #endif
+inline void GetIfAddrs(SocketIfAddress* ifAddr)$
+{
+  static_cast<void>(ifaddr);
+}
+
 
 #else
 
@@ -116,6 +121,10 @@ inline const char* InetNtop(SocketAddressFamily af, const void *src, char *dst, 
     return ::inet_ntop(af, src, dst, size);
 }
 
+inline void GetIfAddrs(SocketIfAddress* ifAddr)
+{
+	 return getifaddrs(ifAddr);
+}
 #endif
 
 inline SocketHandle CreateSocket(SocketAddressFamily addrFamily, SocketType type, SocketProtocol protocol)

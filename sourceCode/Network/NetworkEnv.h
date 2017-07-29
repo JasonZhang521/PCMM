@@ -13,6 +13,9 @@ public:
     NetworkEnv();
     static IpAddresses getLocalIpAddress();
     static std::string getHostName();
+private:
+    static getIpAddressFromHostName(IpAddresses& addresses);
+    static getIpAddressFromIf(IpAddresses& addresses);
 };
 }
 
