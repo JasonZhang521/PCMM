@@ -15,6 +15,12 @@ IpAddresses NetworkEnv::getLocalIpAddress()
         return addresses;
     }
 
+#ifdef WIN32
+    getIpAddressFromHostName(addresses);
+#else
+    getIpAddressFromIf(addresses);
+#endif
+
     return addresses;
 }
 
@@ -48,18 +54,20 @@ void NetworkEnv::getIpAddressFromHostName(IpAddresses& addresses)
 }
 void NetworkEnv::getIpAddressFromIf(IpAddresses& addresses)
 {
+#ifndef WIN32
     SocketIfAddress address = nullptr;
     IoPlatformWrapper::GetIfAddrs(&address);
     while (address != nullptr)
     {
-		    if (address->ifa_addr->sa_family==AF_INET)
-			  {
-			        Address$
-						  void* tmpAddrPtr=&((struct sockaddr_in *)ifAddrStruct->ifa_addr)->sin_addr;$
-							char addressBuffer[INET_ADDRSTRLEN];$
-							inet_ntop(AF_INET, tmpAddrPtr, addressBuffer, INET_ADDRSTRLEN);$
-							printf("%s IP Address %s\n", ifAddrStruct->ifa_name, addressBuffer);
+        if (address->ifa_addr->sa_family==AF_INET)
+        {
+            SocketAddressIn* address_in = static_cast<SocketAddressIn*>(ifAddrStruct->ifa_addr);
+            addresses.push_back(IpAddress(address_in->sin_addr));
         }
     }
+#else
+    static_cast<void>(addresses);
+#endif
+}
 
 }

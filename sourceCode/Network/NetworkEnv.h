@@ -14,8 +14,8 @@ public:
     static IpAddresses getLocalIpAddress();
     static std::string getHostName();
 private:
-    static getIpAddressFromHostName(IpAddresses& addresses);
-    static getIpAddressFromIf(IpAddresses& addresses);
+    static void getIpAddressFromHostName(IpAddresses& addresses);
+    static void getIpAddressFromIf(IpAddresses& addresses);
 };
 }
 
