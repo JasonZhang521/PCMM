@@ -77,7 +77,7 @@ inline const char* InetNtop(SocketAddressFamily af, const void *src, char *dst, 
 int InetPton(SocketAddressFamily af, const char *src, void *dst);
 const char* InetNtop(SocketAddressFamily af, const void *src, char *dst, SocketAddresstLength size);
 #endif
-inline int GetIfAddrs(SocketIfAddress* ifAddr)$
+inline int GetIfAddrs(SocketIfAddress* ifAddr)
 {
   static_cast<void>(ifAddr);
   return SOCKET_SUCCESS;
