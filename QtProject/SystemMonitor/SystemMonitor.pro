@@ -49,7 +49,7 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/Common/FilePathHandler.cpp \
     ../../sourceCode/Common/LocalTime.cpp \
     ../../sourceCode/Common/Random.cpp \
-    ../../sourceCode/Common/remove_character.cpp \
+    ../../sourceCode/Common/RemoveCharacter.cpp \
     ../../sourceCode/Common/replace_character.cpp \
     ../../sourceCode/Common/SystemTime.cpp \
     ../../sourceCode/Common/TimeStat.cpp \
@@ -112,7 +112,8 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/Ipc/IpcConnectionTimer.cpp \
     ../../sourceCode/IpcMessage/IIpcComunicationMessage.cpp \
     ../../sourceCode/IpcMessage/IpcAuthorizationRequest.cpp \
-    ../../sourceCode/IpcMessage/IpcAuthorizationResponse.cpp
+    ../../sourceCode/IpcMessage/IpcAuthorizationResponse.cpp \
+    ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.cpp
 
 HEADERS += \
     ../../sourceCode/SystemMonitor/SystemMonitorProcess.h \
@@ -131,7 +132,7 @@ HEADERS += \
     ../../sourceCode/Common/Macro.h \
     ../../sourceCode/Common/operator.h \
     ../../sourceCode/Common/Random.h \
-    ../../sourceCode/Common/remove_character.h \
+    ../../sourceCode/Common/RemoveCharacter.h \
     ../../sourceCode/Common/replace_character.h \
     ../../sourceCode/Common/SystemTime.h \
     ../../sourceCode/Common/TimeStat.h \
@@ -206,7 +207,8 @@ HEADERS += \
     ../../sourceCode/Ipc/IpcConnectionTimer.h \
     ../../sourceCode/IpcMessage/IIpcComunicationMessage.h \
     ../../sourceCode/IpcMessage/IpcAuthorizationRequest.h \
-    ../../sourceCode/IpcMessage/IpcAuthorizationResponse.h
+    ../../sourceCode/IpcMessage/IpcAuthorizationResponse.h \
+    ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

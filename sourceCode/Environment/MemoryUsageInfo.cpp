@@ -55,7 +55,6 @@ void MemoryUsageInfo::getMemoryInfoFromcProcMemoInfoFile()
         return;
     }
 
-    clear();
     MemoryUsageInfoRawData rawData(NUM_OF_MEMORY_INFO_ATTRIBUTE, std::string(""));
     RemoveCharacter remover;
     char buffer[512];
