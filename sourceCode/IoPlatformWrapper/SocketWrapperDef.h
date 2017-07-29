@@ -156,7 +156,7 @@ using SocketOptName = int;
 using SocketOptVal = void*;
 using SocketOptLength = socklen_t;
 using SocketHostent = struct hostent;
-using SocketIfAddress = struct ifaddrs;
+using SocketIfAddress = struct ifaddrs*;
 
 // const value
 const SocketHandle InvalidSocketHandle = -1;

@@ -56,15 +56,19 @@ void NetworkEnv::getIpAddressFromIf(IpAddresses& addresses)
 {
 #ifndef WIN32
     SocketIfAddress address = nullptr;
+    SocketIfAddress it = nullptr;
     IoPlatformWrapper::GetIfAddrs(&address);
-    while (address != nullptr)
+    it = address;
+    while (it != nullptr)
     {
         if (address->ifa_addr->sa_family==AF_INET)
         {
-            SocketAddressIn* address_in = reinterpret_cast<SocketAddressIn*>(ifAddrStruct->ifa_addr);
+            SocketAddressIn* address_in = reinterpret_cast<SocketAddressIn*>(address->ifa_addr);
             addresses.push_back(IpAddress(address_in->sin_addr));
         }
+        it = it->ifa_next;
     }
+    freeifaddrs(address);
 #else
     static_cast<void>(addresses);
 #endif
