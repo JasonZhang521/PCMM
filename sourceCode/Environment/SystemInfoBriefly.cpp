@@ -38,7 +38,7 @@ const MemoryInfoBriefly& SystemInfoBriefly::getMemoryInfoBriefly() const
     return memoryInfoBriefly_;
 }
 
-void setMemoryInfoBriefly(const MemoryInfoBriefly& info)
+void SystemInfoBriefly::setMemoryInfoBriefly(const MemoryInfoBriefly& info)
 {
 	memoryInfoBriefly_ = info;
 }
@@ -48,7 +48,7 @@ const NetworkInfo& SystemInfoBriefly::getNetworkInfo() const
     return networkInfo_;
 }
 
-void setNetworkInfo(const NetworkInfo& info)
+void SystemInfoBriefly::setNetworkInfo(const NetworkInfo& info)
 {
 	networkInfo_ = info;
 }
@@ -58,7 +58,7 @@ const MiscInfo& SystemInfoBriefly::getMiscInfo() const
     return miscInfo_;
 }
 
-const setMiscInfo(const MiscInfo& info)
+void SystemInfoBriefly::setMiscInfo(const MiscInfo& info)
 {
 	miscInfo_ = info;
 }
