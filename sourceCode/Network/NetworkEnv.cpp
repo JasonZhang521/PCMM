@@ -47,8 +47,8 @@ void NetworkEnv::getIpAddressFromHostName(IpAddresses& addresses)
     unsigned int i = 0;
     while (hostent->h_addr_list[i] != nullptr)
     {
-        const std::string ipAddr = IoPlatformWrapper::InetNtoa(*((struct in_addr *)hostent->h_addr_list[i]));
-        addresses.push_back(IpAddress(ipAddr));
+        SocketInetAddress *ipAddr = reinterpret_cast<SocketInetAddress *>(hostent->h_addr_list[i]);
+        addresses.push_back(IpAddress(*ipAddr));
         i++;
     }
 }
@@ -61,7 +61,7 @@ void NetworkEnv::getIpAddressFromIf(IpAddresses& addresses)
     {
         if (address->ifa_addr->sa_family==AF_INET)
         {
-            SocketAddressIn* address_in = static_cast<SocketAddressIn*>(ifAddrStruct->ifa_addr);
+            SocketAddressIn* address_in = reinterpret_cast<SocketAddressIn*>(ifAddrStruct->ifa_addr);
             addresses.push_back(IpAddress(address_in->sin_addr));
         }
     }
