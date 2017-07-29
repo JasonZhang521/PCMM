@@ -19,10 +19,11 @@ int main(int argc, char**argv)
             std::cout << *msg << std::endl;
             std::cout << "-----------------------" << std::endl;
         }
-        System::Sleep(5000);
+        System::Sleep(50000);
         std::unique_ptr<IpcMessage::IIpcMessage>
                 clusterMgtBrieflyRequest(new ClusterMgtMessage::ClusterMgtBrieflyRequest);
         process.sendMessage(std::move(clusterMgtBrieflyRequest));
+        System::Sleep(1000);
     }
     return 0;
 }
