@@ -29,6 +29,7 @@ public:
     void serialize(Serialize::WriteBuffer& writeBuffer) const;
     void unserialize(Serialize::ReadBuffer& readBuffer);
     std::ostream& operator <<(std::ostream& os) const;
+    bool operator ==(const SystemInfoBriefly& info) const;
 
     void update();
 };

@@ -90,6 +90,14 @@ std::ostream& SystemInfoBriefly::operator <<(std::ostream& os) const
     return os;
 }
 
+bool SystemInfoBriefly::operator ==(const SystemInfoBriefly& info) const
+{
+    return (cpuInfoBriefly_ == info.cpuInfoBriefly_ &&
+            memoryInfoBriefly_ == info.memoryInfoBriefly_ &&
+            networkInfo_ == info.networkInfo_ &&
+            miscInfo_ == info.miscInfo_);
+}
+
 void SystemInfoBriefly::update()
 {
     cpuInfoBriefly_.update();
