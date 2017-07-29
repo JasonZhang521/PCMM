@@ -19,15 +19,15 @@ class ClusterMgtBrieflyResponseTest : public ::testing::Test
 
 TEST_F(ClusterMgtBrieflyResponseTest, ReadWrite)
 {
-	uint64_t startTimeStamp = 1000;
-	uint32_t elapseTime = 500;
+    uint64_t startTimeStamp = 1501341215000;
+    uint32_t elapseTime = 4858;
     MiscInfo miscInfo;
     miscInfo.setNodeStartTimeStamp(startTimeStamp);
     miscInfo.setElapseTimeFromNodeStart(elapseTime);
 
 	const uint16_t numOfCpu = 4;
-	std::string modelName("Intel");
-	std::string frequency("4000M");
+    std::string modelName("Intel(R) Core(TM) i7-6700K CPU @ 4.00GHz");
+    std::string frequency("4008.000");
 	int usage = 80;
 	CpuInfoBriefly cpuInfo;
 	cpuInfo.setNumOfCpu(numOfCpu);
@@ -35,13 +35,13 @@ TEST_F(ClusterMgtBrieflyResponseTest, ReadWrite)
 	cpuInfo.setFrequency(frequency);
 	cpuInfo.setUsage(usage);
 
-	const std::string memTotal("1024 KB");
-	const std::string memFree("512 KB");
+    const std::string memTotal("2039796 kB");
+    const std::string memFree("1318016 kB");
 	MemoryInfoBriefly memoryInfo;
 	memoryInfo.setMemTotal(memTotal);
 	memoryInfo.setMemFree(memFree);
 
-	std::string macAddress("45:E5:32:BC");
+    std::string macAddress("00:0c:29:05:0d:58");
 	IpAddresses addresses;
 	addresses.push_back(IpAddress("168.192.4.5"));
 	addresses.push_back(IpAddress("168.192.4.6"));
@@ -61,6 +61,7 @@ TEST_F(ClusterMgtBrieflyResponseTest, ReadWrite)
 
 	WriteBuffer wBuffer;
 	response.serialize(wBuffer);
+    std::cout << wBuffer << std::endl;
     ReadBuffer rBuffer;
 	rBuffer.setDataSize(wBuffer.getDataSize());
 	std::copy(reinterpret_cast<char*>(wBuffer.getBuffer()), reinterpret_cast<char*>(wBuffer.getBuffer()) + wBuffer.getDataSize(), reinterpret_cast<char*>(rBuffer.getBuffer()));
@@ -68,5 +69,14 @@ TEST_F(ClusterMgtBrieflyResponseTest, ReadWrite)
 	newResponse.unserialize(rBuffer);
 	std::cout << newResponse << std::endl;
     ASSERT_EQ(info, newResponse.getSystemInfoBriefly());
+
+    ReadBuffer rBuffer2;
+    rBuffer2.setDataSize(wBuffer.getDataSize());
+    std::copy(reinterpret_cast<char*>(wBuffer.getBuffer()), reinterpret_cast<char*>(wBuffer.getBuffer()) + wBuffer.getDataSize(), reinterpret_cast<char*>(rBuffer2.getBuffer()));
+
+    ClusterMgtBrieflyResponse newResponse2;
+    IIpcMessage& msg = newResponse2;
+    msg.unserialize(rBuffer2);
+    std::cout << newResponse2 << std::endl;
 
 }

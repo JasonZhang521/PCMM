@@ -86,6 +86,8 @@ void CpuInfo::getCpuInfoFromProcCpuInfoFile()
         std::string value = oneline.substr(posOfSep + 1, attribute.size() - posOfSep - 1);
         // delete the front and end space
         value = remover(value);
+        remover.setCharacter(' ');
+        value = remover(value);
         CpuInfoType cpuInfoType = CpuInfoRawDataAttributeString::getAttributeIndex(attribute);
         if (cpuInfoType != CPUINFO_INVALID)
         {
