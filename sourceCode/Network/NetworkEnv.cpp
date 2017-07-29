@@ -61,10 +61,10 @@ void NetworkEnv::getIpAddressFromIf(IpAddresses& addresses)
     it = address;
     while (it != nullptr)
     {
-        if (address->ifa_addr->sa_family==AF_INET)
+        if (it->ifa_addr->sa_family==AF_INET)
         {
-            SocketAddressIn* address_in = reinterpret_cast<SocketAddressIn*>(address->ifa_addr);
-            addresses.push_back(IpAddress(address_in->sin_addr));
+            SocketAddressIn* addressIn = reinterpret_cast<SocketAddressIn*>(it->ifa_addr);
+            addresses.push_back(IpAddress(addressIn->sin_addr));
         }
         it = it->ifa_next;
     }

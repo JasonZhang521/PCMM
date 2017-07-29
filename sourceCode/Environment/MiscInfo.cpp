@@ -50,7 +50,7 @@ void MiscInfo::updateElapseTimeFromNodeStart()
     ss << buffer;
 
     float elapse = 0.0;
-    ss << elapse;
+    ss >> elapse;
     elapseTimeFromNodeStart_ = static_cast<uint32_t>(elapse);
     nodeStartTimeStamp_ = SystemTime::currentTimeStampAsSecond();
 }

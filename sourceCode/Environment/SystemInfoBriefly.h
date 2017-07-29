@@ -17,10 +17,14 @@ public:
     SystemInfoBriefly();
     SystemInfoBriefly(const SystemInfoBriefly& info);
     SystemInfoBriefly& operator =(const SystemInfoBriefly& info);
+	void setCpuInfoBriefly(const CpuInfoBriefly& info);
     const CpuInfoBriefly& getCpuInfoBriefly() const;
     const MemoryInfoBriefly& getMemoryInfoBriefly() const;
+	void setMemoryInfoBriefly(const MemoryInfoBriefly& info);
     const NetworkInfo& getNetworkInfo() const;
+	void setNetworkInfo(const NetworkInfo& info);
     const MiscInfo& getMiscInfo() const;
+	void setMiscInfo(const MiscInfo& info);
 
     void serialize(Serialize::WriteBuffer& writeBuffer) const;
     void unserialize(Serialize::ReadBuffer& readBuffer);

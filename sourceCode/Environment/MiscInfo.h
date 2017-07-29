@@ -21,6 +21,10 @@ public:
     void unserialize(Serialize::ReadBuffer& readBuffer);
     std::ostream& operator <<(std::ostream& os) const;
     void update();
+	void setNodeStartTimeStamp(uint64_t timeStamp) {nodeStartTimeStamp_ = timeStamp;}
+	uint64_t getNodeStartTimeStamp() const {return nodeStartTimeStamp_;}
+	void setElapseTimeFromNodeStart(uint32_t elapseTime) {elapseTimeFromNodeStart_ = elapseTime;}
+	uint32_t getElapseTimeFromNodeStart() const {return elapseTimeFromNodeStart_;}
 private:
     void updateElapseTimeFromNodeStart();
 
