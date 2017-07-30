@@ -6,3 +6,4 @@ QtProject/build*
 sourseCode/dynamic_lib/ssh
 *.autosave
 *.pump
+*Trace.log
