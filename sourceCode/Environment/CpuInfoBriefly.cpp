@@ -6,6 +6,7 @@
 #include "WriteBuffer.h"
 #include "ReadBuffer.h"
 #include "SocketWrapper.h"
+#include <iostream>
 namespace Environment {
 CpuInfoBriefly::CpuInfoBriefly()
     :numOfCpu_(0)
@@ -55,7 +56,6 @@ void CpuInfoBriefly::unserialize(Serialize::ReadBuffer& readBuffer)
     readBuffer.read(len);
     readBuffer.read(buffer, len);
     modelName_ = std::string(buffer, len);
-
     readBuffer.read(len);
     readBuffer.read(buffer, len);
     frequency_ = std::string(buffer, len);

@@ -126,8 +126,8 @@ void IpcConnectionTcpClientStrategy::onReceive(Serialize::ReadBuffer& readBuffer
             std::unique_ptr<IpcMessage::IIpcMessage> msg(factory->createMessage(ipcApplicationType));
             if (msg)
             {
-                TRACE_DEBUG("Receive ipc msg:" << *msg);
                 msg->unserialize(readBuffer);
+                TRACE_DEBUG("Receive ipc msg:" << *msg);
                 if (shouldForwardToApplication(static_cast<IpcMessage::IpcMessageType>(messageType),
                                                ipcApplicationType))
                 {

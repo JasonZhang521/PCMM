@@ -57,15 +57,15 @@ void MiscInfo::updateElapseTimeFromNodeStart()
 
 void MiscInfo::serialize(Serialize::WriteBuffer& writeBuffer) const
 {
-    writeBuffer.write(IoPlatformWrapper::Htonll(nodeStartTimeStamp_));
-    writeBuffer.write(IoPlatformWrapper::Htonl(elapseTimeFromNodeStart_));
+    writeBuffer.write(IoPlatformWrapper::Hton64(nodeStartTimeStamp_));
+    writeBuffer.write(IoPlatformWrapper::Hton32(elapseTimeFromNodeStart_));
 }
 void MiscInfo::unserialize(Serialize::ReadBuffer& readBuffer)
 {
     readBuffer.read(nodeStartTimeStamp_);
-    nodeStartTimeStamp_ = IoPlatformWrapper::Ntohll(nodeStartTimeStamp_);
+    nodeStartTimeStamp_ = IoPlatformWrapper::Ntoh64(nodeStartTimeStamp_);
     readBuffer.read(elapseTimeFromNodeStart_);
-    elapseTimeFromNodeStart_ = IoPlatformWrapper::Ntohl(elapseTimeFromNodeStart_);
+    elapseTimeFromNodeStart_ = IoPlatformWrapper::Ntoh32(elapseTimeFromNodeStart_);
 }
 
 std::ostream& MiscInfo::operator <<(std::ostream& os) const

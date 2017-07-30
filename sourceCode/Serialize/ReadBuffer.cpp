@@ -108,7 +108,15 @@ std::ostream& ReadBuffer::operator << (std::ostream& os) const
        << ",stream=";
     for (unsigned int i = 0; i < dataSize_; ++i)
     {
-        os << std::hex << (int)buffer_[i];
+        os << std::hex;
+        if ((uint32_t)buffer_[i] <= 0x0F)
+        {
+            os << "0" << (uint32_t)buffer_[i];
+        }
+        else
+        {
+            os << (uint32_t)buffer_[i];
+        }
     }
     os << std::dec << "]";
     return os;
