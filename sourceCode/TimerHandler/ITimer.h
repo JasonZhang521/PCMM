@@ -30,7 +30,7 @@ public:
     uint64_t getExpiredTime() const;
     uint64_t getPeriod() const;
     TimerType getTimerType() const;
-    void resetTimer();
+    void resetTimer(uint64_t period = 0);
 protected:
     void print(std::ostream& os);
 };

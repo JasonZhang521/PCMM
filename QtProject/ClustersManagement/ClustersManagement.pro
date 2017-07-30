@@ -53,10 +53,15 @@ SOURCES += \
     ../../sourceCode/Environment/MemoryUsageInfoDataType.cpp \
     ../../sourceCode/Environment/MemoryInfo.cpp \
     ../../sourceCode/Network/NetworkEnv.cpp \
-    ../../sourceCode/Environment/ShellCommand.cpp \
     ../../sourceCode/Environment/SystemInfoBriefly.cpp \
     ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.cpp \
-    ../../sourceCode/ClusterMgtMessage/ClusterMgtMessageFactory.cpp
+    ../../sourceCode/ClusterMgtMessage/ClusterMgtMessageFactory.cpp \
+    ../../sourceCode/Environment/ShellCommandProcess.cpp \
+    ../../sourceCode/Environment/ShellCommandThread.cpp \
+    ../../sourceCode/Environment/IShellCommand.cpp \
+    ../../sourceCode/Common/Lock.cpp \
+    ../../sourceCode/Environment/Environment.cpp \
+    ../../sourceCode/Environment/ShellCommandDataType.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -266,11 +271,16 @@ HEADERS += \
     ../../sourceCode/Environment/MemoryUsageInfoDataType.h \
     ../../sourceCode/Environment/MemoryInfo.h \
     ../../sourceCode/Network/NetworkEnv.h \
-    ../../sourceCode/Environment/ShellCommand.h \
     ../../sourceCode/Environment/SystemInfoBriefly.h \
     ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.h \
     ../../sourceCode/ClusterMgtMessage/ClusterMgtMessageFactory.h \
-    ../../sourceCode/ClusterMgtMessage/Component.h
+    ../../sourceCode/ClusterMgtMessage/Component.h \
+    ../../sourceCode/Environment/ShellCommandProcess.h \
+    ../../sourceCode/Environment/ShellCommandThread.h \
+    ../../sourceCode/Environment/IShellCommand.h \
+    ../../sourceCode/Common/Lock.h \
+    ../../sourceCode/Environment/Environment.h \
+    ../../sourceCode/Environment/ShellCommandDataType.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

@@ -57,9 +57,16 @@ TimerType ITimer::getTimerType() const
 }
 
 
-void ITimer::resetTimer()
+void ITimer::resetTimer(uint64_t period)
 {
-    expiredTime_ = SystemTime::expiredTimeStampAsMillisecond(period_);
+    if (period == 0)
+    {
+        expiredTime_ = SystemTime::expiredTimeStampAsMillisecond(period_);
+    }
+    else
+    {
+       expiredTime_ = SystemTime::expiredTimeStampAsMillisecond(period);
+    }
 }
 
 void ITimer::print(std::ostream& os)

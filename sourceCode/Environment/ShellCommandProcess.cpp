@@ -1,4 +1,4 @@
-#include "ShellCommand.h"
+#include "ShellCommandProcess.h"
 #include "RemoveCharacter.h"
 #include "Random.h"
 #include "LoopMain.h"
@@ -13,7 +13,7 @@
 #endif
 
 namespace Environment {
-ShellCommand::ShellCommand(const std::string& cmd)
+ShellCommandProcess::ShellCommandProcess(const std::string& cmd)
     : TimerHandler::ITimer(100)
     , cmd_(cmd)
     , pid_(-1)
@@ -21,12 +21,12 @@ ShellCommand::ShellCommand(const std::string& cmd)
 
 }
 
-ShellCommand::~ShellCommand()
+ShellCommandProcess::~ShellCommandProcess()
 {
 
 }
 
-void ShellCommand::execute()
+void ShellCommandProcess::execute()
 {
 #ifndef WIN32
     if ((pid_ = fork()) < 0)
@@ -53,7 +53,7 @@ void ShellCommand::execute()
 #endif
 }
 
-void ShellCommand::onTime()
+void ShellCommandProcess::onTime()
 {
 #ifndef WIN32
     int       status;
@@ -74,13 +74,17 @@ void ShellCommand::onTime()
 #endif
 }
 
-std::ostream& ShellCommand::operator<<(std::ostream& os)
+std::ostream& ShellCommandProcess::operator<<(std::ostream& os)
 {
     os << "["
        << "cmd=" << cmd_
        << ", outPutFile=" << outPutFile_
-       << ", cmdOutput" << cmdOutput_
-       << "]";
+       << ", cmdOutput=";
+    for (auto str : cmdOutput_)
+    {
+        os << str << std::endl;
+    }
+    os << "]";
     return os;
 }
 
