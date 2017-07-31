@@ -53,6 +53,11 @@ void ShellCommandProcess::execute()
 #endif
 }
 
+void ShellCommandProcess::stop()
+{
+
+}
+
 void ShellCommandProcess::onTime()
 {
 #ifndef WIN32

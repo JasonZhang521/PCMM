@@ -18,10 +18,11 @@ class ShellCommandThread : public TimerHandler::ITimer, public IShellCommand
 {
     enum class ExcuteState
     {
-        Thread_Start,
-        Thread_Stop,
+        Command_Start,
+        Command_Stop,
         OutPut_Retreived,
-        Invalid
+        Thread_Stop,
+        InActive
     };
 
     std::string cmd_;
@@ -34,7 +35,9 @@ public:
     ~ShellCommandThread();
 protected:
     virtual void execute();
+    virtual void stop();
     virtual void onTime();
+    virtual bool isInactive();
     virtual std::ostream& operator<<(std::ostream& os);
 private:
     void startThread();

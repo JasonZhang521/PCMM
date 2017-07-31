@@ -4,6 +4,8 @@
 #include <string>
 
 namespace Environment {
+using CommandOutputString = std::vector<std::string>;
+static const CommandOutputString InvalidCommandOutputString;
 class IShellCommand
 {
 protected:
@@ -12,7 +14,9 @@ public:
     IShellCommand();
     ~IShellCommand();
     virtual void execute() = 0;
-    virtual const std::vector<std::string>& getCommandOutput() const;
+    virtual void stop() = 0;
+    virtual bool isInactive() = 0;
+    virtual const CommandOutputString& getCommandOutput() const;
 };
 }
 

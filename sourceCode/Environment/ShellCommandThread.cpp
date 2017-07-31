@@ -12,7 +12,7 @@ namespace Environment {
 ShellCommandThread::ShellCommandThread(const std::string& cmd, uint32_t timeout)
     : TimerHandler::ITimer(timeout)
     , cmd_(cmd)
-    , excuteState_(ExcuteState::Invalid)
+    , excuteState_(ExcuteState::InActive)
 {
 
 }
@@ -24,28 +24,35 @@ ShellCommandThread::~ShellCommandThread()
 
 void ShellCommandThread::execute()
 {
-    excuteState_ = ExcuteState::Thread_Start;
+    excuteState_ = ExcuteState::Command_Start;
     // start the thread
     shellCmdThread_ = std::unique_ptr<std::thread>(new std::thread(std::bind(&ShellCommandThread::startThread, this)));
     // start the timer
     Core::LoopMain::instance().registerTimer(this);
 }
 
+void ShellCommandThread::stop()
+{
+    Core::LoopMain::instance().deRegisterTimer(getTimerId());
+    Lock lock(mutex_);
+    excuteState_ = ExcuteState::Thread_Stop;
+}
+
 void ShellCommandThread::onTime()
 {
-    ExcuteState excuteState = ExcuteState::Invalid;
+    ExcuteState excuteState = ExcuteState::InActive;
 
     {
         Lock lock(mutex_);
         excuteState = excuteState_;
     }
 
-    if (excuteState == ExcuteState::Thread_Start)
+    if (excuteState == ExcuteState::Command_Start)
     {
         resetTimer();
         Core::LoopMain::instance().registerTimer(this);
     }
-    else if (excuteState == ExcuteState::Thread_Stop)
+    else if (excuteState == ExcuteState::Command_Stop)
     {
         getCmdOutPutFromFile();
         excuteState_ = ExcuteState::OutPut_Retreived;
@@ -56,6 +63,11 @@ void ShellCommandThread::onTime()
     {
         execute();
     }
+}
+
+bool ShellCommandThread::isInactive()
+{
+    return (excuteState_ == ExcuteState::InActive);
 }
 
 std::ostream& ShellCommandThread::operator<<(std::ostream& os)
@@ -87,7 +99,14 @@ void ShellCommandThread::startThread()
     // set the thread stopped flag
     {
         Lock lock(mutex_);
-        excuteState_ = ExcuteState::Thread_Stop;
+        if (excuteState_ == ExcuteState::Command_Start)
+        {
+            excuteState_ = ExcuteState::Command_Stop;
+        }
+        else if (excuteState_ == ExcuteState::Thread_Stop)
+        {
+            excuteState_ = ExcuteState::InActive;
+        }
     }
 }
 

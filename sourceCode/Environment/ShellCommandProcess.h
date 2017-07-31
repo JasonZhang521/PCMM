@@ -17,6 +17,7 @@ public:
     ~ShellCommandProcess();
 protected:
     virtual void execute();
+    virtual void stop();
     virtual void onTime();
     virtual std::ostream& operator<<(std::ostream& os);
 
