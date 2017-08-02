@@ -34,8 +34,16 @@ void ShellCommandThread::execute()
 void ShellCommandThread::stop()
 {
     Core::LoopMain::instance().deRegisterTimer(getTimerId());
+
     Lock lock(mutex_);
-    excuteState_ = ExcuteState::Thread_Stop;
+    if (excuteState_ == ExcuteState::Command_Start)
+    {
+        excuteState_ = ExcuteState::Thread_Stop;
+    }
+    else
+    {
+        excuteState_ = ExcuteState::InActive;
+    }
 }
 
 void ShellCommandThread::onTime()
