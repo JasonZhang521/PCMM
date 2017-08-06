@@ -2,6 +2,7 @@
 #include "gtest/gtest.h"
 #include "Environment.h"
 #include "ShellCommandThread.h"
+#include "ShellCommandOutputParse.h"
 #include "LoopMain.h"
 #include <thread>
 #include <iostream>
@@ -25,10 +26,9 @@ static void loopControl()
 TEST_F(EnvironmentTest, Test)
 {
 	Environment::Environment env;
-    IShellCommand* command = new ShellCommandThread(ShellCommandString::getCmdString(ShellCommandType::DiskUsageDf), 5000);
+    IShellCommand* command = new ShellCommandThread(ShellCommandString::getCmdString(ShellCommandType::DiskUsageDf), 1000);
 	env.registerShellCmd(ShellCommandType::DiskUsageDf, command);
 	std::thread th(loopControl);
-	sleep(5);
 	while(1)
 	{
 		const CommandOutputString& strings = env.getShellCmdOutput(ShellCommandType::DiskUsageDf);
@@ -41,8 +41,22 @@ TEST_F(EnvironmentTest, Test)
 		{
 			std::cout << str << std::endl;
 		}
+	    DfOutputs dfOutputs;
+	    ShellCommandOutputParse::ParseDuOutput(strings, dfOutputs);
+		for (auto output : dfOutputs)
+		{
+			std::cout << "-------------------------------------" << std::endl;
+			std::cout << "mountedOn:" << output.mountedOn << std::endl;
+			std::cout << "fileSystem:" << output.fileSystem << std::endl;
+			std::cout << "oneKBlock:" << output.oneKBlock << std::endl;
+			std::cout << "used:" << output.used << std::endl;
+			std::cout << "available:" << output.available << std::endl;
+			std::cout << "pecentageUsed:" << output.pecentageUsed << std::endl;
+			std::cout << "-------------------------------------" << std::endl;
+		}
 		break;
 	}
+	
     command->stop();
 	Core::LoopMain::instance().loopStop();
 	th.join();

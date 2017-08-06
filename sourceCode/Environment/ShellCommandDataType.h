@@ -40,7 +40,7 @@ struct DfOutput
     uint64_t used = 0;
     uint64_t available = 0;
     uint8_t pecentageUsed = 0;
-    std::string mountedOn = 0;
+    std::string mountedOn;
 };
 
 using DfOutputs = std::vector<DfOutput>;

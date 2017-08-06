@@ -136,7 +136,10 @@ void ShellCommandThread::getCmdOutPutFromFile()
         std::stringstream ss;
         ss << buffer;
         std::string oneline = ss.str();
-        lines.push_back(oneline);
+		if (!oneline.empty())
+		{
+            lines.push_back(oneline);
+		}
     }
 
     if (!lines.empty())

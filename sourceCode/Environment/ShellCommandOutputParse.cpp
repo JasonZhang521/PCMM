@@ -1,7 +1,7 @@
 #include "ShellCommandOutputParse.h"
 #include "RemoveCharacter.h"
 #include <sstream>
-
+#include <iostream>
 namespace Environment {
 
 ShellCommandOutputParse::ShellCommandOutputParse()
@@ -33,7 +33,7 @@ void ShellCommandOutputParse::ParseDuOutput(const CommandOutputString strs, DfOu
 
         // delete the first and last space and tab
         remover.setCharacter(' ');
-        str = remover(online);
+        str = remover(str);
         remover.setCharacter('\t');
         str = remover(str);
 
@@ -42,15 +42,16 @@ void ShellCommandOutputParse::ParseDuOutput(const CommandOutputString strs, DfOu
         pos = firstSpace < firstTab ? firstSpace : firstTab;
 
         std::string oneKBlock = str.substr(0, pos);
-        std::stringstream ss;
-        ss << oneKBlock;
-        ss >> dfOutput.oneKBlock;
-
+		{
+            std::stringstream ss;
+            ss << oneKBlock;
+            ss >> dfOutput.oneKBlock;
+        }
         str = str.substr(pos, str.size() - pos);
 
         // delete the first and last space and tab
         remover.setCharacter(' ');
-        str = remover(online);
+        str = remover(str);
         remover.setCharacter('\t');
         str = remover(str);
 
@@ -59,14 +60,16 @@ void ShellCommandOutputParse::ParseDuOutput(const CommandOutputString strs, DfOu
         pos = firstSpace < firstTab ? firstSpace : firstTab;
 
         std::string used = str.substr(0, pos);
-        ss << used;
-        ss >> dfOutput.used;
-
+		{
+            std::stringstream ss;
+            ss << used;
+            ss >> dfOutput.used;
+        }
         str = str.substr(pos, str.size() - pos);
 
         // delete the first and last space and tab
         remover.setCharacter(' ');
-        str = remover(online);
+        str = remover(str);
         remover.setCharacter('\t');
         str = remover(str);
 
@@ -75,14 +78,16 @@ void ShellCommandOutputParse::ParseDuOutput(const CommandOutputString strs, DfOu
         pos = firstSpace < firstTab ? firstSpace : firstTab;
 
         std::string available = str.substr(0, pos);
-        ss << available;
-        ss >> dfOutput.available;
-
+		{
+            std::stringstream ss;
+            ss << available;
+            ss >> dfOutput.available;
+        }
         str = str.substr(pos, str.size() - pos);
 
         // delete the first and last space and tab
         remover.setCharacter(' ');
-        str = remover(online);
+        str = remover(str);
         remover.setCharacter('\t');
         str = remover(str);
 
@@ -91,14 +96,16 @@ void ShellCommandOutputParse::ParseDuOutput(const CommandOutputString strs, DfOu
         pos = firstSpace < firstTab ? firstSpace : firstTab;
 
         std::string pecentageUsed = str.substr(0, pos - 1);
-        ss << pecentageUsed;
-        ss >> dfOutput.pecentageUsed;
-
+		{
+            std::stringstream ss;
+            ss << pecentageUsed;
+            ss >> dfOutput.pecentageUsed;
+        }
         str = str.substr(pos, str.size() - pos);
 
         // delete the first and last space and tab
         remover.setCharacter(' ');
-        str = remover(online);
+        str = remover(str);
         remover.setCharacter('\t');
         str = remover(str);
 
