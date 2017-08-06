@@ -61,7 +61,8 @@ SOURCES += \
     ../../sourceCode/Environment/IShellCommand.cpp \
     ../../sourceCode/Common/Lock.cpp \
     ../../sourceCode/Environment/Environment.cpp \
-    ../../sourceCode/Environment/ShellCommandDataType.cpp
+    ../../sourceCode/Environment/ShellCommandDataType.cpp \
+    ../../sourceCode/Environment/ShellCommandOutputParse.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -280,7 +281,8 @@ HEADERS += \
     ../../sourceCode/Environment/IShellCommand.h \
     ../../sourceCode/Common/Lock.h \
     ../../sourceCode/Environment/Environment.h \
-    ../../sourceCode/Environment/ShellCommandDataType.h
+    ../../sourceCode/Environment/ShellCommandDataType.h \
+    ../../sourceCode/Environment/ShellCommandOutputParse.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
