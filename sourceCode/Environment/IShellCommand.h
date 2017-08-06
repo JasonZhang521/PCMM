@@ -12,7 +12,7 @@ protected:
     std::vector<std::string> cmdOutput_;
 public:
     IShellCommand();
-    ~IShellCommand();
+    virtual ~IShellCommand();
     virtual void execute() = 0;
     virtual void stop() = 0;
     virtual bool isInactive() = 0;

@@ -6,7 +6,6 @@
 #include "Lock.h"
 #include "Trace.h"
 #include <thread>
-#include <iostream>
 
 namespace Environment {
 
@@ -49,7 +48,6 @@ void ShellCommandThread::stop()
 
 void ShellCommandThread::onTime()
 {
-	std::cout << "onTime" << std::endl;
     ExcuteState excuteState = ExcuteState::InActive;
 
     {
@@ -59,13 +57,11 @@ void ShellCommandThread::onTime()
 
     if (excuteState == ExcuteState::Command_Start)
     {
-		std::cout << "ExcuteState::Command_Start" << std::endl;
         resetTimer();
         Core::LoopMain::instance().registerTimer(this);
     }
     else if (excuteState == ExcuteState::Command_Stop)
     {
-		std::cout << "ExcuteState::Command_Stop" << std::endl;
         getCmdOutPutFromFile();
         excuteState_ = ExcuteState::OutPut_Retreived;
         resetTimer(5000);
@@ -73,7 +69,6 @@ void ShellCommandThread::onTime()
     }
     else if (excuteState == ExcuteState::OutPut_Retreived)
     {
-		std::cout << "ExcuteState::OutPut_Retreived" << std::endl;
         execute();
     }
 }
@@ -99,7 +94,6 @@ std::ostream& ShellCommandThread::operator<<(std::ostream& os)
 
 void ShellCommandThread::startThread()
 {
-	std::cout << "startThread" << std::endl;
     if (outPutFile_.empty())
     {
         RemoveCharacter remover(' ', RemovePlace::LOCATION_FRONT | RemovePlace::LOCATION_MIDDLE | RemovePlace::LOCATION_END);
@@ -107,12 +101,9 @@ void ShellCommandThread::startThread()
         Random random;
         outPutFile_ = "." + filePrefix + "." + random.generateUpLetterString(10);
     }
-	std::cout << "outPutFile:" << outPutFile_ << std::endl;
     const std::string cmd = cmd_ + " > " + outPutFile_;
-	std::cout << "cmd:" << cmd << std::endl;
     system(cmd.c_str());
 
-	std::cout << "cmd end:" << cmd << std::endl;
     // set the thread stopped flag
     {
         Lock lock(mutex_);
@@ -125,7 +116,6 @@ void ShellCommandThread::startThread()
             excuteState_ = ExcuteState::InActive;
         }
     }
-	std::cout << "thread end:" << cmd << std::endl;
 }
 
 void ShellCommandThread::getCmdOutPutFromFile()

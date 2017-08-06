@@ -29,7 +29,6 @@ TEST_F(EnvironmentTest, Test)
 	env.registerShellCmd(ShellCommandType::DiskUsageDf, command);
 	std::thread th(loopControl);
 	sleep(5);
-	std::cout << "step 2" << std::endl;
 	while(1)
 	{
 		const CommandOutputString& strings = env.getShellCmdOutput(ShellCommandType::DiskUsageDf);
@@ -46,6 +45,7 @@ TEST_F(EnvironmentTest, Test)
 	}
     command->stop();
 	Core::LoopMain::instance().loopStop();
+	th.join();
 }
 
 #endif

@@ -32,7 +32,7 @@ class ShellCommandThread : public TimerHandler::ITimer, public IShellCommand
     std::mutex mutex_;
 public:
     ShellCommandThread(const std::string& cmd, uint32_t timeout);
-    ~ShellCommandThread();
+    virtual ~ShellCommandThread();
 protected:
     virtual void execute();
     virtual void stop();
