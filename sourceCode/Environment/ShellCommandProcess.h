@@ -20,7 +20,7 @@ protected:
     virtual void stop();
     virtual void onTime();
     virtual std::ostream& operator<<(std::ostream& os);
-
+    void getCmdOutPutFromFile();
 public:
     GETCLASSNAME(ShellCommandProcess)
 };

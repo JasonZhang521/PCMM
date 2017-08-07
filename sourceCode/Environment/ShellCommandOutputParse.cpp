@@ -9,12 +9,12 @@ ShellCommandOutputParse::ShellCommandOutputParse()
 
 }
 
-void ShellCommandOutputParse::ParseDuOutput(const CommandOutputString strs, DfOutputs& outPuts)
+void ShellCommandOutputParse::ParseDuOutput(const CommandOutputString strs, ShellCommandDfOutputs& outPuts)
 {
     RemoveCharacter remover;
     for (size_t i = 1; i < strs.size(); ++i)
     {
-        DfOutput dfOutput;
+        ShellCommandDfOutput dfOutput;
         const std::string& online = strs[i];
 
         // delete the first and last space and tab
@@ -27,7 +27,7 @@ void ShellCommandOutputParse::ParseDuOutput(const CommandOutputString strs, DfOu
         size_t firstTab = str.find_first_of('\t');
         size_t pos = firstSpace < firstTab ? firstSpace : firstTab;
 
-        dfOutput.fileSystem = str.substr(0, pos);
+        dfOutput.setFileSystem(str.substr(0, pos));
 
         str = str.substr(pos, str.size() - pos);
 
@@ -41,12 +41,16 @@ void ShellCommandOutputParse::ParseDuOutput(const CommandOutputString strs, DfOu
         firstTab = str.find_first_of('\t');
         pos = firstSpace < firstTab ? firstSpace : firstTab;
 
-        std::string oneKBlock = str.substr(0, pos);
 		{
+            const std::string oneKBlockStr = str.substr(0, pos);
             std::stringstream ss;
-            ss << oneKBlock;
-            ss >> dfOutput.oneKBlock;
+            ss << oneKBlockStr;
+            uint64_t oneKBlock = 0;
+            ss >> oneKBlock;
+            dfOutput.setOneKBlock(oneKBlock);
         }
+
+
         str = str.substr(pos, str.size() - pos);
 
         // delete the first and last space and tab
@@ -59,12 +63,15 @@ void ShellCommandOutputParse::ParseDuOutput(const CommandOutputString strs, DfOu
         firstTab = str.find_first_of('\t');
         pos = firstSpace < firstTab ? firstSpace : firstTab;
 
-        std::string used = str.substr(0, pos);
 		{
+            const std::string usedStr = str.substr(0, pos);
             std::stringstream ss;
-            ss << used;
-            ss >> dfOutput.used;
+            ss << usedStr;
+            uint64_t used = 0;
+            ss >> used;
+            dfOutput.setUsed(used);
         }
+
         str = str.substr(pos, str.size() - pos);
 
         // delete the first and last space and tab
@@ -77,12 +84,15 @@ void ShellCommandOutputParse::ParseDuOutput(const CommandOutputString strs, DfOu
         firstTab = str.find_first_of('\t');
         pos = firstSpace < firstTab ? firstSpace : firstTab;
 
-        std::string available = str.substr(0, pos);
 		{
+            const std::string availableStr = str.substr(0, pos);
             std::stringstream ss;
-            ss << available;
-            ss >> dfOutput.available;
+            ss << availableStr;
+            uint64_t available = 0;
+            ss >> available;
+            dfOutput.setAvailable(available);
         }
+
         str = str.substr(pos, str.size() - pos);
 
         // delete the first and last space and tab
@@ -95,12 +105,15 @@ void ShellCommandOutputParse::ParseDuOutput(const CommandOutputString strs, DfOu
         firstTab = str.find_first_of('\t');
         pos = firstSpace < firstTab ? firstSpace : firstTab;
 
-        std::string pecentageUsed = str.substr(0, pos - 1);
 		{
+            const std::string pecentageUsedStr = str.substr(0, pos - 1);
             std::stringstream ss;
-            ss << pecentageUsed;
-            ss >> dfOutput.pecentageUsed;
+            ss << pecentageUsedStr;
+            uint8_t pecentageUsed = 0;
+            ss >> pecentageUsed;
+            dfOutput.setPecentageUsed(pecentageUsed);
         }
+
         str = str.substr(pos, str.size() - pos);
 
         // delete the first and last space and tab
@@ -113,7 +126,8 @@ void ShellCommandOutputParse::ParseDuOutput(const CommandOutputString strs, DfOu
         firstTab = str.find_first_of('\t');
         pos = firstSpace < firstTab ? firstSpace : firstTab;
 
-        dfOutput.mountedOn = str.substr(0, pos - 1);
+        const std::string mountedOn = str.substr(0, pos - 1);
+        dfOutput.setMountedOn(mountedOn);
 
         outPuts.push_back(dfOutput);
     }

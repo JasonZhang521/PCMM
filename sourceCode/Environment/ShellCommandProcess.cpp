@@ -93,4 +93,31 @@ std::ostream& ShellCommandProcess::operator<<(std::ostream& os)
     return os;
 }
 
+void ShellCommandProcess::getCmdOutPutFromFile()
+{
+    std::ifstream ifs(outPutFile_.c_str());
+
+    if (!ifs.good())
+    {
+        TRACE_WARNING("Failed to open file: " << outPutFile_ << ", stop reading, try next time." << std::endl);
+        return;
+    }
+    std::vector<std::string> lines;
+    char buffer[512];
+    while(ifs.good())
+    {
+        std::fill(buffer, buffer + 512, 0);
+        ifs.getline(buffer, 512);
+        std::stringstream ss;
+        ss << buffer;
+        std::string oneline = ss.str();
+        lines.push_back(oneline);
+    }
+
+    if (!lines.empty())
+    {
+        cmdOutput_.swap(lines);
+    }
+}
+
 }

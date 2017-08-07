@@ -6,6 +6,8 @@
 #include "IIpcServer.h"
 #include "IpSocketEndpoint.h"
 #include "LoopMain.h"
+#include "Environment.h"
+#include "ShellCommandThread.h"
 namespace ClusterManagement {
 ClusterManagementProcess::ClusterManagementProcess()
 {
@@ -46,6 +48,13 @@ void ClusterManagementProcess::process()
 
 
     clusterMgtController->startup();
+
+    // register the commands
+    {
+        Environment::IShellCommand* command =
+                new Environment::ShellCommandThread(Environment::ShellCommandString::getCmdString(Environment::ShellCommandType::DiskUsageDf), 60000);
+        Environment::Environment::instance().registerShellCmd(Environment::ShellCommandType::DiskUsageDf, command);
+    }
     // run
     Core::LoopMain::instance().loopStart();
 }
