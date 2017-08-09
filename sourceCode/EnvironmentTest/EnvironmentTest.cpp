@@ -3,6 +3,7 @@
 #include "Environment.h"
 #include "ShellCommandThread.h"
 #include "ShellCommandOutputParse.h"
+#include "ShellCommandDfOutput.h"
 #include "LoopMain.h"
 #include <thread>
 #include <iostream>
@@ -32,6 +33,7 @@ TEST_F(EnvironmentTest, Test)
 	while(1)
 	{
 		const CommandOutputString& strings = env.getShellCmdOutput(ShellCommandType::DiskUsageDf);
+		std::cout << "1 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&" << std::endl;
 		if (strings.empty())
 		{
 			sleep(1);
@@ -41,17 +43,13 @@ TEST_F(EnvironmentTest, Test)
 		{
 			std::cout << str << std::endl;
 		}
-	    DfOutputs dfOutputs;
-	    ShellCommandOutputParse::ParseDuOutput(strings, dfOutputs);
+	    ShellCommandDfOutputs dfOutputs;
+	    ShellCommandOutputParse::ParseDfOutput(strings, dfOutputs);
+		std::cout << "2 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&" << std::endl;
 		for (auto output : dfOutputs)
 		{
 			std::cout << "-------------------------------------" << std::endl;
-			std::cout << "mountedOn:" << output.mountedOn << std::endl;
-			std::cout << "fileSystem:" << output.fileSystem << std::endl;
-			std::cout << "oneKBlock:" << output.oneKBlock << std::endl;
-			std::cout << "used:" << output.used << std::endl;
-			std::cout << "available:" << output.available << std::endl;
-			std::cout << "pecentageUsed:" << output.pecentageUsed << std::endl;
+			std::cout << output << std::endl;
 			std::cout << "-------------------------------------" << std::endl;
 		}
 		break;

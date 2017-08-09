@@ -42,7 +42,7 @@ void DiskUsageInfo::update()
     using CommandOutputString = std::vector<std::string>;
     const CommandOutputString& strs = Environment::instance().getShellCmdOutput(ShellCommandType::DiskUsageDf);
     ShellCommandDfOutputs dfOutputs;
-    ShellCommandOutputParse::ParseDuOutput(strs, dfOutputs);
+    ShellCommandOutputParse::ParseDfOutput(strs, dfOutputs);
     for (auto dfOutput : dfOutputs)
     {
         if (dfOutput.getMountedOn() == std::string("/"))

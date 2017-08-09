@@ -9,7 +9,7 @@ ShellCommandOutputParse::ShellCommandOutputParse()
 
 }
 
-void ShellCommandOutputParse::ParseDuOutput(const CommandOutputString strs, ShellCommandDfOutputs& outPuts)
+void ShellCommandOutputParse::ParseDfOutput(const CommandOutputString strs, ShellCommandDfOutputs& outPuts)
 {
     RemoveCharacter remover;
     for (size_t i = 1; i < strs.size(); ++i)

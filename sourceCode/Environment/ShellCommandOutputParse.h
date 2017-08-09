@@ -9,7 +9,7 @@ class ShellCommandOutputParse
 {
 public:
     ShellCommandOutputParse();
-    static void ParseDuOutput(const CommandOutputString strs, ShellCommandDfOutputs& outPuts);
+    static void ParseDfOutput(const CommandOutputString strs, ShellCommandDfOutputs& outPuts);
 };
 
 }
