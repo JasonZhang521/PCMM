@@ -21,6 +21,8 @@ public:
     void unserialize(Serialize::ReadBuffer& readBuffer);
     std::ostream& operator <<(std::ostream& os) const;
     bool operator ==(const DiskUsageInfo& info) const;
+
+    void update();
 public:
      GETCLASSNAME(NetworkInfo)
 };

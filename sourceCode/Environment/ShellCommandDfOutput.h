@@ -4,6 +4,11 @@
 #include <vector>
 #include <string>
 
+namespace Serialize {
+class WriteBuffer;
+class ReadBuffer;
+}
+
 /* *** df output
  *
 Filesystem        1K-blocks      Used Available Use% Mounted on
@@ -23,6 +28,8 @@ class ShellCommandDfOutput
     std::string mountedOn_ = 0;
 public:
     ShellCommandDfOutput();
+    ShellCommandDfOutput(const ShellCommandDfOutput& output);
+    ShellCommandDfOutput& operator =(const ShellCommandDfOutput& output);
     inline const std::string& getFileSystem() const {return fileSystem_;}
     inline void setFileSystem(const std::string& fileSystem) {fileSystem_ = fileSystem;}
     inline uint64_t getOneKBlock() const {return oneKBlock_;}
@@ -35,9 +42,19 @@ public:
     inline void setPecentageUsed(uint8_t pecentageUsed) {pecentageUsed_ = pecentageUsed;}
     inline const std::string& getMountedOn() const {return mountedOn_;}
     inline void setMountedOn(const std::string& mountedOn) {mountedOn_ = mountedOn;}
+
+    void serialize(Serialize::WriteBuffer& writeBuffer) const;
+    void unserialize(Serialize::ReadBuffer& readBuffer);
+    std::ostream& operator <<(std::ostream& os) const;
+    bool operator ==(const ShellCommandDfOutput& output) const;
 };
 
 using ShellCommandDfOutputs = std::vector<ShellCommandDfOutput>;
+}
+
+inline std::ostream& operator <<(std::ostream& os, const Environment::ShellCommandDfOutput& output)
+{
+    return output.operator <<(os);
 }
 
 #endif // SHELLCOMMANDDFOUTPUT_H
