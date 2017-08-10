@@ -37,6 +37,26 @@ bool DiskUsageInfo::operator ==(const DiskUsageInfo& info) const
             bootInitDirUsage_ == info.bootInitDirUsage_);
 }
 
+const ShellCommandDfOutput& DiskUsageInfo::getRootDirUsage() const
+{
+	return rootDirUsage_;
+}
+
+void DiskUsageInfo::setRootDirUsage(const ShellCommandDfOutput& output)
+{
+	rootDirUsage_ = output;
+}
+
+const ShellCommandDfOutput& DiskUsageInfo::getBootInitDirUsage() const
+{
+	return bootInitDirUsage_;
+}
+
+void DiskUsageInfo::setBootInitDirUsage(const ShellCommandDfOutput& output)
+{
+	bootInitDirUsage_ = output;
+}
+
 void DiskUsageInfo::update()
 {
     using CommandOutputString = std::vector<std::string>;

@@ -21,7 +21,10 @@ public:
     void unserialize(Serialize::ReadBuffer& readBuffer);
     std::ostream& operator <<(std::ostream& os) const;
     bool operator ==(const DiskUsageInfo& info) const;
-
+    const ShellCommandDfOutput& getRootDirUsage() const;
+	void setRootDirUsage(const ShellCommandDfOutput& output);
+    const ShellCommandDfOutput& getBootInitDirUsage() const;
+	void setBootInitDirUsage(const ShellCommandDfOutput& output);
     void update();
 public:
      GETCLASSNAME(NetworkInfo)
