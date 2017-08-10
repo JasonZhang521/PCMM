@@ -1,7 +1,6 @@
 #include "ShellCommandOutputParse.h"
 #include "RemoveCharacter.h"
 #include <sstream>
-#include <iostream>
 namespace Environment {
 
 ShellCommandOutputParse::ShellCommandOutputParse()
@@ -9,7 +8,7 @@ ShellCommandOutputParse::ShellCommandOutputParse()
 
 }
 
-void ShellCommandOutputParse::ParseDfOutput(const CommandOutputString strs, ShellCommandDfOutputs& outPuts)
+void ShellCommandOutputParse::ParseDfOutput(const CommandOutputString& strs, ShellCommandDfOutputs& outPuts)
 {
     RemoveCharacter remover;
     for (size_t i = 1; i < strs.size(); ++i)
@@ -26,7 +25,6 @@ void ShellCommandOutputParse::ParseDfOutput(const CommandOutputString strs, Shel
         size_t firstSpace = str.find_first_of(' ');
         size_t firstTab = str.find_first_of('\t');
         size_t pos = firstSpace < firstTab ? firstSpace : firstTab;
-
         dfOutput.setFileSystem(str.substr(0, pos));
 
         str = str.substr(pos, str.size() - pos);
@@ -36,7 +34,6 @@ void ShellCommandOutputParse::ParseDfOutput(const CommandOutputString strs, Shel
         str = remover(str);
         remover.setCharacter('\t');
         str = remover(str);
-
         firstSpace = str.find_first_of(' ');
         firstTab = str.find_first_of('\t');
         pos = firstSpace < firstTab ? firstSpace : firstTab;
@@ -92,7 +89,6 @@ void ShellCommandOutputParse::ParseDfOutput(const CommandOutputString strs, Shel
             ss >> available;
             dfOutput.setAvailable(available);
         }
-
         str = str.substr(pos, str.size() - pos);
 
         // delete the first and last space and tab

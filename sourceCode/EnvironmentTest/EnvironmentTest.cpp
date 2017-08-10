@@ -33,7 +33,6 @@ TEST_F(EnvironmentTest, Test)
 	while(1)
 	{
 		const CommandOutputString& strings = env.getShellCmdOutput(ShellCommandType::DiskUsageDf);
-		std::cout << "1 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&" << std::endl;
 		if (strings.empty())
 		{
 			sleep(1);
@@ -45,7 +44,6 @@ TEST_F(EnvironmentTest, Test)
 		}
 	    ShellCommandDfOutputs dfOutputs;
 	    ShellCommandOutputParse::ParseDfOutput(strings, dfOutputs);
-		std::cout << "2 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&" << std::endl;
 		for (auto output : dfOutputs)
 		{
 			std::cout << "-------------------------------------" << std::endl;

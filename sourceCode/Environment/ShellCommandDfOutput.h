@@ -25,7 +25,7 @@ class ShellCommandDfOutput
     uint64_t used_ = 0;
     uint64_t available_ = 0;
     uint8_t pecentageUsed_ = 0;
-    std::string mountedOn_ = 0;
+    std::string mountedOn_;
 public:
     ShellCommandDfOutput();
     ShellCommandDfOutput(const ShellCommandDfOutput& output);
