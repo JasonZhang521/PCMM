@@ -4,6 +4,7 @@
 #include "MemoryInfoBriefly.h"
 #include "NetworkInfo.h"
 #include "MiscInfo.h"
+#include "DiskUsageInfo.h"
 
 namespace Environment {
 class SystemInfoBriefly
@@ -12,6 +13,7 @@ class SystemInfoBriefly
     MemoryInfoBriefly memoryInfoBriefly_;
     NetworkInfo networkInfo_;
     MiscInfo miscInfo_;
+    DiskUsageInfo diskUsageInfo_;
 
 public:
     SystemInfoBriefly();
@@ -25,6 +27,8 @@ public:
 	void setNetworkInfo(const NetworkInfo& info);
     const MiscInfo& getMiscInfo() const;
 	void setMiscInfo(const MiscInfo& info);
+    const DiskUsageInfo& getDiskUsageInfo() const;
+    void setDiskUsageInfo(const DiskUsageInfo& info);
 
     void serialize(Serialize::WriteBuffer& writeBuffer) const;
     void unserialize(Serialize::ReadBuffer& readBuffer);

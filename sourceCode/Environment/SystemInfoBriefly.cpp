@@ -63,12 +63,23 @@ void SystemInfoBriefly::setMiscInfo(const MiscInfo& info)
 	miscInfo_ = info;
 }
 
+const DiskUsageInfo& SystemInfoBriefly::getDiskUsageInfo() const
+{
+    return diskUsageInfo_;
+}
+
+void SystemInfoBriefly::setDiskUsageInfo(const DiskUsageInfo& info)
+{
+    diskUsageInfo_ = info;
+}
+
 void SystemInfoBriefly::serialize(Serialize::WriteBuffer& writeBuffer) const
 {
     cpuInfoBriefly_.serialize(writeBuffer);
     memoryInfoBriefly_.serialize(writeBuffer);
     networkInfo_.serialize(writeBuffer);
     miscInfo_.serialize(writeBuffer);
+    diskUsageInfo_.serialize(writeBuffer);
 }
 
 void SystemInfoBriefly::unserialize(Serialize::ReadBuffer& readBuffer)
@@ -77,6 +88,7 @@ void SystemInfoBriefly::unserialize(Serialize::ReadBuffer& readBuffer)
     memoryInfoBriefly_.unserialize(readBuffer);
     networkInfo_.unserialize(readBuffer);
     miscInfo_.unserialize(readBuffer);
+    diskUsageInfo_.unserialize(readBuffer);
 }
 
 std::ostream& SystemInfoBriefly::operator <<(std::ostream& os) const
@@ -86,6 +98,7 @@ std::ostream& SystemInfoBriefly::operator <<(std::ostream& os) const
        << ", memoryInfoBriefly=" << memoryInfoBriefly_
        << ", networkInfo=" << networkInfo_
        << ", miscInfo=" << miscInfo_
+       << ", diskUsageInfo" << diskUsageInfo_
        << "]";
     return os;
 }
@@ -95,7 +108,8 @@ bool SystemInfoBriefly::operator ==(const SystemInfoBriefly& info) const
     return (cpuInfoBriefly_ == info.cpuInfoBriefly_ &&
             memoryInfoBriefly_ == info.memoryInfoBriefly_ &&
             networkInfo_ == info.networkInfo_ &&
-            miscInfo_ == info.miscInfo_);
+            miscInfo_ == info.miscInfo_ &&
+            diskUsageInfo_ == info.diskUsageInfo_);
 }
 
 void SystemInfoBriefly::update()
@@ -104,6 +118,7 @@ void SystemInfoBriefly::update()
     memoryInfoBriefly_.update();
     networkInfo_.update();
     miscInfo_.update();
+    diskUsageInfo_.update();
 }
 
 }

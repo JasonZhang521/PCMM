@@ -27,4 +27,10 @@ public:
      GETCLASSNAME(NetworkInfo)
 };
 }
+
+inline std::ostream& operator <<(std::ostream& os, const Environment::DiskUsageInfo& info)
+{
+    return info.operator <<(os);
+}
+
 #endif // DISKUSAGEINFO_H
