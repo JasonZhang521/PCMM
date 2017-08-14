@@ -6,11 +6,13 @@
 #include "WriteBuffer.h"
 #include "ReadBuffer.h"
 #include "SocketWrapper.h"
-#include <iostream>
+#include "Trace.h"
+#include <fstream>
 namespace Environment {
 CpuInfoBriefly::CpuInfoBriefly()
     :numOfCpu_(0)
     ,usage_(0)
+    ,temprature_(0)
 {
 
 }
@@ -20,6 +22,7 @@ CpuInfoBriefly::CpuInfoBriefly(const CpuInfoBriefly& info)
     , modelName_(info.modelName_)
     , frequency_(info.frequency_)
     , usage_(info.usage_)
+    , temprature_(info.temprature_)
 {
 
 }
@@ -30,6 +33,7 @@ CpuInfoBriefly& CpuInfoBriefly::operator =(const CpuInfoBriefly& info)
     modelName_ = info.modelName_;
     frequency_ = info.frequency_;
     usage_ = info.usage_;
+    temprature_ = info.temprature_;
     return *this;
 }
 
@@ -43,6 +47,7 @@ void CpuInfoBriefly::serialize(Serialize::WriteBuffer& writeBuffer) const
     writeBuffer.write(frequency_.c_str(), frequency_.size());
 
     writeBuffer.write(static_cast<uint8_t>(usage_));
+    writeBuffer.write(temprature_);
 }
 
 void CpuInfoBriefly::unserialize(Serialize::ReadBuffer& readBuffer)
@@ -62,6 +67,7 @@ void CpuInfoBriefly::unserialize(Serialize::ReadBuffer& readBuffer)
 	uint8_t usage = 0;
     readBuffer.read(usage);
 	usage_ = usage;
+    readBuffer.read(temprature_);
 }
 
 std::ostream& CpuInfoBriefly::operator <<(std::ostream& os) const
@@ -71,6 +77,7 @@ std::ostream& CpuInfoBriefly::operator <<(std::ostream& os) const
        << ", modeName=" << modelName_
        << ", frequency=" << frequency_
        << ", usage=" << usage_
+       << ", temprature=" << temprature_
        << "]";
     return os;
 }
@@ -80,7 +87,8 @@ bool CpuInfoBriefly::operator ==(const CpuInfoBriefly& info) const
     return (numOfCpu_ == info.numOfCpu_ &&
             modelName_ == info.modelName_ &&
             frequency_ == info.frequency_ &&
-            usage_ == info.usage_);
+            usage_ == info.usage_ &&
+            temprature_ == info.temprature_);
 }
 
 void CpuInfoBriefly::updateCpuInfoBriefly()
@@ -104,6 +112,30 @@ void CpuInfoBriefly::updateCpuInfoBriefly()
 void CpuInfoBriefly::update()
 {
     updateCpuInfoBriefly();
+}
+
+void CpuInfoBriefly::updateCpuTemprature()
+{
+    std::string tempfileName("/sys/class/thermal/thermal_zone0/temp");
+    //std::string nodeTimeInfofileName("/proc/acpi/thermal_zone/THM0/temperature");
+    // for the Linux operation system, the temprature infomation always got from above files
+    std::ifstream ifs(tempfileName.c_str());
+
+    if (!ifs.good())
+    {
+        TRACE_WARNING("Failed to open file: " << tempfileName << ", stop reading, try next time." << std::endl);
+        return;
+    }
+
+    char buffer[128];
+    std::fill(buffer, buffer + 128, 0);
+    ifs.getline(buffer, 128);
+    std::stringstream ss;
+    ss << buffer;
+
+    int temp = 0;
+    ss >> temp;
+    temprature_ = temp / 1000;
 }
 
 }

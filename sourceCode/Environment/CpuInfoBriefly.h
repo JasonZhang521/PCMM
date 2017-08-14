@@ -1,5 +1,7 @@
 #ifndef _ENVIRONMENT_CPUINFOBRIEFLY_H_
 #define _ENVIRONMENT_CPUINFOBRIEFLY_H_
+#include "Component.h"
+#include "Macro.h"
 #include <string>
 #include <ostream>
 
@@ -15,6 +17,7 @@ class CpuInfoBriefly
     std::string modelName_;
     std::string frequency_;
     int usage_;
+    int temprature_;
 public:
     CpuInfoBriefly();
     CpuInfoBriefly(const CpuInfoBriefly& info);
@@ -37,6 +40,10 @@ public:
     void update();
 private:
     void updateCpuInfoBriefly();
+    void updateCpuTemprature();
+
+public:
+     GETCLASSNAME(CpuInfoBriefly)
 };
 }
 
