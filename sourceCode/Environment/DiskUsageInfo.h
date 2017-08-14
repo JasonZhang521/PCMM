@@ -15,6 +15,7 @@ class DiskUsageInfo
 {
     ShellCommandDfOutput rootDirUsage_;
     ShellCommandDfOutput bootInitDirUsage_;
+    uint64_t homeDirUsage_;
 public:
     DiskUsageInfo();
     void serialize(Serialize::WriteBuffer& writeBuffer) const;
@@ -26,6 +27,10 @@ public:
     const ShellCommandDfOutput& getBootInitDirUsage() const;
 	void setBootInitDirUsage(const ShellCommandDfOutput& output);
     void update();
+
+private:
+    void updateRootAndBootInitDirUsage();
+    void updateHomeDirUsage();
 public:
      GETCLASSNAME(NetworkInfo)
 };

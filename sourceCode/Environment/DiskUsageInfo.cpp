@@ -3,6 +3,8 @@
 #include "ShellCommandOutputParse.h"
 #include "Environment.h"
 #include "ShellCommandDfOutput.h"
+#include "WriteBuffer.h"
+#include "ReadBuffer.h"
 #include <ostream>
 namespace Environment {
 DiskUsageInfo::DiskUsageInfo()
@@ -14,12 +16,14 @@ void DiskUsageInfo::serialize(Serialize::WriteBuffer& writeBuffer) const
 {
     rootDirUsage_.serialize(writeBuffer);
     bootInitDirUsage_.serialize(writeBuffer);
+    writeBuffer.write(homeDirUsage_);
 }
 
 void DiskUsageInfo::unserialize(Serialize::ReadBuffer& readBuffer)
 {
     rootDirUsage_.unserialize(readBuffer);
     bootInitDirUsage_.unserialize(readBuffer);
+    readBuffer.read(homeDirUsage_);
 }
 
 std::ostream& DiskUsageInfo::operator <<(std::ostream& os) const
@@ -27,6 +31,7 @@ std::ostream& DiskUsageInfo::operator <<(std::ostream& os) const
     os << "["
        << "rootDirUsage=" << rootDirUsage_
        << ", bootInitDirUsage=" << bootInitDirUsage_
+       << ", homeDirUsage=" << homeDirUsage_
        << "]";
     return os;
 }
@@ -34,7 +39,8 @@ std::ostream& DiskUsageInfo::operator <<(std::ostream& os) const
 bool DiskUsageInfo::operator ==(const DiskUsageInfo& info) const
 {
     return (rootDirUsage_ == info.rootDirUsage_ &&
-            bootInitDirUsage_ == info.bootInitDirUsage_);
+            bootInitDirUsage_ == info.bootInitDirUsage_ &&
+            homeDirUsage_ == info.homeDirUsage_);
 }
 
 const ShellCommandDfOutput& DiskUsageInfo::getRootDirUsage() const
@@ -59,6 +65,11 @@ void DiskUsageInfo::setBootInitDirUsage(const ShellCommandDfOutput& output)
 
 void DiskUsageInfo::update()
 {
+
+}
+
+void DiskUsageInfo::updateRootAndBootInitDirUsage()
+{
     using CommandOutputString = std::vector<std::string>;
     const CommandOutputString& strs = Environment::instance().getShellCmdOutput(ShellCommandType::DiskUsageDf);
     ShellCommandDfOutputs dfOutputs;
@@ -75,7 +86,13 @@ void DiskUsageInfo::update()
             bootInitDirUsage_ = dfOutput;
         }
     }
+}
 
+void DiskUsageInfo::updateHomeDirUsage()
+{
+    using CommandOutputString = std::vector<std::string>;
+    const CommandOutputString& strs = Environment::instance().getShellCmdOutput(ShellCommandType::DiskUsageDuHome);
+        ShellCommandOutputParse::ParseDuHomeOutput(strs, homeDirUsage_);
 }
 
 }

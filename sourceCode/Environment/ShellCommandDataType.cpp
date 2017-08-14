@@ -8,7 +8,8 @@ std::map<ShellCommandType, std::string> ShellCommandString::cmdTypeToCmdString_ 
 
 std::map<std::string, ShellCommandType> ShellCommandString::cmdStringToCmdType_ =
 {
-    {std::string("df"), ShellCommandType::DiskUsageDf}
+    {std::string("df"), ShellCommandType::DiskUsageDf},
+    {std::string("du -s /home"), ShellCommandType::DiskUsageDuHome}
 };
 
 const std::string ShellCommandString::InvalidCmd("InvalidCmd");

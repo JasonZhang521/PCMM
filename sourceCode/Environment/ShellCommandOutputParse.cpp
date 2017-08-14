@@ -129,4 +129,31 @@ void ShellCommandOutputParse::ParseDfOutput(const CommandOutputString& strs, She
     }
 }
 
+void ShellCommandOutputParse::ParseDuHomeOutput(const CommandOutputString& strs, uint64_t& used)
+{
+    RemoveCharacter remover;
+    for (size_t i = 1; i < strs.size(); ++i)
+    {
+        ShellCommandDfOutput dfOutput;
+        const std::string& online = strs[i];
+
+        // delete the first and last space and tab
+        remover.setCharacter(' ');
+        std::string str = remover(online);
+        remover.setCharacter('\t');
+        str = remover(str);
+
+        size_t firstSpace = str.find_first_of(' ');
+        size_t firstTab = str.find_first_of('\t');
+        size_t pos = firstSpace < firstTab ? firstSpace : firstTab;
+
+        const std::string UsedStr = str.substr(0, pos - 1);
+
+        std::stringstream ss;
+        ss << UsedStr;
+        ss >> used;
+        break;
+    }
+}
+
 }

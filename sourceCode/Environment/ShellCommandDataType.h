@@ -10,6 +10,7 @@ namespace Environment {
 enum class ShellCommandType
 {
     DiskUsageDf,
+    DiskUsageDuHome,
     InvalidType
 };
 

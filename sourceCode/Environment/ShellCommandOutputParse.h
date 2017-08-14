@@ -10,6 +10,7 @@ class ShellCommandOutputParse
 public:
     ShellCommandOutputParse();
     static void ParseDfOutput(const CommandOutputString& strs, ShellCommandDfOutputs& outPuts);
+    static void ParseDuHomeOutput(const CommandOutputString& strs, uint64_t& used);
 };
 
 }

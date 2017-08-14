@@ -51,9 +51,13 @@ void ClusterManagementProcess::process()
 
     // register the commands
     {
-        Environment::IShellCommand* command =
+        Environment::IShellCommand* commandDf =
                 new Environment::ShellCommandThread(Environment::ShellCommandString::getCmdString(Environment::ShellCommandType::DiskUsageDf), 60000);
-        Environment::Environment::instance().registerShellCmd(Environment::ShellCommandType::DiskUsageDf, command);
+        Environment::Environment::instance().registerShellCmd(Environment::ShellCommandType::DiskUsageDf, commandDf);
+
+        Environment::IShellCommand* commandDuHome =
+                new Environment::ShellCommandThread(Environment::ShellCommandString::getCmdString(Environment::ShellCommandType::DiskUsageDuHome), 60000);
+        Environment::Environment::instance().registerShellCmd(Environment::ShellCommandType::DiskUsageDuHome, commandDuHome);
     }
     // run
     Core::LoopMain::instance().loopStart();
