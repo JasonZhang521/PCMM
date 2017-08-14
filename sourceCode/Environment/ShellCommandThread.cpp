@@ -43,6 +43,7 @@ ShellCommandThread::~ShellCommandThread()
 
 void ShellCommandThread::execute()
 {
+    TRACE_DEBUG("Execute command:" << cmd_);
     excuteState_ = ExcuteState::Command_Start;
     // start the thread
     shellCmdThread_ = std::unique_ptr<std::thread>(new std::thread(std::bind(&ShellCommandThread::startThread, this)));
@@ -52,6 +53,7 @@ void ShellCommandThread::execute()
 
 void ShellCommandThread::stop()
 {
+    TRACE_DEBUG("Stop command:" << cmd_);
     Core::LoopMain::instance().deRegisterTimer(getTimerId());
 
     Lock lock(mutex_);
