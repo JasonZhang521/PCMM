@@ -4,6 +4,8 @@
 #include "IoLoop.h"
 #include "TimerLoop.h"
 #include <memory>
+#include "Component.h"
+#include "Macro.h"
 
 namespace TimerHandler {
 class ITimer;
@@ -34,6 +36,9 @@ public:
 
 public:
     static LoopMain& instance();
+
+public:
+    GETCLASSNAME(LoopMain)
 };
 
 }

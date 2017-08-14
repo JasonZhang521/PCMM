@@ -6,7 +6,8 @@
 #include "Singleton.h"
 #include "TimeStat.h"
 #include "Sleep.h"
-#include <iostream>
+#include "Trace.h"
+
 namespace Core {
 LoopMain::LoopMain()
     : eventLoop_(std::shared_ptr<EventHandler::IEventQueue>(new EventHandler::ListEventQueue()))
@@ -55,10 +56,13 @@ void LoopMain::loopStart()
     {
         int32_t remainingTime = MaxRunningTimeInOneLoop;
         TimeStat timeStat;
+		TRACE_DEBUG3("Run IO loop!");
         ioLoop_.runLoop();
         remainingTime = remainingTime - timeStat.getElapseTimeAsMilliSecond();
+		TRACE_DEBUG3("Run event loop!");
         eventLoop_.runLoop(666);
         remainingTime = remainingTime - timeStat.getElapseTimeAsMilliSecond();
+		TRACE_DEBUG3("Run timer loop!");
         timeLoop_.runLoop();
         remainingTime = remainingTime - timeStat.getElapseTimeAsMilliSecond();
 
