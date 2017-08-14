@@ -21,7 +21,7 @@ UiClientMessageSendTimer::~UiClientMessageSendTimer()
 
 void UiClientMessageSendTimer::onTime()
 {
-    TRACE_DEBUG("send message, message number in queue is " << ipcMessageSendQueue_->size());
+    TRACE_DEBUG3("send message, message number in queue is " << ipcMessageSendQueue_->getSize());
     if (!ipcMessageSendQueue_->isEmpty())
     {
         std::unique_ptr<IpcMessage::IIpcMessage> msg = std::move(ipcMessageSendQueue_->popFront());
