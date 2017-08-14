@@ -127,11 +127,17 @@ SOURCES +=../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/Environment/MemoryUsageInfoDataType.cpp \
     ../../sourceCode/Environment/MiscInfo.cpp \
     ../../sourceCode/Environment/NetworkInfo.cpp \
-    ../../sourceCode/Environment/ShellCommand.cpp \
     ../../sourceCode/Environment/SystemInfoBriefly.cpp \
     ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.cpp \
     ../../sourceCode/ClusterMgtMessage/ClusterMgtMessageFactory.cpp \
-    ../../sourceCode/Environment/CpuInfoDataType.cpp
+    ../../sourceCode/Environment/CpuInfoDataType.cpp \
+    ../../sourceCode/Environment/ShellCommandDataType.cpp \
+    ../../sourceCode/Environment/ShellCommandDfOutput.cpp \
+    ../../sourceCode/Environment/ShellCommandOutputParse.cpp \
+    ../../sourceCode/Environment/ShellCommandProcess.cpp \
+    ../../sourceCode/Environment/ShellCommandThread.cpp \
+    ../../sourceCode/Environment/Environment.cpp \
+    ../../sourceCode/Environment/IShellCommand.cpp
 
 HEADERS += \
     ../../sourceCode/Ipc/Component.h \
@@ -244,11 +250,17 @@ HEADERS += \
     ../../sourceCode/Environment/MemoryUsageInfoDataType.h \
     ../../sourceCode/Environment/MiscInfo.h \
     ../../sourceCode/Environment/NetworkInfo.h \
-    ../../sourceCode/Environment/ShellCommand.h \
     ../../sourceCode/Environment/SystemInfoBriefly.h \
     ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.h \
     ../../sourceCode/ClusterMgtMessage/Component.h \
-    ../../sourceCode/ClusterMgtMessage/ClusterMgtMessageFactory.h
+    ../../sourceCode/ClusterMgtMessage/ClusterMgtMessageFactory.h \
+    ../../sourceCode/Environment/ShellCommandDataType.h \
+    ../../sourceCode/Environment/ShellCommandDfOutput.h \
+    ../../sourceCode/Environment/ShellCommandOutputParse.h \
+    ../../sourceCode/Environment/ShellCommandProcess.h \
+    ../../sourceCode/Environment/ShellCommandThread.h \
+    ../../sourceCode/Environment/Environment.h \
+    ../../sourceCode/Environment/IShellCommand.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

@@ -9,6 +9,24 @@
 
 namespace Environment {
 
+std::string ShellCommandThread::ExcuteStateToString(ExcuteState state)
+{
+    switch (state) {
+    case ExcuteState::Command_Start:
+        return std::string("Command_Start");
+    case ExcuteState::Command_Stop:
+        return std::string("Command_Stop");
+    case ExcuteState::OutPut_Retreived:
+        return std::string("OutPut_Retreived");
+    case ExcuteState::Thread_Stop:
+        return std::string("Thread_Stop");
+    case ExcuteState::InActive:
+        return std::string("InActive");
+    default:
+        return std::string("Invalid_State");
+    }
+}
+
 std::string ShellCommandThread::MagicString("EGHDVYHEJHDRRHSFRH"); 
 ShellCommandThread::ShellCommandThread(const std::string& cmd, uint32_t timeout)
     : TimerHandler::ITimer(timeout)
@@ -55,6 +73,8 @@ void ShellCommandThread::onTime()
         Lock lock(mutex_);
         excuteState = excuteState_;
     }
+
+    TRACE_DEBUG("execute state is " << ExcuteStateToString(excuteState));
 
     if (excuteState == ExcuteState::Command_Start)
     {

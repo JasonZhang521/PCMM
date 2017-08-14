@@ -2,6 +2,8 @@
 #define UICLIENTMESSAGESENDTIMER_H
 #include "ITimer.h"
 #include <memory>
+#include "Component.h"
+#include "Macro.h"
 
 namespace IpcMessage {
 class IIpcMessageQueue;
@@ -22,6 +24,8 @@ public:
     ~UiClientMessageSendTimer();
     virtual void onTime();
     virtual std::ostream& operator<<(std::ostream& os);
+public:
+     GETCLASSNAME(UiClientRestartTimer)
 };
 
 }

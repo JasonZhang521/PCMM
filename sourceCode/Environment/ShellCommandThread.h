@@ -24,6 +24,7 @@ class ShellCommandThread : public TimerHandler::ITimer, public IShellCommand
         Thread_Stop,
         InActive
     };
+    static std::string ExcuteStateToString(ExcuteState state);
 
     std::string cmd_;
     std::string outPutFile_;

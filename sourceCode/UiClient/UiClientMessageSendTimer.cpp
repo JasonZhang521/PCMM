@@ -2,6 +2,7 @@
 #include "IIpcClient.h"
 #include "IIpcMessageQueue.h"
 #include "IIpcMessage.h"
+#include "Trace.h"
 
 namespace UiClient {
 UiClientMessageSendTimer::UiClientMessageSendTimer(std::shared_ptr<IpcMessage::IIpcMessageQueue> ipcMessageSendQueue,
@@ -20,6 +21,7 @@ UiClientMessageSendTimer::~UiClientMessageSendTimer()
 
 void UiClientMessageSendTimer::onTime()
 {
+    TRACE_DEBUG("send message, message number in queue is " << ipcMessageSendQueue_->size());
     if (!ipcMessageSendQueue_->isEmpty())
     {
         std::unique_ptr<IpcMessage::IIpcMessage> msg = std::move(ipcMessageSendQueue_->popFront());
