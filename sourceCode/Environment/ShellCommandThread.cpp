@@ -38,13 +38,20 @@ ShellCommandThread::ShellCommandThread(const std::string& cmd, uint32_t timeout)
 
 ShellCommandThread::~ShellCommandThread()
 {
-    shellCmdThread_->join();
+	if (shellCmdThread_)
+	{
+        shellCmdThread_->join();
+	}
 }
 
 void ShellCommandThread::execute()
 {
     TRACE_DEBUG("Execute command:" << cmd_);
     excuteState_ = ExcuteState::Command_Start;
+	if (shellCmdThread_)
+	{
+        shellCmdThread_->join();
+	}
     // start the thread
     shellCmdThread_ = std::unique_ptr<std::thread>(new std::thread(std::bind(&ShellCommandThread::startThread, this)));
     // start the timer

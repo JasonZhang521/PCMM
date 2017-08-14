@@ -52,7 +52,7 @@ TEST_F(EnvironmentTest, CommandTestDf)
 		}
 		break;
 	}
-	
+    sleep(2);	
     command->stop();
 	Core::LoopMain::instance().loopStop();
 	th.join();
@@ -85,7 +85,7 @@ TEST_F(EnvironmentTest, CommandTestDuHome)
 		}
 		break;
 	}
-	
+    sleep(2);	
     command->stop();
 	Core::LoopMain::instance().loopStop();
 	th.join();
