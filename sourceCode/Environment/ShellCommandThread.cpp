@@ -9,6 +9,7 @@
 
 namespace Environment {
 
+std::string ShellCommandThread::MagicString("EGHDVYHEJHDRRHSFRH"); 
 ShellCommandThread::ShellCommandThread(const std::string& cmd, uint32_t timeout)
     : TimerHandler::ITimer(timeout)
     , cmd_(cmd)
@@ -97,9 +98,21 @@ void ShellCommandThread::startThread()
     if (outPutFile_.empty())
     {
         RemoveCharacter remover(' ', RemovePlace::LOCATION_FRONT | RemovePlace::LOCATION_MIDDLE | RemovePlace::LOCATION_END);
-        const std::string filePrefix = remover(cmd_);
+        std::string filePrefix = remover(cmd_);
+		remover.setCharacter('\t');
+        filePrefix = remover(filePrefix);
+		remover.setCharacter('\\');
+        filePrefix = remover(filePrefix);
+		remover.setCharacter('/');
+        filePrefix = remover(filePrefix);
+		remover.setCharacter('-');
+        filePrefix = remover(filePrefix);
+		filePrefix = MagicString + "." + filePrefix; 
         Random random;
         outPutFile_ = "." + filePrefix + "." + random.generateUpLetterString(10);
+	    // delete the previous files
+	    std::string deletePreviousfiles = std::string("rm .") + filePrefix + std::string("*");
+	    system(deletePreviousfiles.c_str());
     }
     const std::string cmd = cmd_ + " > " + outPutFile_;
     system(cmd.c_str());

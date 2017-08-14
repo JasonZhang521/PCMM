@@ -44,6 +44,8 @@ private:
     void getCmdOutPutFromFile();
 public:
     GETCLASSNAME(ShellCommandThread)
+private:
+    static std::string MagicString;
 };
 }
 

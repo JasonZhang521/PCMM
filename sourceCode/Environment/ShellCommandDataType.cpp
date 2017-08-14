@@ -3,7 +3,8 @@ namespace Environment {
 
 std::map<ShellCommandType, std::string> ShellCommandString::cmdTypeToCmdString_ =
 {
-    {ShellCommandType::DiskUsageDf, std::string("df")}
+    {ShellCommandType::DiskUsageDf, std::string("df")},
+	{ShellCommandType::DiskUsageDuHome, std::string("du -s /home")}
 };
 
 std::map<std::string, ShellCommandType> ShellCommandString::cmdStringToCmdType_ =

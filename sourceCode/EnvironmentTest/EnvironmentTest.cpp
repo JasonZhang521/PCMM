@@ -24,7 +24,7 @@ static void loopControl()
 {
 	Core::LoopMain::instance().loopStart();
 }
-TEST_F(EnvironmentTest, Test)
+TEST_F(EnvironmentTest, CommandTestDf)
 {
 	Environment::Environment env;
     IShellCommand* command = new ShellCommandThread(ShellCommandString::getCmdString(ShellCommandType::DiskUsageDf), 1000);
@@ -48,6 +48,39 @@ TEST_F(EnvironmentTest, Test)
 		{
 			std::cout << "-------------------------------------" << std::endl;
 			std::cout << output << std::endl;
+			std::cout << "-------------------------------------" << std::endl;
+		}
+		break;
+	}
+	
+    command->stop();
+	Core::LoopMain::instance().loopStop();
+	th.join();
+}
+
+TEST_F(EnvironmentTest, CommandTestDuHome)
+{
+	Environment::Environment env;
+    IShellCommand* command = new ShellCommandThread(ShellCommandString::getCmdString(ShellCommandType::DiskUsageDuHome), 1000);
+	env.registerShellCmd(ShellCommandType::DiskUsageDuHome, command);
+	std::thread th(loopControl);
+	while(1)
+	{
+		const CommandOutputString& strings = env.getShellCmdOutput(ShellCommandType::DiskUsageDuHome);
+		if (strings.empty())
+		{
+			sleep(1);
+			continue;
+		}
+		for (auto str : strings)
+		{
+			std::cout << str << std::endl;
+		}
+		uint64_t used = 0;
+	    ShellCommandOutputParse::ParseDuHomeOutput(strings, used);
+		{
+			std::cout << "-------------------------------------" << std::endl;
+			std::cout << used << std::endl;
 			std::cout << "-------------------------------------" << std::endl;
 		}
 		break;

@@ -132,7 +132,7 @@ void ShellCommandOutputParse::ParseDfOutput(const CommandOutputString& strs, She
 void ShellCommandOutputParse::ParseDuHomeOutput(const CommandOutputString& strs, uint64_t& used)
 {
     RemoveCharacter remover;
-    for (size_t i = 1; i < strs.size(); ++i)
+    for (size_t i = 0; i < strs.size(); ++i)
     {
         ShellCommandDfOutput dfOutput;
         const std::string& online = strs[i];
