@@ -63,7 +63,8 @@ SOURCES += \
     ../../sourceCode/Environment/Environment.cpp \
     ../../sourceCode/Environment/ShellCommandDataType.cpp \
     ../../sourceCode/Environment/ShellCommandOutputParse.cpp \
-    ../../sourceCode/Environment/ShellCommandDfOutput.cpp
+    ../../sourceCode/Environment/ShellCommandDfOutput.cpp \
+    ../../sourceCode/ConfigureManagement/MauiConfig.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -284,7 +285,9 @@ HEADERS += \
     ../../sourceCode/Environment/Environment.h \
     ../../sourceCode/Environment/ShellCommandDataType.h \
     ../../sourceCode/Environment/ShellCommandOutputParse.h \
-    ../../sourceCode/Environment/ShellCommandDfOutput.h
+    ../../sourceCode/Environment/ShellCommandDfOutput.h \
+    ../../sourceCode/ConfigureManagement/Component.h \
+    ../../sourceCode/ConfigureManagement/MauiConfig.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
