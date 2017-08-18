@@ -3,6 +3,8 @@
 #include <stdint.h>
 #include <string>
 
+
+
 namespace ConfigureManagement {
 class MauiConfig
 {
@@ -35,13 +37,33 @@ class MauiConfig
     // LOGFILEMAXSIZE
     uint32_t logFileMaxSize_ = 0;
     // USERWEIGHT
-    uint8_t userWeight_;
+    uint8_t userWeight_ = 0;
     // FSPOLICY
     std::string fsPolicy_;
     // SERVERMODE
     std::string serverMode_;
     // QOSWEIGHT
-    uint8_t qosWeight_;
+    uint8_t qosWeight_ = 0;
+    // BACKFILLPOLICY
+    std::string backFillPolicy_;
+    // RESERVATIONPOLICY
+    std::string reservationPolicy_;
+    // LOGLEVEL
+    uint8_t logLevel_ = 0;
+    // CLASSWEIGHT
+    uint8_t classWeight_ = 0;
+    // NODEALLOCATIONPOLICY
+    std::string nodeAllocationPolicy_;
+    // CREDWEIGHT
+    uint8_t credWeight_ = 0;
+    // CONSUMEDWEIGHT
+    uint8_t consumedWeight_ = 0;
+    // LOGFILEROLLDEPTH
+    uint8_t logFileRollDepth_ = 0;
+    // DEFERTIME
+    uint32_t deferTime_ = 0;
+    // ADMIN1
+    std::string admin1_;
 
 public:
     inline void setServerPort(uint16_t serverPort) {serverPort_ = serverPort;}
@@ -97,6 +119,36 @@ public:
 
     inline void setQosWeight(uint8_t qosWeight) {qosWeight_ = qosWeight;}
     inline uint8_t getQosWeight() const {return qosWeight_;}
+
+    inline void setBackFillPolicy(const std::string& backFillPolicy) {backFillPolicy_ = backFillPolicy;}
+    inline const std::string& getBackFillPolicy() const {return backFillPolicy_;}
+
+    inline void setReservationPolicy(const std::string& reservationPolicy) {reservationPolicy_ = reservationPolicy;}
+    inline const std::string& getReservationPolicy() const {return reservationPolicy_;}
+
+    inline void setLogLevel(uint8_t logLevel) {logLevel_ = logLevel;}
+    inline uint8_t getLogLevel() const {return logLevel_;}
+
+    inline void setClassWeight(uint8_t classWeight) {classWeight_ = classWeight;}
+    inline uint8_t getClassWeight() const {return classWeight_;}
+
+    inline void setNodeAllocationPolicy(const std::string& nodeAllocationPolicy) {nodeAllocationPolicy_ = nodeAllocationPolicy;}
+    inline const std::string& getNodeAllocationPolicy() const {return nodeAllocationPolicy_;}
+
+    inline void setCredWeight(uint8_t credWeight) {credWeight_ = credWeight;}
+    inline uint8_t getCredWeight() const {return credWeight_;}
+
+    inline void setConsumedWeight(uint8_t consumedWeight) {consumedWeight_ = consumedWeight;}
+    inline uint8_t getConsumedWeight() const {return consumedWeight_;}
+
+    inline void setLogFileRollDepth(uint8_t logFileRollDepth) {logFileRollDepth_ = logFileRollDepth;}
+    inline uint8_t getLogFileRollDepth() const {return logFileRollDepth_;}
+
+    inline void setDeferTime(uint32_t deferTime) {deferTime_ = deferTime;}
+    inline uint32_t getDeferTime() const {return deferTime_;}
+
+    inline void setAdmin1(const std::string& admin1) {admin1_ = admin1;}
+    inline const std::string& getAdmin1() const {return admin1_;}
 
 public:
     MauiConfig();
