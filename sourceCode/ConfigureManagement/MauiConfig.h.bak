@@ -2,22 +2,106 @@
 #define _CONFIGUREMANAGMENT_MAUICONFIG_H_
 #include <stdint.h>
 #include <string>
-
-
-
+#include <vector>
 namespace ConfigureManagement {
+enum class JobNodeMatchPolicy
+{
+    EXACTNODE
+};
+
+enum class NodeAccessPolicy
+{
+    SHARED
+};
+
+enum class PreemptPolicy
+{
+    SUSPEND
+};
+
+enum class FsPolicy
+{
+    DEDICATEDPS
+};
+
+enum class ServerMode
+{
+    NORMAL
+};
+
+enum class BackFillPolicy
+{
+    FIRSTFIT
+};
+
+enum class ReservationPolicy
+{
+    CURRENTHIGHEST
+};
+
+enum class NodeAllocationPolicy
+{
+    PRIORITY
+};
+
+enum class NodeAvaillabilityPolicy
+{
+    DEDICATED_PROC,
+    DEDICATED_MEM,
+    DEDICATED_SWAP,
+    DEDICATED_DISK
+};
+
+enum class RmCfgResourceType
+{
+    LICENSE
+};
+
+enum class RmCfgType
+{
+    NATIVE
+};
+
+class RmCfg
+{
+    std::string name_;
+    RmCfgResourceType resourceType_;
+    std::string clusterQueryUrl_;
+    RmCfgType type_;
+public:
+    RmCfg();
+    RmCfg(const RmCfg& rmCfg);
+    RmCfg& operator = (const RmCfg& rmCfg);
+    bool operator == (const RmCfg& rmCfg);
+    std::ostream& operator << (std::ostream& os);
+
+    inline void setName(const std::string& name) {name_ = name;}
+    inline const std::string& getName() const {return name_;}
+    inline void setResourceType(RmCfgResourceType resouceType) {resourceType_ = resouceType;}
+    inline RmCfgResourceType getResourceType() const {return resourceType_;}
+    inline void setClusterQueryUrl(const std::string& clusterQueryUrl) {clusterQueryUrl_ = clusterQueryUrl;}
+    inline const std::string& getClusterQueryUrl() const {return clusterQueryUrl_;}
+    inline void setType(RmCfgType type) {type_ = type;}
+    inline RmCfgType getType() const {return type_;}
+private:
+    static const std::string RmCfgTag;
+    static const std::string ResouceTypeTag;
+    static const std::string ClusterQueryUrlTag;
+};
+
+
 class MauiConfig
 {
     // SERVERPORT
     uint16_t serverPort_ = 0;
     // JOBNODEMATCHPOLICY
-    std::string jobNodeMatchPolicy_;
+    JobNodeMatchPolicy jobNodeMatchPolicy_;
     // FSINTERVAL (uint second, need to transfer to xx:xx:xx)
     uint32_t fsInterval_ = 0;
     // RMPOLLINTERVAL (uint second, need to transfer to xx:xx:xx)
     uint32_t rmPollInterval_ = 0;
     // NODEACCESSPOLICY
-    std::string nodeAccessPolicy_;
+    NodeAccessPolicy nodeAccessPolicy_;
     // FSQOSWEIGHT
     uint8_t fsQosWeight_ = 0;
     // LOGFILE
@@ -31,7 +115,7 @@ class MauiConfig
     // ENABLEMULTIREQJOBS
     bool enableMultiReqJobs_ = false;
     // PREEMPTPOLICY
-    std::string preemptPolicy_;
+    PreemptPolicy preemptPolicy_;
     // GROUPWEIGHT
     uint8_t groupWeight_ = 0;
     // LOGFILEMAXSIZE
@@ -39,21 +123,21 @@ class MauiConfig
     // USERWEIGHT
     uint8_t userWeight_ = 0;
     // FSPOLICY
-    std::string fsPolicy_;
+    FsPolicy fsPolicy_;
     // SERVERMODE
-    std::string serverMode_;
+    ServerMode serverMode_;
     // QOSWEIGHT
     uint8_t qosWeight_ = 0;
     // BACKFILLPOLICY
-    std::string backFillPolicy_;
+    BackFillPolicy backFillPolicy_;
     // RESERVATIONPOLICY
-    std::string reservationPolicy_;
+    ReservationPolicy reservationPolicy_;
     // LOGLEVEL
     uint8_t logLevel_ = 0;
     // CLASSWEIGHT
     uint8_t classWeight_ = 0;
     // NODEALLOCATIONPOLICY
-    std::string nodeAllocationPolicy_;
+    NodeAllocationPolicy nodeAllocationPolicy_;
     // CREDWEIGHT
     uint8_t credWeight_ = 0;
     // CONSUMEDWEIGHT
@@ -64,13 +148,16 @@ class MauiConfig
     uint32_t deferTime_ = 0;
     // ADMIN1
     std::string admin1_;
+    // NODEAVAILABILITYPOLICY
+    using NodeAvaillabilityPolicies = std::vector<NodeAvaillabilityPolicy>;
+    NodeAvaillabilityPolicies nodeAvaillabilityPolicies_;
 
 public:
     inline void setServerPort(uint16_t serverPort) {serverPort_ = serverPort;}
     inline uint16_t getServerPort() const {return serverPort_;}
 
-    inline void setJobNodeMatchPolicy(const std::string& jobNodeMatchPolicy) {jobNodeMatchPolicy_ = jobNodeMatchPolicy;}
-    inline const std::string& getJobNodeMatchPolicy() const {return jobNodeMatchPolicy_;}
+    inline void setJobNodeMatchPolicy(JobNodeMatchPolicy jobNodeMatchPolicy) {jobNodeMatchPolicy_ = jobNodeMatchPolicy;}
+    inline JobNodeMatchPolicy getJobNodeMatchPolicy() const {return jobNodeMatchPolicy_;}
 
     inline void setFsInterval(uint32_t fsInterval) {fsInterval_ = fsInterval;}
     inline uint32_t getFsInterval() const {return fsInterval_;}
@@ -78,8 +165,8 @@ public:
     inline void setRmPollInterval(uint32_t rmPollInterval) {rmPollInterval_ = rmPollInterval;}
     inline uint32_t getRmPollInterval() const {return rmPollInterval_;}
 
-    inline void setNodeAccessPolicy(const std::string& nodeAccessPolicy) {nodeAccessPolicy_ = nodeAccessPolicy;}
-    inline const std::string& getNodeAccessPolicy() const {return nodeAccessPolicy_;}
+    inline void setNodeAccessPolicy(NodeAccessPolicy nodeAccessPolicy) {nodeAccessPolicy_ = nodeAccessPolicy;}
+    inline NodeAccessPolicy getNodeAccessPolicy() const {return nodeAccessPolicy_;}
 
     inline void setFsQosWeight(uint8_t fsQosWeight) {fsQosWeight_ = fsQosWeight;}
     inline uint8_t getFsQosWeight() const {return fsQosWeight_;}
@@ -99,8 +186,8 @@ public:
     inline void enableMultiReqJobs(bool enable) {enableMultiReqJobs_ = enable;}
     inline bool isMultiReqJobsEnable() const {return enableMultiReqJobs_;}
 
-    inline void setPreemptPolicy(const std::string& preemptPolicy) {preemptPolicy_ = preemptPolicy;}
-    inline const std::string& getPreemptPolicy() const {return preemptPolicy_;}
+    inline void setPreemptPolicy(PreemptPolicy preemptPolicy) {preemptPolicy_ = preemptPolicy;}
+    inline PreemptPolicy getPreemptPolicy() const {return preemptPolicy_;}
 
     inline void setGroupWeight(uint8_t groupWeight) {groupWeight_ = groupWeight;}
     inline uint8_t getGroupWeight() const {return groupWeight_;}
@@ -111,20 +198,20 @@ public:
     inline void setUserWeight(uint8_t userWeight) {userWeight_ = userWeight;}
     inline uint8_t getUserWeight() const {return userWeight_;}
 
-    inline void setFsPolicy(const std::string& fsPolicy) {fsPolicy_ = fsPolicy;}
-    inline const std::string& getFsPolicy() const {return fsPolicy_;}
+    inline void setFsPolicy(FsPolicy fsPolicy) {fsPolicy_ = fsPolicy;}
+    inline FsPolicy getFsPolicy() const {return fsPolicy_;}
 
-    inline void setServerMode(const std::string& serverMode) {serverMode_ = serverMode;}
-    inline const std::string& getServerMode() const {return serverMode_;}
+    inline void setServerMode(ServerMode serverMode) {serverMode_ = serverMode;}
+    inline ServerMode getServerMode() const {return serverMode_;}
 
     inline void setQosWeight(uint8_t qosWeight) {qosWeight_ = qosWeight;}
     inline uint8_t getQosWeight() const {return qosWeight_;}
 
-    inline void setBackFillPolicy(const std::string& backFillPolicy) {backFillPolicy_ = backFillPolicy;}
-    inline const std::string& getBackFillPolicy() const {return backFillPolicy_;}
+    inline void setBackFillPolicy(BackFillPolicy backFillPolicy) {backFillPolicy_ = backFillPolicy;}
+    inline BackFillPolicy getBackFillPolicy() const {return backFillPolicy_;}
 
-    inline void setReservationPolicy(const std::string& reservationPolicy) {reservationPolicy_ = reservationPolicy;}
-    inline const std::string& getReservationPolicy() const {return reservationPolicy_;}
+    inline void setReservationPolicy(ReservationPolicy reservationPolicy) {reservationPolicy_ = reservationPolicy;}
+    inline ReservationPolicy getReservationPolicy() const {return reservationPolicy_;}
 
     inline void setLogLevel(uint8_t logLevel) {logLevel_ = logLevel;}
     inline uint8_t getLogLevel() const {return logLevel_;}
@@ -132,8 +219,8 @@ public:
     inline void setClassWeight(uint8_t classWeight) {classWeight_ = classWeight;}
     inline uint8_t getClassWeight() const {return classWeight_;}
 
-    inline void setNodeAllocationPolicy(const std::string& nodeAllocationPolicy) {nodeAllocationPolicy_ = nodeAllocationPolicy;}
-    inline const std::string& getNodeAllocationPolicy() const {return nodeAllocationPolicy_;}
+    inline void setNodeAllocationPolicy(NodeAllocationPolicy nodeAllocationPolicy) {nodeAllocationPolicy_ = nodeAllocationPolicy;}
+    inline NodeAllocationPolicy getNodeAllocationPolicy() const {return nodeAllocationPolicy_;}
 
     inline void setCredWeight(uint8_t credWeight) {credWeight_ = credWeight;}
     inline uint8_t getCredWeight() const {return credWeight_;}
@@ -149,6 +236,16 @@ public:
 
     inline void setAdmin1(const std::string& admin1) {admin1_ = admin1;}
     inline const std::string& getAdmin1() const {return admin1_;}
+
+    inline void setNodeAvaillabilityPolicies(const NodeAvaillabilityPolicies& nodeAvaillabilityPolicies)
+    {
+        nodeAvaillabilityPolicies_ = nodeAvaillabilityPolicies;
+    }
+
+    inline const NodeAvaillabilityPolicies& getNodeAvaillabilityPolicies() const
+    {
+        return nodeAvaillabilityPolicies_;
+    }
 
 public:
     MauiConfig();

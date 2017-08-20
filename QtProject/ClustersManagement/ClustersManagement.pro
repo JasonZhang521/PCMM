@@ -64,7 +64,8 @@ SOURCES += \
     ../../sourceCode/Environment/ShellCommandDataType.cpp \
     ../../sourceCode/Environment/ShellCommandOutputParse.cpp \
     ../../sourceCode/Environment/ShellCommandDfOutput.cpp \
-    ../../sourceCode/ConfigureManagement/MauiConfig.cpp
+    ../../sourceCode/ConfigureManagement/MauiConfigTag.cpp \
+    ../../sourceCode/ConfigureManagement/ManuiConfig.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -287,7 +288,8 @@ HEADERS += \
     ../../sourceCode/Environment/ShellCommandOutputParse.h \
     ../../sourceCode/Environment/ShellCommandDfOutput.h \
     ../../sourceCode/ConfigureManagement/Component.h \
-    ../../sourceCode/ConfigureManagement/MauiConfig.h
+    ../../sourceCode/ConfigureManagement/MauiConfigTag.h \
+    ../../sourceCode/ConfigureManagement/ManuiConfig.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
@@ -297,3 +299,7 @@ win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../sourceCode/static_li
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../sourceCode/static_lib/ -lssh.dll
 
 LIBS += -lWs2_32
+
+DISTFILES += \
+    ../../sourceCode/ConfigureManagement/MauiConfig.h.bak \
+    ../../sourceCode/ConfigureManagement/MauiConfig.cpp.bak
