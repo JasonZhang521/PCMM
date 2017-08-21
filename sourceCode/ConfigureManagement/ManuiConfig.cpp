@@ -6,6 +6,8 @@
 
 namespace ConfigureManagement {
 
+// ManuiTagValue
+
 ManuiTagValue::ManuiTagValue()
     : isSubTag_(false)
 {
@@ -96,12 +98,13 @@ void ManuiTagValue::unserialize(Serialize::ReadBuffer& readBuffer)
     value_ = std::string(buffer, size);
 }
 
+// ManuiConfigRecord
 
-std::ostream& operator << (std::ostream& os, const ManuiTagValue& tagValue)
+ManuiConfigRecord::ManuiConfigRecord()
+    : isMultiTag_(false)
 {
-    return tagValue.operator <<(os);
-}
 
+}
 
 ManuiConfigRecord::ManuiConfigRecord(ManuiTagValue title, bool isMultiTag)
     : title_(title)
@@ -201,6 +204,84 @@ void ManuiConfigRecord::unserialize(Serialize::ReadBuffer& readBuffer)
 
 ManuiConfig::ManuiConfig()
 {
+}
+
+ManuiConfig::ManuiConfig(const ManuiConfig& config)
+    : records_(config.records_)
+{
 
 }
+
+ManuiConfig::ManuiConfig(const std::vector<ManuiConfigRecord>& records)
+    :records_(records)
+{
+
+}
+
+bool ManuiConfig::operator == (const ManuiConfig& configure)
+{
+    if (records_.size() != configure.records_.size())
+    {
+        return false;
+    }
+
+    for (auto record : configure.records_)
+    {
+        if (std::find(records_.begin(), records_.end(), record) == records_.end())
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool ManuiConfig::operator != (const ManuiConfig& configure)
+{
+    return !operator ==(configure);
+}
+
+std::ostream& ManuiConfig::operator << (std::ostream& os) const
+{
+    for (auto record : records_)
+    {
+        os << record << std::endl;
+    }
+    return os;
+}
+
+const std::vector<ManuiConfigRecord>& ManuiConfig::getRecords() const
+{
+    return records_;
+}
+
+void ManuiConfig::setRecords(const std::vector<ManuiConfigRecord>& records)
+{
+    records_ = records;
+}
+
+void ManuiConfig::serialize(Serialize::WriteBuffer& writeBuffer) const
+{
+    writeBuffer.write(static_cast<uint16_t>(records_.size()));
+    for (auto record : records_)
+    {
+        record.serialize(writeBuffer);
+    }
+}
+
+void ManuiConfig::unserialize(Serialize::ReadBuffer& readBuffer)
+{
+    std::vector<ManuiConfigRecord> records;
+    uint16_t size = 0;
+    readBuffer.read(size);
+    for (uint16_t i = 0; i < size; ++i)
+    {
+        ManuiConfigRecord record;
+        record.unserialize(readBuffer);
+        records.push_back(record);
+    }
+
+    records_.swap(records);
+}
+
 }
