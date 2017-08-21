@@ -1,5 +1,5 @@
-#ifndef MANUICONFIG_H
-#define MANUICONFIG_H
+#ifndef _CONFIGUREMANAGEMENT_MANUICONFIG_H_
+#define _CONFIGUREMANAGEMENT_MANUICONFIG_H_
 #include <string>
 #include <vector>
 
@@ -21,8 +21,8 @@ public:
     ManuiTagValue(const std::string& tag, const std::string& value, bool isSubTag = false);
 
     ManuiTagValue& operator = (const ManuiTagValue& tagValue);
-    bool operator == (const ManuiTagValue& tagValue);
-    bool operator != (const ManuiTagValue& tagValue);
+    bool operator == (const ManuiTagValue& tagValue) const;
+    bool operator != (const ManuiTagValue& tagValue) const;
     std::ostream& operator << (std::ostream& os) const;
 
     const std::string& getTag() const;
@@ -47,12 +47,12 @@ public:
     ManuiConfigRecord(ManuiTagValue title, bool isMultiTag = false);
     ManuiConfigRecord(const ManuiConfigRecord& configureRecord);
     ManuiConfigRecord& operator = (const ManuiConfigRecord& configureRecord);
-    bool operator == (const ManuiConfigRecord& configureRecord);
-    bool operator != (const ManuiConfigRecord& configureRecord);
+    bool operator == (const ManuiConfigRecord& configureRecord) const;
+    bool operator != (const ManuiConfigRecord& configureRecord) const;
     std::ostream& operator << (std::ostream& os) const;
 
-    const ManuiTagValue& getManuiTagValue() const {return title_;}
-    void setManuiTagValue(const ManuiTagValue& title) {title_ = title;}
+    const ManuiTagValue& getTitle() const {return title_;}
+    void setTitle(const ManuiTagValue& title) {title_ = title;}
     const std::vector<ManuiTagValue>& getSubItems() const {return subItems_;}
     void setSubItems(const std::vector<ManuiTagValue>& subItems)
     {
@@ -76,12 +76,13 @@ public:
     ManuiConfig(const ManuiConfig& config);
     ManuiConfig(const std::vector<ManuiConfigRecord>& records);
 
-    bool operator == (const ManuiConfig& configure);
-    bool operator != (const ManuiConfig& configure);
+    bool operator == (const ManuiConfig& configure) const;
+    bool operator != (const ManuiConfig& configure) const;
     std::ostream& operator << (std::ostream& os) const;
 
     const std::vector<ManuiConfigRecord>& getRecords() const;
     void setRecords(const std::vector<ManuiConfigRecord>& records);
+    void updateRecord(const ManuiConfigRecord& newRecord);
 
     void serialize(Serialize::WriteBuffer& writeBuffer) const;
     void unserialize(Serialize::ReadBuffer& readBuffer);
@@ -94,4 +95,4 @@ inline std::ostream& operator << (std::ostream& os, const ManuiConfig& config)
 
 }
 
-#endif // MANUICONFIG_H
+#endif // _CONFIGUREMANAGEMENT_MANUICONFIG_H_

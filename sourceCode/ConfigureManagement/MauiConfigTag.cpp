@@ -1,7 +1,7 @@
 #include "MauiConfigTag.h"
 namespace ConfigureManagement {
 
-const std::set<std::string> MauiConfigTag::SingleTag =
+const std::set<std::string> MauiConfigTag::SingleTags =
 {
     "SERVERPORT"
     "JOBNODEMATCHPOLICY"
@@ -34,7 +34,7 @@ const std::set<std::string> MauiConfigTag::SingleTag =
     "NODEAVAILABILITYPOLICY"
 };
 
-const std::set<std::string> MauiConfigTag::MultiTag =
+const std::set<std::string> MauiConfigTag::MultiTags =
 {
     "RMCFG",
     "USERCFG",
@@ -44,7 +44,7 @@ const std::set<std::string> MauiConfigTag::MultiTag =
     "SCHEDCFG"
 };
 
-const std::map<std::string, std::set<std::string> > SubTags =
+const std::map<std::string, std::set<std::string> > MauiConfigTag::SubTags =
 {
     {"RMCFG", {"RESOURCETYPE", "CLUSTERQUERYURL", "HOST", "TYPE"}},
     {"USERCFG", {"MAXPROC", "MAXNODE", "MAXJOB"}},
@@ -58,6 +58,22 @@ const std::map<std::string, std::set<std::string> > SubTags =
 MauiConfigTag::MauiConfigTag()
 {
 
+}
+
+bool MauiConfigTag::IsSingeTag(const std::string& tag)
+{
+    return (SingleTags.find(tag) != SingleTags.end());
+}
+
+bool MauiConfigTag::IsMultiTag(const std::string& tag)
+{
+    return (MultiTags.find(tag) != MultiTags.end());
+}
+
+bool MauiConfigTag::IsSubTag(const std::string& keyTag, const std::string& tag)
+{
+    std::map<std::string, std::set<std::string> >::const_iterator it = SubTags.find(keyTag);
+    return (it != SubTags.cend() && it->second.find(tag) != it->second.cend());
 }
 
 }

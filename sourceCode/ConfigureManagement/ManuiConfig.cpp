@@ -37,14 +37,14 @@ ManuiTagValue& ManuiTagValue::operator = (const ManuiTagValue& tagValue)
     return *this;
 }
 
-bool ManuiTagValue::operator == (const ManuiTagValue& tagValue)
+bool ManuiTagValue::operator == (const ManuiTagValue& tagValue) const
 {
     return (tag_ == tagValue.tag_ &&
             value_ == tagValue.value_ &&
             isSubTag_ == tagValue.isSubTag_);
 }
 
-bool ManuiTagValue::operator != (const ManuiTagValue& tagValue)
+bool ManuiTagValue::operator != (const ManuiTagValue& tagValue) const
 {
     return !operator ==(tagValue);
 }
@@ -129,7 +129,7 @@ ManuiConfigRecord& ManuiConfigRecord::operator = (const ManuiConfigRecord& confi
     return *this;
 }
 
-bool ManuiConfigRecord::operator == (const ManuiConfigRecord& configureRecord)
+bool ManuiConfigRecord::operator == (const ManuiConfigRecord& configureRecord) const
 {
     if (title_ != configureRecord.title_ ||
         isMultiTag_ != configureRecord.isMultiTag_ ||
@@ -149,7 +149,7 @@ bool ManuiConfigRecord::operator == (const ManuiConfigRecord& configureRecord)
     return true;
 }
 
-bool ManuiConfigRecord::operator != (const ManuiConfigRecord& configureRecord)
+bool ManuiConfigRecord::operator != (const ManuiConfigRecord& configureRecord) const
 {
     return !operator ==(configureRecord);
 }
@@ -218,7 +218,7 @@ ManuiConfig::ManuiConfig(const std::vector<ManuiConfigRecord>& records)
 
 }
 
-bool ManuiConfig::operator == (const ManuiConfig& configure)
+bool ManuiConfig::operator == (const ManuiConfig& configure) const
 {
     if (records_.size() != configure.records_.size())
     {
@@ -236,7 +236,7 @@ bool ManuiConfig::operator == (const ManuiConfig& configure)
     return true;
 }
 
-bool ManuiConfig::operator != (const ManuiConfig& configure)
+bool ManuiConfig::operator != (const ManuiConfig& configure) const
 {
     return !operator ==(configure);
 }
@@ -258,6 +258,34 @@ const std::vector<ManuiConfigRecord>& ManuiConfig::getRecords() const
 void ManuiConfig::setRecords(const std::vector<ManuiConfigRecord>& records)
 {
     records_ = records;
+}
+
+void ManuiConfig::updateRecord(const ManuiConfigRecord& newRecord)
+{
+    std::vector<ManuiConfigRecord>::iterator insertPos = records_.end();
+    bool updated = false;
+    for (std::vector<ManuiConfigRecord>::iterator it = records_.begin(); it != records_.end(); ++it)
+    {
+        ManuiConfigRecord& oldRecord = *it;
+        if (oldRecord.getTitle() == newRecord.getTitle())
+        {
+            oldRecord = newRecord;
+            updated = true;
+            break;
+        }
+        else
+        {
+            if (insertPos == records_.end() && oldRecord.getTitle().getTag() == newRecord.getTitle().getTag())
+            {
+                insertPos = it;
+            }
+        }
+    }
+
+    if (!updated)
+    {
+        records_.insert(insertPos, newRecord);
+    }
 }
 
 void ManuiConfig::serialize(Serialize::WriteBuffer& writeBuffer) const
