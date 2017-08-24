@@ -53,4 +53,17 @@ std::string IpcClusterMgtTypeToString(IpcClusterMgtMessageType type)
     }
 }
 
+std::string IpcConfigureMgtTypeToString(IpcConfigureMgtMessageType type)
+{
+    switch (type) {
+    case ConfigureMgtRequestMessage:
+        return std::string("ConfigureMgtRequestMessage");
+    case ConfigureMgtResponseMessage:
+        return std::string("ConfigureMgtResponseMessage");
+    default:
+        return std::string("ConfigureMgtResponseUnknown");
+        break;
+    }
+}
+
 }
