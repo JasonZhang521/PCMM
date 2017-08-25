@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 #ifndef _CONFIGUREMGTMESSAGE_MAUICONFIGURATIONACQUIRERESPONSE_H_
 #define _CONFIGUREMGTMESSAGE_MAUICONFIGURATIONACQUIRERESPONSE_H_
+=======
+#ifndef MANUICONFIGURATIONACQUIRERESPONSE_H
+#define MANUICONFIGURATIONACQUIRERESPONSE_H
+>>>>>>> 6b14ce4... Configuration Message (Maui request and response)
 #include "IConfigureMgtMessage.h"
 #include "MauiConfig.h"
 
@@ -23,4 +28,8 @@ public:
 
 }
 
+<<<<<<< HEAD
 #endif // _CONFIGUREMGTMESSAGE_MAUICONFIGURATIONACQUIRERESPONSE_H_
+=======
+#endif // MANUICONFIGURATIONACQUIRERESPONSE_H
+>>>>>>> 6b14ce4... Configuration Message (Maui request and response)
