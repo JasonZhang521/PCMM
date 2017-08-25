@@ -1,4 +1,4 @@
-#include "ManuiConfig.h"
+#include "MauiConfig.h"
 #include "WriteBuffer.h"
 #include "ReadBuffer.h"
 #include <algorithm>
@@ -8,20 +8,20 @@ namespace ConfigureManagement {
 
 // ManuiTagValue
 
-ManuiTagValue::ManuiTagValue()
+MauiTagValue::MauiTagValue()
     : isSubTag_(false)
 {
 
 }
 
-ManuiTagValue::ManuiTagValue(const ManuiTagValue& tagValue)
+MauiTagValue::MauiTagValue(const MauiTagValue& tagValue)
     : tag_(tagValue.tag_)
     , value_(tagValue.value_)
     , isSubTag_(tagValue.isSubTag_)
 {
 }
 
-ManuiTagValue::ManuiTagValue(const std::string& tag, const std::string& value, bool isSubTag)
+MauiTagValue::MauiTagValue(const std::string& tag, const std::string& value, bool isSubTag)
     : tag_(tag)
     , value_(value)
     , isSubTag_(isSubTag)
@@ -29,7 +29,7 @@ ManuiTagValue::ManuiTagValue(const std::string& tag, const std::string& value, b
 
 }
 
-ManuiTagValue& ManuiTagValue::operator = (const ManuiTagValue& tagValue)
+MauiTagValue& MauiTagValue::operator = (const MauiTagValue& tagValue)
 {
     tag_ = tagValue.tag_;
     value_ = tagValue.value_;
@@ -37,19 +37,19 @@ ManuiTagValue& ManuiTagValue::operator = (const ManuiTagValue& tagValue)
     return *this;
 }
 
-bool ManuiTagValue::operator == (const ManuiTagValue& tagValue) const
+bool MauiTagValue::operator == (const MauiTagValue& tagValue) const
 {
     return (tag_ == tagValue.tag_ &&
             value_ == tagValue.value_ &&
             isSubTag_ == tagValue.isSubTag_);
 }
 
-bool ManuiTagValue::operator != (const ManuiTagValue& tagValue) const
+bool MauiTagValue::operator != (const MauiTagValue& tagValue) const
 {
     return !operator ==(tagValue);
 }
 
-std::ostream& ManuiTagValue::operator << (std::ostream& os) const
+std::ostream& MauiTagValue::operator << (std::ostream& os) const
 {
     if (isSubTag_)
     {
@@ -62,17 +62,17 @@ std::ostream& ManuiTagValue::operator << (std::ostream& os) const
     return os;
 }
 
-const std::string& ManuiTagValue::getTag() const
+const std::string& MauiTagValue::getTag() const
 {
     return tag_;
 }
 
-const std::string& ManuiTagValue::getValue() const
+const std::string& MauiTagValue::getValue() const
 {
     return value_;
 }
 
-void ManuiTagValue::serialize(Serialize::WriteBuffer& writeBuffer) const
+void MauiTagValue::serialize(Serialize::WriteBuffer& writeBuffer) const
 {
     writeBuffer.write(isSubTag_);
     writeBuffer.write(static_cast<uint8_t>(tag_.size()));
@@ -81,7 +81,7 @@ void ManuiTagValue::serialize(Serialize::WriteBuffer& writeBuffer) const
     writeBuffer.write(value_.c_str(), tag_.size());
 }
 
-void ManuiTagValue::unserialize(Serialize::ReadBuffer& readBuffer)
+void MauiTagValue::unserialize(Serialize::ReadBuffer& readBuffer)
 {
     readBuffer.read(isSubTag_);
 
@@ -100,20 +100,20 @@ void ManuiTagValue::unserialize(Serialize::ReadBuffer& readBuffer)
 
 // ManuiConfigRecord
 
-ManuiConfigRecord::ManuiConfigRecord()
+MauiConfigRecord::MauiConfigRecord()
     : isMultiTag_(false)
 {
 
 }
 
-ManuiConfigRecord::ManuiConfigRecord(ManuiTagValue title, bool isMultiTag)
+MauiConfigRecord::MauiConfigRecord(MauiTagValue title, bool isMultiTag)
     : title_(title)
     , isMultiTag_(isMultiTag)
 {
 
 }
 
-ManuiConfigRecord::ManuiConfigRecord(const ManuiConfigRecord& configureRecord)
+MauiConfigRecord::MauiConfigRecord(const MauiConfigRecord& configureRecord)
     : title_(configureRecord.title_)
     , isMultiTag_(configureRecord.isMultiTag_)
     , subItems_(configureRecord.subItems_)
@@ -121,7 +121,7 @@ ManuiConfigRecord::ManuiConfigRecord(const ManuiConfigRecord& configureRecord)
 
 }
 
-ManuiConfigRecord& ManuiConfigRecord::operator = (const ManuiConfigRecord& configureRecord)
+MauiConfigRecord& MauiConfigRecord::operator = (const MauiConfigRecord& configureRecord)
 {
     title_ = configureRecord.title_;
     isMultiTag_ = configureRecord.isMultiTag_;
@@ -129,7 +129,7 @@ ManuiConfigRecord& ManuiConfigRecord::operator = (const ManuiConfigRecord& confi
     return *this;
 }
 
-bool ManuiConfigRecord::operator == (const ManuiConfigRecord& configureRecord) const
+bool MauiConfigRecord::operator == (const MauiConfigRecord& configureRecord) const
 {
     if (title_ != configureRecord.title_ ||
         isMultiTag_ != configureRecord.isMultiTag_ ||
@@ -149,12 +149,12 @@ bool ManuiConfigRecord::operator == (const ManuiConfigRecord& configureRecord) c
     return true;
 }
 
-bool ManuiConfigRecord::operator != (const ManuiConfigRecord& configureRecord) const
+bool MauiConfigRecord::operator != (const MauiConfigRecord& configureRecord) const
 {
     return !operator ==(configureRecord);
 }
 
-std::ostream& ManuiConfigRecord::operator << (std::ostream& os) const
+std::ostream& MauiConfigRecord::operator << (std::ostream& os) const
 {
     if (isMultiTag_)
     {
@@ -173,7 +173,7 @@ std::ostream& ManuiConfigRecord::operator << (std::ostream& os) const
     return os;
 }
 
-void ManuiConfigRecord::serialize(Serialize::WriteBuffer& writeBuffer) const
+void MauiConfigRecord::serialize(Serialize::WriteBuffer& writeBuffer) const
 {
     writeBuffer.write(isMultiTag_);
     title_.serialize(writeBuffer);
@@ -184,17 +184,17 @@ void ManuiConfigRecord::serialize(Serialize::WriteBuffer& writeBuffer) const
     }
 }
 
-void ManuiConfigRecord::unserialize(Serialize::ReadBuffer& readBuffer)
+void MauiConfigRecord::unserialize(Serialize::ReadBuffer& readBuffer)
 {
     readBuffer.read(isMultiTag_);
     title_.unserialize(readBuffer);
 
-    std::vector<ManuiTagValue> subItems;
+    std::vector<MauiTagValue> subItems;
     uint16_t size = 0;
     readBuffer.read(size);
     for (uint16_t i = 0; i < size; ++i)
     {
-        ManuiTagValue tagValue;
+        MauiTagValue tagValue;
         tagValue.unserialize(readBuffer);
         subItems.push_back(tagValue);
     }
@@ -202,23 +202,23 @@ void ManuiConfigRecord::unserialize(Serialize::ReadBuffer& readBuffer)
 }
 
 
-ManuiConfig::ManuiConfig()
+MauiConfig::MauiConfig()
 {
 }
 
-ManuiConfig::ManuiConfig(const ManuiConfig& config)
+MauiConfig::MauiConfig(const MauiConfig& config)
     : records_(config.records_)
 {
 
 }
 
-ManuiConfig::ManuiConfig(const std::vector<ManuiConfigRecord>& records)
+MauiConfig::MauiConfig(const std::vector<MauiConfigRecord>& records)
     :records_(records)
 {
 
 }
 
-bool ManuiConfig::operator == (const ManuiConfig& configure) const
+bool MauiConfig::operator == (const MauiConfig& configure) const
 {
     if (records_.size() != configure.records_.size())
     {
@@ -236,12 +236,12 @@ bool ManuiConfig::operator == (const ManuiConfig& configure) const
     return true;
 }
 
-bool ManuiConfig::operator != (const ManuiConfig& configure) const
+bool MauiConfig::operator != (const MauiConfig& configure) const
 {
     return !operator ==(configure);
 }
 
-std::ostream& ManuiConfig::operator << (std::ostream& os) const
+std::ostream& MauiConfig::operator << (std::ostream& os) const
 {
     for (auto record : records_)
     {
@@ -250,23 +250,23 @@ std::ostream& ManuiConfig::operator << (std::ostream& os) const
     return os;
 }
 
-const std::vector<ManuiConfigRecord>& ManuiConfig::getRecords() const
+const std::vector<MauiConfigRecord>& MauiConfig::getRecords() const
 {
     return records_;
 }
 
-void ManuiConfig::setRecords(const std::vector<ManuiConfigRecord>& records)
+void MauiConfig::setRecords(const std::vector<MauiConfigRecord>& records)
 {
     records_ = records;
 }
 
-void ManuiConfig::updateRecord(const ManuiConfigRecord& newRecord)
+void MauiConfig::updateRecord(const MauiConfigRecord& newRecord)
 {
-    std::vector<ManuiConfigRecord>::iterator insertPos = records_.end();
+    std::vector<MauiConfigRecord>::iterator insertPos = records_.end();
     bool updated = false;
-    for (std::vector<ManuiConfigRecord>::iterator it = records_.begin(); it != records_.end(); ++it)
+    for (std::vector<MauiConfigRecord>::iterator it = records_.begin(); it != records_.end(); ++it)
     {
-        ManuiConfigRecord& oldRecord = *it;
+        MauiConfigRecord& oldRecord = *it;
         if (oldRecord.getTitle() == newRecord.getTitle())
         {
             oldRecord = newRecord;
@@ -288,7 +288,7 @@ void ManuiConfig::updateRecord(const ManuiConfigRecord& newRecord)
     }
 }
 
-void ManuiConfig::serialize(Serialize::WriteBuffer& writeBuffer) const
+void MauiConfig::serialize(Serialize::WriteBuffer& writeBuffer) const
 {
     writeBuffer.write(static_cast<uint16_t>(records_.size()));
     for (auto record : records_)
@@ -297,14 +297,14 @@ void ManuiConfig::serialize(Serialize::WriteBuffer& writeBuffer) const
     }
 }
 
-void ManuiConfig::unserialize(Serialize::ReadBuffer& readBuffer)
+void MauiConfig::unserialize(Serialize::ReadBuffer& readBuffer)
 {
-    std::vector<ManuiConfigRecord> records;
+    std::vector<MauiConfigRecord> records;
     uint16_t size = 0;
     readBuffer.read(size);
     for (uint16_t i = 0; i < size; ++i)
     {
-        ManuiConfigRecord record;
+        MauiConfigRecord record;
         record.unserialize(readBuffer);
         records.push_back(record);
     }

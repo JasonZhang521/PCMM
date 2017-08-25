@@ -65,9 +65,11 @@ SOURCES += \
     ../../sourceCode/Environment/ShellCommandOutputParse.cpp \
     ../../sourceCode/Environment/ShellCommandDfOutput.cpp \
     ../../sourceCode/ConfigureManagement/MauiConfigTag.cpp \
-    ../../sourceCode/ConfigureManagement/ManuiConfig.cpp \
-    ../../sourceCode/ConfigureManagement/ManuiConfigFileMgt.cpp \
-    ../../sourceCode/ConfigureMgtMessage/IConfigureMgtMessage.cpp
+    ../../sourceCode/ConfigureMgtMessage/IConfigureMgtMessage.cpp \
+    ../../sourceCode/ConfigureManagement/MauiConfig.cpp \
+    ../../sourceCode/ConfigureManagement/MauiConfigFileMgt.cpp \
+    ../../sourceCode/ConfigureMgtMessage/MauiConfigurationAcquireResponse.cpp \
+    ../../sourceCode/ConfigureMgtMessage/MauiConfigurationAcquireRequest.cpp
 
 
 # The following define makes your compiler emit warnings if you use
@@ -93,7 +95,8 @@ INCLUDEPATH += ../../sourceCode/Serialize \
                ../../sourceCode/IpcMessage \
                ../../sourceCode/SystemMonitorMessage \
                ../../sourceCode/Serialize \
-               ../../sourceCode/ClusterMgtMessage
+               ../../sourceCode/ClusterMgtMessage \
+               ../../sourceCode/ConfigureManagement
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
@@ -292,10 +295,12 @@ HEADERS += \
     ../../sourceCode/Environment/ShellCommandDfOutput.h \
     ../../sourceCode/ConfigureManagement/Component.h \
     ../../sourceCode/ConfigureManagement/MauiConfigTag.h \
-    ../../sourceCode/ConfigureManagement/ManuiConfig.h \
-    ../../sourceCode/ConfigureManagement/ManuiConfigFileMgt.h \
     ../../sourceCode/ConfigureMgtMessage/Component.h \
-    ../../sourceCode/ConfigureMgtMessage/IConfigureMgtMessage.h
+    ../../sourceCode/ConfigureMgtMessage/IConfigureMgtMessage.h \
+    ../../sourceCode/ConfigureManagement/MauiConfig.h \
+    ../../sourceCode/ConfigureManagement/MauiConfigFileMgt.h \
+    ../../sourceCode/ConfigureMgtMessage/MauiConfigurationAcquireRequest.h \
+    ../../sourceCode/ConfigureMgtMessage/MauiConfigurationAcquireResponse.h
 
 unix {
     target.path = /usr/lib

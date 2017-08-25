@@ -9,6 +9,8 @@ std::string IpcMessageTypeString(IpcMessageType type)
         return std::string("IpcMessage_SystemMonitor");
     case IpcMessage_ClusterMgt:
         return std::string("IpcMessage_ClusterMgt");
+    case IpcMessage_ConfigureMgt:
+        return std::string("IpcMessage_ConfigureMgt");
     default:
         return std::string("IpcMessage_Unknown");
     }
@@ -22,7 +24,7 @@ std::string SystemMonitorTypeString(SystemMonitorMessageType type)
     case SystemInfoMessage:
         return std::string("SystemInfoMessage");
     default:
-        return std::string("SystemInfoUnknown");
+        return std::string("SystemInfoUnknownMessage");
     }
 }
 
@@ -36,7 +38,7 @@ std::string IpcCommunicationTypeString(IpcCommunicationMessageType type)
     case IpcAuthorizationResponseMessage:
         return std::string("IpcAuthorizationResponse");
     default:
-        return std::string("IpcHeartbeatUnknown");
+        return std::string("IpcHeartbeatUnknownMessage");
     }
 }
 
@@ -48,7 +50,7 @@ std::string IpcClusterMgtTypeToString(IpcClusterMgtMessageType type)
     case ClusterMgtBrieflyResponseMessage:
         return std::string("ClusterMgtBrieflyResonse");
     default:
-        return std::string("ClusterMgtBrieflyUnknown");
+        return std::string("ClusterMgtBrieflyUnknownMessage");
         break;
     }
 }
@@ -56,12 +58,16 @@ std::string IpcClusterMgtTypeToString(IpcClusterMgtMessageType type)
 std::string IpcConfigureMgtTypeToString(IpcConfigureMgtMessageType type)
 {
     switch (type) {
-    case ConfigureMgtRequestMessage:
-        return std::string("ConfigureMgtRequestMessage");
-    case ConfigureMgtResponseMessage:
-        return std::string("ConfigureMgtResponseMessage");
+    case ManuiConfigureMgtAcquireRequestMessage:
+        return std::string("ManuiConfigureMgtAcquireRequestMessage");
+    case ManuiConfigureMgtAcquireResponseMessage:
+        return std::string("ManuiConfigureMgtAcquireResponseMessage");
+    case ManuiConfigureMgtUpdateRequestMessage:
+        return std::string("ManuiConfigureMgtUpdateRequestMessage");
+    case ManuiConfigureMgtUpdateResponseMessage:
+        return std::string("ManuiConfigureMgtUpdateResponseMessage");
     default:
-        return std::string("ConfigureMgtResponseUnknown");
+        return std::string("ConfigureMgtUnknownMessage");
         break;
     }
 }

@@ -38,8 +38,10 @@ std::string IpcClusterMgtTypeToString(IpcClusterMgtMessageType type);
 
 enum IpcConfigureMgtMessageType
 {
-    ConfigureMgtRequestMessage,
-    ConfigureMgtResponseMessage
+    ManuiConfigureMgtAcquireRequestMessage,
+    ManuiConfigureMgtAcquireResponseMessage,
+    ManuiConfigureMgtUpdateRequestMessage,
+    ManuiConfigureMgtUpdateResponseMessage
 };
 
 std::string IpcConfigureMgtTypeToString(IpcConfigureMgtMessageType type);

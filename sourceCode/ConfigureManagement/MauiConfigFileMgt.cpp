@@ -1,4 +1,4 @@
-#include "ManuiConfigFileMgt.h"
+#include "MauiConfigFileMgt.h"
 #include "RemoveCharacter.h"
 #include "FilePathHandler.h"
 #include "Trace.h"
@@ -7,12 +7,12 @@
 
 namespace ConfigureManagement {
 
-ManuiConfigFileMgt::ManuiConfigFileMgt(const std::string& filePath)
+MauiConfigFileMgt::MauiConfigFileMgt(const std::string& filePath)
     :filePath_(filePath)
 {
 }
 
-void ManuiConfigFileMgt::openFileAndParse()
+void MauiConfigFileMgt::openFileAndParse()
 {
     std::ifstream ifs(filePath_.c_str());
     if (!ifs.good())
@@ -21,7 +21,7 @@ void ManuiConfigFileMgt::openFileAndParse()
         return;
     }
 
-    std::vector<ManuiConfigRecord> configRecords;
+    std::vector<MauiConfigRecord> configRecords;
     char buffer[512];
     while(ifs.good())
     {
@@ -34,9 +34,9 @@ void ManuiConfigFileMgt::openFileAndParse()
     config_ = configRecords;
 }
 
-void ManuiConfigFileMgt::updateConfigure(const ManuiConfig& newConfig)
+void MauiConfigFileMgt::updateConfigure(const MauiConfig& newConfig)
 {
-    const std::vector<ManuiConfigRecord>& newRecords = newConfig.getRecords();
+    const std::vector<MauiConfigRecord>& newRecords = newConfig.getRecords();
 
     for (auto record : newRecords)
     {
@@ -44,12 +44,12 @@ void ManuiConfigFileMgt::updateConfigure(const ManuiConfig& newConfig)
     }
 }
 
-void ManuiConfigFileMgt::replaceConfigure(const ManuiConfig& newConfig)
+void MauiConfigFileMgt::replaceConfigure(const MauiConfig& newConfig)
 {
     config_ = newConfig;
 }
 
-void ManuiConfigFileMgt::parsesRecord(std::vector<ManuiConfigRecord>& records, const std::string& line)
+void MauiConfigFileMgt::parsesRecord(std::vector<MauiConfigRecord>& records, const std::string& line)
 {
     RemoveCharacter remover;
     std::string str = remover(line);
@@ -66,8 +66,8 @@ void ManuiConfigFileMgt::parsesRecord(std::vector<ManuiConfigRecord>& records, c
         str = remover(str);
         remover.setCharacter('\t');
         const std::string titleValue = remover(str);
-        ManuiTagValue title(titleTag, titleValue);
-        ManuiConfigRecord record(title);
+        MauiTagValue title(titleTag, titleValue);
+        MauiConfigRecord record(title);
         records.push_back(record);
     }
     else
@@ -76,8 +76,8 @@ void ManuiConfigFileMgt::parsesRecord(std::vector<ManuiConfigRecord>& records, c
         str = str.substr(posFirstSpace + 1, str.size() - posFirstSpace - 1);
         size_t posSecondSqure = str.find(']');
         const std::string titleValue = str.substr(posSecondSqure);
-        ManuiTagValue title(titleTag, titleValue);
-        ManuiConfigRecord record(title, true);
+        MauiTagValue title(titleTag, titleValue);
+        MauiConfigRecord record(title, true);
         str = str.substr(posSecondSqure + 1, str.size() - posSecondSqure - 1);
         remover.setCharacter(' ');
         str = remover(str);
@@ -87,9 +87,9 @@ void ManuiConfigFileMgt::parsesRecord(std::vector<ManuiConfigRecord>& records, c
     }
 }
 
-void ManuiConfigFileMgt::parsesSubRecord(ManuiConfigRecord& record, const std::string& subLine)
+void MauiConfigFileMgt::parsesSubRecord(MauiConfigRecord& record, const std::string& subLine)
 {
-    std::vector<ManuiTagValue> tagValues;
+    std::vector<MauiTagValue> tagValues;
     RemoveCharacter remover;
     size_t posEqual = subLine.find('=');
     std::string str = subLine;
@@ -116,7 +116,7 @@ void ManuiConfigFileMgt::parsesSubRecord(ManuiConfigRecord& record, const std::s
         value = remover(value);
         str = remover(str);
 
-        ManuiTagValue tagValue(tag, value, true);
+        MauiTagValue tagValue(tag, value, true);
         tagValues.push_back(tagValue);
 
         posEqual = str.find('=');
@@ -124,7 +124,7 @@ void ManuiConfigFileMgt::parsesSubRecord(ManuiConfigRecord& record, const std::s
     record.setSubItems(tagValues);
 }
 
-void ManuiConfigFileMgt::backup() const
+void MauiConfigFileMgt::backup() const
 {
     const std::string fileDir = FilePathHandler::getFileDir(filePath_);
     const std::string fileName = FilePathHandler::getFileName(filePath_);
