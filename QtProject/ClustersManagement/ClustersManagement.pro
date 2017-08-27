@@ -69,7 +69,9 @@ SOURCES += \
     ../../sourceCode/ConfigureManagement/MauiConfig.cpp \
     ../../sourceCode/ConfigureManagement/MauiConfigFileMgt.cpp \
     ../../sourceCode/ConfigureMgtMessage/MauiConfigurationAcquireResponse.cpp \
-    ../../sourceCode/ConfigureMgtMessage/MauiConfigurationAcquireRequest.cpp
+    ../../sourceCode/ConfigureMgtMessage/MauiConfigurationAcquireRequest.cpp \
+    ../../sourceCode/ConfigureMgtMessage/MauiConfigurationUpdateResponse.cpp \
+    ../../sourceCode/ConfigureMgtMessage/MauiConfigurationUpdateRequest.cpp
 
 
 # The following define makes your compiler emit warnings if you use
@@ -300,7 +302,9 @@ HEADERS += \
     ../../sourceCode/ConfigureManagement/MauiConfig.h \
     ../../sourceCode/ConfigureManagement/MauiConfigFileMgt.h \
     ../../sourceCode/ConfigureMgtMessage/MauiConfigurationAcquireRequest.h \
-    ../../sourceCode/ConfigureMgtMessage/MauiConfigurationAcquireResponse.h
+    ../../sourceCode/ConfigureMgtMessage/MauiConfigurationAcquireResponse.h \
+    ../../sourceCode/ConfigureMgtMessage/MauiConfigurationUpdateResponse.h \
+    ../../sourceCode/ConfigureMgtMessage/MauiConfigurationUpdateRequest.h
 
 unix {
     target.path = /usr/lib

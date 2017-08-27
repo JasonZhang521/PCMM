@@ -1,16 +1,23 @@
-#ifndef _CONFIGUREMGTMESSAGE_MAUICONFIGURATIONACQUIRERESPONSE_H_
-#define _CONFIGUREMGTMESSAGE_MAUICONFIGURATIONACQUIRERESPONSE_H_
+#ifndef _CONFIGUREMGTMESSAGE_MAUICONFIGURATIONUPDATEREQUEST_H_
+#define _CONFIGUREMGTMESSAGE_MAUICONFIGURATIONUPDATEREQUEST_H_
 #include "IConfigureMgtMessage.h"
 #include "MauiConfig.h"
 
 namespace ConfigureMgtMessage {
 
-class MauiConfigurationAcquireResponse : public IConfigureMgtMessage
+enum ConfigureUpdateType
 {
+    REPLACE_FILE,
+    REPLACE_RECORD
+};
+
+class MauiConfigurationUpdateRequest : public IConfigureMgtMessage
+{
+    ConfigureUpdateType updateType_;
     ConfigureManagement::MauiConfig mauiConfig_;
 public:
-    MauiConfigurationAcquireResponse();
-    ~MauiConfigurationAcquireResponse();
+    MauiConfigurationUpdateRequest();
+    ~MauiConfigurationUpdateRequest();
     virtual void serialize(Serialize::WriteBuffer& writeBuffer) const;
     virtual void unserialize(Serialize::ReadBuffer& readBuffer);
 
@@ -23,4 +30,4 @@ public:
 
 }
 
-#endif // _CONFIGUREMGTMESSAGE_MAUICONFIGURATIONACQUIRERESPONSE_H_
+#endif // _CONFIGUREMGTMESSAGE_MAUICONFIGURATIONUPDATEREQUEST_H_
