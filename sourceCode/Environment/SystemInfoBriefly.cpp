@@ -10,6 +10,7 @@ SystemInfoBriefly::SystemInfoBriefly(const SystemInfoBriefly& info)
     , memoryInfoBriefly_(info.memoryInfoBriefly_)
     , networkInfo_(info.networkInfo_)
     , miscInfo_(info.miscInfo_)
+    , diskUsageInfo_(info.diskUsageInfo_)
 {
 
 }
@@ -20,6 +21,7 @@ SystemInfoBriefly& SystemInfoBriefly::operator =(const SystemInfoBriefly& info)
     memoryInfoBriefly_ = info.memoryInfoBriefly_;
     networkInfo_ = info.networkInfo_;
     miscInfo_ = info.miscInfo_;
+	diskUsageInfo_ = info.diskUsageInfo_;
     return *this;
 }
 

@@ -1,5 +1,5 @@
 #include "SystemMonitorHandler.h"
-#include "SystemInfoMessage.h"
+#include "ComputerNodeInfoReport.h"
 #include "IIpcClient.h"
 #include "CpuUsage.h"
 #include "LoopMain.h"
@@ -54,9 +54,11 @@ void SystemMonitorHandler::reportSystemInfo()
 {
     if (isStartup_)
     {
-        SystemMonitorMessage::SystemInfoMessage message(Environment::CpuUsageInfo(Environment::CpuUsage::instance().getCpuUsageEntrys()));
+        Environment::SystemInfoBriefly info;
+        info.update();
+        SystemMonitorMessage::ComputerNodeInfoReport message(Environment::CpuUsageInfo(Environment::CpuUsage::instance().getCpuUsageEntrys()),
+                                                             info);
         TRACE_DEBUG("report system information:" << message);
-        TRACE_NOTICE("report system information:" << message);
         ipcClient_->send(message);
     }
     else

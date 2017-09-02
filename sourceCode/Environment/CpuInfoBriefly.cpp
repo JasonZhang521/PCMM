@@ -116,14 +116,78 @@ void CpuInfoBriefly::update()
 
 void CpuInfoBriefly::updateCpuTemprature()
 {
-    std::string tempfileName("/sys/class/thermal/thermal_zone0/temp");
-    //std::string nodeTimeInfofileName("/proc/acpi/thermal_zone/THM0/temperature");
-    // for the Linux operation system, the temprature infomation always got from above files
-    std::ifstream ifs(tempfileName.c_str());
+    temprature_ = 0;
+    updateCpuTempratureFromHwmon();
+    if (temprature_ == 0)
+    {
+        updateCpuTempratureFromThermal();
+    }
 
+    if (temprature_ == 0)
+    {
+        updateCpuTempratureFromProc();
+    }
+}
+
+void CpuInfoBriefly::updateCpuTempratureFromProc()
+{
+    std::string tempFile("/proc/acpi/thermal_zone/THM0/temperature");
+    std::ifstream ifs(tempFile.c_str());
     if (!ifs.good())
     {
-        TRACE_WARNING("Failed to open file: " << tempfileName << ", stop reading, try next time." << std::endl);
+        TRACE_NOTICE("Failed to open file: " << tempFile << ", stop reading, try next time." << std::endl);
+        return;
+    }
+
+    char buffer[128];
+    std::fill(buffer, buffer + 128, 0);
+    ifs.getline(buffer, 128);
+    std::string oneline(buffer);
+    size_t posFirstDigit = 0;
+    for (size_t i = 0; i < oneline.size(); ++i)
+    {
+        if (oneline[i] <= '9' && oneline[i] >= '0')
+        {
+            posFirstDigit = i;
+            break;
+        }
+    }
+    size_t posC = 0;
+    for (size_t i = posFirstDigit + 1; i < oneline.size(); ++i)
+    {
+        if (oneline[i] == 'C')
+        {
+            posC = i;
+            break;
+        }
+    }
+
+    std::string tempStr = oneline.substr(posFirstDigit, posC - posFirstDigit);
+    std::stringstream ss;
+    ss << tempStr;
+    int temp = 0;
+    ss >> temp;
+    temprature_ = temp;
+}
+
+void CpuInfoBriefly::updateCpuTempratureFromThermal()
+{
+    const std::string tempFile("/sys/class/thermal/thermal_zone0/temp");
+    updateCpuTemprature1(tempFile);
+}
+
+void CpuInfoBriefly::updateCpuTempratureFromHwmon()
+{
+    const std::string tempFile("/sys/devices/virtual/hwmon/hwmon0/temp1_input");
+    updateCpuTemprature1(tempFile);
+}
+
+void CpuInfoBriefly::updateCpuTemprature1(const std::string& tempFile)
+{
+    std::ifstream ifs(tempFile.c_str());
+    if (!ifs.good())
+    {
+        TRACE_NOTICE("Failed to open file: " << tempFile << ", stop reading, try next time." << std::endl);
         return;
     }
 
@@ -132,7 +196,6 @@ void CpuInfoBriefly::updateCpuTemprature()
     ifs.getline(buffer, 128);
     std::stringstream ss;
     ss << buffer;
-
     int temp = 0;
     ss >> temp;
     temprature_ = temp / 1000;

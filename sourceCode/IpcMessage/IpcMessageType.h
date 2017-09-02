@@ -8,14 +8,17 @@ enum IpcMessageType
     IpcMessage_None,
     IpcMessage_IpcCommunication,
     IpcMessage_SystemMonitor,
-    IpcMessage_ClusterMgt
+    IpcMessage_ClusterMgt,
+    IpcMessage_ConfigureMgt
 };
 std::string IpcMessageTypeString(IpcMessageType type);
 
 enum SystemMonitorMessageType
 {
-    SystemInfoRequest,  // request the system information
-    SystemInfoMessage  // system information message
+    ComputerNodeInfoRequestMessage,  // request the system information
+    ComputerNodeInfoReportMessage,  // system information message
+    ControlNodeBrieflyInfoRequestMessage,
+    ControlNodeBrieflyInfoResponseMessage
 };
 std::string SystemMonitorTypeString(SystemMonitorMessageType type);
 
@@ -27,13 +30,15 @@ enum IpcCommunicationMessageType
 };
 std::string IpcCommunicationTypeString(IpcCommunicationMessageType type);
 
-enum IpcClusterMgtMessageType
+enum IpcConfigureMgtMessageType
 {
-    ClusterMgtBrieflyRequestMessage,
-    ClusterMgtBrieflyResponseMessage
+    ManuiConfigureMgtAcquireRequestMessage,
+    ManuiConfigureMgtAcquireResponseMessage,
+    ManuiConfigureMgtUpdateRequestMessage,
+    ManuiConfigureMgtUpdateResponseMessage
 };
 
-std::string IpcClusterMgtTypeToString(IpcClusterMgtMessageType type);
+std::string IpcConfigureMgtTypeToString(IpcConfigureMgtMessageType type);
 
 }
 #endif // _IPCMESSAGE_IPCMESSAGETYPE_H_

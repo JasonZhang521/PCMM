@@ -41,6 +41,10 @@ public:
 private:
     void updateCpuInfoBriefly();
     void updateCpuTemprature();
+    void updateCpuTempratureFromProc();
+    void updateCpuTempratureFromThermal();
+    void updateCpuTempratureFromHwmon();
+    void updateCpuTemprature1(const std::string& tempFile);
 
 public:
      GETCLASSNAME(CpuInfoBriefly)

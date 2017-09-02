@@ -1,4 +1,4 @@
-#include "ClusterMgtBrieflyResponse.h"
+#include "ControlNodeBrieflyInfoResponse.h"
 #include "SystemInfoBriefly.h"
 #include "WriteBuffer.h"
 #include "ReadBuffer.h"
@@ -8,16 +8,16 @@
 #include <iostream>
 
 using namespace IpcMessage;
-using namespace ClusterMgtMessage;
+using namespace SystemMonitorMessage;
 using namespace Environment;
 using namespace Network;
 using namespace Serialize;
 
-class ClusterMgtBrieflyResponseTest : public ::testing::Test
+class ControlNodeBrieflyInfoResponseTest : public ::testing::Test
 {
 };
 
-TEST_F(ClusterMgtBrieflyResponseTest, ReadWrite)
+TEST_F(ControlNodeBrieflyInfoResponseTest, ReadWrite)
 {
     uint64_t startTimeStamp = 1501341215000;
     uint32_t elapseTime = 4858;
@@ -55,7 +55,7 @@ TEST_F(ClusterMgtBrieflyResponseTest, ReadWrite)
 	info.setMemoryInfoBriefly(memoryInfo);
 	info.setNetworkInfo(networkInfo);
 
-    ClusterMgtBrieflyResponse response;
+    ControlNodeBrieflyInfoResponse response;
 	response.setSystemInfoBriefly(info);
 	std::cout << response << std::endl;
 
@@ -65,7 +65,7 @@ TEST_F(ClusterMgtBrieflyResponseTest, ReadWrite)
     ReadBuffer rBuffer;
 	rBuffer.setDataSize(wBuffer.getDataSize());
 	std::copy(reinterpret_cast<char*>(wBuffer.getBuffer()), reinterpret_cast<char*>(wBuffer.getBuffer()) + wBuffer.getDataSize(), reinterpret_cast<char*>(rBuffer.getBuffer()));
-	ClusterMgtBrieflyResponse newResponse;
+	ControlNodeBrieflyInfoResponse newResponse;
 	newResponse.unserialize(rBuffer);
 	std::cout << newResponse << std::endl;
     ASSERT_EQ(info, newResponse.getSystemInfoBriefly());
@@ -74,9 +74,8 @@ TEST_F(ClusterMgtBrieflyResponseTest, ReadWrite)
     rBuffer2.setDataSize(wBuffer.getDataSize());
     std::copy(reinterpret_cast<char*>(wBuffer.getBuffer()), reinterpret_cast<char*>(wBuffer.getBuffer()) + wBuffer.getDataSize(), reinterpret_cast<char*>(rBuffer2.getBuffer()));
 
-    ClusterMgtBrieflyResponse newResponse2;
+    ControlNodeBrieflyInfoResponse newResponse2;
     IIpcMessage& msg = newResponse2;
     msg.unserialize(rBuffer2);
     std::cout << newResponse2 << std::endl;
-
 }

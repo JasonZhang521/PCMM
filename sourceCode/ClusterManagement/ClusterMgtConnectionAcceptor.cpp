@@ -9,7 +9,6 @@
 #include "TcpClient.h"
 #include "SystemMonitorMessageFactory.h"
 #include "IpcLayerMessageFactory.h"
-#include "ClusterMgtMessageFactory.h"
 #include "LoopMain.h"
 #include "Trace.h"
 
@@ -46,7 +45,6 @@ void ClusterMgtConnectionAcceptor::createClusterConnection(int fd,
     IpcMessageFactories factories;
     factories.push_back(std::shared_ptr<IpcMessage::IIpcMessageFactory>(new SystemMonitorMessage::SystemMonitorMessageFactory()));
     factories.push_back(std::shared_ptr<IpcMessage::IIpcMessageFactory>(new IpcMessage::IpcLayerMessageFactory()));
-    factories.push_back(std::shared_ptr<IpcMessage::IIpcMessageFactory>(new ClusterMgtMessage::ClusterMgtMessageFactory()));
 
     Ipc::IIpcClient* tcpAcceptedClientPtr =
             Ipc::IpcClientCreator::CreateWithTcpClientStrategy(fd, localEndpoint, remoteEndpoint, clustersMgtConnectionReceiver, factories);

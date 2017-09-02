@@ -1,6 +1,8 @@
 #include "SystemMonitorMessageFactory.h"
-#include "SystemInfoMessage.h"
-#include "SystemInfoRequest.h"
+#include "ComputerNodeInfoReport.h"
+#include "ComputerNodeInfoRequest.h"
+#include "ControlNodeBrieflyInfoRequest.h"
+#include "ControlNodeBrieflyInfoResponse.h"
 #include "Trace.h"
 
 namespace SystemMonitorMessage {
@@ -18,13 +20,21 @@ SystemMonitorMessageFactory::~SystemMonitorMessageFactory()
 
 IpcMessage::IIpcMessage* SystemMonitorMessageFactory::createMessage(IpcMessage::IpcMessageApplicationIntType type) const
 {
-    if (static_cast<IpcMessage::SystemMonitorMessageType>(type) == IpcMessage::SystemInfoRequest)
+    if (static_cast<IpcMessage::SystemMonitorMessageType>(type) == IpcMessage::ComputerNodeInfoRequestMessage)
     {
-        return new SystemInfoRequest();
+        return new ComputerNodeInfoRequest();
     }
-    else if (static_cast<IpcMessage::SystemMonitorMessageType>(type) == IpcMessage::SystemInfoMessage)
+    else if (static_cast<IpcMessage::SystemMonitorMessageType>(type) == IpcMessage::ComputerNodeInfoReportMessage)
     {
-        return new SystemInfoMessage();
+        return new ComputerNodeInfoReport();
+    }
+    if (static_cast<IpcMessage::SystemMonitorMessageType>(type) == IpcMessage::ControlNodeBrieflyInfoRequestMessage)
+    {
+        return new ControlNodeBrieflyInfoRequest();
+    }
+    else if (static_cast<IpcMessage::SystemMonitorMessageType>(type) == IpcMessage::ControlNodeBrieflyInfoResponseMessage)
+    {
+        return new ControlNodeBrieflyInfoResponse();
     }
     else
     {

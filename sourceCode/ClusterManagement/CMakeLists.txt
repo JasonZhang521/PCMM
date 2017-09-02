@@ -1,4 +1,4 @@
-aux_source_directory(. cmd_SRCS)
+aux_source_directory(. ClusterNodesControl_SRCS)
 include_directories ("${PROJECT_SOURCE_DIR}/Environment"
                      "${PROJECT_SOURCE_DIR}/Common"
                      "${PROJECT_SOURCE_DIR}/Configure"
@@ -9,15 +9,14 @@ include_directories ("${PROJECT_SOURCE_DIR}/Environment"
 					 "${PROJECT_SOURCE_DIR}/IoPlatformWrapper"
                      "${PROJECT_SOURCE_DIR}/Core"
                      "${PROJECT_SOURCE_DIR}/SystemMonitorMessage"
-                     "${PROJECT_SOURCE_DIR}/ClusterMgtMessage"
                      "${PROJECT_SOURCE_DIR}/EventHandler"
                      "${PROJECT_SOURCE_DIR}/TimerHandler"
                      "${PROJECT_SOURCE_DIR}/TraceLog"
                      "${PROJECT_SOURCE_DIR}/Serialize"
 																										 
 )
-add_executable(cmd.elf ${cmd_SRCS})
-target_link_libraries (cmd.elf
+add_executable(ClusterNodesControl.elf ${ClusterNodesControl_SRCS})
+target_link_libraries (ClusterNodesControl.elf
 		               configure
 					   common
 					   environment
@@ -28,7 +27,6 @@ target_link_libraries (cmd.elf
 					   ioplatformwrapper
 					   core
 					   systemmonitormessage
-					   clustermgtmessage
 					   eventhandler
 					   timerhandler
 					   serialize
