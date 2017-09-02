@@ -87,14 +87,14 @@ void ShellCommandThread::onTime()
 
     if (excuteState == ExcuteState::Command_Start)
     {
-        resetTimer();
+        resetTimer(5000);
         Core::LoopMain::instance().registerTimer(this);
     }
     else if (excuteState == ExcuteState::Command_Stop)
     {
         getCmdOutPutFromFile();
         excuteState_ = ExcuteState::OutPut_Retreived;
-        resetTimer(5000);
+        resetTimer();
         Core::LoopMain::instance().registerTimer(this);
     }
     else if (excuteState == ExcuteState::OutPut_Retreived)
