@@ -65,7 +65,8 @@ void DiskUsageInfo::setBootInitDirUsage(const ShellCommandDfOutput& output)
 
 void DiskUsageInfo::update()
 {
-
+    updateRootAndBootInitDirUsage();
+    updateHomeDirUsage();
 }
 
 void DiskUsageInfo::updateRootAndBootInitDirUsage()

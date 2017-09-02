@@ -54,7 +54,6 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/Common/SystemTime.cpp \
     ../../sourceCode/Common/TimeStat.cpp \
     ../../sourceCode/SystemMonitorMessage/ISystemMonitorMessage.cpp \
-    ../../sourceCode/SystemMonitorMessage/SystemInfoMessage.cpp \
     ../../sourceCode/Serialize/ISerializable.cpp \
     ../../sourceCode/Serialize/ReadBuffer.cpp \
     ../../sourceCode/Serialize/WriteBuffer.cpp \
@@ -71,7 +70,6 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/Network/TcpServer.cpp \
     ../../sourceCode/Network/TcpSocket.cpp \
     ../../sourceCode/IoPlatformWrapper/SocketWrapper.cpp \
-    ../../sourceCode/SystemMonitorMessage/SystemInfoRequest.cpp \
     ../../sourceCode/EventHandler/EventIdGenerator.cpp \
     ../../sourceCode/EventHandler/IEvent.cpp \
     ../../sourceCode/EventHandler/IEventQueue.cpp \
@@ -113,7 +111,32 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/IpcMessage/IIpcComunicationMessage.cpp \
     ../../sourceCode/IpcMessage/IpcAuthorizationRequest.cpp \
     ../../sourceCode/IpcMessage/IpcAuthorizationResponse.cpp \
-    ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.cpp
+    ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.cpp \
+    ../../sourceCode/SystemMonitorMessage/ComputerNodeInfoReport.cpp \
+    ../../sourceCode/SystemMonitorMessage/ComputerNodeInfoRequest.cpp \
+    ../../sourceCode/Environment/ComputerNodeInfo.cpp \
+    ../../sourceCode/Environment/CpuInfo.cpp \
+    ../../sourceCode/Environment/CpuInfoBriefly.cpp \
+    ../../sourceCode/Environment/CpuInfoDataType.cpp \
+    ../../sourceCode/Environment/DiskUsageInfo.cpp \
+    ../../sourceCode/Environment/Environment.cpp \
+    ../../sourceCode/Environment/EnvironmentSystemInfomation.cpp \
+    ../../sourceCode/Environment/IShellCommand.cpp \
+    ../../sourceCode/Environment/MemoryInfo.cpp \
+    ../../sourceCode/Environment/MemoryInfoBriefly.cpp \
+    ../../sourceCode/Environment/MemoryUsageInfo.cpp \
+    ../../sourceCode/Environment/MemoryUsageInfoDataType.cpp \
+    ../../sourceCode/Environment/MiscInfo.cpp \
+    ../../sourceCode/Environment/NetworkInfo.cpp \
+    ../../sourceCode/Environment/ShellCommandDataType.cpp \
+    ../../sourceCode/Environment/ShellCommandDfOutput.cpp \
+    ../../sourceCode/Environment/ShellCommandOutputParse.cpp \
+    ../../sourceCode/Environment/ShellCommandProcess.cpp \
+    ../../sourceCode/Environment/ShellCommandThread.cpp \
+    ../../sourceCode/Environment/SystemInfoBriefly.cpp \
+    ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoRequest.cpp \
+    ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoResponse.cpp \
+    ../../sourceCode/Common/Lock.cpp
 
 HEADERS += \
     ../../sourceCode/SystemMonitor/SystemMonitorProcess.h \
@@ -137,7 +160,6 @@ HEADERS += \
     ../../sourceCode/Common/SystemTime.h \
     ../../sourceCode/Common/TimeStat.h \
     ../../sourceCode/SystemMonitorMessage/ISystemMonitorMessage.h \
-    ../../sourceCode/SystemMonitorMessage/SystemInfoMessage.h \
     ../../sourceCode/SystemMonitorMessage/Component.h \
     ../../sourceCode/Serialize/BufferToData.h \
     ../../sourceCode/Serialize/DataToBuffer.h \
@@ -163,7 +185,6 @@ HEADERS += \
     ../../sourceCode/Network/Component.h \
     ../../sourceCode/IoPlatformWrapper/SocketWrapper.h \
     ../../sourceCode/IoPlatformWrapper/SocketWrapperDef.h \
-    ../../sourceCode/SystemMonitorMessage/SystemInfoRequest.h \
     ../../sourceCode/EventHandler/Component.h \
     ../../sourceCode/EventHandler/EventIdGenerator.h \
     ../../sourceCode/EventHandler/IEvent.h \
@@ -208,7 +229,32 @@ HEADERS += \
     ../../sourceCode/IpcMessage/IIpcComunicationMessage.h \
     ../../sourceCode/IpcMessage/IpcAuthorizationRequest.h \
     ../../sourceCode/IpcMessage/IpcAuthorizationResponse.h \
-    ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.h
+    ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.h \
+    ../../sourceCode/SystemMonitorMessage/ComputerNodeInfoReport.h \
+    ../../sourceCode/SystemMonitorMessage/ComputerNodeInfoRequest.h \
+    ../../sourceCode/Environment/ComputerNodeInfo.h \
+    ../../sourceCode/Environment/CpuInfo.h \
+    ../../sourceCode/Environment/CpuInfoBriefly.h \
+    ../../sourceCode/Environment/cpuinfodatatype.h \
+    ../../sourceCode/Environment/DiskUsageInfo.h \
+    ../../sourceCode/Environment/Environment.h \
+    ../../sourceCode/Environment/EnvironmentSystemInfomation.h \
+    ../../sourceCode/Environment/IShellCommand.h \
+    ../../sourceCode/Environment/MemoryInfo.h \
+    ../../sourceCode/Environment/MemoryInfoBriefly.h \
+    ../../sourceCode/Environment/MemoryUsageInfo.h \
+    ../../sourceCode/Environment/MemoryUsageInfoDataType.h \
+    ../../sourceCode/Environment/MiscInfo.h \
+    ../../sourceCode/Environment/NetworkInfo.h \
+    ../../sourceCode/Environment/ShellCommandDataType.h \
+    ../../sourceCode/Environment/ShellCommandDfOutput.h \
+    ../../sourceCode/Environment/ShellCommandOutputParse.h \
+    ../../sourceCode/Environment/ShellCommandProcess.h \
+    ../../sourceCode/Environment/ShellCommandThread.h \
+    ../../sourceCode/Environment/SystemInfoBriefly.h \
+    ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoRequest.h \
+    ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoResponse.h \
+    ../../sourceCode/Common/Lock.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
@@ -218,3 +264,6 @@ win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../sourceCode/static_li
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../sourceCode/static_lib/ -lssh.dll
 
 LIBS += -lWs2_32
+
+DISTFILES += \
+    ../../sourceCode/Environment/CMakeLists.txt

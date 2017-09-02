@@ -13,6 +13,8 @@
 #include "LoopMain.h"
 #include "NetworkEnv.h"
 #include "IpAddress.h"
+#include "Environment.h"
+#include "ShellCommandThread.h"
 #include <memory>
 #include <iostream>
 
@@ -61,6 +63,17 @@ void SystemMonitorProcess::process()
     std::unique_ptr<TimerHandler::EventTimer> eTimer(timerPtr);
 
     Core::LoopMain::instance().registerTimer(timerPtr);
+
+    // register the commands
+    {
+        Environment::IShellCommand* commandDf =
+                new Environment::ShellCommandThread(Environment::ShellCommandString::getCmdString(Environment::ShellCommandType::DiskUsageDf), 3600000);
+        Environment::Environment::instance().registerShellCmd(Environment::ShellCommandType::DiskUsageDf, commandDf);
+
+        Environment::IShellCommand* commandDuHome =
+                new Environment::ShellCommandThread(Environment::ShellCommandString::getCmdString(Environment::ShellCommandType::DiskUsageDuHome), 72000000);
+        Environment::Environment::instance().registerShellCmd(Environment::ShellCommandType::DiskUsageDuHome, commandDuHome);
+    }
 
     systemMonitorHandler->startup();
     // run

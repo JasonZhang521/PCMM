@@ -1,15 +1,15 @@
-#ifndef SYSTEMINFOREQUEST_H
-#define SYSTEMINFOREQUEST_H
+#ifndef _SYSTEMMONITORMESSAGE_COMPUTERNODEINFOREQUEST_H_
+#define _SYSTEMMONITORMESSAGE_COMPUTERNODEINFOREQUEST_H_
 #include "ISystemMonitorMessage.h"
 #include "Component.h"
 #include "Macro.h"
 
 namespace SystemMonitorMessage {
 
-class SystemInfoRequest : public ISystemMonitorMessage
+class ComputerNodeInfoRequest : public ISystemMonitorMessage
 {
 public:
-    SystemInfoRequest();
+    ComputerNodeInfoRequest();
 protected:
     virtual void serialize(Serialize::WriteBuffer& writeBuffer) const;
     virtual void unserialize(Serialize::ReadBuffer& readBuffer);
@@ -22,4 +22,4 @@ public:
 
 }
 
-#endif // SYSTEMINFOREQUEST_H
+#endif // _SYSTEMMONITORMESSAGE_COMPUTERNODEINFOREQUEST_H_

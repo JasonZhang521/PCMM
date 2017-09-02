@@ -19,10 +19,14 @@ std::string IpcMessageTypeString(IpcMessageType type)
 std::string SystemMonitorTypeString(SystemMonitorMessageType type)
 {
     switch (type) {
-    case SystemInfoRequest:
-        return std::string("SystemInfoRequest");
-    case SystemInfoMessage:
-        return std::string("SystemInfoMessage");
+    case ComputerNodeInfoRequestMessage:
+        return std::string("ComputerNodeInfoReportMessage");
+    case ComputerNodeInfoReportMessage:
+        return std::string("ComputerNodeInfoReportMessage");
+    case ControlNodeBrieflyInfoRequestMessage:
+        return std::string("ControlNodeBrieflyInfoRequestMessage");
+    case ControlNodeBrieflyInfoResponseMessage:
+        return std::string("ControlNodeBrieflyInfoResponseMessage");
     default:
         return std::string("SystemInfoUnknownMessage");
     }
@@ -39,19 +43,6 @@ std::string IpcCommunicationTypeString(IpcCommunicationMessageType type)
         return std::string("IpcAuthorizationResponse");
     default:
         return std::string("IpcHeartbeatUnknownMessage");
-    }
-}
-
-std::string IpcClusterMgtTypeToString(IpcClusterMgtMessageType type)
-{
-    switch (type) {
-    case ClusterMgtBrieflyRequestMessage:
-        return std::string("ClusterMgtBrieflyRequest");
-    case ClusterMgtBrieflyResponseMessage:
-        return std::string("ClusterMgtBrieflyResonse");
-    default:
-        return std::string("ClusterMgtBrieflyUnknownMessage");
-        break;
     }
 }
 

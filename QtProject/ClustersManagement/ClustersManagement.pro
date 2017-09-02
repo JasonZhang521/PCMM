@@ -43,9 +43,6 @@ SOURCES += \
     ../../sourceCode/Environment/ComputerNodeInfo.cpp \
     ../../sourceCode/Environment/CpuInfoDataType.cpp \
     ../../sourceCode/Common/RemoveCharacter.cpp \
-    ../../sourceCode/ClusterMgtMessage/IClusterMgtMessage.cpp \
-    ../../sourceCode/ClusterMgtMessage/ClusterMgtBrieflyRequest.cpp \
-    ../../sourceCode/ClusterMgtMessage/ClusterMgtBrieflyResponse.cpp \
     ../../sourceCode/Environment/CpuInfoBriefly.cpp \
     ../../sourceCode/Environment/EnvironmentSystemInfomation.cpp \
     ../../sourceCode/Environment/MemoryInfoBriefly.cpp \
@@ -55,7 +52,6 @@ SOURCES += \
     ../../sourceCode/Network/NetworkEnv.cpp \
     ../../sourceCode/Environment/SystemInfoBriefly.cpp \
     ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.cpp \
-    ../../sourceCode/ClusterMgtMessage/ClusterMgtMessageFactory.cpp \
     ../../sourceCode/Environment/ShellCommandProcess.cpp \
     ../../sourceCode/Environment/ShellCommandThread.cpp \
     ../../sourceCode/Environment/IShellCommand.cpp \
@@ -71,7 +67,11 @@ SOURCES += \
     ../../sourceCode/ConfigureMgtMessage/MauiConfigurationAcquireResponse.cpp \
     ../../sourceCode/ConfigureMgtMessage/MauiConfigurationAcquireRequest.cpp \
     ../../sourceCode/ConfigureMgtMessage/MauiConfigurationUpdateResponse.cpp \
-    ../../sourceCode/ConfigureMgtMessage/MauiConfigurationUpdateRequest.cpp
+    ../../sourceCode/ConfigureMgtMessage/MauiConfigurationUpdateRequest.cpp \
+    ../../sourceCode/SystemMonitorMessage/ComputerNodeInfoReport.cpp \
+    ../../sourceCode/SystemMonitorMessage/ComputerNodeInfoRequest.cpp \
+    ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoRequest.cpp \
+    ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoResponse.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -96,7 +96,6 @@ INCLUDEPATH += ../../sourceCode/Serialize \
                ../../sourceCode/IpcMessage \
                ../../sourceCode/SystemMonitorMessage \
                ../../sourceCode/Serialize \
-               ../../sourceCode/ClusterMgtMessage \
                ../../sourceCode/ConfigureManagement
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -114,7 +113,6 @@ SOURCES +=../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/Common/SystemTime.cpp \
     ../../sourceCode/Common/TimeStat.cpp \
     ../../sourceCode/SystemMonitorMessage/ISystemMonitorMessage.cpp \
-    ../../sourceCode/SystemMonitorMessage/SystemInfoMessage.cpp \
     ../../sourceCode/Serialize/ISerializable.cpp \
     ../../sourceCode/Serialize/ReadBuffer.cpp \
     ../../sourceCode/Serialize/WriteBuffer.cpp \
@@ -131,7 +129,6 @@ SOURCES +=../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/Network/TcpServer.cpp \
     ../../sourceCode/Network/TcpSocket.cpp \
     ../../sourceCode/IoPlatformWrapper/SocketWrapper.cpp \
-    ../../sourceCode/SystemMonitorMessage/SystemInfoRequest.cpp \
     ../../sourceCode/EventHandler/EventIdGenerator.cpp \
     ../../sourceCode/EventHandler/IEvent.cpp \
     ../../sourceCode/EventHandler/IEventQueue.cpp \
@@ -178,7 +175,6 @@ HEADERS += \
     ../../sourceCode/Common/SystemTime.h \
     ../../sourceCode/Common/TimeStat.h \
     ../../sourceCode/SystemMonitorMessage/ISystemMonitorMessage.h \
-    ../../sourceCode/SystemMonitorMessage/SystemInfoMessage.h \
     ../../sourceCode/SystemMonitorMessage/Component.h \
     ../../sourceCode/Serialize/BufferToData.h \
     ../../sourceCode/Serialize/DataToBuffer.h \
@@ -203,7 +199,6 @@ HEADERS += \
     ../../sourceCode/Network/Component.h \
     ../../sourceCode/IoPlatformWrapper/SocketWrapper.h \
     ../../sourceCode/IoPlatformWrapper/SocketWrapperDef.h \
-    ../../sourceCode/SystemMonitorMessage/SystemInfoRequest.h \
     ../../sourceCode/EventHandler/Component.h \
     ../../sourceCode/EventHandler/EventIdGenerator.h \
     ../../sourceCode/EventHandler/IEvent.h \
@@ -272,9 +267,6 @@ HEADERS += \
     ../../sourceCode/Environment/ComputerNodeInfo.h \
     ../../sourceCode/Environment/CpuInfoDataType.h \
     ../../sourceCode/Common/RemoveCharacter.h \
-    ../../sourceCode/ClusterMgtMessage/IClusterMgtMessage.h \
-    ../../sourceCode/ClusterMgtMessage/ClusterMgtBrieflyRequest.h \
-    ../../sourceCode/ClusterMgtMessage/ClusterMgtBrieflyResponse.h \
     ../../sourceCode/Environment/CpuInfoBriefly.h \
     ../../sourceCode/Environment/EnvironmentSystemInfomation.h \
     ../../sourceCode/Environment/MemoryInfoBriefly.h \
@@ -284,8 +276,6 @@ HEADERS += \
     ../../sourceCode/Network/NetworkEnv.h \
     ../../sourceCode/Environment/SystemInfoBriefly.h \
     ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.h \
-    ../../sourceCode/ClusterMgtMessage/ClusterMgtMessageFactory.h \
-    ../../sourceCode/ClusterMgtMessage/Component.h \
     ../../sourceCode/Environment/ShellCommandProcess.h \
     ../../sourceCode/Environment/ShellCommandThread.h \
     ../../sourceCode/Environment/IShellCommand.h \
@@ -303,7 +293,11 @@ HEADERS += \
     ../../sourceCode/ConfigureMgtMessage/MauiConfigurationAcquireRequest.h \
     ../../sourceCode/ConfigureMgtMessage/MauiConfigurationAcquireResponse.h \
     ../../sourceCode/ConfigureMgtMessage/MauiConfigurationUpdateResponse.h \
-    ../../sourceCode/ConfigureMgtMessage/MauiConfigurationUpdateRequest.h
+    ../../sourceCode/ConfigureMgtMessage/MauiConfigurationUpdateRequest.h \
+    ../../sourceCode/SystemMonitorMessage/ComputerNodeInfoReport.h \
+    ../../sourceCode/SystemMonitorMessage/ComputerNodeInfoRequest.h \
+    ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoRequest.h \
+    ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoResponse.h
 
 unix {
     target.path = /usr/lib
@@ -314,7 +308,3 @@ win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../sourceCode/static_li
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../sourceCode/static_lib/ -lssh.dll
 
 LIBS += -lWs2_32
-
-DISTFILES += \
-    ../../sourceCode/ConfigureManagement/MauiConfig.h.bak \
-    ../../sourceCode/ConfigureManagement/MauiConfig.cpp.bak

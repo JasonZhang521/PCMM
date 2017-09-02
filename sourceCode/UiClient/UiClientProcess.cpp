@@ -8,7 +8,6 @@
 #include "IpcClientCreator.h"
 #include "IpcLayerMessageFactory.h"
 #include "IpcThreadSafeMessageQueue.h"
-#include "ClusterMgtMessageFactory.h"
 #include "IIpcMessage.h"
 #include "TcpClient.h"
 #include "IpSocketEndpoint.h"
@@ -81,7 +80,6 @@ void UiClientProcess::process()
     // System monitor factory
     factories.push_back(std::shared_ptr<IpcMessage::IIpcMessageFactory>(new SystemMonitorMessage::SystemMonitorMessageFactory()));
     factories.push_back(std::shared_ptr<IpcMessage::IIpcMessageFactory>(new IpcMessage::IpcLayerMessageFactory()));
-    factories.push_back(std::shared_ptr<IpcMessage::IIpcMessageFactory>(new ClusterMgtMessage::ClusterMgtMessageFactory()));
 
     Ipc::IIpcClient* ipcClientPtr = Ipc::IpcClientCreator::CreateWithTcpClientStrategy(localEndpoint, remoteEndpoint, uiIpcConnectionReceiver, factories);
     std::shared_ptr<Ipc::IIpcClient> ipcClient(ipcClientPtr);

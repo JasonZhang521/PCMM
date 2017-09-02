@@ -68,7 +68,7 @@ void SystemMonitorConnectionReceiver::handleSystemMonitorMessage(std::unique_ptr
         IpcMessage::SystemMonitorMessageType systemMonitorType = message->getSystemMonitorType();
         switch (systemMonitorType)
         {
-        case IpcMessage::SystemMonitorMessageType::SystemInfoRequest:
+        case IpcMessage::SystemMonitorMessageType::ComputerNodeInfoRequestMessage:
             monitorHandler_->reportSystemInfo();
             break;
         default:

@@ -1,5 +1,5 @@
-#ifndef _SYSTEMMONITORMESSAGE_SYSTEMINFOMESSAGE_H_
-#define _SYSTEMMONITORMESSAGE_SYSTEMINFOMESSAGE_H_
+#ifndef _SYSTEMMONITORMESSAGE_COMPUTERNODEINFOREPORT_H_
+#define _SYSTEMMONITORMESSAGE_COMPUTERNODEINFOREPORT_H_
 #include "ISystemMonitorMessage.h"
 #include "CpuUsageInfo.h"
 #include "SystemInfoBriefly.h"
@@ -8,17 +8,17 @@
 
 namespace SystemMonitorMessage {
 
-class SystemInfoMessage : public ISystemMonitorMessage
+class ComputerNodeInfoReport : public ISystemMonitorMessage
 {
     Environment::CpuUsageInfo cpuUsageInfo_;
     Environment::SystemInfoBriefly systemInfoBriefly_;
 public:
-    SystemInfoMessage();
-    SystemInfoMessage(const Environment::CpuUsageInfo& cpuUsageInfo,
+    ComputerNodeInfoReport();
+    ComputerNodeInfoReport(const Environment::CpuUsageInfo& cpuUsageInfo,
                       const Environment::SystemInfoBriefly& systemInfoBriefly);
     inline const Environment::CpuUsageInfo& getCpuUsageInfo() const {return cpuUsageInfo_;}
     inline const Environment::SystemInfoBriefly& getSystemInfoBriefly() const {return systemInfoBriefly_;}
-    virtual ~SystemInfoMessage();
+    virtual ~ComputerNodeInfoReport();
 
 private:
     virtual void serialize(Serialize::WriteBuffer& writeBuffer) const;
@@ -36,4 +36,4 @@ public:
 
 }
 
-#endif // _SYSTEMMONITORMESSAGE_SYSTEMINFOMESSAGE_H_
+#endif // _SYSTEMMONITORMESSAGE_COMPUTERNODEINFOREPORT_H_

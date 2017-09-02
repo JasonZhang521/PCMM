@@ -1,6 +1,6 @@
 #include "UiClientProcess.h"
-#include "ClusterMgtBrieflyRequest.h"
-#include "ClusterMgtBrieflyResponse.h"
+#include "ControlNodeBrieflyInfoRequest.h"
+#include "ControlNodeBrieflyInfoResponse.h"
 #include "IIpcMessage.h"
 #include "Sleep.h"
 #include "Trace.h"
@@ -21,8 +21,8 @@ int main(int argc, char**argv)
         }
         System::Sleep(50000);
         std::unique_ptr<IpcMessage::IIpcMessage>
-                clusterMgtBrieflyRequest(new ClusterMgtMessage::ClusterMgtBrieflyRequest);
-        process.sendMessage(std::move(clusterMgtBrieflyRequest));
+                controlNodeBrieflyInfoRequest(new SystemMonitorMessage::ControlNodeBrieflyInfoRequest);
+        process.sendMessage(std::move(controlNodeBrieflyInfoRequest));
         System::Sleep(1000);
     }
     return 0;

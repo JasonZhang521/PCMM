@@ -1,6 +1,6 @@
 #include "ClusterMgtClientsManagement.h"
-#include "ClusterMgtBrieflyRequest.h"
-#include "ClusterMgtBrieflyResponse.h"
+#include "ControlNodeBrieflyInfoRequest.h"
+#include "ControlNodeBrieflyInfoResponse.h"
 #include "IIpcClient.h"
 #include "IIpcServer.h"
 #include "IIpcMessage.h"
@@ -117,10 +117,10 @@ void ClusterMgtClientsManagment::broadcastMsg(const IpcMessage::IIpcMessage& msg
 void ClusterMgtClientsManagment::handleClusterMgtMessage(const IpcMessage::IIpcMessage& msg, const Network::IpSocketEndpoint& remoteIpEndpoint)
 {
 	TRACE_DEBUG("msg=" << msg << ", remoteIpEndpoint=" << remoteIpEndpoint);
-    const ClusterMgtMessage::ClusterMgtBrieflyRequest* request = dynamic_cast<const ClusterMgtMessage::ClusterMgtBrieflyRequest*>(&msg);
+    const SystemMonitorMessage::ControlNodeBrieflyInfoRequest* request = dynamic_cast<const SystemMonitorMessage::ControlNodeBrieflyInfoRequest*>(&msg);
     if (request != nullptr)
     {
-        ClusterMgtMessage::ClusterMgtBrieflyResponse response;
+        SystemMonitorMessage::ControlNodeBrieflyInfoResponse response;
         Environment::SystemInfoBriefly info;
         info.update();
 		TRACE_DEBUG(info);
