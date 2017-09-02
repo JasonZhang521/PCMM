@@ -63,7 +63,7 @@ void ClusterMgtClientsManagment::handleMessage(const IpcMessage::IIpcMessage& ms
 {
 	TRACE_DEBUG("msg=" << msg << ", fromClientType=" << static_cast<int>(fromClientType) << ", remoteIpEndpoint=" << remoteIpEndpoint);
     IpcMessage::IpcMessageType type = msg.getMessageType();
-    if (type == IpcMessage::IpcMessageType::IpcMessage_ClusterMgt)
+    if (type == IpcMessage::IpcMessageType::IpcMessage_SystemMonitor)
     {
         if (fromClientType != clientType_)
         {

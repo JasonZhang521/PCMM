@@ -14,7 +14,7 @@ ControlNodeBrieflyInfoResponse::~ControlNodeBrieflyInfoResponse()
 
 void ControlNodeBrieflyInfoResponse::serialize(Serialize::WriteBuffer& writeBuffer) const
 {
-    writeBuffer.write<uint8_t>(static_cast<uint8_t>(IpcMessage::IpcMessageType::IpcMessage_ClusterMgt));
+    writeBuffer.write<uint8_t>(static_cast<uint8_t>(IpcMessage::IpcMessageType::IpcMessage_SystemMonitor));
     writeBuffer.write<uint8_t>(static_cast<uint8_t>(IpcMessage::ControlNodeBrieflyInfoResponseMessage));
     IpcMessage::IIpcMessage::write(writeBuffer);
     systemInfoBriefly_.serialize(writeBuffer);
@@ -37,7 +37,7 @@ std::ostream& ControlNodeBrieflyInfoResponse::operator<< (std::ostream& os) cons
 {
     os << "[";
     IpcMessage::IIpcMessage::print(os);
-    os << ", ipcMessageType=" << IpcMessage::IpcMessageTypeString(IpcMessage::IpcMessage_ClusterMgt)
+    os << ", ipcMessageType=" << IpcMessage::IpcMessageTypeString(IpcMessage::IpcMessage_SystemMonitor)
        << ", clusterMgtType=" << IpcMessage::SystemMonitorTypeString(IpcMessage::ControlNodeBrieflyInfoResponseMessage)
        << ", systemInfoBriefly=" << systemInfoBriefly_
        << "]";

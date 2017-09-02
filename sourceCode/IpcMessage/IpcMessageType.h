@@ -8,7 +8,6 @@ enum IpcMessageType
     IpcMessage_None,
     IpcMessage_IpcCommunication,
     IpcMessage_SystemMonitor,
-    IpcMessage_ClusterMgt,
     IpcMessage_ConfigureMgt
 };
 std::string IpcMessageTypeString(IpcMessageType type);

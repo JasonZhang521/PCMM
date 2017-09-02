@@ -7,8 +7,6 @@ std::string IpcMessageTypeString(IpcMessageType type)
         return std::string("IpcMessage_IpcComunication");
     case IpcMessage_SystemMonitor:
         return std::string("IpcMessage_SystemMonitor");
-    case IpcMessage_ClusterMgt:
-        return std::string("IpcMessage_ClusterMgt");
     case IpcMessage_ConfigureMgt:
         return std::string("IpcMessage_ConfigureMgt");
     default:
