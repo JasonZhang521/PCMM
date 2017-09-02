@@ -12,16 +12,12 @@ SystemInfoMessage::SystemInfoMessage()
 
 }
 
-SystemInfoMessage::SystemInfoMessage(const Environment::CpuUsageInfo& cpuUsageInfo)
+SystemInfoMessage::SystemInfoMessage(const Environment::CpuUsageInfo& cpuUsageInfo,
+                                     const Environment::SystemInfoBriefly& systemInfoBriefly)
     : cpuUsageInfo_(cpuUsageInfo)
+    , systemInfoBriefly_(systemInfoBriefly)
 {
 }
-
-const Environment::CpuUsageInfo& SystemInfoMessage::getCpuUsageInfo() const
-{
-    return cpuUsageInfo_;
-}
-
 
 SystemInfoMessage::~SystemInfoMessage()
 {
@@ -57,6 +53,7 @@ void SystemInfoMessage::write(Serialize::WriteBuffer& writeBuffer) const
     writeBuffer.write<uint8_t>(static_cast<uint8_t>(IpcMessage::SystemInfoMessage));
     IpcMessage::IIpcMessage::write(writeBuffer);
     cpuUsageInfo_.serialize(writeBuffer);
+    systemInfoBriefly_.serialize(writeBuffer);
 }
 
 void SystemInfoMessage::read(Serialize::ReadBuffer& readBuffer)
@@ -78,6 +75,7 @@ void SystemInfoMessage::read(Serialize::ReadBuffer& readBuffer)
     }
     IpcMessage::IIpcMessage::read(readBuffer);
     cpuUsageInfo_.unserialize(readBuffer);
+    systemInfoBriefly_.unserialize(readBuffer);
 }
 
 void SystemInfoMessage::print(std::ostream& os) const

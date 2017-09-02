@@ -2,6 +2,7 @@
 #define _SYSTEMMONITORMESSAGE_SYSTEMINFOMESSAGE_H_
 #include "ISystemMonitorMessage.h"
 #include "CpuUsageInfo.h"
+#include "SystemInfoBriefly.h"
 #include "Component.h"
 #include "Macro.h"
 
@@ -10,10 +11,13 @@ namespace SystemMonitorMessage {
 class SystemInfoMessage : public ISystemMonitorMessage
 {
     Environment::CpuUsageInfo cpuUsageInfo_;
+    Environment::SystemInfoBriefly systemInfoBriefly_;
 public:
     SystemInfoMessage();
-    SystemInfoMessage(const Environment::CpuUsageInfo& cpuUsageInfo);
-    const Environment::CpuUsageInfo& getCpuUsageInfo() const;
+    SystemInfoMessage(const Environment::CpuUsageInfo& cpuUsageInfo,
+                      const Environment::SystemInfoBriefly& systemInfoBriefly);
+    inline const Environment::CpuUsageInfo& getCpuUsageInfo() const {return cpuUsageInfo_;}
+    inline const Environment::SystemInfoBriefly& getSystemInfoBriefly() const {return systemInfoBriefly_;}
     virtual ~SystemInfoMessage();
 
 private:

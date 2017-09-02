@@ -178,7 +178,7 @@ void CpuInfoBriefly::updateCpuTempratureFromThermal()
 
 void CpuInfoBriefly::updateCpuTempratureFromHwmon()
 {
-    const std::string tempFile("sys/devices/virtual/hwmon/hwmon0/temp1_input");
+    const std::string tempFile("/sys/devices/virtual/hwmon/hwmon0/temp1_input");
     updateCpuTemprature1(tempFile);
 }
 
