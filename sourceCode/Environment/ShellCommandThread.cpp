@@ -55,6 +55,7 @@ void ShellCommandThread::execute()
     // start the thread
     shellCmdThread_ = std::unique_ptr<std::thread>(new std::thread(std::bind(&ShellCommandThread::startThread, this)));
     // start the timer
+    resetTimer(5000);
     Core::LoopMain::instance().registerTimer(this);
 }
 
@@ -110,8 +111,9 @@ bool ShellCommandThread::isInactive()
 
 std::ostream& ShellCommandThread::operator<<(std::ostream& os)
 {
-    os << "["
-       << "cmd=" << cmd_
+    os << "[";
+    TimerHandler::ITimer::print(os);
+    os << "cmd=" << cmd_
        << ", outPutFile=" << outPutFile_
        << ", cmdOutput=";
     for (auto str : cmdOutput_)
