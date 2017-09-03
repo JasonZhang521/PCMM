@@ -3,7 +3,6 @@
 #include "WriteBuffer.h"
 #include "ReadBuffer.h"
 #include "Generic.h"
-
 namespace Environment {
 MemoryInfoBriefly::MemoryInfoBriefly()
 {

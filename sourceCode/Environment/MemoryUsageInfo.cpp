@@ -75,12 +75,11 @@ void MemoryUsageInfo::getMemoryInfoFromcProcMemoInfoFile()
         std::string attribute = str.substr(0, posOfSep);
         // delete the front and end space and tab
         attribute = remover.removeMultiCh(attribute, " \t");
-
-        str = str.substr(posOfSep + 1, attribute.size() - posOfSep - 1);
-        size_t posOfSpace = str.find(' ');
-        std::string value = str.substr(0, posOfSpace);
+        str = str.substr(posOfSep + 1, str.size() - posOfSep - 1);
         // delete the front and end space
         str = remover.removeMultiCh(str, " \t");
+        size_t posOfSpace = str.find(' ');
+        std::string value = str.substr(0, posOfSpace);
         MemoryUsageInfoType memInfoType = MemoryUsageInfoRawDataAttributeString::getAttributeIndex(attribute);
         if (memInfoType != MEMORYINFO_INVALID)
         {

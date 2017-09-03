@@ -35,8 +35,8 @@ TEST_F(ControlNodeBrieflyInfoResponseTest, ReadWrite)
 	cpuInfo.setFrequency(frequency);
 	cpuInfo.setUsage(usage);
 
-    const std::string memTotal("2039796 kB");
-    const std::string memFree("1318016 kB");
+    const uint64_t memTotal = 2039796;
+    const uint64_t memFree = 1318016;
 	MemoryInfoBriefly memoryInfo;
 	memoryInfo.setMemTotal(memTotal);
 	memoryInfo.setMemFree(memFree);
