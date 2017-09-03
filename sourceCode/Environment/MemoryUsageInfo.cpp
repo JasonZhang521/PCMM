@@ -47,6 +47,12 @@ void MemoryUsageInfo::getMemoryInfoFromcProcMemoInfoFile()
 {
     std::string memInfofileName("/proc/meminfo");
     // for the Linux operation system, the memory infomation always got from /proc/meminfo files
+    /*
+       MemTotal:       65921260 kB
+       MemFree:         2862644 kB
+       Buffers:          411772 kB
+       Cached:         42338600 kB
+     */
     std::ifstream ifs(memInfofileName.c_str());
 
     if (!ifs.good())
@@ -64,14 +70,17 @@ void MemoryUsageInfo::getMemoryInfoFromcProcMemoInfoFile()
         ifs.getline(buffer, 512);
         std::stringstream ss;
         ss << buffer;
-        std::string oneline = ss.str();
-        size_t posOfSep = oneline.find(':');
-        std::string attribute = oneline.substr(0, posOfSep);
+        std::string str = ss.str();
+        size_t posOfSep = str.find(':');
+        std::string attribute = str.substr(0, posOfSep);
+        // delete the front and end space and tab
+        attribute = remover.removeMultiCh(attribute, " \t");
+
+        str = str.substr(posOfSep + 1, attribute.size() - posOfSep - 1);
+        size_t posOfSpace = str.find(' ');
+        std::string value = str.substr(0, posOfSpace);
         // delete the front and end space
-        attribute = remover(attribute);
-        std::string value = oneline.substr(posOfSep + 1, attribute.size() - posOfSep - 1);
-        // delete the front and end space
-        value = remover(value);
+        str = remover.removeMultiCh(str, " \t");
         MemoryUsageInfoType memInfoType = MemoryUsageInfoRawDataAttributeString::getAttributeIndex(attribute);
         if (memInfoType != MEMORYINFO_INVALID)
         {

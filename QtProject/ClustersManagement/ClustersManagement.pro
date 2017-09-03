@@ -166,7 +166,6 @@ HEADERS += \
     ../../sourceCode/Common/App.h \
     ../../sourceCode/Common/AppConst.h \
     ../../sourceCode/Common/FilePathHandler.h \
-    ../../sourceCode/Common/generic.h \
     ../../sourceCode/Common/LocalTime.h \
     ../../sourceCode/Common/Macro.h \
     ../../sourceCode/Common/operator.h \
@@ -297,7 +296,8 @@ HEADERS += \
     ../../sourceCode/SystemMonitorMessage/ComputerNodeInfoReport.h \
     ../../sourceCode/SystemMonitorMessage/ComputerNodeInfoRequest.h \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoRequest.h \
-    ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoResponse.h
+    ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoResponse.h \
+    ../../sourceCode/Common/Generic.h
 
 unix {
     target.path = /usr/lib

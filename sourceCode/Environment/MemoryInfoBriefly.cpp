@@ -2,6 +2,7 @@
 #include "MemoryUsageInfo.h"
 #include "WriteBuffer.h"
 #include "ReadBuffer.h"
+#include "Generic.h"
 
 namespace Environment {
 MemoryInfoBriefly::MemoryInfoBriefly()
@@ -25,26 +26,13 @@ MemoryInfoBriefly& MemoryInfoBriefly::operator =(const MemoryInfoBriefly& info)
 
 void MemoryInfoBriefly::serialize(Serialize::WriteBuffer& writeBuffer) const
 {
-    writeBuffer.write(static_cast<uint8_t>(memTotal_.size()));
-    writeBuffer.write(memTotal_.c_str(), memTotal_.size());
-    writeBuffer.write(static_cast<uint8_t>(memFree_.size()));
-    writeBuffer.write(memFree_.c_str(), memFree_.size());
+    writeBuffer.write(memTotal_);
+    writeBuffer.write(memFree_);
 }
 void MemoryInfoBriefly::unserialize(Serialize::ReadBuffer& readBuffer)
 {
-    char buffer[128];
-    std::fill(buffer, buffer + 128, 0);
-    uint8_t size = 0;
-
-    // memTotal
-    readBuffer.read(size);
-    readBuffer.read(buffer, size);
-    memTotal_ = std::string(buffer, size);
-
-    // memFree
-    readBuffer.read(size);
-    readBuffer.read(buffer, size);
-    memFree_ = std::string(buffer, size);
+    readBuffer.read(memTotal_);
+    readBuffer.read(memFree_);
 }
 
 std::ostream& MemoryInfoBriefly::operator <<(std::ostream& os) const
@@ -72,7 +60,7 @@ void MemoryInfoBriefly::updateMemUsageInfo()
     MemoryUsageInfo memUsageInfo;
     memUsageInfo.update();
     const MemoryUsageInfoRawData& rawData = memUsageInfo.getMemoryUsageInfoRawData();
-    memTotal_ = rawData[MEMTOTAL];
-    memFree_ = rawData[MEMFREE];
+    memTotal_ = lexical_cast<uint64_t>(rawData[MEMTOTAL]);
+    memFree_ = lexical_cast<uint64_t>(rawData[MEMFREE]) + lexical_cast<uint64_t>(rawData[CACHED]);
 }
 }

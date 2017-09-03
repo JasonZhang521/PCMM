@@ -36,6 +36,7 @@ public:
     RemoveCharacter(char specialChar = ' ', unsigned int location = LOCATION_FRONT | LOCATION_END);
     std::string operator()(const std::string &);
     inline void setCharacter(char specialChar) {specialChar_ = specialChar;}
+    std::string removeMultiCh(const std::string& originalStr, const std::string& Chs);
 };
 
 #endif

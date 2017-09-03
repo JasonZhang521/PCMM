@@ -96,3 +96,15 @@ std::string RemoveCharacter::operator()(const std::string & str)
     }
     return ret;
 }
+
+std::string RemoveCharacter::removeMultiCh(const std::string& originalStr, const std::string& Chs)
+{
+    std::string result = originalStr;
+    for (auto ch : Chs)
+    {
+        setCharacter(ch);
+        result = operator()(result);
+    }
+
+    return result;
+}
