@@ -38,8 +38,8 @@ void MemoryInfoBriefly::unserialize(Serialize::ReadBuffer& readBuffer)
 std::ostream& MemoryInfoBriefly::operator <<(std::ostream& os) const
 {
     os << "["
-       << "memTotal=" << memTotal_
-       << ", memFree=" << memFree_
+       << "memTotal=" << memTotal_ << " KB"
+       << ", memFree=" << memFree_ << " KB"
        << "]";
     return os;
 }

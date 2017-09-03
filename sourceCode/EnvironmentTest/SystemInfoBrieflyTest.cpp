@@ -49,8 +49,8 @@ TEST_F(SystemInfoBrieflyTest, ReadWrite)
 	cpuInfo.setFrequency(frequency);
 	cpuInfo.setUsage(usage);
 
-	const std::string memTotal("1024 KB");
-	const std::string memFree("512 KB");
+	const uint64_t memTotal = 1024;
+	const uint64_t memFree = 512;
 	MemoryInfoBriefly memoryInfo;
 	memoryInfo.setMemTotal(memTotal);
 	memoryInfo.setMemFree(memFree);

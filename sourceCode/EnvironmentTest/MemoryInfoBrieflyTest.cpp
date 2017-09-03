@@ -32,8 +32,8 @@ TEST_F(MemoryInfoBrieflyTest, Test)
 
 TEST_F(MemoryInfoBrieflyTest, ReadWrite)
 {
-	const std::string memTotal("1024 KB");
-	const std::string memFree("512 KB");
+	const uint64_t memTotal = 1024;
+	const uint64_t memFree = 512;
 	MemoryInfoBriefly info1;
 	info1.setMemTotal(memTotal);
 	info1.setMemFree(memFree);

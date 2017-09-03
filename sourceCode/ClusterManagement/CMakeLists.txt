@@ -30,4 +30,5 @@ target_link_libraries (ClusterNodesControl.elf
 					   eventhandler
 					   timerhandler
 					   serialize
+					   ${LIBs}
 					  )
