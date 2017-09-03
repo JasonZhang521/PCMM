@@ -1,5 +1,5 @@
-#ifndef SHELLCOMMANDDFOUTPUT_H
-#define SHELLCOMMANDDFOUTPUT_H
+#ifndef _ENVIRONMENT_SHELLCOMMANDDFOUTPUT_H_
+#define _ENVIRONMENT_SHELLCOMMANDDFOUTPUT_H_
 #include <stdint.h>
 #include <vector>
 #include <string>
@@ -57,4 +57,4 @@ inline std::ostream& operator <<(std::ostream& os, const Environment::ShellComma
     return output.operator <<(os);
 }
 
-#endif // SHELLCOMMANDDFOUTPUT_H
+#endif // _ENVIRONMENT_SHELLCOMMANDDFOUTPUT_H_

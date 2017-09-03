@@ -9,7 +9,7 @@ static const CommandOutputString InvalidCommandOutputString;
 class IShellCommand
 {
 protected:
-    std::vector<std::string> cmdOutput_;
+    CommandOutputString cmdOutput_;
 public:
     IShellCommand();
     virtual ~IShellCommand();

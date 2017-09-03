@@ -1,5 +1,5 @@
-#ifndef SHELLCOMMANDDATATYPE_H
-#define SHELLCOMMANDDATATYPE_H
+#ifndef _ENVIRONMENT_SHELLCOMMANDDATATYPE_H_
+#define _ENVIRONMENT_SHELLCOMMANDDATATYPE_H_
 #include <map>
 #include <string>
 #include <vector>

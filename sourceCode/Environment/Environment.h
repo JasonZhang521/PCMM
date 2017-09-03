@@ -1,5 +1,5 @@
-#ifndef ENVIRONMENT_H
-#define ENVIRONMENT_H
+#ifndef _ENVIRONMENT_ENVIRONMENT_H_
+#define _ENVIRONMENT_ENVIRONMENT_H_
 #include "ShellCommandDataType.h"
 #include "IShellCommand.h"
 #include <string>
@@ -19,4 +19,4 @@ public:
 };
 }
 
-#endif // ENVIRONMENT_H
+#endif // _ENVIRONMENT_ENVIRONMENT_H_
