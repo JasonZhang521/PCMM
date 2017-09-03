@@ -68,11 +68,11 @@ void CpuInfo::getCpuInfoFromProcCpuInfoFile()
 
     clear();
     CpuInfoRawData rawData(NUM_OF_CPUINFO_ATTRIBUTE, std::string(""));
-    char buffer[512];
+    char buffer[2048];
     while(ifs.good())
     {
-        std::fill(buffer, buffer + 512, 0);
-        ifs.getline(buffer, 512);
+        std::fill(buffer, buffer + 2048, 0);
+        ifs.getline(buffer, 2048);
         std::stringstream ss;
         ss << buffer;
         std::string oneline = ss.str();

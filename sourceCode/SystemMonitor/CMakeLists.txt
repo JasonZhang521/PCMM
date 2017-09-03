@@ -30,4 +30,5 @@ target_link_libraries (smd.elf
 					   eventhandler
 					   timerhandler
 					   serialize
+					   ${LIBs}
 					  )

@@ -20,7 +20,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
 #    message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11
 #					support. Please use a different C++ compiler.")
 #endif()
-set(SSH_LIBs ssh ssh_threads)	
 enable_testing()
 find_package(GTest REQUIRED)
 #message("GTEST_INCLUDE_DIRS: ${GTEST_INCLUDE_DIRS}")	
