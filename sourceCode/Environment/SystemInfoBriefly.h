@@ -5,8 +5,10 @@
 #include "NetworkInfo.h"
 #include "MiscInfo.h"
 #include "DiskUsageInfo.h"
+#include "ShellCommandDataType.h"
 
 namespace Environment {
+
 class SystemInfoBriefly
 {
     CpuInfoBriefly cpuInfoBriefly_;
@@ -14,6 +16,8 @@ class SystemInfoBriefly
     NetworkInfo networkInfo_;
     MiscInfo miscInfo_;
     DiskUsageInfo diskUsageInfo_;
+    CommandOutputString psTop10CpuUsage_;
+    CommandOutputString psTop10MemoryUsage_;
 
 public:
     SystemInfoBriefly();
@@ -29,6 +33,10 @@ public:
 	void setMiscInfo(const MiscInfo& info);
     const DiskUsageInfo& getDiskUsageInfo() const;
     void setDiskUsageInfo(const DiskUsageInfo& info);
+    const CommandOutputString& getPsTop10CpuUsage() const;
+    void setPsTop10CpuUsage(const CommandOutputString& info);
+    const CommandOutputString& getPsTop10MemoryUsage() const;
+    void setPsTop10MemoryUsage(const CommandOutputString& info);
 
     void serialize(Serialize::WriteBuffer& writeBuffer) const;
     void unserialize(Serialize::ReadBuffer& readBuffer);

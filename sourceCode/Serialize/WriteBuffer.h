@@ -3,6 +3,8 @@
 #include "DataToBuffer.h"
 #include "Component.h"
 #include "Macro.h"
+#include <string>
+#include <vector>
 
 namespace Serialize {
 
@@ -29,6 +31,18 @@ public:
     }
 
     void write(const void* newBuffer, unsigned int writeSize);
+
+    void write(const std::string& str);
+
+    template<typename T>
+    void write(const std::vector<T>& vec)
+    {
+        write(static_cast<uint16_t>(vec.size()));
+        for (auto value : vec)
+        {
+            write(value);
+        }
+    }
 
     void* getBuffer() const;
     unsigned int getBufferSize() const;

@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <vector>
 #include <string>
+#include <iostream>
 
 namespace Serialize {
 class WriteBuffer;

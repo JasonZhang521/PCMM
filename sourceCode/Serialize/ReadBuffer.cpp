@@ -5,6 +5,7 @@
 namespace Serialize {
 
 const unsigned int ReadBuffer::DefaultReadBufferSize = 1024 * 128;
+const unsigned int ReadBuffer::MaxStringSize = 2048;
 
 ReadBuffer::ReadBuffer(unsigned int bufferSize)
 :bufferSize_(bufferSize)
@@ -27,6 +28,17 @@ bool ReadBuffer::read(void* newBuffer, unsigned int readSize)
     }
     BufferToData::Read(buffer_ + pos_, newBuffer, readSize);
     pos_ += readSize;
+    return true;
+}
+
+bool ReadBuffer::read(std::string& str)
+{
+    uint16_t size = 0;
+    read(size);
+    // suppose the max length of string is 2048
+    char buffer[MaxStringSize];
+    read(buffer, size);
+    str = std::string(buffer, size);
     return true;
 }
 

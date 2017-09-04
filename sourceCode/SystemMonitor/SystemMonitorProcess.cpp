@@ -67,12 +67,21 @@ void SystemMonitorProcess::process()
     // register the commands
     {
         Environment::IShellCommand* commandDf =
-                new Environment::ShellCommandThread(Environment::ShellCommandString::getCmdString(Environment::ShellCommandType::DiskUsageDf), 3600000);
+                new Environment::ShellCommandThread(Environment::ShellCommand::getCmdString(Environment::ShellCommandType::DiskUsageDf), 3600000);
         Environment::Environment::instance().registerShellCmd(Environment::ShellCommandType::DiskUsageDf, commandDf);
 
         Environment::IShellCommand* commandDuHome =
-                new Environment::ShellCommandThread(Environment::ShellCommandString::getCmdString(Environment::ShellCommandType::DiskUsageDuHome), 72000000);
+                new Environment::ShellCommandThread(Environment::ShellCommand::getCmdString(Environment::ShellCommandType::DiskUsageDuHome), 72000000);
         Environment::Environment::instance().registerShellCmd(Environment::ShellCommandType::DiskUsageDuHome, commandDuHome);
+
+        Environment::IShellCommand* commandPsTop10CpuUsage =
+                new Environment::ShellCommandThread(Environment::ShellCommand::getCmdString(Environment::ShellCommandType::PsTop10CpuUsage), 5000);
+        Environment::Environment::instance().registerShellCmd(Environment::ShellCommandType::PsTop10CpuUsage, commandPsTop10CpuUsage);
+
+        Environment::IShellCommand* commandPsTop10MemoryUsage =
+                new Environment::ShellCommandThread(Environment::ShellCommand::getCmdString(Environment::ShellCommandType::PsTop10MemoryUsage), 5000);
+        Environment::Environment::instance().registerShellCmd(Environment::ShellCommandType::PsTop10MemoryUsage, commandPsTop10MemoryUsage);
+
     }
 
     systemMonitorHandler->startup();

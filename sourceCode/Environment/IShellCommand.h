@@ -1,11 +1,11 @@
 #ifndef _ENVIRONMENT_ISHELLCOMMAND_H_
 #define _ENVIRONMENT_ISHELLCOMMAND_H_
+#include "ShellCommandDataType.h"
 #include <vector>
 #include <string>
 
 namespace Environment {
-using CommandOutputString = std::vector<std::string>;
-static const CommandOutputString InvalidCommandOutputString;
+
 class IShellCommand
 {
 protected:

@@ -1,4 +1,7 @@
 #include "SystemInfoBriefly.h"
+#include "WriteBuffer.h"
+#include "ReadBuffer.h"
+
 namespace Environment {
 SystemInfoBriefly::SystemInfoBriefly()
 {
@@ -11,6 +14,8 @@ SystemInfoBriefly::SystemInfoBriefly(const SystemInfoBriefly& info)
     , networkInfo_(info.networkInfo_)
     , miscInfo_(info.miscInfo_)
     , diskUsageInfo_(info.diskUsageInfo_)
+    , psTop10CpuUsage_(info.psTop10CpuUsage_)
+    , psTop10MemoryUsage_(info.psTop10MemoryUsage_)
 {
 
 }
@@ -22,6 +27,8 @@ SystemInfoBriefly& SystemInfoBriefly::operator =(const SystemInfoBriefly& info)
     networkInfo_ = info.networkInfo_;
     miscInfo_ = info.miscInfo_;
 	diskUsageInfo_ = info.diskUsageInfo_;
+    psTop10CpuUsage_ = info.psTop10CpuUsage_;
+    psTop10MemoryUsage_ = info.psTop10MemoryUsage_;
     return *this;
 }
 
@@ -75,6 +82,26 @@ void SystemInfoBriefly::setDiskUsageInfo(const DiskUsageInfo& info)
     diskUsageInfo_ = info;
 }
 
+const CommandOutputString& SystemInfoBriefly::getPsTop10CpuUsage() const
+{
+    return psTop10CpuUsage_;
+}
+
+void SystemInfoBriefly::setPsTop10CpuUsage(const CommandOutputString& info)
+{
+    psTop10CpuUsage_ = info;
+}
+
+const CommandOutputString& SystemInfoBriefly::getPsTop10MemoryUsage() const
+{
+    return psTop10MemoryUsage_;
+}
+
+void SystemInfoBriefly::setPsTop10MemoryUsage(const CommandOutputString& info)
+{
+    psTop10MemoryUsage_ = info;
+}
+
 void SystemInfoBriefly::serialize(Serialize::WriteBuffer& writeBuffer) const
 {
     cpuInfoBriefly_.serialize(writeBuffer);
@@ -82,6 +109,9 @@ void SystemInfoBriefly::serialize(Serialize::WriteBuffer& writeBuffer) const
     networkInfo_.serialize(writeBuffer);
     miscInfo_.serialize(writeBuffer);
     diskUsageInfo_.serialize(writeBuffer);
+
+    writeBuffer.write(psTop10CpuUsage_);
+    writeBuffer.write(psTop10MemoryUsage_);
 }
 
 void SystemInfoBriefly::unserialize(Serialize::ReadBuffer& readBuffer)
@@ -91,6 +121,8 @@ void SystemInfoBriefly::unserialize(Serialize::ReadBuffer& readBuffer)
     networkInfo_.unserialize(readBuffer);
     miscInfo_.unserialize(readBuffer);
     diskUsageInfo_.unserialize(readBuffer);
+    readBuffer.read(psTop10CpuUsage_);
+    readBuffer.read(psTop10MemoryUsage_);
 }
 
 std::ostream& SystemInfoBriefly::operator <<(std::ostream& os) const
@@ -101,6 +133,12 @@ std::ostream& SystemInfoBriefly::operator <<(std::ostream& os) const
        << ", networkInfo=" << networkInfo_
        << ", miscInfo=" << miscInfo_
        << ", diskUsageInfo" << diskUsageInfo_
+ /*
+       << ", psTop10CpuUsage:\n"
+       << psTop10CpuUsage_
+       << ", psTop10MemoryUsage:\n"
+       << psTop10MemoryUsage_
+             */
        << "]";
     return os;
 }

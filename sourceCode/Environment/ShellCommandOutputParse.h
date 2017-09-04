@@ -4,7 +4,6 @@
 #include "ShellCommandDfOutput.h"
 
 namespace Environment {
-using CommandOutputString = std::vector<std::string>;
 class ShellCommandOutputParse
 {
 public:

@@ -4,12 +4,15 @@
 #include "Component.h"
 #include "Macro.h"
 #include <ostream>
+#include <string>
+#include <vector>
 namespace Serialize {
 
 class ReadBuffer
 {
 public:
     const static unsigned int DefaultReadBufferSize;
+    const static unsigned int MaxStringSize;
 private:
     unsigned int bufferSize_;
     char* buffer_;
@@ -31,6 +34,25 @@ public:
     }
 
     bool read(void* newBuffer, unsigned int readSize);
+
+    bool read(std::string& str);
+
+    template <typename T>
+    bool read(std::vector<T>& vec)
+    {
+        std::vector<T> temp;
+        uint16_t size = 0;
+        read(size);
+        for (uint16_t i = 0; i < size; ++i)
+        {
+            T value;
+            read(value);
+            temp.push_back(value);
+        }
+        vec.swap(temp);
+        return true;
+    }
+
 
     template <typename T>
     bool peek(T& val, unsigned int start = 0)

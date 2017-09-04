@@ -31,6 +31,12 @@ void WriteBuffer::write(const void* newBuffer, unsigned int writeSize)
     dataSize_ += writeSize;
 }
 
+void WriteBuffer::write(const std::string& str)
+{
+    write(static_cast<uint16_t>(str.size()));
+    write(str.c_str(), str.size());
+}
+
 void* WriteBuffer::getBuffer() const
 {
     return buffer_;
