@@ -65,12 +65,35 @@ void ClusterMgtClientsManagment::handleMessage(const IpcMessage::IIpcMessage& ms
     IpcMessage::IpcMessageType type = msg.getMessageType();
     if (type == IpcMessage::IpcMessageType::IpcMessage_SystemMonitor)
     {
-        if (fromClientType != clientType_)
+        const SystemMonitorMessage::ISystemMonitorMessage* sMmsg = dynamic_cast<const SystemMonitorMessage::ISystemMonitorMessage*>(&msg);
+        if (sMmsg && sMmsg->getSystemMonitorType() == IpcMessage::ComputerNodeInfoReportMessage)
         {
-            return;
+            if (fromClientType == clientType_)
+            {
+                return;
+            }
+            const std::string invalidDest("Invalid_IpAddress:0");
+            const std::string dest = msg.getDestnation().toString();
+            TRACE_DEBUG("destination:" << dest);
+            if (dest == invalidDest)
+            {
+                broadcastMsg(msg);
+            }
+            else
+            {
+                IpcClientsMap::iterator it = clients_.find(dest);
+                forwardIpcMessage(dest, msg);
+            }
         }
+        else
+        {
+            if (fromClientType != clientType_)
+            {
+                return;
+            }
 
-        handleClusterMgtMessage(msg, remoteIpEndpoint);
+            handleClusterMgtMessage(msg, remoteIpEndpoint);
+        }
     }
     else
     {
