@@ -133,13 +133,17 @@ std::ostream& SystemInfoBriefly::operator <<(std::ostream& os) const
        << ", networkInfo=" << networkInfo_
        << ", miscInfo=" << miscInfo_
        << ", diskUsageInfo" << diskUsageInfo_
- /*
-       << ", psTop10CpuUsage:\n"
-       << psTop10CpuUsage_
-       << ", psTop10MemoryUsage:\n"
-       << psTop10MemoryUsage_
-             */
-       << "]";
+       << ", psTop10CpuUsage:\n";
+    for (auto str : psTop10CpuUsage_)
+    {
+        os << str << std::endl;
+    }
+    os << ", psTop10MemoryUsage:\n";
+    for (auto str : psTop10MemoryUsage_)
+    {
+        os << str << std::endl;
+    }
+    os << "]";
     return os;
 }
 
