@@ -27,7 +27,7 @@ static void loopControl()
 TEST_F(EnvironmentTest, CommandTestDf)
 {
 	Environment::Environment env;
-    IShellCommand* command = new ShellCommandThread(ShellCommandString::getCmdString(ShellCommandType::DiskUsageDf), 1000);
+    IShellCommand* command = new ShellCommandThread(ShellCommand::getCmdString(ShellCommandType::DiskUsageDf), 1000);
 	env.registerShellCmd(ShellCommandType::DiskUsageDf, command);
 	std::thread th(loopControl);
 	while(1)
@@ -61,7 +61,7 @@ TEST_F(EnvironmentTest, CommandTestDf)
 TEST_F(EnvironmentTest, CommandTestDuHome)
 {
 	Environment::Environment env;
-    IShellCommand* command = new ShellCommandThread(ShellCommandString::getCmdString(ShellCommandType::DiskUsageDuHome), 1000);
+    IShellCommand* command = new ShellCommandThread(ShellCommand::getCmdString(ShellCommandType::DiskUsageDuHome), 1000);
 	env.registerShellCmd(ShellCommandType::DiskUsageDuHome, command);
 	std::thread th(loopControl);
 	while(1)
@@ -82,6 +82,58 @@ TEST_F(EnvironmentTest, CommandTestDuHome)
 			std::cout << "-------------------------------------" << std::endl;
 			std::cout << used << std::endl;
 			std::cout << "-------------------------------------" << std::endl;
+		}
+		break;
+	}
+    sleep(2);	
+    command->stop();
+	Core::LoopMain::instance().loopStop();
+	th.join();
+}
+
+TEST_F(EnvironmentTest, CommandTestTop10CpuUsage)
+{
+	Environment::Environment env;
+    IShellCommand* command = new ShellCommandThread(ShellCommand::getCmdString(ShellCommandType::PsTop10CpuUsage), 1000);
+	env.registerShellCmd(ShellCommandType::DiskUsageDuHome, command);
+	std::thread th(loopControl);
+	while(1)
+	{
+		const CommandOutputString& strings = env.getShellCmdOutput(ShellCommandType::DiskUsageDuHome);
+		if (strings.empty())
+		{
+			sleep(1);
+			continue;
+		}
+		for (auto str : strings)
+		{
+			std::cout << str << std::endl;
+		}
+		break;
+	}
+    sleep(2);	
+    command->stop();
+	Core::LoopMain::instance().loopStop();
+	th.join();
+}
+
+TEST_F(EnvironmentTest, CommandTestTop10MemoryUsage)
+{
+	Environment::Environment env;
+    IShellCommand* command = new ShellCommandThread(ShellCommand::getCmdString(ShellCommandType::PsTop10MemoryUsage), 1000);
+	env.registerShellCmd(ShellCommandType::DiskUsageDuHome, command);
+	std::thread th(loopControl);
+	while(1)
+	{
+		const CommandOutputString& strings = env.getShellCmdOutput(ShellCommandType::DiskUsageDuHome);
+		if (strings.empty())
+		{
+			sleep(1);
+			continue;
+		}
+		for (auto str : strings)
+		{
+			std::cout << str << std::endl;
 		}
 		break;
 	}

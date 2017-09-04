@@ -129,15 +129,7 @@ void ShellCommandThread::startThread()
     if (outPutFile_.empty())
     {
         RemoveCharacter remover(' ', RemovePlace::LOCATION_FRONT | RemovePlace::LOCATION_MIDDLE | RemovePlace::LOCATION_END);
-        std::string filePrefix = remover(cmd_);
-		remover.setCharacter('\t');
-        filePrefix = remover(filePrefix);
-		remover.setCharacter('\\');
-        filePrefix = remover(filePrefix);
-		remover.setCharacter('/');
-        filePrefix = remover(filePrefix);
-		remover.setCharacter('-');
-        filePrefix = remover(filePrefix);
+        std::string filePrefix = remover.removeMultiCh(cmd_, "\t \\/-,|=");
 		filePrefix = MagicString + "." + filePrefix; 
         Random random;
         outPutFile_ = "." + filePrefix + "." + random.generateUpLetterString(10);
