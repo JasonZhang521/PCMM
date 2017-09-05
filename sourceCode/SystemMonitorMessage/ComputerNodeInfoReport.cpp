@@ -85,6 +85,7 @@ void ComputerNodeInfoReport::print(std::ostream& os) const
        << ", systemMonitorType=" << IpcMessage::SystemMonitorTypeString(IpcMessage::ComputerNodeInfoReportMessage);
     IpcMessage::IIpcMessage::print(os);
     os << ", cpuUsageInfo=" << cpuUsageInfo_
+       << ", systemInfoBriefly=" << systemInfoBriefly_
        << "]";
 }
 

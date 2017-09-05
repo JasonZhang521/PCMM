@@ -1,4 +1,6 @@
 #include "SystemInfoBriefly.h"
+#include "Environment.h"
+#include "ShellCommandDataType.h"
 #include "WriteBuffer.h"
 #include "ReadBuffer.h"
 
@@ -163,6 +165,8 @@ void SystemInfoBriefly::update()
     networkInfo_.update();
     miscInfo_.update();
     diskUsageInfo_.update();
+    psTop10CpuUsage_ = Environment::instance().getShellCmdOutput(ShellCommandType::PsTop10CpuUsage);
+    psTop10MemoryUsage_ = Environment::instance().getShellCmdOutput(ShellCommandType::PsTop10MemoryUsage);
 }
 
 }
