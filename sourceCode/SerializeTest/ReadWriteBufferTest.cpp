@@ -319,3 +319,25 @@ TEST_F(ReadWriteBufferTest, ReadBufferSwap)
     EXPECT_TRUE((readBuffer3 == readBuffer2));
     EXPECT_TRUE((readBuffer4 == readBuffer1));
 }
+
+TEST_F(ReadWriteBufferTest, TestReadWriteString)
+{
+    Random ran;
+    std::vector<std::string> vec1;
+    for (unsigned int i = 0; i < 1000; ++i)
+    {
+        const std::string str= ran.generateString(ran.generate16(100, 1));
+        vec1.push_back(str);
+    }
+
+    Serialize::WriteBuffer writeBuffer;
+    Serialize::ReadBuffer readBuffer;
+
+    writeBuffer.write(vec1);
+    std::copy(reinterpret_cast<char*>(writeBuffer.getBuffer()), reinterpret_cast<char*>(writeBuffer.getBuffer()) + writeBuffer.getDataSize(), reinterpret_cast<char*>(readBuffer.getBuffer()));
+    readBuffer.setDataSize(writeBuffer.getDataSize());
+
+    std::vector<std::string> vec2;
+    readBuffer.read(vec2);
+    ASSERT_EQ(vec1, vec2);
+}
