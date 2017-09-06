@@ -1,6 +1,7 @@
 #ifndef _SERIALIZE_READBUFFER_H_
 #define _SERIALIZE_READBUFFER_H_
 #include "BufferToData.h"
+#include "NetworkHost.h"
 #include "Component.h"
 #include "Macro.h"
 #include <ostream>
@@ -29,6 +30,7 @@ public:
             return false;
         }
         val = BufferToData::Read<T>(buffer_ + pos_);
+        val = IoPlatformWrapper::N2H(val);
         pos_ += sizeof(T);
         return true;
     }
@@ -51,6 +53,16 @@ public:
         }
         vec.swap(temp);
         return true;
+    }
+
+    inline bool read(float& f)
+    {
+        return read(&f, sizeof(float));
+    }
+
+    inline bool read(double& d)
+    {
+        return read(&d, sizeof(double));
     }
 
 

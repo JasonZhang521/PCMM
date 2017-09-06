@@ -42,16 +42,14 @@ void IIpcMessage::setDestnation(const Network::IpSocketEndpoint& destnation)
 
 void IIpcMessage::write(Serialize::WriteBuffer& writeBuffer) const
 {
-    writeBuffer.write(IoPlatformWrapper::Hton64(messageId_));
+    writeBuffer.write(messageId_);
     source_.serialize(writeBuffer);
     destination_.serialize(writeBuffer);
 }
 
 void IIpcMessage::read(Serialize::ReadBuffer& readBuffer)
 {
-    uint64_t temp;
-    readBuffer.read(temp);
-    messageId_ = IoPlatformWrapper::Ntoh64(temp);
+    readBuffer.read(messageId_);
     source_.unserialize(readBuffer);
     destination_.unserialize(readBuffer);
 }

@@ -1,6 +1,7 @@
 #ifndef _SERIALIZE_WRITEBUFFER_H_
 #define _SERIALIZE_WRITEBUFFER_H_
 #include "DataToBuffer.h"
+#include "NetworkHost.h"
 #include "Component.h"
 #include "Macro.h"
 #include <string>
@@ -25,7 +26,8 @@ public:
         {
             resizeBuffer(sizeof(T));
         }
-        DataToBuffer::Write<T>(buffer_ + pos_, val);
+        T v = IoPlatformWrapper::H2N(val);
+        DataToBuffer::Write<T>(buffer_ + pos_, v);
         pos_ += sizeof(T);
         dataSize_ += sizeof(T);
     }
@@ -44,6 +46,16 @@ public:
         }
     }
 
+    inline void write(float f)
+    {
+        write(&f, sizeof(float));
+    }
+
+    inline void write(double d)
+    {
+        write(&d, sizeof(double));
+    }
+
     void* getBuffer() const;
     unsigned int getBufferSize() const;
     unsigned int getDataSize() const;
@@ -53,6 +65,11 @@ public:
     std::ostream& operator << (std::ostream& os) const;
 private:
     void resizeBuffer(unsigned int additionSize);
+    template <typename T>
+    T HtoN(T val)
+    {
+
+    }
 
 public:
     const static unsigned int DefaultWriteBufferSize;

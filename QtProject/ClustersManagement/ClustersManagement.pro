@@ -72,7 +72,8 @@ SOURCES += \
     ../../sourceCode/SystemMonitorMessage/ComputerNodeInfoRequest.cpp \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoRequest.cpp \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoResponse.cpp \
-    ../../sourceCode/Environment/ShellCommandGenericOutput.cpp
+    ../../sourceCode/Environment/ShellCommandGenericOutput.cpp \
+    ../../sourceCode/IoPlatformWrapper/NetworkHost.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -299,7 +300,8 @@ HEADERS += \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoRequest.h \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoResponse.h \
     ../../sourceCode/Common/Generic.h \
-    ../../sourceCode/Environment/ShellCommandGenericOutput.h
+    ../../sourceCode/Environment/ShellCommandGenericOutput.h \
+    ../../sourceCode/IoPlatformWrapper/NetworkHost.h
 
 unix {
     target.path = /usr/lib

@@ -1,5 +1,5 @@
 #include "TcpSocket.h"
-#include "SocketWrapper.h"
+#include "NetworkHost.h"
 #include "Trace.h"
 #include <sstream>
 

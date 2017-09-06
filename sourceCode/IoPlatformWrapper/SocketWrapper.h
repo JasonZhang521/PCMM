@@ -221,62 +221,6 @@ inline int GetSockName(SocketHandle sockfd, SocketAddress *addr, SocketAddresstL
 int SetBlocking(SocketHandle sockfd, bool blocking);
 
 
-enum ByteOrder
-{
-    LittleEndian,
-    BigEndian
-};
-
-ByteOrder CheckByteOrder();
-
-inline unsigned long Htonl(unsigned long hostlong)
-{
-    return htonl(hostlong);
-}
-
-inline unsigned long Ntohl(unsigned long netlong)
-{
-    return ntohl(netlong);
-}
-
-inline unsigned short Htons(unsigned short hostshort)
-{
-    return htons(hostshort);
-}
-
-inline unsigned short Ntohs(unsigned short netshort)
-{
-    return ntohs(netshort);
-}
-
-unsigned long long Ntohll(unsigned long long netllong);
-inline unsigned long long Htonll(unsigned long long hostllong)
-{
-    return Ntohll(hostllong);
-}
-
-
-uint16_t Ntoh16(uint16_t netU16);
-
-inline uint16_t Hton16(uint16_t hostU16)
-{
-    return Ntoh16(hostU16);
-}
-
-uint32_t Ntoh32(uint32_t netU32);
-
-inline uint32_t Hton32(uint32_t hostU32)
-{
-    return Ntoh32(hostU32);
-}
-
-uint64_t Ntoh64(uint64_t netU64);
-
-inline uint64_t Hton64(uint64_t hostU64)
-{
-    return Ntoh64(hostU64);
-}
-
 
 int GetHostName(std::string& hostname);
 

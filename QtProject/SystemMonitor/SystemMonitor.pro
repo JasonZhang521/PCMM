@@ -136,7 +136,8 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/Environment/SystemInfoBriefly.cpp \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoRequest.cpp \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoResponse.cpp \
-    ../../sourceCode/Common/Lock.cpp
+    ../../sourceCode/Common/Lock.cpp \
+    ../../sourceCode/IoPlatformWrapper/NetworkHost.cpp
 
 HEADERS += \
     ../../sourceCode/SystemMonitor/SystemMonitorProcess.h \
@@ -254,7 +255,8 @@ HEADERS += \
     ../../sourceCode/Environment/SystemInfoBriefly.h \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoRequest.h \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoResponse.h \
-    ../../sourceCode/Common/Lock.h
+    ../../sourceCode/Common/Lock.h \
+    ../../sourceCode/IoPlatformWrapper/NetworkHost.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

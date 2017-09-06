@@ -2,7 +2,6 @@
 #include "WriteBuffer.h"
 #include "ReadBuffer.h"
 #include "SystemTime.h"
-#include "SocketWrapper.h"
 #include "Trace.h"
 namespace Environment {
 MiscInfo::MiscInfo()
@@ -57,15 +56,13 @@ void MiscInfo::updateElapseTimeFromNodeStart()
 
 void MiscInfo::serialize(Serialize::WriteBuffer& writeBuffer) const
 {
-    writeBuffer.write(IoPlatformWrapper::Hton64(nodeStartTimeStamp_));
-    writeBuffer.write(IoPlatformWrapper::Hton32(elapseTimeFromNodeStart_));
+    writeBuffer.write(nodeStartTimeStamp_);
+    writeBuffer.write(elapseTimeFromNodeStart_);
 }
 void MiscInfo::unserialize(Serialize::ReadBuffer& readBuffer)
 {
     readBuffer.read(nodeStartTimeStamp_);
-    nodeStartTimeStamp_ = IoPlatformWrapper::Ntoh64(nodeStartTimeStamp_);
     readBuffer.read(elapseTimeFromNodeStart_);
-    elapseTimeFromNodeStart_ = IoPlatformWrapper::Ntoh32(elapseTimeFromNodeStart_);
 }
 
 std::ostream& MiscInfo::operator <<(std::ostream& os) const
