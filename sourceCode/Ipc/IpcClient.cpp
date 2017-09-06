@@ -33,7 +33,7 @@ void IpcClient::connect()
     strategy_->connect();
 }
 
-void IpcClient::send(const IpcMessage::IIpcMessage& msg)
+void IpcClient::send(IpcMessage::IIpcMessage& msg)
 {
     TRACE_ENTER();
     strategy_->send(msg);

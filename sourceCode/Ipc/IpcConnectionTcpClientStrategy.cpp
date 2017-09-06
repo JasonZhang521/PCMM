@@ -49,7 +49,7 @@ void IpcConnectionTcpClientStrategy::connect()
     client_->connect();
 }
 
-void IpcConnectionTcpClientStrategy::send(const IpcMessage::IIpcMessage& msg)
+void IpcConnectionTcpClientStrategy::send(IpcMessage::IIpcMessage& msg)
 {
     TRACE_ENTER();
     Serialize::WriteBuffer writeBuffer;

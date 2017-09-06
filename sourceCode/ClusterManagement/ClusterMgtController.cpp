@@ -57,7 +57,7 @@ void ClusterMgtController::removeAcceptedIpcClient(const Network::IpSocketEndpoi
     clientsManager_[type]->removeAcceptedIpcClient(remoteEndPoint);
 }
 
-void ClusterMgtController::handleMessage(const IpcMessage::IIpcMessage& msg, ClientType fromClientType, const Network::IpSocketEndpoint& remoteIpEndpoint)
+void ClusterMgtController::handleMessage(IpcMessage::IIpcMessage& msg, ClientType fromClientType, const Network::IpSocketEndpoint& remoteIpEndpoint)
 {
     TRACE_DEBUG("fromClientType:" << static_cast<int>(fromClientType));
     for (ClientsManagementMap::iterator it = clientsManager_.begin(); it != clientsManager_.end(); ++it)

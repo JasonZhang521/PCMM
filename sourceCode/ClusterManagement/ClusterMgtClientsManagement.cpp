@@ -59,7 +59,7 @@ void ClusterMgtClientsManagment::removeAcceptedIpcClient(const Network::IpSocket
     }
 }
 
-void ClusterMgtClientsManagment::handleMessage(const IpcMessage::IIpcMessage& msg, ClientType fromClientType, const Network::IpSocketEndpoint& remoteIpEndpoint)
+void ClusterMgtClientsManagment::handleMessage(IpcMessage::IIpcMessage& msg, ClientType fromClientType, const Network::IpSocketEndpoint& remoteIpEndpoint)
 {
 	TRACE_DEBUG("msg=" << msg << ", fromClientType=" << static_cast<int>(fromClientType) << ", remoteIpEndpoint=" << remoteIpEndpoint);
     IpcMessage::IpcMessageType type = msg.getMessageType();
@@ -116,7 +116,7 @@ void ClusterMgtClientsManagment::handleMessage(const IpcMessage::IIpcMessage& ms
     }
 }
 
-void ClusterMgtClientsManagment::forwardIpcMessage(const Network::IpSocketEndpoint& remoteEndPoint, const IpcMessage::IIpcMessage& msg)
+void ClusterMgtClientsManagment::forwardIpcMessage(const Network::IpSocketEndpoint& remoteEndPoint, IpcMessage::IIpcMessage& msg)
 {
     TRACE_DEBUG("Forward msg to:" << remoteEndPoint << ", msg = " << msg);
     IpcClientsMap::iterator it = clients_.find(remoteEndPoint);
@@ -127,7 +127,7 @@ void ClusterMgtClientsManagment::forwardIpcMessage(const Network::IpSocketEndpoi
     }
 }
 
-void ClusterMgtClientsManagment::broadcastMsg(const IpcMessage::IIpcMessage& msg)
+void ClusterMgtClientsManagment::broadcastMsg(IpcMessage::IIpcMessage& msg)
 {
     TRACE_DEBUG("broad cast message to all client");
     for (IpcClientsMap::iterator it= clients_.begin(); it != clients_.end(); ++it)

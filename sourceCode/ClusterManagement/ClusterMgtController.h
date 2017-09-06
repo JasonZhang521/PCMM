@@ -27,7 +27,7 @@ public:
     virtual void shutdown();
     virtual void addAcceptedIpcClient(const Network::IpSocketEndpoint& remoteEndPoint, std::shared_ptr<Ipc::IIpcClient> ipcClient, ClientType type);
     virtual void removeAcceptedIpcClient(const Network::IpSocketEndpoint& remoteEndPoint, ClientType type);
-    virtual void handleMessage(const IpcMessage::IIpcMessage& msg, ClientType fromClientType, const Network::IpSocketEndpoint& remoteIpEndpoint);
+    virtual void handleMessage(IpcMessage::IIpcMessage& msg, ClientType fromClientType, const Network::IpSocketEndpoint& remoteIpEndpoint);
     virtual void addClientManager(ClientType type, std::unique_ptr<IClusterMgtClientsManagement> clientManager);
 
 public:

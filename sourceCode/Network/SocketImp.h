@@ -126,9 +126,14 @@ public:
         return PlatformWrapper::GetSockOpt(fd_, level, optname, optval, optlen);
     }
 
-    inline int getsockname(SocketAddress* addr, SocketAddresstLength& addrLen)
+    inline int getSockName(SocketAddress* addr, SocketAddresstLength& addrLen)
     {
         return PlatformWrapper::GetSockName(fd_, addr, &addrLen);
+    }
+
+    inline int getPeerName(SocketAddress* addr, SocketAddresstLength& addrLen)
+    {
+        return PlatformWrapper::GetPeerName(fd_, addr, &addrLen);
     }
 
     inline int setBlocking(bool blocking)

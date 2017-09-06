@@ -24,7 +24,7 @@ public:
 private:   
     virtual void setConnectionStrategy(std::shared_ptr<IIpcConnectionClientStrategy> strategy);
     virtual void connect();
-    virtual void send(const IpcMessage::IIpcMessage& msg);
+    virtual void send(IpcMessage::IIpcMessage& msg);
     virtual void disconnect();
 
 public:

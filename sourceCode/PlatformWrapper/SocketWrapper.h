@@ -218,6 +218,11 @@ inline int GetSockName(SocketHandle sockfd, SocketAddress *addr, SocketAddresstL
     return ::getsockname(sockfd, addr, addrLen);
 }
 
+inline int GetPeerName(SocketHandle sockfd, SocketAddress *addr, SocketAddresstLength *addrLen)
+{
+    return ::getpeername(sockfd, addr, addrLen);
+}
+
 int SetBlocking(SocketHandle sockfd, bool blocking);
 
 

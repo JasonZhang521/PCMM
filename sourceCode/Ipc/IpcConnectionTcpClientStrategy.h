@@ -38,7 +38,7 @@ public:
     virtual ~IpcConnectionTcpClientStrategy();
 private:
     virtual void connect();
-    virtual void send(const IpcMessage::IIpcMessage& msg);
+    virtual void send(IpcMessage::IIpcMessage& msg);
     virtual void disconnect();
     virtual void setIpcConnectionReceiver(std::shared_ptr<IIpcConnectionReceiver> receiver);
     virtual void addIpcMessageFactory(std::shared_ptr<IpcMessage::IIpcMessageFactory> factory);
