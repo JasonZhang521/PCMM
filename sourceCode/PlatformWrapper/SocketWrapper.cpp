@@ -7,6 +7,7 @@
 #endif
 
 namespace PlatformWrapper {
+
 #ifdef WIN32
 int InitSocket()
 {

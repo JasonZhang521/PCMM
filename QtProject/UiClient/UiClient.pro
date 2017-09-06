@@ -134,7 +134,8 @@ SOURCES +=../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/SystemMonitorMessage/ComputerNodeInfoReport.cpp \
     ../../sourceCode/SystemMonitorMessage/ComputerNodeInfoRequest.cpp \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoRequest.cpp \
-    ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoResponse.cpp
+    ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoResponse.cpp \
+    ../../sourceCode/PlatformWrapper/NetworkHost.cpp
 
 HEADERS += \
     ../../sourceCode/Ipc/Component.h \
@@ -254,7 +255,8 @@ HEADERS += \
     ../../sourceCode/SystemMonitorMessage/ComputerNodeInfoReport.h \
     ../../sourceCode/SystemMonitorMessage/ComputerNodeInfoRequest.h \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoRequest.h \
-    ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoResponse.h
+    ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoResponse.h \
+    ../../sourceCode/PlatformWrapper/NetworkHost.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

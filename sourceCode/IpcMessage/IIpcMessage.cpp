@@ -21,6 +21,16 @@ uint64_t IIpcMessage::getMessageId() const
     return messageId_;
 }
 
+const std::string& IIpcMessage::getHostName() const
+{
+    return hostName_;
+}
+
+void IIpcMessage::setHostName(const std::string& hostName)
+{
+    hostName_ = hostName;
+}
+
 const Network::IpSocketEndpoint& IIpcMessage::getSource() const
 {
     return source_;
@@ -43,6 +53,7 @@ void IIpcMessage::setDestnation(const Network::IpSocketEndpoint& destnation)
 void IIpcMessage::write(Serialize::WriteBuffer& writeBuffer) const
 {
     writeBuffer.write(messageId_);
+    writeBuffer.write(hostName_);
     source_.serialize(writeBuffer);
     destination_.serialize(writeBuffer);
 }
@@ -50,6 +61,7 @@ void IIpcMessage::write(Serialize::WriteBuffer& writeBuffer) const
 void IIpcMessage::read(Serialize::ReadBuffer& readBuffer)
 {
     readBuffer.read(messageId_);
+    readBuffer.read(hostName_);
     source_.unserialize(readBuffer);
     destination_.unserialize(readBuffer);
 }
@@ -58,6 +70,7 @@ void IIpcMessage::print(std::ostream& os) const
 {
     os << "["
        << "messageId=" << messageId_
+       << ", hostName=" << hostName_
        << ", source=" << source_
        << ", destination=" << destination_
        << "]";

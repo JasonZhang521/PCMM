@@ -17,6 +17,7 @@ namespace IpcMessage {
 class IIpcMessage
 {
     uint64_t messageId_;
+    std::string hostName_;
     Network::IpSocketEndpoint source_;
     Network::IpSocketEndpoint destination_;
 public:
@@ -29,6 +30,8 @@ public:
 
 public:
     uint64_t getMessageId() const;
+    const std::string& getHostName() const;
+    void setHostName(const std::string& hostName);
     const Network::IpSocketEndpoint& getSource() const;
     void setSource(const Network::IpSocketEndpoint& source);
     const Network::IpSocketEndpoint& getDestnation() const;
