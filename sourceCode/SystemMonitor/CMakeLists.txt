@@ -1,4 +1,4 @@
-aux_source_directory(. smd_SRCS)
+aux_source_directory(. ComputerNodeMonitor_SRCS)
 include_directories ("${PROJECT_SOURCE_DIR}/Environment"
                      "${PROJECT_SOURCE_DIR}/Common"
                      "${PROJECT_SOURCE_DIR}/Configure"
@@ -15,8 +15,8 @@ include_directories ("${PROJECT_SOURCE_DIR}/Environment"
                      "${PROJECT_SOURCE_DIR}/Serialize"
                      "${PROJECT_SOURCE_DIR}/Network"
 )
-add_executable(smd.elf ${smd_SRCS})
-target_link_libraries (smd.elf
+add_executable(ComputerNodeMonitor.elf ${ComputerNodeMonitor_SRCS})
+target_link_libraries (ComputerNodeMonitor.elf
 		               configure
 					   common
 					   environment
