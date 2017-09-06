@@ -26,7 +26,7 @@ INCLUDEPATH += ../../sourceCode/Serialize \
                ../../sourceCode/Io \
                ../../sourceCode/Core \
                ../../sourceCode/Connection \
-               ../../sourceCode/IoPlatformWrapper \
+               ../../sourceCode/PlatformWrapper \
                ../../sourceCode/Environment \
                ../../sourceCode/IpcMessage \
                ../../sourceCode/SystemMonitorMessage \
@@ -64,7 +64,7 @@ SOURCES +=../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/Network/TcpClient.cpp \
     ../../sourceCode/Network/TcpServer.cpp \
     ../../sourceCode/Network/TcpSocket.cpp \
-    ../../sourceCode/IoPlatformWrapper/SocketWrapper.cpp \
+    ../../sourceCode/PlatformWrapper/SocketWrapper.cpp \
     ../../sourceCode/EventHandler/EventIdGenerator.cpp \
     ../../sourceCode/EventHandler/IEvent.cpp \
     ../../sourceCode/EventHandler/IEventQueue.cpp \
@@ -122,7 +122,7 @@ SOURCES +=../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/Environment/MiscInfo.cpp \
     ../../sourceCode/Environment/NetworkInfo.cpp \
     ../../sourceCode/Environment/SystemInfoBriefly.cpp \
-    ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.cpp \
+    ../../sourceCode/PlatformWrapper/SystemErrorInfo.cpp \
     ../../sourceCode/Environment/CpuInfoDataType.cpp \
     ../../sourceCode/Environment/ShellCommandDataType.cpp \
     ../../sourceCode/Environment/ShellCommandDfOutput.cpp \
@@ -180,8 +180,8 @@ HEADERS += \
     ../../sourceCode/Network/TcpSocket.h \
     ../../sourceCode/Network/TcpState.h \
     ../../sourceCode/Network/Component.h \
-    ../../sourceCode/IoPlatformWrapper/SocketWrapper.h \
-    ../../sourceCode/IoPlatformWrapper/SocketWrapperDef.h \
+    ../../sourceCode/PlatformWrapper/SocketWrapper.h \
+    ../../sourceCode/PlatformWrapper/SocketWrapperDef.h \
     ../../sourceCode/EventHandler/Component.h \
     ../../sourceCode/EventHandler/EventIdGenerator.h \
     ../../sourceCode/EventHandler/IEvent.h \
@@ -243,7 +243,7 @@ HEADERS += \
     ../../sourceCode/Environment/MiscInfo.h \
     ../../sourceCode/Environment/NetworkInfo.h \
     ../../sourceCode/Environment/SystemInfoBriefly.h \
-    ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.h \
+    ../../sourceCode/PlatformWrapper/SystemErrorInfo.h \
     ../../sourceCode/Environment/ShellCommandDataType.h \
     ../../sourceCode/Environment/ShellCommandDfOutput.h \
     ../../sourceCode/Environment/ShellCommandOutputParse.h \
