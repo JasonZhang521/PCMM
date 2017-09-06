@@ -17,7 +17,7 @@ INCLUDEPATH += ../../sourceCode/gtest/googletest/include \
                ../../sourceCode/Common \
                ../../sourceCode/Configure \
                ../../sourceCode/TraceLog \
-               ../../sourceCode/IoPlatformWrapper
+               ../../sourceCode/PlatformWrapper
 
 
 SOURCES += \
@@ -45,9 +45,9 @@ SOURCES += \
     ../../sourceCode/Configure/ExceptionConfigure.cpp \
     ../../sourceCode/Configure/TraceLogConfigure.cpp \
     ../../sourceCode/Common/LocalTime.cpp \
-    ../../sourceCode/IoPlatformWrapper/SocketWrapper.cpp \
-    ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.cpp \
-    ../../sourceCode/IoPlatformWrapper/NetworkHost.cpp
+    ../../sourceCode/PlatformWrapper/SocketWrapper.cpp \
+    ../../sourceCode/PlatformWrapper/SystemErrorInfo.cpp \
+    ../../sourceCode/PlatformWrapper/NetworkHost.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -117,10 +117,10 @@ HEADERS += \
     ../../sourceCode/Configure/ExceptionConfigure.h \
     ../../sourceCode/Configure/TraceLogConfigure.h \
     ../../sourceCode/Common/LocalTime.h \
-    ../../sourceCode/IoPlatformWrapper/SocketWrapper.h \
-    ../../sourceCode/IoPlatformWrapper/SocketWrapperDef.h \
-    ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.h \
-    ../../sourceCode/IoPlatformWrapper/NetworkHost.h
+    ../../sourceCode/PlatformWrapper/SocketWrapper.h \
+    ../../sourceCode/PlatformWrapper/SocketWrapperDef.h \
+    ../../sourceCode/PlatformWrapper/SystemErrorInfo.h \
+    ../../sourceCode/PlatformWrapper/NetworkHost.h
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../sourceCode/static_lib/ -lssh.dll
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../sourceCode/static_lib/ -lssh.dll

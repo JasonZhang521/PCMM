@@ -51,7 +51,7 @@ SOURCES += \
     ../../sourceCode/Environment/MemoryInfo.cpp \
     ../../sourceCode/Network/NetworkEnv.cpp \
     ../../sourceCode/Environment/SystemInfoBriefly.cpp \
-    ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.cpp \
+    ../../sourceCode/PlatformWrapper/SystemErrorInfo.cpp \
     ../../sourceCode/Environment/ShellCommandProcess.cpp \
     ../../sourceCode/Environment/ShellCommandThread.cpp \
     ../../sourceCode/Environment/IShellCommand.cpp \
@@ -73,7 +73,7 @@ SOURCES += \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoRequest.cpp \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoResponse.cpp \
     ../../sourceCode/Environment/ShellCommandGenericOutput.cpp \
-    ../../sourceCode/IoPlatformWrapper/NetworkHost.cpp
+    ../../sourceCode/PlatformWrapper/NetworkHost.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -93,7 +93,7 @@ INCLUDEPATH += ../../sourceCode/Serialize \
                ../../sourceCode/Io \
                ../../sourceCode/Core \
                ../../sourceCode/Connection \
-               ../../sourceCode/IoPlatformWrapper \
+               ../../sourceCode/PlatformWrapper \
                ../../sourceCode/Environment \
                ../../sourceCode/IpcMessage \
                ../../sourceCode/SystemMonitorMessage \
@@ -130,7 +130,7 @@ SOURCES +=../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/Network/TcpClient.cpp \
     ../../sourceCode/Network/TcpServer.cpp \
     ../../sourceCode/Network/TcpSocket.cpp \
-    ../../sourceCode/IoPlatformWrapper/SocketWrapper.cpp \
+    ../../sourceCode/PlatformWrapper/SocketWrapper.cpp \
     ../../sourceCode/EventHandler/EventIdGenerator.cpp \
     ../../sourceCode/EventHandler/IEvent.cpp \
     ../../sourceCode/EventHandler/IEventQueue.cpp \
@@ -198,8 +198,8 @@ HEADERS += \
     ../../sourceCode/Network/TcpSocket.h \
     ../../sourceCode/Network/TcpState.h \
     ../../sourceCode/Network/Component.h \
-    ../../sourceCode/IoPlatformWrapper/SocketWrapper.h \
-    ../../sourceCode/IoPlatformWrapper/SocketWrapperDef.h \
+    ../../sourceCode/PlatformWrapper/SocketWrapper.h \
+    ../../sourceCode/PlatformWrapper/SocketWrapperDef.h \
     ../../sourceCode/EventHandler/Component.h \
     ../../sourceCode/EventHandler/EventIdGenerator.h \
     ../../sourceCode/EventHandler/IEvent.h \
@@ -276,7 +276,7 @@ HEADERS += \
     ../../sourceCode/Environment/MemoryInfo.h \
     ../../sourceCode/Network/NetworkEnv.h \
     ../../sourceCode/Environment/SystemInfoBriefly.h \
-    ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.h \
+    ../../sourceCode/PlatformWrapper/SystemErrorInfo.h \
     ../../sourceCode/Environment/ShellCommandProcess.h \
     ../../sourceCode/Environment/ShellCommandThread.h \
     ../../sourceCode/Environment/IShellCommand.h \
@@ -301,7 +301,7 @@ HEADERS += \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoResponse.h \
     ../../sourceCode/Common/Generic.h \
     ../../sourceCode/Environment/ShellCommandGenericOutput.h \
-    ../../sourceCode/IoPlatformWrapper/NetworkHost.h
+    ../../sourceCode/PlatformWrapper/NetworkHost.h
 
 unix {
     target.path = /usr/lib

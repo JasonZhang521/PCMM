@@ -30,7 +30,7 @@ INCLUDEPATH += ../../sourceCode/Serialize \
                ../../sourceCode/Io \
                ../../sourceCode/Core \
                ../../sourceCode/Connection \
-               ../../sourceCode/IoPlatformWrapper \
+               ../../sourceCode/PlatformWrapper \
                ../../sourceCode/Environment \
                ../../sourceCode/IpcMessage \
                ../../sourceCode/SystemMonitorMessage
@@ -69,7 +69,7 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/Network/TcpClient.cpp \
     ../../sourceCode/Network/TcpServer.cpp \
     ../../sourceCode/Network/TcpSocket.cpp \
-    ../../sourceCode/IoPlatformWrapper/SocketWrapper.cpp \
+    ../../sourceCode/PlatformWrapper/SocketWrapper.cpp \
     ../../sourceCode/EventHandler/EventIdGenerator.cpp \
     ../../sourceCode/EventHandler/IEvent.cpp \
     ../../sourceCode/EventHandler/IEventQueue.cpp \
@@ -111,7 +111,7 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/IpcMessage/IIpcComunicationMessage.cpp \
     ../../sourceCode/IpcMessage/IpcAuthorizationRequest.cpp \
     ../../sourceCode/IpcMessage/IpcAuthorizationResponse.cpp \
-    ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.cpp \
+    ../../sourceCode/PlatformWrapper/SystemErrorInfo.cpp \
     ../../sourceCode/SystemMonitorMessage/ComputerNodeInfoReport.cpp \
     ../../sourceCode/SystemMonitorMessage/ComputerNodeInfoRequest.cpp \
     ../../sourceCode/Environment/ComputerNodeInfo.cpp \
@@ -137,7 +137,7 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoRequest.cpp \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoResponse.cpp \
     ../../sourceCode/Common/Lock.cpp \
-    ../../sourceCode/IoPlatformWrapper/NetworkHost.cpp
+    ../../sourceCode/PlatformWrapper/NetworkHost.cpp
 
 HEADERS += \
     ../../sourceCode/SystemMonitor/SystemMonitorProcess.h \
@@ -184,8 +184,8 @@ HEADERS += \
     ../../sourceCode/Network/TcpSocket.h \
     ../../sourceCode/Network/TcpState.h \
     ../../sourceCode/Network/Component.h \
-    ../../sourceCode/IoPlatformWrapper/SocketWrapper.h \
-    ../../sourceCode/IoPlatformWrapper/SocketWrapperDef.h \
+    ../../sourceCode/PlatformWrapper/SocketWrapper.h \
+    ../../sourceCode/PlatformWrapper/SocketWrapperDef.h \
     ../../sourceCode/EventHandler/Component.h \
     ../../sourceCode/EventHandler/EventIdGenerator.h \
     ../../sourceCode/EventHandler/IEvent.h \
@@ -230,7 +230,7 @@ HEADERS += \
     ../../sourceCode/IpcMessage/IIpcComunicationMessage.h \
     ../../sourceCode/IpcMessage/IpcAuthorizationRequest.h \
     ../../sourceCode/IpcMessage/IpcAuthorizationResponse.h \
-    ../../sourceCode/IoPlatformWrapper/SystemErrorInfo.h \
+    ../../sourceCode/PlatformWrapper/SystemErrorInfo.h \
     ../../sourceCode/SystemMonitorMessage/ComputerNodeInfoReport.h \
     ../../sourceCode/SystemMonitorMessage/ComputerNodeInfoRequest.h \
     ../../sourceCode/Environment/ComputerNodeInfo.h \
@@ -256,7 +256,7 @@ HEADERS += \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoRequest.h \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoResponse.h \
     ../../sourceCode/Common/Lock.h \
-    ../../sourceCode/IoPlatformWrapper/NetworkHost.h
+    ../../sourceCode/PlatformWrapper/NetworkHost.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
