@@ -10,12 +10,12 @@ SocketImp::SocketImp(const SocketAddressFamily& addrFamily,
     ,type_(type)
     ,protocol_(protocol)
 {
-    int ret = IoPlatformWrapper::InitSocket();
+    int ret = PlatformWrapper::InitSocket();
     if (ret != SOCKET_SUCCESS)
     {
         TRACE_ERROR("Can not init the socket, " << getErrorInfo());
     }
-    fd_ = IoPlatformWrapper::CreateSocket(addrFamily, type, protocol);
+    fd_ = PlatformWrapper::CreateSocket(addrFamily, type, protocol);
 }
 
 SocketImp::SocketImp(const SocketAddressFamily& addrFamily,
@@ -35,8 +35,8 @@ SocketImp::~SocketImp()
 
 std::string SocketImp::getErrorInfo()
 {
-    const int Errno = IoPlatformWrapper::GetLastErrorNo();
-    const std::string ErrorInfo = IoPlatformWrapper::GetErrorMessageFromErrorCode(Errno);
+    const int Errno = PlatformWrapper::GetLastErrorNo();
+    const std::string ErrorInfo = PlatformWrapper::GetErrorMessageFromErrorCode(Errno);
     std::stringstream ss;
     ss << "errno = " << Errno << ", errorInfo = " << ErrorInfo;
     return ss.str();
@@ -44,7 +44,7 @@ std::string SocketImp::getErrorInfo()
 
 int SocketImp::getErrorNo()
 {
-    return IoPlatformWrapper::GetLastErrorNo();
+    return PlatformWrapper::GetLastErrorNo();
 }
 
 }

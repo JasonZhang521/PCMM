@@ -31,7 +31,7 @@ void ShellCommandProcess::execute()
 #ifndef WIN32
     if ((pid_ = fork()) < 0)
     {
-        TRACE_ERROR("fork failed: " << IoPlatformWrapper::GetLastErrorMessage() << std::endl);
+        TRACE_ERROR("fork failed: " << PlatformWrapper::GetLastErrorMessage() << std::endl);
     }
     // Child process
     else if (pid_ == 0)

@@ -39,7 +39,7 @@ public:
 
     inline int init()
     {
-        int ret = IoPlatformWrapper::InitSocket();
+        int ret = PlatformWrapper::InitSocket();
         if ( ret != SOCKET_SUCCESS)
         {
             return ret;
@@ -64,76 +64,76 @@ public:
 
     inline int bind(const SocketAddress* localAddress, SocketAddresstLength addrLen) const
     {
-        return IoPlatformWrapper::Bind(fd_, localAddress, addrLen);
+        return PlatformWrapper::Bind(fd_, localAddress, addrLen);
     }
 
     inline int connect(const SocketAddress* remoteAddress, SocketAddresstLength addrLen) const
     {
-        return IoPlatformWrapper::Connect(fd_, remoteAddress, addrLen);
+        return PlatformWrapper::Connect(fd_, remoteAddress, addrLen);
     }
 
     inline int close()
     {
-        return IoPlatformWrapper::Close(fd_);
+        return PlatformWrapper::Close(fd_);
     }
 
     inline int shutdown(SocketShutDownFlag how) const
     {
-        return IoPlatformWrapper::Shutdown(fd_, how);
+        return PlatformWrapper::Shutdown(fd_, how);
     }
 
     inline int accept(SocketAddress* clientAddr, SocketAddresstLength* addrLen, SocketFlag flags) const
     {
-        return IoPlatformWrapper::Accept(fd_, clientAddr, addrLen, flags);
+        return PlatformWrapper::Accept(fd_, clientAddr, addrLen, flags);
     }
 
     inline int listen(int backlog) const
     {
-        return IoPlatformWrapper::Listen(fd_, backlog);
+        return PlatformWrapper::Listen(fd_, backlog);
     }
 
     inline int recv(SocketDataBuffer buf, SocketDataBufferSize bufLen, SocketFlag flags) const
     {
-        return IoPlatformWrapper::Recv(fd_, buf, bufLen, flags);
+        return PlatformWrapper::Recv(fd_, buf, bufLen, flags);
     }
 
     inline int recvFrom(SocketDataBuffer buf, SocketDataBufferSize bufLen, SocketFlag flags,
                  SocketAddress* srcAddr, SocketAddresstLength& addrLen) const
     {
-        return IoPlatformWrapper::RecvFrom(fd_, buf, bufLen, flags, srcAddr, &addrLen);
+        return PlatformWrapper::RecvFrom(fd_, buf, bufLen, flags, srcAddr, &addrLen);
     }
 
     inline int send(const SocketDataBuffer buf, SocketDataBufferSize bufLen, SocketFlag flags) const
     {
-        return IoPlatformWrapper::Send(fd_, buf, bufLen, flags);
+        return PlatformWrapper::Send(fd_, buf, bufLen, flags);
     }
 
     inline int sendTo(const SocketDataBuffer buf, SocketDataBufferSize bufLen, SocketFlag flags,
                const SocketAddress* destAddr, SocketAddresstLength addrLen) const
     {
-        return IoPlatformWrapper::SendTo(fd_, buf, bufLen, flags, destAddr, addrLen);
+        return PlatformWrapper::SendTo(fd_, buf, bufLen, flags, destAddr, addrLen);
     }
 
     inline int setSockOpt(SocketOptLevel level, SocketOptName optname,
                           const SocketOptVal optval, SocketOptLength optlen)
     {
-        return IoPlatformWrapper::SetSockOpt(fd_, level, optname, optval, optlen);
+        return PlatformWrapper::SetSockOpt(fd_, level, optname, optval, optlen);
     }
 
     inline int getSockOpt(SocketOptLevel level, SocketOptName optname,
                           SocketOptVal optval, SocketOptLength* optlen)
     {
-        return IoPlatformWrapper::GetSockOpt(fd_, level, optname, optval, optlen);
+        return PlatformWrapper::GetSockOpt(fd_, level, optname, optval, optlen);
     }
 
     inline int getsockname(SocketAddress* addr, SocketAddresstLength& addrLen)
     {
-        return IoPlatformWrapper::GetSockName(fd_, addr, &addrLen);
+        return PlatformWrapper::GetSockName(fd_, addr, &addrLen);
     }
 
     inline int setBlocking(bool blocking)
     {
-        return IoPlatformWrapper::SetBlocking(fd_, blocking);
+        return PlatformWrapper::SetBlocking(fd_, blocking);
     }
 
     inline std::string toString() const

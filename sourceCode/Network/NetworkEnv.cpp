@@ -10,7 +10,7 @@ IpAddresses NetworkEnv::getLocalIpAddress()
 {
     IpAddresses addresses;
 
-    if (SOCKET_SUCCESS != IoPlatformWrapper::InitSocket())
+    if (SOCKET_SUCCESS != PlatformWrapper::InitSocket())
     {
         return addresses;
     }
@@ -27,18 +27,18 @@ IpAddresses NetworkEnv::getLocalIpAddress()
 std::string NetworkEnv::getHostName()
 {
     std::string hostname;
-    IoPlatformWrapper::GetHostName(hostname);
+    PlatformWrapper::GetHostName(hostname);
     return hostname;
 }
 void NetworkEnv::getIpAddressFromHostName(IpAddresses& addresses)
 {
     std::string hostname;
-    if (IoPlatformWrapper::GetHostName(hostname))
+    if (PlatformWrapper::GetHostName(hostname))
     {
         return;
     }
 
-    SocketHostent* hostent = IoPlatformWrapper::GetHostByName(hostname);
+    SocketHostent* hostent = PlatformWrapper::GetHostByName(hostname);
     if (nullptr == hostent)
     {
         return;
@@ -57,7 +57,7 @@ void NetworkEnv::getIpAddressFromIf(IpAddresses& addresses)
 #ifndef WIN32
     SocketIfAddress address = nullptr;
     SocketIfAddress it = nullptr;
-    IoPlatformWrapper::GetIfAddrs(&address);
+    PlatformWrapper::GetIfAddrs(&address);
     it = address;
     while (it != nullptr)
     {

@@ -175,7 +175,7 @@ void CpuUsageInfo::serialize(Serialize::WriteBuffer& writeBuffer) const
         writeBuffer.write<uint8_t>(static_cast<uint8_t>(entry.getNiceUsage()));
         writeBuffer.write<uint8_t>(static_cast<uint8_t>(entry.getSysUsage()));
         writeBuffer.write<uint8_t>(static_cast<uint8_t>(entry.getIntrUsage()));
-        writeBuffer.write<unsigned int>(IoPlatformWrapper::Hton32(entry.getTotalTime()));
+        writeBuffer.write<unsigned int>(PlatformWrapper::Hton32(entry.getTotalTime()));
     }
 }
 
@@ -221,7 +221,7 @@ void CpuUsageInfo::unserialize(Serialize::ReadBuffer& readBuffer)
 
         uint32_t totalTime = 0;
         readBuffer.read<unsigned int>(totalTime);
-        totalTime = IoPlatformWrapper::Ntoh32(totalTime);
+        totalTime = PlatformWrapper::Ntoh32(totalTime);
         cpuUsageEntrys_[i].setTotalTime(totalTime);
     }
 }

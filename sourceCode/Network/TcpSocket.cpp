@@ -42,7 +42,7 @@ int TcpSocket::bind() const
     if (IPFamilyType::IPFamilyV4 == localEndpoint_.getIpFamilyType())
     {
         SocketAddressIn address = localEndpoint_.getSocketAddressIpv4();
-        address.sin_port = IoPlatformWrapper::Htons(address.sin_port);
+        address.sin_port = PlatformWrapper::Htons(address.sin_port);
         return SocketImp::bind(reinterpret_cast<const SocketAddress*>(&address), sizeof(SocketAddress));
     }
     else if(IPFamilyType::IPFamilyV6 == localEndpoint_.getIpFamilyType())
@@ -63,7 +63,7 @@ int TcpSocket::connect() const
     if (IPFamilyType::IPFamilyV4 == remoteEndpoint_.getIpFamilyType())
     {
         SocketAddressIn address = remoteEndpoint_.getSocketAddressIpv4();
-        address.sin_port = IoPlatformWrapper::Htons(address.sin_port);
+        address.sin_port = PlatformWrapper::Htons(address.sin_port);
         return SocketImp::connect(reinterpret_cast<const SocketAddress*>(&address), sizeof(SocketAddress));
     }
     else if(IPFamilyType::IPFamilyV6 == remoteEndpoint_.getIpFamilyType())
@@ -87,8 +87,8 @@ int TcpSocket::accept(IpSocketEndpoint& remoteEndPoint, SocketFlag flags) const
         SocketAddress address;
 
         int fd = SocketImp::accept(&address, &len, flags);
-        const unsigned short port = IoPlatformWrapper::Ntohs(IoPlatformWrapper::SocketAddressToAddressIn(address).sin_port);
-        remoteEndPoint = IpSocketEndpoint(IpAddress(IoPlatformWrapper::getInetAddressFromSocketAddress(address)), IpPort(port));
+        const unsigned short port = PlatformWrapper::Ntohs(PlatformWrapper::SocketAddressToAddressIn(address).sin_port);
+        remoteEndPoint = IpSocketEndpoint(IpAddress(PlatformWrapper::getInetAddressFromSocketAddress(address)), IpPort(port));
         TRACE_DEBUG("accepted: fd = " << fd << ", remoteEndPoint = " << remoteEndPoint);
         return fd;
     }
@@ -97,8 +97,8 @@ int TcpSocket::accept(IpSocketEndpoint& remoteEndPoint, SocketFlag flags) const
         SocketAddress address;
         SocketAddresstLength len = sizeof(SocketAddress);
         int fd = SocketImp::accept(&address, &len, flags);
-        remoteEndPoint = IpSocketEndpoint(IpAddress(IoPlatformWrapper::getInet6AddressFromSocketAddress(address)),
-                                          IpPort(IoPlatformWrapper::SocketAddressToAddressIn6(address).sin6_port));
+        remoteEndPoint = IpSocketEndpoint(IpAddress(PlatformWrapper::getInet6AddressFromSocketAddress(address)),
+                                          IpPort(PlatformWrapper::SocketAddressToAddressIn6(address).sin6_port));
         return fd;
     }
     else

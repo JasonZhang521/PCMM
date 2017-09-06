@@ -7,7 +7,7 @@
 #include <arpa/inet.h>
 #endif
 
-namespace IoPlatformWrapper {
+namespace PlatformWrapper {
 
 enum ByteOrder
 {

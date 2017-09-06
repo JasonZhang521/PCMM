@@ -51,13 +51,13 @@ bool IpPort::operator<(const IpPort& that) const
 
 void IpPort::serialize(Serialize::WriteBuffer& writeBuffer) const
 {
-    writeBuffer.write<unsigned short>(IoPlatformWrapper::Htons(port_));
+    writeBuffer.write<unsigned short>(PlatformWrapper::Htons(port_));
 }
 
 void IpPort::unserialize(Serialize::ReadBuffer& readBuffer)
 {
     readBuffer.read<unsigned short>(port_);
-    port_ = IoPlatformWrapper::Ntohs(port_);
+    port_ = PlatformWrapper::Ntohs(port_);
 }
 
 std::string IpPort::toString() const

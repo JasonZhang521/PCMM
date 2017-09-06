@@ -12,7 +12,7 @@
 #include <netdb.h>
 #endif
 
-namespace IoPlatformWrapper {
+namespace PlatformWrapper {
 
 // Ip address handling
 inline SocketAddressIn& SocketAddressToAddressIn(SocketAddress& address)

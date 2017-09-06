@@ -30,7 +30,7 @@ public:
             return false;
         }
         val = BufferToData::Read<T>(buffer_ + pos_);
-        val = IoPlatformWrapper::N2H(val);
+        val = PlatformWrapper::N2H(val);
         pos_ += sizeof(T);
         return true;
     }

@@ -6,7 +6,7 @@ include_directories ("${PROJECT_SOURCE_DIR}/SystemMonitorMessage"
 "${PROJECT_SOURCE_DIR}/IpcMessage"
 "${PROJECT_SOURCE_DIR}/Network"
 "${PROJECT_SOURCE_DIR}/Serialize"
-"${PROJECT_SOURCE_DIR}/IoPlatformWrapper"
+"${PROJECT_SOURCE_DIR}/PlatformWrapper"
 "${PROJECT_SOURCE_DIR}/Environment"
 )
 add_executable(SystemMonitorMessage_unittest.elf ${SystemMonitorMessage_Unittest_SRCS})

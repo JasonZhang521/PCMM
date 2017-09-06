@@ -4,7 +4,7 @@ include_directories ("${PROJECT_SOURCE_DIR}/TraceLog"
 "${PROJECT_SOURCE_DIR}/Common"
 "${PROJECT_SOURCE_DIR}/Configure"
 "${PROJECT_SOURCE_DIR}/EventHandler"
-"${PROJECT_SOURCE_DIR}/IoPlatformWrapper"
+"${PROJECT_SOURCE_DIR}/PlatformWrapper"
 )
 
 add_library(io  ${io_SRCS})

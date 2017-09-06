@@ -5,7 +5,7 @@
 #ifdef WIN32
 #include <winsock2.h>
 #endif
-namespace IoPlatformWrapper {
+namespace PlatformWrapper {
 
 #ifdef WIN32
 inline int GetLastErrorNo()

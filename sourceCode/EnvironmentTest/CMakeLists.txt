@@ -5,7 +5,7 @@ include_directories ("${PROJECT_SOURCE_DIR}/Environment"
 "${PROJECT_SOURCE_DIR}/Serialize"
 "${PROJECT_SOURCE_DIR}/Network"
 "${PROJECT_SOURCE_DIR}/TimerHandler"
-"${PROJECT_SOURCE_DIR}/IoPlatformWrapper"
+"${PROJECT_SOURCE_DIR}/PlatformWrapper"
 "${PROJECT_SOURCE_DIR}/Core"
 "${PROJECT_SOURCE_DIR}/Io"
 )
@@ -16,5 +16,5 @@ target_link_libraries (Environment_unittest.elf
 		environment
 		serialize
 		network
-	    ioplatformwrapper	
+	    platformwrapper	
 		${TEST_LIBs})

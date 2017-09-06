@@ -10,16 +10,16 @@ namespace Io {
 
 IoControlEventsHandler::IoControlEventsHandler()
 {
-    IoPlatformWrapper::FdZero(&readFds_);
-    IoPlatformWrapper::FdZero(&writeFds_);
-    IoPlatformWrapper::FdZero(&exceptFds_);
+    PlatformWrapper::FdZero(&readFds_);
+    PlatformWrapper::FdZero(&writeFds_);
+    PlatformWrapper::FdZero(&exceptFds_);
 }
 
 IoControlEventsHandler::~IoControlEventsHandler()
 {
-    IoPlatformWrapper::FdZero(&readFds_);
-    IoPlatformWrapper::FdZero(&writeFds_);
-    IoPlatformWrapper::FdZero(&exceptFds_);
+    PlatformWrapper::FdZero(&readFds_);
+    PlatformWrapper::FdZero(&writeFds_);
+    PlatformWrapper::FdZero(&exceptFds_);
 }
 
 void IoControlEventsHandler::registerIoFd(IoFdType type, IIoEvent* event)
@@ -105,7 +105,7 @@ void IoControlEventsHandler::run()
     SocketTimeVal timeout;
     timeout.tv_sec = 0;
     timeout.tv_usec = 500;
-    IoPlatformWrapper::Select(maxFdNum, &readFds_, &writeFds_, &exceptFds_, &timeout);
+    PlatformWrapper::Select(maxFdNum, &readFds_, &writeFds_, &exceptFds_, &timeout);
 
     for (; rit != fdEventMap_.rend(); ++rit)
     {
@@ -113,17 +113,17 @@ void IoControlEventsHandler::run()
         IIoEvent* event = rit->second.fdEvent;
         uint32_t fdType = rit->second.fdType;
 
-        if (fdType & IoFdType::IoFdRead && IoPlatformWrapper::FdIsSet(fd, &readFds_))
+        if (fdType & IoFdType::IoFdRead && PlatformWrapper::FdIsSet(fd, &readFds_))
         {
             event->run(EventHandler::EventFlag::Event_IoRead);
         }
 
-        if (fdType & IoFdType::IoFdWrite && IoPlatformWrapper::FdIsSet(fd, &writeFds_))
+        if (fdType & IoFdType::IoFdWrite && PlatformWrapper::FdIsSet(fd, &writeFds_))
         {
             event->run(EventHandler::EventFlag::Event_IoWrite);
         }
 
-        if (fdType & IoFdType::IoFdExcept && IoPlatformWrapper::FdIsSet(fd, &exceptFds_))
+        if (fdType & IoFdType::IoFdExcept && PlatformWrapper::FdIsSet(fd, &exceptFds_))
         {
             event->run(EventHandler::EventFlag::Event_IoExcept);
         }
@@ -151,17 +151,17 @@ void IoControlEventsHandler::addToFdSet(int fd, uint32_t type)
 {
     if (type & IoFdType::IoFdRead)
     {
-        IoPlatformWrapper::FdSet(fd, &readFds_);
+        PlatformWrapper::FdSet(fd, &readFds_);
     }
 
     if(type & IoFdType::IoFdWrite)
     {
-        IoPlatformWrapper::FdSet(fd, &writeFds_);
+        PlatformWrapper::FdSet(fd, &writeFds_);
     }
 
     if (type & IoFdType::IoFdExcept)
     {
-        IoPlatformWrapper::FdSet(fd, &exceptFds_);
+        PlatformWrapper::FdSet(fd, &exceptFds_);
     }
 }
 
@@ -169,17 +169,17 @@ void IoControlEventsHandler::clearFdSet(uint32_t type)
 {
     if (type & IoFdType::IoFdRead)
     {
-        IoPlatformWrapper::FdZero(&readFds_);
+        PlatformWrapper::FdZero(&readFds_);
     }
 
     if(type & IoFdType::IoFdWrite)
     {
-        IoPlatformWrapper::FdZero(&writeFds_);
+        PlatformWrapper::FdZero(&writeFds_);
     }
 
     if (type & IoFdType::IoFdExcept)
     {
-        IoPlatformWrapper::FdZero(&exceptFds_);
+        PlatformWrapper::FdZero(&exceptFds_);
     }
 }
 
@@ -192,17 +192,17 @@ void IoControlEventsHandler::removeFromFdSet(int fd, uint32_t type)
 {
     if (type & IoFdType::IoFdRead)
     {
-        IoPlatformWrapper::FdClear(fd, &readFds_);
+        PlatformWrapper::FdClear(fd, &readFds_);
     }
 
     if(type & IoFdType::IoFdWrite)
     {
-        IoPlatformWrapper::FdClear(fd, &writeFds_);
+        PlatformWrapper::FdClear(fd, &writeFds_);
     }
 
     if (type & IoFdType::IoFdExcept)
     {
-        IoPlatformWrapper::FdClear(fd, &exceptFds_);
+        PlatformWrapper::FdClear(fd, &exceptFds_);
     }
 }
 

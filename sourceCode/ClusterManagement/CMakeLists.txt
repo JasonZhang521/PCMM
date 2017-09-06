@@ -6,7 +6,7 @@ include_directories ("${PROJECT_SOURCE_DIR}/Environment"
                      "${PROJECT_SOURCE_DIR}/IpcMessage"
                      "${PROJECT_SOURCE_DIR}/Network"
                      "${PROJECT_SOURCE_DIR}/Io"
-					 "${PROJECT_SOURCE_DIR}/IoPlatformWrapper"
+					 "${PROJECT_SOURCE_DIR}/PlatformWrapper"
                      "${PROJECT_SOURCE_DIR}/Core"
                      "${PROJECT_SOURCE_DIR}/SystemMonitorMessage"
                      "${PROJECT_SOURCE_DIR}/EventHandler"
@@ -24,7 +24,7 @@ target_link_libraries (ClusterNodesControl.elf
 					   ipcmessage
 					   network
 					   io
-					   ioplatformwrapper
+					   platformwrapper
 					   core
 					   systemmonitormessage
 					   eventhandler

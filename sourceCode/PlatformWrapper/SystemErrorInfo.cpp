@@ -1,6 +1,6 @@
 #include "SystemErrorInfo.h"
 
-namespace IoPlatformWrapper {
+namespace PlatformWrapper {
 #ifdef WIN32
 std::string GetLastErrorMessage()
 {

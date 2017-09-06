@@ -39,7 +39,7 @@ CpuInfoBriefly& CpuInfoBriefly::operator =(const CpuInfoBriefly& info)
 
 void CpuInfoBriefly::serialize(Serialize::WriteBuffer& writeBuffer) const
 {
-    writeBuffer.write(IoPlatformWrapper::Htons(numOfCpu_));
+    writeBuffer.write(PlatformWrapper::Htons(numOfCpu_));
     writeBuffer.write(static_cast<uint8_t>(modelName_.size()));
     writeBuffer.write(modelName_.c_str(), modelName_.size());
 
@@ -54,7 +54,7 @@ void CpuInfoBriefly::unserialize(Serialize::ReadBuffer& readBuffer)
 {
     unsigned short temp = 0;
     readBuffer.read(temp);
-    numOfCpu_ = IoPlatformWrapper::Ntohs(temp);
+    numOfCpu_ = PlatformWrapper::Ntohs(temp);
     char buffer[256];
     std::fill(buffer, buffer + 256, 0);
     uint8_t len = 0;

@@ -1,6 +1,6 @@
 #include "NetworkHost.h"
 
-namespace IoPlatformWrapper {
+namespace PlatformWrapper {
 
 ByteOrder CheckByteOrder()
 {

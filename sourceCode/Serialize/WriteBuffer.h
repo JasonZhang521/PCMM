@@ -26,7 +26,7 @@ public:
         {
             resizeBuffer(sizeof(T));
         }
-        T v = IoPlatformWrapper::H2N(val);
+        T v = PlatformWrapper::H2N(val);
         DataToBuffer::Write<T>(buffer_ + pos_, v);
         pos_ += sizeof(T);
         dataSize_ += sizeof(T);
