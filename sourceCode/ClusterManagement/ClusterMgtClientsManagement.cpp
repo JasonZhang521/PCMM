@@ -72,14 +72,14 @@ void ClusterMgtClientsManagment::handleMessage(IpcMessage::IIpcMessage& msg, Cli
             {
                 return;
             }
-            const std::string invalidDest("Invalid_IpAddress:0");
+
             const std::string dest = msg.getDestnation().toString();
             TRACE_DEBUG("destination:" << dest);
-            if (dest == invalidDest)
+            if (msg.getDestnation() == Network::IpSocketEndpoint::BroadCastAddress)
             {
                 broadcastMsg(msg);
             }
-            else
+            else if (msg.getDestnation().isValid())
             {
                 IpcClientsMap::iterator it = clients_.find(dest);
                 forwardIpcMessage(dest, msg);

@@ -56,6 +56,9 @@ private:
     virtual std::ostream& operator<< (std::ostream& os) const;
     virtual int getIoHandle();
 
+    virtual IpSocketEndpoint getRemoteEndpoint() const;
+    virtual IpSocketEndpoint getLocalEndpoint() const;
+
 public:
      GETCLASSNAME(TcpClient)
 };

@@ -4,6 +4,7 @@
 namespace Network {
 
 const IpSocketEndpoint IpSocketEndpoint::Null;
+const IpSocketEndpoint IpSocketEndpoint::BroadCastAddress("0.0.0.0:0");
 
 IpSocketEndpoint::IpSocketEndpoint()
 {
@@ -195,6 +196,11 @@ std::ostream& IpSocketEndpoint::operator<<(std::ostream& os) const
 {
     os << toString();
     return os;
+}
+
+bool IpSocketEndpoint::isValid() const
+{
+    return (operator !=(Null));
 }
 
 } // out of namespace

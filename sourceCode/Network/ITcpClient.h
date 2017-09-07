@@ -26,6 +26,8 @@ public:
     virtual TcpResult cleanup() = 0;
     virtual TcpResult restart() = 0;
     virtual void setConnectionReceiver(std::shared_ptr<ITcpConnectionReceiver> receiver) = 0;
+    virtual IpSocketEndpoint getRemoteEndpoint() const = 0;
+    virtual IpSocketEndpoint getLocalEndpoint() const = 0;
 };
 
 }

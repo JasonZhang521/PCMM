@@ -56,8 +56,9 @@ void SystemMonitorHandler::reportSystemInfo()
     {
         Environment::SystemInfoBriefly info;
         info.update();
-        SystemMonitorMessage::ComputerNodeInfoReport message(Environment::CpuUsageInfo(Environment::CpuUsage::instance().getCpuUsageEntrys()),
-                                                             info);
+        SystemMonitorMessage::ComputerNodeInfoReport
+                message(Environment::CpuUsageInfo(Environment::CpuUsage::instance().getCpuUsageEntrys()), info);
+        message.setDestnation(Network::IpSocketEndpoint::BroadCastAddress);
         TRACE_DEBUG("report system information:" << message);
         ipcClient_->send(message);
     }

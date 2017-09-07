@@ -8,7 +8,8 @@ namespace IpcMessage {
 
 
 IIpcMessage::IIpcMessage()
-    :messageId_(IpcMessageIdGenerator::generateIpcMessageId())
+    : messageId_(IpcMessageIdGenerator::generateIpcMessageId())
+    , hostName_(PlatformWrapper::GetHostName())
 {
 }
 

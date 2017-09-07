@@ -41,12 +41,15 @@ public:
 
     std::ostream& operator<<(std::ostream& os) const;
 
+    bool isValid() const;
+
 private:
     void parse(const std::string& ipAndPort);
     void parseIpAndPortV4(const std::string& ipAndPort);
 
 public:
     static const IpSocketEndpoint Null;
+    static const IpSocketEndpoint BroadCastAddress;
 };
 
 inline std::ostream& operator<<(std::ostream& os, const Network::IpSocketEndpoint& ipSocketEndpoint)
@@ -54,12 +57,12 @@ inline std::ostream& operator<<(std::ostream& os, const Network::IpSocketEndpoin
     return ipSocketEndpoint.operator<<(os);
 }
 }
-
+/*
 inline bool operator==(const Network::IpSocketEndpoint& thisSocketEndpoint, const Network::IpSocketEndpoint& thatSocketEndpoint)
 {
     return thisSocketEndpoint.operator ==(thatSocketEndpoint);
 }
-
+*/
 inline bool operator!=(const Network::IpSocketEndpoint& thisSocketEndpoint, const Network::IpSocketEndpoint& thatSocketEndpoint)
 {
     return thisSocketEndpoint.operator !=(thatSocketEndpoint);

@@ -52,6 +52,16 @@ void IpcConnectionTcpClientStrategy::connect()
 void IpcConnectionTcpClientStrategy::send(IpcMessage::IIpcMessage& msg)
 {
     TRACE_ENTER();
+    if (!msg.getSource().isValid())
+    {
+        msg.setSource(client_->getLocalEndpoint());
+    }
+
+    if (!msg.getDestnation().isValid())
+    {
+        msg.setDestnation(client_->getRemoteEndpoint());
+    }
+
     Serialize::WriteBuffer writeBuffer;
     msg.serialize(writeBuffer);
     TRACE_NOTICE("send msg:" << writeBuffer);

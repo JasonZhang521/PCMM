@@ -278,6 +278,22 @@ int TcpClient::getIoHandle()
     return socket_->getFd();
 }
 
+IpSocketEndpoint TcpClient::getRemoteEndpoint() const
+{
+    SocketAddress addr;
+    SocketAddresstLength len = sizeof(SocketAddress);
+    socket_->getPeerName(&addr, len);
+    return IpSocketEndpoint(addr);
+}
+
+IpSocketEndpoint TcpClient::getLocalEndpoint() const
+{
+    SocketAddress addr;
+    SocketAddresstLength len = sizeof(SocketAddress);
+    socket_->getSockName(&addr, len);
+    return IpSocketEndpoint(addr);
+}
+
 void TcpClient::setConnectionReceiver(std::shared_ptr<ITcpConnectionReceiver> receiver)
 {
     TRACE_ENTER();

@@ -225,9 +225,14 @@ inline int GetPeerName(SocketHandle sockfd, SocketAddress *addr, SocketAddresstL
 
 int SetBlocking(SocketHandle sockfd, bool blocking);
 
-
-
 int GetHostName(std::string& hostname);
+
+inline std::string GetHostName()
+{
+    std::string hostName;
+    GetHostName(hostName);
+    return hostName;
+}
 
 inline SocketHostent* GetHostByName(const std::string& hostname)
 {
