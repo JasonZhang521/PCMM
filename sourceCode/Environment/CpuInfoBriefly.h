@@ -44,6 +44,7 @@ private:
     void updateCpuTempratureFromProc();
     void updateCpuTempratureFromThermal();
     void updateCpuTempratureFromHwmon();
+    void updateCpuTempratureFromVirtualHwmon();
     void updateCpuTemprature1(const std::string& tempFile);
 
 public:

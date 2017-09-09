@@ -118,6 +118,12 @@ void CpuInfoBriefly::updateCpuTemprature()
 {
     temprature_ = 0;
     updateCpuTempratureFromHwmon();
+
+    if (temprature_ == 0)
+    {
+        updateCpuTempratureFromVirtualHwmon();
+    }
+
     if (temprature_ == 0)
     {
         updateCpuTempratureFromThermal();
@@ -176,9 +182,15 @@ void CpuInfoBriefly::updateCpuTempratureFromThermal()
     updateCpuTemprature1(tempFile);
 }
 
-void CpuInfoBriefly::updateCpuTempratureFromHwmon()
+void CpuInfoBriefly::updateCpuTempratureFromVirtualHwmon()
 {
     const std::string tempFile("/sys/devices/virtual/hwmon/hwmon0/temp1_input");
+    updateCpuTemprature1(tempFile);
+}
+
+void CpuInfoBriefly::updateCpuTempratureFromHwmon()
+{
+    const std::string tempFile("/sys/class/hwmon/hwmon0/device/temp1_input");
     updateCpuTemprature1(tempFile);
 }
 
