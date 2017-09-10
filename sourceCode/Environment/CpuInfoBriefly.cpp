@@ -112,6 +112,7 @@ void CpuInfoBriefly::updateCpuInfoBriefly()
 void CpuInfoBriefly::update()
 {
     updateCpuInfoBriefly();
+	updateCpuTemprature();
 }
 
 void CpuInfoBriefly::updateCpuTemprature()
