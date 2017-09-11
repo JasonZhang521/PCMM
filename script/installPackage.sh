@@ -23,7 +23,7 @@ initInstallDir()
 
 help()
 {
-    echo "-n address, server address, for example: -n 192.168.1.135"
+    echo "-a address, server address, for example: -a 192.168.1.135"
     echo "-p path, package path, for example: -p /home/user/pcmm.tar.gz"
     echo "-t type, image type, type = [server, client],  for example: -t server"
 }
@@ -38,25 +38,23 @@ parseArgument()
         help
         exit 1
     fi
-    HelpOpt=($(echo "$ArgumentList" | grep " -h"))
+    HelpOpt=`echo "$ArgumentList" | grep "\-h"`
     if [ "$HelpOpt" == "" ]; then
-        ServerIpAddressOpt=($(echo "$ArgumentList" | grep "-n ")) 
-echo "$ArgumentList!"
-        echo "$ServerIpAddressOpt __________"
+        ServerIpAddressOpt=`echo "$ArgumentList" | grep "\-a"` 
         if [ "$ServerIpAddressOpt" = "" ]; then
             echo "should have server Ip address, usage as following:"
             help
             exit 1
         fi
 
-        PackagePathOpt=($(echo $ArgumentList | grep "-p ")) 
+        PackagePathOpt=`echo $ArgumentList | grep "\-p"`
         if [ "$PackagePathOpt" == "" ]; then
             echo "should have package path, usage as following:"
             help
             exit 1
         fi
 
-        ImageTypeOpt=($(echo $ArgumentList | grep "-t "))
+        ImageTypeOpt=`echo $ArgumentList | grep "\-t"`
         if [ "$ImageTypeOpt" == "" ]; then
             echo "should have image type, usage as following:"
             help
@@ -64,14 +62,22 @@ echo "$ArgumentList!"
         fi
     fi
 
-    while getopts "n:p:t:h" arg
+    while getopts "a:p:t:h" arg
     do
         case $arg in
-            n)
+            a)
                 ServerIpAddress=$OPTARG
+				if [ "$ServerIpAddress" == "" ]; then
+					echo "should have Ip address after -a"
+				    exit 1
+			    fi
                 ;;
             p)
                 PackagePath=$OPTARG
+                if [ "$PackagePath" == "" ]; then
+					echo "should have package path after -p"
+				    exit 1
+				fi
                 if [ ! -f "$PackagePath"]; then
                     echo "package $PackagePath is not exsisted!"
                     exit 1
@@ -95,5 +101,4 @@ echo "$ArgumentList!"
             esac
     done
 }
-
 parseArgument $@
