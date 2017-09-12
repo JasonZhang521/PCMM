@@ -67,17 +67,19 @@ parseArgument()
         case $arg in
             a)
                 ServerIpAddress=$OPTARG
-				if [ "$ServerIpAddress" == "" ]; then
-					echo "should have Ip address after -a"
-				    exit 1
-			    fi
+echo "<address:$ServerIpAddress>"
+                if [ "$ServerIpAddress" == "" ]; then
+                    echo "should have Ip address after -a"
+                    exit 1
+                fi
                 ;;
             p)
                 PackagePath=$OPTARG
+echo "<package:$PackagePath>"
                 if [ "$PackagePath" == "" ]; then
-					echo "should have package path after -p"
-				    exit 1
-				fi
+                    echo "should have package path after -p"
+                    exit 1
+                fi
                 if [ ! -f "$PackagePath"]; then
                     echo "package $PackagePath is not exsisted!"
                     exit 1
@@ -85,6 +87,7 @@ parseArgument()
                 ;;
             t)
                 ImageType=$OPTARG
+echo "<imageType:$ImageType>"
                 if [ "$ImageType" != "server" ] && [ "$ImageType" != "client" ]; then
                     echo "image type error,  only support 'server' or 'client'!"
                     exit 1

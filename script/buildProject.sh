@@ -1,3 +1,4 @@
 #!/bin/sh
-$HOME/GitHub/PCMM/script/generatedMakefile.sh
-$HOME/GitHub/PCMM/script/compileProject.sh
+ProjectDir=`echo $(cd "$(dirname "$0")/.."; pwd)`
+$ProjectDir/script/generatedMakefile.sh
+$ProjectDir/script/compileProject.sh
