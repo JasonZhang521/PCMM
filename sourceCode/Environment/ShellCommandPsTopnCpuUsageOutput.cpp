@@ -42,9 +42,10 @@ std::ostream& ShellCommandPsTopnCpuUsageOutput::operator << (std::ostream& os) c
 {
     os << "["
        << "user=" << user_
+	   << ", uid=" << uid_
        << ", command=" << command_
        << ", pid=" << pid_
-       << ", percentage" << percentage_
+       << ", percentage=" << percentage_
        << "]";
     return os;
 }

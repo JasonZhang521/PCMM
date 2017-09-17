@@ -43,7 +43,7 @@ public:
         std::string DataStr;
         if (pos != std::string::npos)
         {
-            DataStr = str.substr(0, pos - 1);
+            DataStr = str.substr(0, pos);
             str = str.substr(pos, str.size() - pos);
         }
         else

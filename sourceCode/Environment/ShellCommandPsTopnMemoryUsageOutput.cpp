@@ -42,9 +42,10 @@ std::ostream& ShellCommandPsTopnMemoryUsageOutput::operator << (std::ostream& os
 {
     os << "["
        << "user=" << user_
+	   << ", uid=" << uid_
        << ", command=" << command_
        << ", pid=" << pid_
-       << ", size" << size_
+       << ", size=" << size_
        << "]";
     return os;
 }
