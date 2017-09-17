@@ -28,19 +28,29 @@ public:
     template<typename T>
     static T getFirstDataFromString(std::string& str)
     {
+        if (str.empty())
+        {
+            return T();
+        }
+
         RemoveCharacter remover;
         str = remover.removeMultiCh(str, " \t");
 
         size_t firstSpace = str.find_first_of(' ');
         size_t firstTab = str.find_first_of('\t');
         size_t pos = firstSpace < firstTab ? firstSpace : firstTab;
-        if (pos == std::string::npos)
-        {
-            pos = str.size();
-        }
 
-        const std::string DataStr = str.substr(0, pos - 1);
-        str = str.substr(pos, str.size() - pos);
+        std::string DataStr;
+        if (pos != std::string::npos)
+        {
+            DataStr = str.substr(0, pos - 1);
+            str = str.substr(pos, str.size() - pos);
+        }
+        else
+        {
+            DataStr = str;
+            str.clear();
+        }
 
         T data = lexical_cast<T>(DataStr);
         return data;

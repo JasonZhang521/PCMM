@@ -39,8 +39,11 @@ void ShellCommandOutputParse::ParseDfOutput(const CommandOutputString& strs, She
 */
 void ShellCommandOutputParse::ParseDuHomeOutput(const CommandOutputString& strs, uint64_t& used)
 {
-    std::string str = strs[0];
-    used = getFirstDataFromString<uint64_t>(str);
+    if (!strs.empty())
+    {
+        std::string str = strs[0];
+        used = getFirstDataFromString<uint64_t>(str);
+    }
 }
 
 /* ps -Ao user,uid,comm,pid,pcpu --sort=-pcpu | head -n 10
