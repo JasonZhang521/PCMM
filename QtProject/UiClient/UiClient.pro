@@ -135,7 +135,9 @@ SOURCES +=../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/SystemMonitorMessage/ComputerNodeInfoRequest.cpp \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoRequest.cpp \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoResponse.cpp \
-    ../../sourceCode/PlatformWrapper/NetworkHost.cpp
+    ../../sourceCode/PlatformWrapper/NetworkHost.cpp \
+    ../../sourceCode/Environment/ShellCommandPsTopnCpuUsageOutput.cpp \
+    ../../sourceCode/Environment/ShellCommandPsTopnMemoryUsageOutput.cpp
 
 HEADERS += \
     ../../sourceCode/Ipc/Component.h \
@@ -256,7 +258,9 @@ HEADERS += \
     ../../sourceCode/SystemMonitorMessage/ComputerNodeInfoRequest.h \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoRequest.h \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoResponse.h \
-    ../../sourceCode/PlatformWrapper/NetworkHost.h
+    ../../sourceCode/PlatformWrapper/NetworkHost.h \
+    ../../sourceCode/Environment/ShellCommandPsTopnCpuUsageOutput.h \
+    ../../sourceCode/Environment/ShellCommandPsTopnMemoryUsageOutput.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

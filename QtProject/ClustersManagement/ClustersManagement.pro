@@ -73,7 +73,9 @@ SOURCES += \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoRequest.cpp \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoResponse.cpp \
     ../../sourceCode/Environment/ShellCommandGenericOutput.cpp \
-    ../../sourceCode/PlatformWrapper/NetworkHost.cpp
+    ../../sourceCode/PlatformWrapper/NetworkHost.cpp \
+    ../../sourceCode/Environment/ShellCommandPsTopnMemoryUsageOutput.cpp \
+    ../../sourceCode/Environment/ShellCommandPsTopnCpuUsageOutput.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -301,7 +303,9 @@ HEADERS += \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoResponse.h \
     ../../sourceCode/Common/Generic.h \
     ../../sourceCode/Environment/ShellCommandGenericOutput.h \
-    ../../sourceCode/PlatformWrapper/NetworkHost.h
+    ../../sourceCode/PlatformWrapper/NetworkHost.h \
+    ../../sourceCode/Environment/ShellCommandPsTopnMemoryUsageOutput.h \
+    ../../sourceCode/Environment/ShellCommandPsTopnCpuUsageOutput.h
 
 unix {
     target.path = /usr/lib
