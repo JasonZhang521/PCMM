@@ -75,7 +75,10 @@ SOURCES += \
     ../../sourceCode/Environment/ShellCommandGenericOutput.cpp \
     ../../sourceCode/PlatformWrapper/NetworkHost.cpp \
     ../../sourceCode/Environment/ShellCommandPsTopnMemoryUsageOutput.cpp \
-    ../../sourceCode/Environment/ShellCommandPsTopnCpuUsageOutput.cpp
+    ../../sourceCode/Environment/ShellCommandPsTopnCpuUsageOutput.cpp \
+    ../../sourceCode/ShellCommandMessage/IShellCommandMessage.cpp \
+    ../../sourceCode/ShellCommandMessage/ShellCommandRequest.cpp \
+    ../../sourceCode/ShellCommandMessage/ShellCommandMessageFactory.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -305,7 +308,11 @@ HEADERS += \
     ../../sourceCode/Environment/ShellCommandGenericOutput.h \
     ../../sourceCode/PlatformWrapper/NetworkHost.h \
     ../../sourceCode/Environment/ShellCommandPsTopnMemoryUsageOutput.h \
-    ../../sourceCode/Environment/ShellCommandPsTopnCpuUsageOutput.h
+    ../../sourceCode/Environment/ShellCommandPsTopnCpuUsageOutput.h \
+    ../../sourceCode/ShellCommandMessage/IShellCommandMessage.h \
+    ../../sourceCode/ShellCommandMessage/ShellCommandRequest.h \
+    ../../sourceCode/ShellCommandMessage/ShellCommandMessageFactory.h \
+    ../../sourceCode/ShellCommandMessage/Component.h
 
 unix {
     target.path = /usr/lib
