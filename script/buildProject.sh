@@ -1,10 +1,12 @@
 #!/bin/sh
 
-EnableTesting=false
+EnableTesting=disable
 
 help()
 {
-    echo "-t: enable testing"
+	echo "usage:"
+    echo "    -t: enable testing"
+    exit 1
 }
 
 parseArgument()
@@ -13,7 +15,7 @@ parseArgument()
     do
         case $arg in
             t)
-                EnableTesting=true
+                EnableTesting=enable
                 ;;
             h)
                 help
@@ -28,10 +30,10 @@ parseArgument()
 }
 
 parseArgument $@
-
+echo "$EnableTesting ---"
 ProjectDir=`echo $(cd "$(dirname "$0")/.."; pwd)`
 
-if [ EnableTesting -eq true ]; then
+if [ "$EnableTesting" == "enable" ]; then
     $ProjectDir/script/generatedMakefile.sh "$ProjectDir" "Test" 
 else
     $ProjectDir/script/generatedMakefile.sh "$ProjectDir"
