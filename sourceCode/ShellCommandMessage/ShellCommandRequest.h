@@ -16,6 +16,9 @@ public:
 
     virtual IpcMessage::IpcShellCommandMessageType getShellCommandMessageType() const;
     virtual std::ostream& operator<< (std::ostream& os) const;
+
+    void setShellCommandType(Environment::ShellCommandType commandType);
+    Environment::ShellCommandType getShellCommandType() const;
 };
 
 }

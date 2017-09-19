@@ -1,5 +1,6 @@
 #include "ShellCommandMessageFactory.h"
 #include "ShellCommandRequest.h"
+#include "ShellCommandResponse.h"
 #include "Trace.h"
 namespace ShellCommandMessage {
 ShellCommandMessageFactory::ShellCommandMessageFactory()
@@ -17,6 +18,10 @@ IpcMessage::IIpcMessage* ShellCommandMessageFactory::createMessage(IpcMessage::I
     if (static_cast<IpcMessage::IpcShellCommandMessageType>(type) == IpcMessage::ShellCommandRequestMessage)
     {
         return new ShellCommandRequest();
+    }
+    else if (static_cast<IpcMessage::IpcShellCommandMessageType>(type) == IpcMessage::ShellCommandResponseMessage)
+    {
+        return new ShellCommandResponse();
     }
     else
     {
