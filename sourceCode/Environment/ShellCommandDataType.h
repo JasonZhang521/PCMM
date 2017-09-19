@@ -19,9 +19,11 @@ public:
     static const std::string DiskUsageDuHome;
     static const std::string PsTop10CpuUsage;
     static const std::string PsTop10MemoryUsage;
+    static const std::string NvidiaSmiGpu;
     static const std::string InvalidCmd;
 
 };
+
 
 enum class ShellCommandType
 {
@@ -29,6 +31,7 @@ enum class ShellCommandType
     DiskUsageDuHome,
     PsTop10CpuUsage,
     PsTop10MemoryUsage,
+    NvidiaSmiGpu,
     InvalidType
 };
 
