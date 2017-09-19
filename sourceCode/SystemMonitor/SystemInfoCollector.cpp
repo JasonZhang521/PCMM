@@ -27,7 +27,6 @@ void SystemInfoCollector::run(EventHandler::EventFlag flag)
     TRACE_ENTER();
     TRACE_NOTICE("+++++++++++++++++++++SystemInfoCollector::run");
     static_cast<void> (flag);
-    Environment::CpuUsage::instance().update();
     monitorHandler_->reportSystemInfo();
  }
 
