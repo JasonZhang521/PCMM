@@ -72,7 +72,7 @@ void SystemMonitorConnectionReceiver::handleSystemMonitorMessage(std::unique_ptr
         switch (systemMonitorType)
         {
         case IpcMessage::SystemMonitorMessageType::ComputerNodeInfoRequestMessage:
-            monitorHandler_->reportSystemInfo();
+            monitorHandler_->reportSystemInfo(message->getSource());
             break;
         default:
             TRACE_ERROR("Unsupported message! monitor type = " << IpcMessage::SystemMonitorTypeString(systemMonitorType));
@@ -98,7 +98,7 @@ void SystemMonitorConnectionReceiver::handleShellCommandMessage(std::unique_ptr<
                 ShellCommandMessage::ShellCommandRequest* request = dynamic_cast<ShellCommandMessage::ShellCommandRequest*>(message);
                 if (request != nullptr)
                 {
-                    executeShellCommand(request->getShellCommandType());
+                    monitorHandler_->executeShellCommand(message->getSource(), request->getShellCommandType());
                 }
             }
             break;
@@ -108,11 +108,6 @@ void SystemMonitorConnectionReceiver::handleShellCommandMessage(std::unique_ptr<
             break;
         }
     }
-}
-
-void SystemMonitorConnectionReceiver::executeShellCommand(Environment::ShellCommandType commandType)
-{
-    static_cast<void>(commandType);
 }
 
 }

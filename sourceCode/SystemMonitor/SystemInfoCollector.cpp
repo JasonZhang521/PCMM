@@ -1,6 +1,7 @@
 #include "SystemInfoCollector.h"
 #include "ISystemMonitorHandler.h"
 #include "EventIdGenerator.h"
+#include "IpSocketEndpoint.h"
 #include "CpuUsage.h"
 #include "Trace.h"
 
@@ -27,7 +28,7 @@ void SystemInfoCollector::run(EventHandler::EventFlag flag)
     TRACE_ENTER();
     TRACE_NOTICE("+++++++++++++++++++++SystemInfoCollector::run");
     static_cast<void> (flag);
-    monitorHandler_->reportSystemInfo();
+    monitorHandler_->reportSystemInfo(Network::IpSocketEndpoint::BroadCastAddress);
  }
 
 std::ostream& SystemInfoCollector::operator<< (std::ostream& os) const

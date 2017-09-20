@@ -10,10 +10,11 @@ namespace Environment {
 class ShellCommandProcess : public TimerHandler::ITimer, public IShellCommand
 {
     std::string cmd_;
+    bool oneTimeCommand_;
     std::string outPutFile_;
     pid_t pid_;
 public:
-    ShellCommandProcess(const std::string& cmd);
+    ShellCommandProcess(const std::string& cmd, bool oneTimeCommand);
     ~ShellCommandProcess();
 protected:
     virtual void execute();
@@ -23,6 +24,9 @@ protected:
     void getCmdOutPutFromFile();
 public:
     GETCLASSNAME(ShellCommandProcess)
+
+private:
+    static std::string MagicString;
 };
 
 }
