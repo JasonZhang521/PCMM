@@ -94,12 +94,15 @@ void SystemMonitorConnectionReceiver::handleShellCommandMessage(std::unique_ptr<
         switch (messageType)
         {
         case IpcMessage::ShellCommandRequestMessage:
-            ShellCommandMessage::ShellCommandRequest* request = dynamic_cast<ShellCommandMessage::ShellCommandRequest*>(message);
-            if (request != nullptr)
             {
-                executeShellCommand(request->getShellCommandType());
+                ShellCommandMessage::ShellCommandRequest* request = dynamic_cast<ShellCommandMessage::ShellCommandRequest*>(message);
+                if (request != nullptr)
+                {
+                    executeShellCommand(request->getShellCommandType());
+                }
             }
             break;
+        case IpcMessage::ShellCommandResponseMessage:
         default:
             TRACE_ERROR("Unsupported message! monitor type = " << IpcMessage::IpcShellCommandTypeToString(messageType));
             break;
