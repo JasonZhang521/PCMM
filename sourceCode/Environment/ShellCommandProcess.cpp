@@ -77,6 +77,11 @@ void ShellCommandProcess::stop()
 
 }
 
+bool ShellCommandProcess::isInactive()
+{
+    return false;
+}
+
 void ShellCommandProcess::onTime()
 {
 #ifndef WIN32

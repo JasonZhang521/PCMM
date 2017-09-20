@@ -75,9 +75,9 @@ void SystemMonitorHandler::executeShellCommand(const Network::IpSocketEndpoint& 
     Environment::ShellCommandProcess shellCommandProcess(Environment::ShellCommand::getCmdString(commandType), true);
     Environment::IShellCommand& shellCommand = shellCommandProcess;
     shellCommand.execute();
-    ShellCommandMessage::ShellCommandResponse response();
-    response().setDestnation(destnation);
-    TRACE_DEBUG("send shell command response:" << message);
+    ShellCommandMessage::ShellCommandResponse response;
+    response.setDestnation(destnation);
+    TRACE_DEBUG("send shell command response:" << response);
     ipcClient_->send(response);
 }
 

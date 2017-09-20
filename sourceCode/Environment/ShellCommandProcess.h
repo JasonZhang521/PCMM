@@ -19,6 +19,7 @@ public:
 protected:
     virtual void execute();
     virtual void stop();
+    virtual bool isInactive();
     virtual void onTime();
     virtual std::ostream& operator<<(std::ostream& os);
     void getCmdOutPutFromFile();
