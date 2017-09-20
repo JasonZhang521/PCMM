@@ -1,5 +1,7 @@
 #include "SystemMonitorConnectionReceiver.h"
 #include "ISystemMonitorMessage.h"
+#include "ShellCommandResponse.h"
+#include "ShellCommandRequest.h"
 #include "IpcMessageType.h"
 #include "ReadBuffer.h"
 #include "Trace.h"
@@ -37,11 +39,12 @@ void SystemMonitorConnectionReceiver::onReceive(std::unique_ptr<IpcMessage::IIpc
     }
 
     IpcMessage::IpcMessageType type = msg->getMessageType();
-    if (type == IpcMessage::IpcMessage_SystemMonitor)
-
     switch(type)
     {
     case IpcMessage::IpcMessage_SystemMonitor:
+        handleSystemMonitorMessage(std::move(msg));
+        break;
+    case IpcMessage::IpcMessage_ShellCommand:
         handleSystemMonitorMessage(std::move(msg));
         break;
     case IpcMessage::IpcMessage_IpcCommunication:
@@ -80,6 +83,33 @@ void SystemMonitorConnectionReceiver::handleSystemMonitorMessage(std::unique_ptr
     {
         TRACE_ERROR("Unsupported message! message type = " << IpcMessage::IpcMessageTypeString(msg->getMessageType()));
     }
+}
+
+void SystemMonitorConnectionReceiver::handleShellCommandMessage(std::unique_ptr<IpcMessage::IIpcMessage> msg)
+{
+    ShellCommandMessage::IShellCommandMessage *message = dynamic_cast<ShellCommandMessage::IShellCommandMessage*>(msg.get());
+    if (message != nullptr)
+    {
+        IpcMessage::IpcShellCommandMessageType messageType = message->getShellCommandMessageType();
+        switch (messageType)
+        {
+        case IpcMessage::ShellCommandRequestMessage:
+            ShellCommandMessage::ShellCommandRequest* request = dynamic_cast<ShellCommandMessage::ShellCommandRequest*>(message);
+            if (request != nullptr)
+            {
+                executeShellCommand(request->getShellCommandType());
+            }
+            break;
+        default:
+            TRACE_ERROR("Unsupported message! monitor type = " << IpcMessage::IpcShellCommandTypeToString(messageType));
+            break;
+        }
+    }
+}
+
+void SystemMonitorConnectionReceiver::executeShellCommand(Environment::ShellCommandType commandType)
+{
+    static_cast<void>(commandType);
 }
 
 }

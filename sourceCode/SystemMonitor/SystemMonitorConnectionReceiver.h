@@ -2,6 +2,7 @@
 #define _SYSTEMMONITOR_SYSTEMMONITORCONNECTIONRECEIVER_H_
 #include "ISystemMonitorHandler.h"
 #include "IIpcConnectionReceiver.h"
+#include "ShellCommandDataType.h"
 #include "Component.h"
 #include "Macro.h"
 #include <memory>
@@ -25,6 +26,8 @@ protected:
 
 private:
     void handleSystemMonitorMessage(std::unique_ptr<IpcMessage::IIpcMessage> msg);
+    void handleShellCommandMessage(std::unique_ptr<IpcMessage::IIpcMessage> msg);
+    void executeShellCommand(Environment::ShellCommandType commandType);
 
 public:
      GETCLASSNAME(SystemMonitorConnectionReceiver)
