@@ -19,6 +19,8 @@ SystemInfoBriefly::SystemInfoBriefly(const SystemInfoBriefly& info)
     , diskUsageInfo_(info.diskUsageInfo_)
     , psTop10CpuUsage_(info.psTop10CpuUsage_)
     , psTop10MemoryUsage_(info.psTop10MemoryUsage_)
+    , nvidiaSmiGpuInfo_(info.nvidiaSmiGpuInfo_)
+    , infiniBandStatInfo_(info.infiniBandStatInfo_)
 {
 
 }
@@ -32,6 +34,8 @@ SystemInfoBriefly& SystemInfoBriefly::operator =(const SystemInfoBriefly& info)
 	diskUsageInfo_ = info.diskUsageInfo_;
     psTop10CpuUsage_ = info.psTop10CpuUsage_;
     psTop10MemoryUsage_ = info.psTop10MemoryUsage_;
+    nvidiaSmiGpuInfo_ = info.nvidiaSmiGpuInfo_;
+    infiniBandStatInfo_ = info.infiniBandStatInfo_;
     return *this;
 }
 
