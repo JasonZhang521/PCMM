@@ -21,8 +21,8 @@ class SystemInfoBriefly
     DiskUsageInfo diskUsageInfo_;
     ShellCommandPsTopnCpuUsageOutputs psTop10CpuUsage_;
     ShellCommandPsTopnMemoryUsageOutputs psTop10MemoryUsage_;
-    ShellCommandGenericOutput nvidiaSmiGpu_;
-    ShellCommandGenericOutput infiniBandStat_;
+    ShellCommandGenericOutput nvidiaSmiGpuInfo_;
+    ShellCommandGenericOutput infiniBandStatInfo_;
 
 public:
     SystemInfoBriefly();
@@ -42,6 +42,11 @@ public:
     void setPsTop10CpuUsage(const ShellCommandPsTopnCpuUsageOutputs& info);
     const ShellCommandPsTopnMemoryUsageOutputs& getPsTop10MemoryUsage() const;
     void setPsTop10MemoryUsage(const ShellCommandPsTopnMemoryUsageOutputs& info);
+    const ShellCommandGenericOutput& getNvidiaSmiGpuInfo() const;
+    void setNvidiaSmiGpuInfo( const ShellCommandGenericOutput& nvidiaSmiGpuInfo);
+    const ShellCommandGenericOutput& getInfiniBandStatInfo() const;
+    void setInfiniBandStatInfo( const ShellCommandGenericOutput& infiniBandStatInfo);
+
 
     void serialize(Serialize::WriteBuffer& writeBuffer) const;
     void unserialize(Serialize::ReadBuffer& readBuffer);

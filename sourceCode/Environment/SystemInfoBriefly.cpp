@@ -105,6 +105,26 @@ void SystemInfoBriefly::setPsTop10MemoryUsage(const ShellCommandPsTopnMemoryUsag
     psTop10MemoryUsage_ = info;
 }
 
+const ShellCommandGenericOutput& SystemInfoBriefly::getNvidiaSmiGpuInfo() const
+{
+    return nvidiaSmiGpuInfo_;
+}
+
+void SystemInfoBriefly::setNvidiaSmiGpuInfo( const ShellCommandGenericOutput& nvidiaSmiGpuInfo)
+{
+    nvidiaSmiGpuInfo_ = nvidiaSmiGpuInfo;
+}
+
+const ShellCommandGenericOutput& SystemInfoBriefly::getInfiniBandStatInfo() const
+{
+    return infiniBandStatInfo_;
+}
+
+void SystemInfoBriefly::setInfiniBandStatInfo( const ShellCommandGenericOutput& infiniBandStatInfo)
+{
+    infiniBandStatInfo_ = infiniBandStatInfo;
+}
+
 void SystemInfoBriefly::serialize(Serialize::WriteBuffer& writeBuffer) const
 {
     cpuInfoBriefly_.serialize(writeBuffer);
@@ -122,6 +142,8 @@ void SystemInfoBriefly::serialize(Serialize::WriteBuffer& writeBuffer) const
     {
         psTop10MemoryUsage_[i].serialize(writeBuffer);
     }
+    nvidiaSmiGpuInfo_.serialize(writeBuffer);
+    infiniBandStatInfo_.serialize(writeBuffer);
 }
 
 void SystemInfoBriefly::unserialize(Serialize::ReadBuffer& readBuffer)
@@ -150,6 +172,9 @@ void SystemInfoBriefly::unserialize(Serialize::ReadBuffer& readBuffer)
         output.unserialize(readBuffer);
         psTop10MemoryUsage_.push_back(output);
     }
+
+    nvidiaSmiGpuInfo_.unserialize(readBuffer);
+    infiniBandStatInfo_.unserialize(readBuffer);
 }
 
 std::ostream& SystemInfoBriefly::operator <<(std::ostream& os) const
@@ -170,6 +195,8 @@ std::ostream& SystemInfoBriefly::operator <<(std::ostream& os) const
     {
         os << usage << std::endl;
     }
+    os << "nvidiaSmiGpuInfo=" << nvidiaSmiGpuInfo_;
+    os << "infiniBandStatInfo=" << infiniBandStatInfo_;
     os << "]";
     return os;
 }
@@ -194,6 +221,28 @@ void SystemInfoBriefly::update()
     ShellCommandOutputParse::ParsePsTopnCpuUsageOutput(psTop10CpuUsageStrs, psTop10CpuUsage_);
     const CommandOutputString& psTop10MemoryUsageStrs = Environment::instance().getShellCmdOutput(ShellCommandType::PsTop10MemoryUsage);
     ShellCommandOutputParse::ParsePsTopnMemoryUsageOutput(psTop10MemoryUsageStrs, psTop10MemoryUsage_);
+
+    const CommandOutputString& outputNvidiaSmiGpuInfo = Environment::instance().getShellCmdOutput(ShellCommandType::NvidiaSmiGpu);
+    if (!outputNvidiaSmiGpuInfo.empty())
+    {
+        nvidiaSmiGpuInfo_.setCommand(ShellCommandType::NvidiaSmiGpu);
+    }
+    else
+    {
+        nvidiaSmiGpuInfo_.setCommand(ShellCommandType::InvalidType);
+    }
+    nvidiaSmiGpuInfo_.setCommandOutputString(outputNvidiaSmiGpuInfo);
+
+    const CommandOutputString& outputInfiniBandStatInfo = Environment::instance().getShellCmdOutput(ShellCommandType::InfiniBandStat);
+    if (!outputInfiniBandStatInfo.empty())
+    {
+        infiniBandStatInfo_.setCommand(ShellCommandType::InfiniBandStat);
+    }
+    else
+    {
+        infiniBandStatInfo_.setCommand(ShellCommandType::InvalidType);
+    }
+    infiniBandStatInfo_.setCommandOutputString(outputInfiniBandStatInfo);
 }
 
 }
