@@ -7,6 +7,7 @@
 #include "DiskUsageInfo.h"
 #include "ShellCommandPsTopnCpuUsageOutput.h"
 #include "ShellCommandPsTopnMemoryUsageOutput.h"
+#include "ShellCommandGenericOutput.h"
 #include "ShellCommandDataType.h"
 
 namespace Environment {
@@ -20,6 +21,8 @@ class SystemInfoBriefly
     DiskUsageInfo diskUsageInfo_;
     ShellCommandPsTopnCpuUsageOutputs psTop10CpuUsage_;
     ShellCommandPsTopnMemoryUsageOutputs psTop10MemoryUsage_;
+    ShellCommandGenericOutput nvidiaSmiGpu_;
+    ShellCommandGenericOutput infiniBandStat_;
 
 public:
     SystemInfoBriefly();

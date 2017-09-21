@@ -1,5 +1,6 @@
 #ifndef _ENVIRONMENT_SHELLCOMMANDGENERICOUTPUT_H_
 #define _ENVIRONMENT_SHELLCOMMANDGENERICOUTPUT_H_
+#inlcude "ShellCommandDataType.h"
 #include <string>
 #include <vector>
 
@@ -14,7 +15,7 @@ using CommandOutputString = std::vector<std::string>;
 
 class ShellCommandGenericOutput
 {
-    std::string cmd_;
+    ShellCommandType cmdType_;
     CommandOutputString outputString_;
 public:
     ShellCommandGenericOutput(const std::string& cmd, const CommandOutputString& output);

@@ -82,6 +82,14 @@ void SystemMonitorProcess::process()
                 new Environment::ShellCommandThread(Environment::ShellCommand::getCmdString(Environment::ShellCommandType::PsTop10MemoryUsage), 5000);
         Environment::Environment::instance().registerShellCmd(Environment::ShellCommandType::PsTop10MemoryUsage, commandPsTop10MemoryUsage);
 
+        Environment::IShellCommand* commandNvidiaSmiGpu =
+                new Environment::ShellCommandThread(Environment::ShellCommand::getCmdString(Environment::ShellCommandType::NvidiaSmiGpu), 3600000);
+        Environment::Environment::instance().registerShellCmd(Environment::ShellCommandType::NvidiaSmiGpu, commandNvidiaSmiGpu);
+
+        Environment::IShellCommand* commandInfiniBandStat =
+                new Environment::ShellCommandThread(Environment::ShellCommand::getCmdString(Environment::ShellCommandType::InfiniBandStat), 3600000);
+        Environment::Environment::instance().registerShellCmd(Environment::ShellCommandType::InfiniBandStat, commandInfiniBandStat);
+
     }
 
     systemMonitorHandler->startup();

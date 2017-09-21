@@ -144,7 +144,8 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/ShellCommandMessage/IShellCommandMessage.cpp \
     ../../sourceCode/ShellCommandMessage/ShellCommandMessageFactory.cpp \
     ../../sourceCode/ShellCommandMessage/ShellCommandRequest.cpp \
-    ../../sourceCode/ShellCommandMessage/ShellCommandResponse.cpp
+    ../../sourceCode/ShellCommandMessage/ShellCommandResponse.cpp \
+    ../../sourceCode/Environment/ShellCommandGenericOutput.cpp
 
 HEADERS += \
     ../../sourceCode/SystemMonitor/SystemMonitorProcess.h \
@@ -270,7 +271,8 @@ HEADERS += \
     ../../sourceCode/ShellCommandMessage/IShellCommandMessage.h \
     ../../sourceCode/ShellCommandMessage/ShellCommandMessageFactory.h \
     ../../sourceCode/ShellCommandMessage/ShellCommandRequest.h \
-    ../../sourceCode/ShellCommandMessage/ShellCommandResponse.h
+    ../../sourceCode/ShellCommandMessage/ShellCommandResponse.h \
+    ../../sourceCode/Environment/ShellCommandGenericOutput.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
