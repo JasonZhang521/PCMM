@@ -28,7 +28,6 @@ LibStd6Link="${GccDir%/*/*}/lib64/libstdc++.so.6"
 LibStd6LinkInfo=`ls -l $LibStd6Link`
 LibStd6Name=`echo $LibStd6LinkInfo | awk '{print $11}'`					 
 LibStd6="$LibStd6Dir$LibStd6Name"
-echo $LibStd6				   
 
 mkdir "$TempDir/bin"
 mkdir "$TempDir/script"
