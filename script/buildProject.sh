@@ -1,7 +1,7 @@
 #!/bin/sh
 
 EnableTesting=disable
-
+BuildDir=""
 help()
 {
 	echo "usage:"
@@ -11,12 +11,14 @@ help()
 
 parseArgument()
 {
-    while getopts "th" arg
+    while getopts "tho:" arg
     do
         case $arg in
             t)
                 EnableTesting=enable
                 ;;
+	        o)  BuildDir=$OPTARG
+				;;
             h)
                 help
                 ;;
@@ -40,3 +42,10 @@ else
 fi
 
 $ProjectDir/script/compileProject.sh "$ProjectDir"
+
+if [ "$BuildDir" == "" ]; then
+    BuildDir="$ProjectDir/build/Package"
+fi
+
+$ProjectDir/script/makePackage.sh "$BuildDir" "$ProjectDir"
+

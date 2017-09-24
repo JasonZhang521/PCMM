@@ -1,4 +1,6 @@
 #!/bin/sh
+echo "start making package"
+
 ProjectDir=$2
 if [ "$ProjectDir" == "" ]; then
     ProjectDir=`echo $(cd "$(dirname "$0")/.."; pwd)`
