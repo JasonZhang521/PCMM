@@ -67,9 +67,9 @@ function __cmd__cluster-manager()
     COMPREPLY=( $(compgen -W "add delete list start stop restart trace-debug" -- $cur) )
 	case $cur in
 	add)
-        eval __cmd__cluster-manager__add
+        __cmd__cluster-manager__add
 		;;
 	esac
 }
 
-#complete -F __cmd__cluster-manager cluster-manager
+complete -F __cmd__cluster-manager cluster-manager
