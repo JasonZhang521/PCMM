@@ -9,8 +9,6 @@ class SystemMonitorProcess
 public:
     SystemMonitorProcess();
     void process();
-private:
-    std::string getServerIpAddressPort() const;
 };
 }
 

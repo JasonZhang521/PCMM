@@ -79,7 +79,8 @@ SOURCES += \
     ../../sourceCode/ShellCommandMessage/IShellCommandMessage.cpp \
     ../../sourceCode/ShellCommandMessage/ShellCommandRequest.cpp \
     ../../sourceCode/ShellCommandMessage/ShellCommandMessageFactory.cpp \
-    ../../sourceCode/ShellCommandMessage/ShellCommandResponse.cpp
+    ../../sourceCode/ShellCommandMessage/ShellCommandResponse.cpp \
+    ../../sourceCode/ConfigureManagement/NetworkConfig.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -314,7 +315,8 @@ HEADERS += \
     ../../sourceCode/ShellCommandMessage/ShellCommandRequest.h \
     ../../sourceCode/ShellCommandMessage/ShellCommandMessageFactory.h \
     ../../sourceCode/ShellCommandMessage/Component.h \
-    ../../sourceCode/ShellCommandMessage/ShellCommandResponse.h
+    ../../sourceCode/ShellCommandMessage/ShellCommandResponse.h \
+    ../../sourceCode/ConfigureManagement/NetworkConfig.h
 
 unix {
     target.path = /usr/lib

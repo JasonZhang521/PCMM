@@ -35,7 +35,8 @@ INCLUDEPATH += ../../sourceCode/Serialize \
                ../../sourceCode/IpcMessage \
                ../../sourceCode/SystemMonitorMessage \
                ../../sourceCode/Serialize \
-               ../../sourceCode/ShellCommandMessage
+               ../../sourceCode/ShellCommandMessage \
+               ../../sourceCode/ConfigureManagement
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
@@ -145,7 +146,11 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/ShellCommandMessage/ShellCommandMessageFactory.cpp \
     ../../sourceCode/ShellCommandMessage/ShellCommandRequest.cpp \
     ../../sourceCode/ShellCommandMessage/ShellCommandResponse.cpp \
-    ../../sourceCode/Environment/ShellCommandGenericOutput.cpp
+    ../../sourceCode/Environment/ShellCommandGenericOutput.cpp \
+    ../../sourceCode/ConfigureManagement/MauiConfig.cpp \
+    ../../sourceCode/ConfigureManagement/MauiConfigFileMgt.cpp \
+    ../../sourceCode/ConfigureManagement/MauiConfigTag.cpp \
+    ../../sourceCode/ConfigureManagement/NetworkConfig.cpp
 
 HEADERS += \
     ../../sourceCode/SystemMonitor/SystemMonitorProcess.h \
@@ -272,7 +277,12 @@ HEADERS += \
     ../../sourceCode/ShellCommandMessage/ShellCommandMessageFactory.h \
     ../../sourceCode/ShellCommandMessage/ShellCommandRequest.h \
     ../../sourceCode/ShellCommandMessage/ShellCommandResponse.h \
-    ../../sourceCode/Environment/ShellCommandGenericOutput.h
+    ../../sourceCode/Environment/ShellCommandGenericOutput.h \
+    ../../sourceCode/ConfigureManagement/Component.h \
+    ../../sourceCode/ConfigureManagement/MauiConfig.h \
+    ../../sourceCode/ConfigureManagement/MauiConfigFileMgt.h \
+    ../../sourceCode/ConfigureManagement/MauiConfigTag.h \
+    ../../sourceCode/ConfigureManagement/NetworkConfig.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

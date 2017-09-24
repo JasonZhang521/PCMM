@@ -15,6 +15,7 @@
 #include "IpAddress.h"
 #include "Environment.h"
 #include "ShellCommandThread.h"
+#include "NetworkConfig.h"
 #include "RemoveCharacter.h"
 #include <memory>
 #include <iostream>
@@ -28,10 +29,10 @@ SystemMonitorProcess::SystemMonitorProcess()
 
 void SystemMonitorProcess::process()
 {
+    std::vector<std::string> nodeServerIpPorts = ConfigureManagement::NetworkConfig::getNodeServerIpPort();
     // Local and remote endpoint.
     Network::IpSocketEndpoint localEndpoint("0.0.0.0:0");
-    Network::IpSocketEndpoint remoteEndpoint(getServerIpAddressPort());
-    //Network::IpSocketEndpoint remoteEndpoint(std::string("192.168.5.138:23832"));
+    Network::IpSocketEndpoint remoteEndpoint(nodeServerIpPorts[0]);
     // SystemMonitorHandler
     SystemMonitorHandler* systemMonitorHandlerPtr = new SystemMonitorHandler();
     std::shared_ptr<ISystemMonitorHandler> systemMonitorHandler(systemMonitorHandlerPtr);
@@ -92,27 +93,6 @@ void SystemMonitorProcess::process()
     // run
     Core::LoopMain::instance().loopStart();
     std::cout << "run to the end----------------" << std::endl;
-}
-
-std::string SystemMonitorProcess::getServerIpAddressPort() const
-{
-    const std::string serverAddressPortConfigPath("/opt/HongClusterMgt/config/conf.server");
-    std::ifstream ifs(serverAddressPortConfigPath.c_str());
-
-    if (!ifs.good())
-    {
-        return std::string("127.0.0.1:23832");
-    }
-    else
-    {
-        char buffer[128];
-        std::fill(buffer, buffer + 128, 0);
-        ifs.getline(buffer, 128);
-        std::string str(buffer, 128);
-        RemoveCharacter remover;
-        str = remover.removeMultiCh(str, " \t");
-        return str;
-    }
 }
 
 }
