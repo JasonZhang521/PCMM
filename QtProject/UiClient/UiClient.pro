@@ -137,7 +137,12 @@ SOURCES +=../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoResponse.cpp \
     ../../sourceCode/PlatformWrapper/NetworkHost.cpp \
     ../../sourceCode/Environment/ShellCommandPsTopnCpuUsageOutput.cpp \
-    ../../sourceCode/Environment/ShellCommandPsTopnMemoryUsageOutput.cpp
+    ../../sourceCode/Environment/ShellCommandPsTopnMemoryUsageOutput.cpp \
+    ../../sourceCode/ShellCommandMessage/IShellCommandMessage.cpp \
+    ../../sourceCode/ShellCommandMessage/ShellCommandMessageFactory.cpp \
+    ../../sourceCode/ShellCommandMessage/ShellCommandRequest.cpp \
+    ../../sourceCode/ShellCommandMessage/ShellCommandResponse.cpp \
+    ../../sourceCode/Environment/ShellCommandGenericOutput.cpp
 
 HEADERS += \
     ../../sourceCode/Ipc/Component.h \
@@ -260,7 +265,13 @@ HEADERS += \
     ../../sourceCode/SystemMonitorMessage/ControlNodeBrieflyInfoResponse.h \
     ../../sourceCode/PlatformWrapper/NetworkHost.h \
     ../../sourceCode/Environment/ShellCommandPsTopnCpuUsageOutput.h \
-    ../../sourceCode/Environment/ShellCommandPsTopnMemoryUsageOutput.h
+    ../../sourceCode/Environment/ShellCommandPsTopnMemoryUsageOutput.h \
+    ../../sourceCode/ShellCommandMessage/Component.h \
+    ../../sourceCode/ShellCommandMessage/IShellCommandMessage.h \
+    ../../sourceCode/ShellCommandMessage/ShellCommandMessageFactory.h \
+    ../../sourceCode/ShellCommandMessage/ShellCommandRequest.h \
+    ../../sourceCode/ShellCommandMessage/ShellCommandResponse.h \
+    ../../sourceCode/Environment/ShellCommandGenericOutput.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
