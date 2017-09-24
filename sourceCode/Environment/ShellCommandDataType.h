@@ -21,6 +21,8 @@ public:
     static const std::string PsTop10MemoryUsage;
     static const std::string NvidiaSmiGpu;
     static const std::string InfiniBandStat;
+    static const std::string Shutdown;
+    static const std::string Reboot;
     static const std::string InvalidCmd;
 
 };
@@ -34,6 +36,8 @@ enum class ShellCommandType
     PsTop10MemoryUsage,
     NvidiaSmiGpu,
     InfiniBandStat,
+    Shutdown,
+    Reboot,
     InvalidType
 };
 
