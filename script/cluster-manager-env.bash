@@ -1,3 +1,4 @@
+alias cluster-manager=./cluster-manager.sh
 function __cmd__cluster-manager()
 {
     local cur prev BASE_LEVEL
