@@ -22,7 +22,7 @@ void ClusterManagementProcess::process()
     std::shared_ptr<IClusterMgtController> clusterMgtController(new ClusterMgtController());
 
     std::vector<std::string> nodeServerIpPorts = ConfigureManagement::NetworkConfig::getNodeServerIpPort();
-    std::vector<std::string> uiServerIpPorts = ConfigureManagement::NetworkConfig::getNodeServerIpPort();
+    std::vector<std::string> uiServerIpPorts = ConfigureManagement::NetworkConfig::getUiServerIpPort();
 
     // create node server
     {
