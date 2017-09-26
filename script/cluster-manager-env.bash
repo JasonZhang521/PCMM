@@ -1,4 +1,4 @@
-ScriptDir=/opt/HongClusterMgt/script/
+ScriptDir=/opt/HongClusterMgt/tools/
 alias cluster-manager="$ScriptDir/cluster-manager.sh"
 
 function __cmd__cluster_manager()
