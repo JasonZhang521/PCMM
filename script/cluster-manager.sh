@@ -81,6 +81,9 @@ function cluster_manager_add()
 	"node-server")
 	    cluster_manager_add_server $ipPort "/opt/HongClusterMgt/config/conf.node.server"
 		;;
+	*)
+		echo "error usage command!"
+		exit 1
 	esac
 }
 
@@ -96,6 +99,9 @@ function cluster_manager_delete()
 	"node-server")
 	    cluster_manager_delete_server $ipPort "/opt/HongClusterMgt/config/conf.node.server"
 		;;
+	*)
+		echo "error usage command!"
+		exit 1
 	esac
 }
 
@@ -109,6 +115,134 @@ function cluster_manager_list()
 	"node-server")
 	    cluster_manager_list_server "/opt/HongClusterMgt/config/conf.node.server"
 		;;
+	*)
+		echo "error usage command!"
+		exit 1
+	esac
+}
+
+function cluster_manager_check_node_client_process()
+{
+	local Ret=`ps -ef | grep "ComputerNodeMonitor.elf" | grep -v "grep ComputerNodeMonitor.elf" | awk '{print $2}'`
+    if [ -z "$Ret" ]; then
+		return 0;
+	else
+		return $Ret;
+	fi
+}
+
+function cluster_manager_start_node_client()
+{
+	cluster_manager_check_node_client_process
+    local Ret=$?
+	if [ $Ret -eq 0 ]; then
+		/opt/HongClusterMgt/bin/ComputerNodeMonitor.elf
+	else
+		echo "the node client has been already started!"
+	fi
+}
+
+function cluster_manager_check_server_process()
+{
+	local Ret=`ps -ef | grep "ClusterNodesControl.elf" | grep -v "grep ClusterNodesControl.elf" | awk '{print $2}'`
+    if [ -z "$Ret" ]; then
+		return 0;
+	else
+		return $Ret;
+	fi
+}
+
+
+function cluster_manager_start_server()
+{
+	cluster_manager_check_server_process
+    local Ret=$?
+	if [ $Ret -eq 0 ]; then
+		/opt/HongClusterMgt/bin/ClusterNodesControl.elf
+	else
+		echo "the server has been already started!"
+	fi
+}
+
+function cluster_manager_start()
+{
+    local cmd=$1
+    case "$cmd" in
+	"node-client")
+	    cluster_manager_start_node_client
+		;;
+	"server")
+		cluster_manager_start_server
+		;;
+	*)
+		echo "error usage command!"
+		exit 1
+	esac
+}
+
+function cluster_manager_stop_node_client()
+{
+    cluster_manager_check_node_client_process
+	local Ret=$?
+	if [ $Ret -eq 0 ]; then
+		echo "the node client has been already stopped"
+	else
+		kill -9 $Ret
+    fi
+}
+
+function cluster_manager_stop_server()
+{
+    cluster_manager_check_server_process
+	local Ret=$?
+	if [ $Ret -eq 0 ]; then
+		echo "the server has been already stopped"
+	else
+		kill -9 $Ret
+    fi
+}
+
+function cluster_manager_stop()
+{
+    local cmd=$1
+    case "$cmd" in
+	"node-client")
+	    cluster_manager_stop_node_client
+		;;
+	"server")
+		cluster_manager_stop_server
+		;;
+	*)
+		echo "error usage command!"
+		exit 1
+	esac
+}
+
+function cluster_manager_restart_node_client()
+{
+	cluster_manager_stop_node_client
+	cluster_manager_start_node_client
+}
+
+function cluster_manager_restart_server()
+{
+	cluster_manager_stop_server
+	cluster_manager_start_server
+}
+
+function cluster_manager_restart()
+{
+    local cmd=$1
+    case "$cmd" in
+	"node-client")
+	    cluster_manager_restart_node_client
+		;;
+	"server")
+		cluster_manager_restart_server
+		;;
+	*)
+		echo "error usage command!"
+		exit 1
 	esac
 }
 
@@ -138,6 +272,9 @@ function cluster_manager()
 	"trace-debug")
 	    cluster_manager_trace-debug $@
 		;;
+	*)
+		echo "error usage cmmand!"
+		exit 1;
 	esac
 }
 

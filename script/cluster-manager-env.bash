@@ -18,7 +18,7 @@ function __cmd__cluster_manager()
                 COMPREPLY=( $(compgen -W "ui-server node-server" -- $cur) )
                 ;;
             "start"|"stop"|"restart")
-                COMPREPLY=( $(compgen -W "client server" -- $cur) )
+                COMPREPLY=( $(compgen -W "node-client server" -- $cur) )
                 ;;
             "trace-debug")
                 COMPREPLY=( $(compgen -W "level target" -- $cur) ) 

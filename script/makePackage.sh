@@ -47,6 +47,7 @@ Version=$(cut -d\" -f2 /tmp/tmpvesion)
 rm "/tmp/tmpvesion"
 
 PackageName="$BuildDir/HongClusterMgt.$Version.tar.gz"
-cd $TempDir && tar -czvf  $PackageName * 
+cd $TempDir && tar -czf  $PackageName * 
 
 rm -rf "$TempDir"
+echo "making package finished"
