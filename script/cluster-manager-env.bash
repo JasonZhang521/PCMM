@@ -10,7 +10,7 @@ function __cmd__cluster_manager()
     
     # Setup the base level
     if [ $COMP_CWORD -eq 1 ]; then
-        COMPREPLY=( $(compgen -W "add delete list start stop restart trace-debug" -- $cur) )
+        COMPREPLY=( $(compgen -W "help add delete list start stop restart trace-debug" -- $cur) )
     # Setup the second level
     elif [ $COMP_CWORD -eq 2 ]; then
         case "$prev" in    

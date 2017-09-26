@@ -125,20 +125,19 @@ function cluster_manager_check_node_client_process()
 {
 	local Ret=`ps -ef | grep "ComputerNodeMonitor.elf" | grep -v "grep ComputerNodeMonitor.elf" | awk '{print $2}'`
     if [ -z "$Ret" ]; then
-		return 0;
+		echo "0"
 	else
-		return $Ret;
+		echo "$Ret"
 	fi
 }
 
 function cluster_manager_start_node_client()
 {
-	cluster_manager_check_node_client_process
-    local Ret=$?
+	local Ret=`cluster_manager_check_node_client_process`
 	if [ $Ret -eq 0 ]; then
 		/opt/HongClusterMgt/bin/ComputerNodeMonitor.elf
 	else
-		echo "the node client has been already started!"
+		echo "the node client has been already started! process id $Ret"
 	fi
 }
 
@@ -146,21 +145,20 @@ function cluster_manager_check_server_process()
 {
 	local Ret=`ps -ef | grep "ClusterNodesControl.elf" | grep -v "grep ClusterNodesControl.elf" | awk '{print $2}'`
     if [ -z "$Ret" ]; then
-		return 0;
+		echo "0"
 	else
-		return $Ret;
+		echo "$Ret"
 	fi
 }
 
 
 function cluster_manager_start_server()
 {
-	cluster_manager_check_server_process
-    local Ret=$?
+	local Ret=`cluster_manager_check_server_process`
 	if [ $Ret -eq 0 ]; then
 		/opt/HongClusterMgt/bin/ClusterNodesControl.elf
 	else
-		echo "the server has been already started!"
+		echo "the server has been already started! process id $Ret"
 	fi
 }
 
@@ -182,23 +180,21 @@ function cluster_manager_start()
 
 function cluster_manager_stop_node_client()
 {
-    cluster_manager_check_node_client_process
-	local Ret=$?
+    local Ret=`cluster_manager_check_node_client_process`
 	if [ $Ret -eq 0 ]; then
 		echo "the node client has been already stopped"
 	else
-		kill -9 $Ret
+		kill -9 "$Ret"
     fi
 }
 
 function cluster_manager_stop_server()
 {
-    cluster_manager_check_server_process
-	local Ret=$?
+    local Ret=`cluster_manager_check_server_process`
 	if [ $Ret -eq 0 ]; then
 		echo "the server has been already stopped"
 	else
-		kill -9 $Ret
+		kill -9 "$Ret"
     fi
 }
 
@@ -246,6 +242,28 @@ function cluster_manager_restart()
 	esac
 }
 
+function cluster_manager_help()
+{
+	echo "cluster-manager command usage document:"
+	echo "cluster-manager add (ui-server | node-server) IP:PORT"
+	echo "                configure a (ui-server | node-server) address"
+	echo "                computer node client will using the node-server address to connect the control server"
+	echo "                control server will listen on the ui-server address for the ui-client connection"
+	echo "                                    listen on the node-server address for the node-client connection"
+	echo "cluster-manager delete (ui-server | node-server) IP:PORT"
+	echo "                delete a (ui-server | node-server) address, refer to the [add] command"
+	echo "cluster-manager list (ui-server | node-server)"
+	echo "                list the configured address for (ui-server | node-server)"
+	echo "cluster-manager start (node-client | server)"
+	echo "                start the (node client | control server) service"
+	echo "cluster-manager stop (node-client | server)"
+	echo "                stop the (node client | control server) service"
+	echo "cluster-manager restart (node-client | server)"
+	echo "                restart the (node client | control server) service"
+	echo "cluster-manager trace-debug"
+	echo "                not completed yet!!!"
+}
+
 function cluster_manager()
 {
     local cmd=$1
@@ -272,8 +290,12 @@ function cluster_manager()
 	"trace-debug")
 	    cluster_manager_trace-debug $@
 		;;
+	"help")
+	    cluster_manager_help
+		;;
 	*)
 		echo "error usage cmmand!"
+	    cluster_manager_help
 		exit 1;
 	esac
 }
