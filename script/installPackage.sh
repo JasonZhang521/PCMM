@@ -22,6 +22,9 @@ initInstallDir()
     if [ ! -d "$RootDir/temp" ]; then
         mkdir $RootDir/temp
     fi
+    if [ ! -d "$RootDir/tools" ]; then
+        mkdir $RootDir/tools
+    fi
     InstallDir="$RootDir"
     echo "initialize Install Dir completed"
 }
@@ -117,6 +120,35 @@ checkPackagePathDir()
     fi
 }
 
+setEnv()
+{
+    echo "set environment"
+    source "$InstallDir/tools/cluster-manager-env.bash"
+    local NewComment="#source the cluster-manager environment"
+    local NewEvnCmd="source $InstallDir/tools/cluster-manager-env.bash"
+    local GlobleShellRC='/etc/bashrc'
+
+    local Ret=`grep "$NewComment" $GlobleShellRC`
+    if [ -z "$Ret" ]; then
+        echo "" >> "$GlobleShellRC"
+        echo "$NewComment" >> "$GlobleShellRC"
+    fi
+    Ret=`grep "$NewEvnCmd" $GlobleShellRC`
+    if [ -z "$Ret" ]; then
+        echo "$NewEvnCmd" >> "$GlobleShellRC"
+    fi
+}
+
+clearEnv()
+{
+    local NewComment="#source the cluster-manager environment"
+    local NewEvnCmd="source $InstallDir/tools/cluster-manager-env.bash"
+    local GlobleShellRC='/root/.bashrc'
+    sed -i "/$NewComment/d" "$GlobleShellRC"
+    sed -i "/$NewEvnCmd/d" "$GlobleShellRC"
+}
+
+
 installPackageFromTarGz()
 {
     TmpDir="/tmp/.HongInstall_qwerty_temp"
@@ -145,6 +177,9 @@ installPackageFromDir()
     if [ ! -f "$NodeServer" ]; then
 	touch "$NodeServer"
     fi
+    echo "install tools"
+    cp "$PackageFilesPath/script/cluster-manager-env.bash" "$InstallDir/tools/"
+    cp "$PackageFilesPath/script/cluster-manager.sh" "$InstallDir/tools/"
 }
 
 installPackage()
@@ -160,6 +195,8 @@ installPackage()
         help
         exit 1
     fi
+    
+    setEnv
     echo "installation completed"
 }
 

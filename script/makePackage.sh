@@ -39,6 +39,8 @@ cp "$ClientImage" "$TempDir/bin"
 cp "$ServerImage" "$TempDir/bin"
 cp "$LibStd6" "$TempDir/sbin/libstdc++.so.6"
 cp "$ProjectDir/script/installPackage.sh" "$TempDir/script"
+cp "$ProjectDir/script/cluster-manager-env.bash" "$TempDir/script"
+cp "$ProjectDir/script/cluster-manager.sh" "$TempDir/script"
 
 grep "Version" $ProjectDir/sourceCode/Version/HongClusterMgt_Verstion.h > /tmp/tmpvesion
 Version=$(cut -d\" -f2 /tmp/tmpvesion)

@@ -1,11 +1,19 @@
 #!/bin/sh
 
+function helpIpPort()
+{
+    echo "ip port should format as: a.b.c.d:port"
+    echo "    a, b, c, d should valid interger"
+    echo "    port should a 4 or 5 interger"
+}
+
 function checkIpPort()
 {
     echo $1 > /tmp/tmpIpPort
-    echo $1 | grep "^[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}:[0-9]\{4,5}$" > /dev/null
-    if [ $? == 1 ]; then
+    echo $1 | grep "^[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}:[0-9]\{4,5\}$" > /dev/null
+    if [ $? -eq 1 ]; then
         echo "error format ip and port"
+        helpIpPort
         exit 1
     else
         a=$(cut -d. -f1 /tmp/tmpIpPort)
@@ -19,6 +27,7 @@ function checkIpPort()
         do
             if [ $no -ge 255 ] || [ $no -lt 0 ]; then
                 echo "error Ip address"
+                helpIpPort
                 exit 1
             fi
         done
@@ -28,14 +37,14 @@ function checkIpPort()
     rm /tmp/tmpIpPortEnd
 }
 
-function cluster-manager_add_server()
+function cluster_manager_add_server()
 {
 	local ipPort=$1
-    local serverConfigFile=$2
+        local serverConfigFile=$2
 	if [ ! -f $serverConfigFile ]; then
 		touch $serverConfigFile
 	fi
-	local findRet=grep "$ipPort" "$serverConfigFile"
+	local findRet=`grep "$ipPort" "$serverConfigFile"`
 	if [ -z $findRet ];then
 	    echo "$ipPort" >> "$serverConfigFile"
 	else
@@ -43,16 +52,16 @@ function cluster-manager_add_server()
 	fi
 }
 
-function cluster-manager_delete_server()
+function cluster_manager_delete_server()
 {
 	local ipPort=$1
-    local serverConfigFile=$2
+        local serverConfigFile=$2
 	if [ -f $serverConfigFile ]; then
-		sed -i '/"$ipPort"/d' "$serverConfigFile"
+		sed -i "/$ipPort/d" "$serverConfigFile"
 	fi
 }
 
-function cluster-manager_list_server()
+function cluster_manager_list_server()
 {
     local serverConfigFile=$1
 	if [ -f $serverConfigFile ]; then
@@ -60,74 +69,76 @@ function cluster-manager_list_server()
 	fi
 }
 
-function cluster-manager_add()
+function cluster_manager_add()
 {
     local cmd=$1
 	local ipPort=$2
 	checkIpPort $ipPort
     case "$cmd" in
 	"ui-server")
-	    cluster-manager_add_server $ipPort "/opt/HongClusterMgt/config/conf.ui.server"
+	    cluster_manager_add_server $ipPort "/opt/HongClusterMgt/config/conf.ui.server"
 	    ;;
 	"node-server")
-	    cluster-manager_add_server $ipPort "/opt/HongClusterMgt/config/conf.node.server"
+	    cluster_manager_add_server $ipPort "/opt/HongClusterMgt/config/conf.node.server"
 		;;
 	esac
 }
 
-function cluster-manager_delete()
+function cluster_manager_delete()
 {
     local cmd=$1
 	local ipPort=$2
 	checkIpPort $ipPort
     case "$cmd" in
 	"ui-server")
-	    cluster-manager_delete_server $ipPort "/opt/HongClusterMgt/config/conf.ui.server"
+	    cluster_manager_delete_server $ipPort "/opt/HongClusterMgt/config/conf.ui.server"
 	    ;;
 	"node-server")
-	    cluster-manager_delete_server $ipPort "/opt/HongClusterMgt/config/conf.node.server"
+	    cluster_manager_delete_server $ipPort "/opt/HongClusterMgt/config/conf.node.server"
 		;;
 	esac
 }
 
-function cluster-manager_list()
+function cluster_manager_list()
 {
     local cmd=$1
     case "$cmd" in
 	"ui-server")
-	    cluster-manager_list_server "/opt/HongClusterMgt/config/conf.ui.server"
+	    cluster_manager_list_server "/opt/HongClusterMgt/config/conf.ui.server"
 	    ;;
 	"node-server")
-	    cluster-manager_list_server "/opt/HongClusterMgt/config/conf.node.server"
+	    cluster_manager_list_server "/opt/HongClusterMgt/config/conf.node.server"
 		;;
 	esac
 }
 
-function cluster-manager()
+function cluster_manager()
 {
     local cmd=$1
 	shift
     case "$cmd" in
 	"add")
-	    cluster-manager_add $@
+	    cluster_manager_add $@
 		;;
 	"delete")
-		cluster-manager_delete $@
+		cluster_manager_delete $@
 		;;
 	"list")
-	    cluster-manager_list $@
+	    cluster_manager_list $@
 		;;
 	"start")
-	    cluster-manager_start $@
+	    cluster_manager_start $@
 		;;
 	"stop")
-	    cluster-manager_stop $@
+	    cluster_manager_stop $@
 		;;
 	"restart")
-	    cluster-manager_restart $@
+	    cluster_manager_restart $@
 		;;
 	"trace-debug")
-	    cluster-manager_trace-debug $@
+	    cluster_manager_trace-debug $@
 		;;
 	esac
 }
+
+cluster_manager $@

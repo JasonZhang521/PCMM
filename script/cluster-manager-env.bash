@@ -1,5 +1,7 @@
-alias cluster-manager=./cluster-manager.sh
-function __cmd__cluster-manager()
+ScriptDir=/opt/HongClusterMgt/script/
+alias cluster-manager="$ScriptDir/cluster-manager.sh"
+
+function __cmd__cluster_manager()
 {
     local cur prev BASE_LEVEL
     COMPREPLY=()
@@ -41,4 +43,4 @@ function __cmd__cluster-manager()
     fi
 }
 
-complete -F __cmd__cluster-manager cluster-manager
+complete -F __cmd__cluster_manager cluster-manager
