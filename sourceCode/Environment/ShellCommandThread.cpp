@@ -132,9 +132,10 @@ void ShellCommandThread::startThread()
         std::string filePrefix = remover.removeMultiCh(cmd_, "\t \\/-,|=");
 		filePrefix = MagicString + "." + filePrefix; 
         Random random;
-        outPutFile_ = "." + filePrefix + "." + random.generateUpLetterString(10);
+        const std::string& TempPath = Configure::getInstance().getEnvironmentTempPath();
+        outPutFile_ = TempPath + "/." + filePrefix + "." + random.generateUpLetterString(10);
 	    // delete the previous files
-	    std::string deletePreviousfiles = std::string("rm .") + filePrefix + std::string("*");
+        std::string deletePreviousfiles = std::string("rm ") + TempPath + "/." + filePrefix + std::string("*");
 	    system(deletePreviousfiles.c_str());
     }
     const std::string cmd = cmd_ + " > " + outPutFile_;

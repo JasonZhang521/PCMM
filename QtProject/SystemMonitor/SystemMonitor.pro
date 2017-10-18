@@ -150,7 +150,8 @@ SOURCES +=../../sourceCode/SystemMonitor/SystemMonitorProcess.cpp \
     ../../sourceCode/ConfigureManagement/MauiConfig.cpp \
     ../../sourceCode/ConfigureManagement/MauiConfigFileMgt.cpp \
     ../../sourceCode/ConfigureManagement/MauiConfigTag.cpp \
-    ../../sourceCode/ConfigureManagement/NetworkConfig.cpp
+    ../../sourceCode/ConfigureManagement/NetworkConfig.cpp \
+    ../../sourceCode/Configure/SystemEnvironmentConfigure.cpp
 
 HEADERS += \
     ../../sourceCode/SystemMonitor/SystemMonitorProcess.h \
@@ -282,7 +283,8 @@ HEADERS += \
     ../../sourceCode/ConfigureManagement/MauiConfig.h \
     ../../sourceCode/ConfigureManagement/MauiConfigFileMgt.h \
     ../../sourceCode/ConfigureManagement/MauiConfigTag.h \
-    ../../sourceCode/ConfigureManagement/NetworkConfig.h
+    ../../sourceCode/ConfigureManagement/NetworkConfig.h \
+    ../../sourceCode/Configure/SystemEnvironmentConfigure.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

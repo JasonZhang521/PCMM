@@ -142,7 +142,8 @@ SOURCES +=../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/ShellCommandMessage/ShellCommandMessageFactory.cpp \
     ../../sourceCode/ShellCommandMessage/ShellCommandRequest.cpp \
     ../../sourceCode/ShellCommandMessage/ShellCommandResponse.cpp \
-    ../../sourceCode/Environment/ShellCommandGenericOutput.cpp
+    ../../sourceCode/Environment/ShellCommandGenericOutput.cpp \
+    ../../sourceCode/Configure/SystemEnvironmentConfigure.cpp
 
 HEADERS += \
     ../../sourceCode/Ipc/Component.h \
@@ -271,7 +272,8 @@ HEADERS += \
     ../../sourceCode/ShellCommandMessage/ShellCommandMessageFactory.h \
     ../../sourceCode/ShellCommandMessage/ShellCommandRequest.h \
     ../../sourceCode/ShellCommandMessage/ShellCommandResponse.h \
-    ../../sourceCode/Environment/ShellCommandGenericOutput.h
+    ../../sourceCode/Environment/ShellCommandGenericOutput.h \
+    ../../sourceCode/Configure/SystemEnvironmentConfigure.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
