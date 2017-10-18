@@ -72,6 +72,11 @@ unsigned int ReadBuffer::getDataSize() const
     return dataSize_;
 }
 
+unsigned int ReadBuffer::getUnReadDataSize() const
+{
+    return dataSize_ - pos_;
+}
+
 void ReadBuffer::swap(ReadBuffer& buffer)
 {
     unsigned int tempBufferSize = buffer.bufferSize_;
@@ -109,6 +114,48 @@ bool ReadBuffer::operator==(const ReadBuffer& buffer)
     }
 
     return true;
+}
+
+void ReadBuffer::concatenate(const ReadBuffer& buffer)
+{
+    if (dataSize_ + buffer.dataSize_ > bufferSize_)
+    {
+        unsigned int validDataLength = dataSize_ - pos_;
+        if (validDataLength + buffer.dataSize_ <= bufferSize_)
+        {
+            removeReadedData();
+        }
+        else
+        {
+            expand(validDataLength + buffer.dataSize_ - bufferSize_);
+        }
+    }
+
+    std::copy(buffer.buffer_ + buffer.pos_, buffer.buffer_ + buffer.dataSize_, buffer_ + dataSize_);
+    dataSize_ += buffer.dataSize_;
+}
+
+void ReadBuffer::removeReadedData()
+{
+    if (pos_ == 0)
+    {
+        return;
+    }
+    else
+    {
+        std::copy(buffer_ + pos_, buffer_ + dataSize_, buffer_);
+        dataSize_ -= pos_;
+        pos_ = 0;
+    }
+}
+
+void ReadBuffer::expand(unsigned int addSize)
+{
+    char* buffer = new char[bufferSize_ + addSize];
+    std::copy(buffer_, buffer_+ dataSize_, buffer);
+    delete [] buffer_;
+    buffer_ = buffer;
+    bufferSize_ += addSize;
 }
 
 std::ostream& ReadBuffer::operator << (std::ostream& os) const

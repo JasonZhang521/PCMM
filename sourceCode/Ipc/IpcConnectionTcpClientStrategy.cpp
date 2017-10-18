@@ -2,8 +2,6 @@
 #include "IIpcConnectionReceiver.h"
 #include "ITcpClient.h"
 #include "IIpcMessage.h"
-#include "WriteBuffer.h"
-#include "ReadBuffer.h"
 #include "ITimer.h"
 #include "LoopMain.h"
 #include "Trace.h"
@@ -64,6 +62,7 @@ void IpcConnectionTcpClientStrategy::send(IpcMessage::IIpcMessage& msg)
 
     Serialize::WriteBuffer writeBuffer;
     msg.serialize(writeBuffer);
+    msg.setMessageLength(writeBuffer.getDataSize());
     TRACE_DEBUG("send msg:" << writeBuffer);
     client_->send(writeBuffer);
     heartbeartTimer_->resetTimer();
@@ -116,15 +115,24 @@ void IpcConnectionTcpClientStrategy::onConnect()
     }
 }
 
-void IpcConnectionTcpClientStrategy::onReceive(Serialize::ReadBuffer& readBuffer)
+void IpcConnectionTcpClientStrategy::onReceive(Serialize::ReadBuffer& readBuffer1)
 {
-    while (!readBuffer.isEndOfData())
+    inBuffer_.concatenate(readBuffer1);
+    while (inBuffer_.getUnReadDataSize() > 2)
     {
+        // check the message length
+        uint32_t messageLength = 0;
+        inBuffer_.peek(messageLength, 2);
+        if (messageLength > inBuffer_.getUnReadDataSize())
+        {
+            break;
+        }
+
         uint8_t messageType = static_cast<uint8_t>(IpcMessage::IpcMessage_None);
-        readBuffer.peek(messageType);
+        inBuffer_.peek(messageType);
         TRACE_DEBUG("Receive ipc message: message type = "
                     << IpcMessage::IpcMessageTypeString(static_cast<IpcMessage::IpcMessageType>(messageType))
-                    << ", message stream:" << readBuffer);
+                    << ", message stream:" << inBuffer_);
 
         IpcMessageFactroyMap::iterator
                 it = ipcMessageFactories_.find(static_cast<IpcMessage::IpcMessageType>(messageType));
@@ -132,11 +140,11 @@ void IpcConnectionTcpClientStrategy::onReceive(Serialize::ReadBuffer& readBuffer
         {
             std::shared_ptr<IpcMessage::IIpcMessageFactory>& factory = it->second;
             IpcMessage::IpcMessageApplicationIntType ipcApplicationType = 0xff;
-            readBuffer.peek(ipcApplicationType, sizeof(messageType));
+            inBuffer_.peek(ipcApplicationType, sizeof(messageType));
             std::unique_ptr<IpcMessage::IIpcMessage> msg(factory->createMessage(ipcApplicationType));
             if (msg)
             {
-                msg->unserialize(readBuffer);
+                msg->unserialize(inBuffer_);
                 TRACE_DEBUG("Receive ipc msg:" << *msg);
                 if (shouldForwardToApplication(static_cast<IpcMessage::IpcMessageType>(messageType),
                                                ipcApplicationType))

@@ -19,11 +19,11 @@ int main(int argc, char**argv)
             std::cout << *msg << std::endl;
             std::cout << "-----------------------" << std::endl;
         }
-        System::Sleep(50000);
-        std::unique_ptr<IpcMessage::IIpcMessage>
-                controlNodeBrieflyInfoRequest(new SystemMonitorMessage::ControlNodeBrieflyInfoRequest);
-        process.sendMessage(std::move(controlNodeBrieflyInfoRequest));
-        System::Sleep(1000);
+        System::Sleep(5000);
+        //std::unique_ptr<IpcMessage::IIpcMessage>
+        //        controlNodeBrieflyInfoRequest(new SystemMonitorMessage::ControlNodeBrieflyInfoRequest);
+        //process.sendMessage(std::move(controlNodeBrieflyInfoRequest));
+        //System::Sleep(1000);
     }
     return 0;
 }

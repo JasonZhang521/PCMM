@@ -16,6 +16,7 @@
 #include "NetworkEnv.h"
 #include "IpAddress.h"
 #include "Trace.h"
+#include "Configure.h"
 #include <memory>
 #include <thread>
 
@@ -64,6 +65,7 @@ void UiClientProcess::sendMessage(std::unique_ptr<IpcMessage::IIpcMessage> msg)
 void UiClientProcess::process()
 {
     TRACE_NOTICE("Ui Client is starting!");
+    Configure::getInstance().setTraceLogFilePath("./message.log");
     // Local and remote endpoint.
     Network::IpSocketEndpoint localEndpoint("0.0.0.0:0");
     //Network::IpSocketEndpoint remoteEndpoint(std::string("127.0.0.1:23833"));
