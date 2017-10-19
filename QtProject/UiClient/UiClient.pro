@@ -273,7 +273,11 @@ HEADERS += \
     ../../sourceCode/ShellCommandMessage/ShellCommandRequest.h \
     ../../sourceCode/ShellCommandMessage/ShellCommandResponse.h \
     ../../sourceCode/Environment/ShellCommandGenericOutput.h \
-    ../../sourceCode/Configure/SystemEnvironmentConfigure.h
+    ../../sourceCode/Configure/SystemEnvironmentConfigure.h \
+    ../../sourceCode/TraceLog/Trace.h \
+    ../../sourceCode/TraceLog/TraceBuf.h \
+    ../../sourceCode/TraceLog/TraceConsole.h \
+    ../../sourceCode/TraceLog/TraceFile.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
