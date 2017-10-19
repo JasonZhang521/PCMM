@@ -118,21 +118,16 @@ void IpcConnectionTcpClientStrategy::onConnect()
 
 void IpcConnectionTcpClientStrategy::onReceive(Serialize::ReadBuffer& readBuffer)
 {
-    TRACE_NOTICE("receive buffer:" << readBuffer.getDataSize() << "  " << readBuffer.getUnReadDataSize());
     inBuffer_.concatenate(readBuffer);
-    TRACE_NOTICE("inbuffer:" << inBuffer_.getDataSize() << "  " << inBuffer_.getUnReadDataSize());
     while (inBuffer_.getUnReadDataSize() > 2)
     {
         // check the message length
         uint32_t messageLength = 0;
         inBuffer_.peek(messageLength, 2);
-        TRACE_NOTICE("messageLength:" << messageLength);
         if (messageLength > inBuffer_.getUnReadDataSize())
         {
-            TRACE_NOTICE("Receive message fragmantation, buffer length:" << inBuffer_.getUnReadDataSize()
+            TRACE_DEBUG("Receive message fragmantation, buffer length:" << inBuffer_.getUnReadDataSize()
                             << ", required message length:" << messageLength);
-            TRACE_NOTICE(inBuffer_);
-            TRACE_NOTICE("received:" << readBuffer);
             break;
         }
 
