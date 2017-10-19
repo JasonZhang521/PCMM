@@ -74,6 +74,7 @@ public:
             return false;
         }
         val = BufferToData::Read<T>(buffer_ + pos_ + start);
+        val = PlatformWrapper::N2H(val);
         return true;
     }
 
