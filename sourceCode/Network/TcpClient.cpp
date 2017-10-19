@@ -162,6 +162,11 @@ TcpResult TcpClient::send(const Serialize::WriteBuffer& buffer)
         restart();
         return TcpResult::Failed;
     }
+    else if (sendBytes != buffer.getDataSize())
+    {
+        TRACE_NOTICE("send message fragmantation! plan send:" << buffer.getDataSize() << ", actuall send:" << sendBytes);
+        return TcpResult::Success;
+    }
     else
     {
         return TcpResult::Success;

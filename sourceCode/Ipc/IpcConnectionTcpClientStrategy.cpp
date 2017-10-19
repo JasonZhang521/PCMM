@@ -125,6 +125,8 @@ void IpcConnectionTcpClientStrategy::onReceive(Serialize::ReadBuffer& readBuffer
         inBuffer_.peek(messageLength, 2);
         if (messageLength > inBuffer_.getUnReadDataSize())
         {
+            TRACE_NOTICE("Receive message fragmantation, buffer length:" << inBuffer_.getUnReadDataSize()
+                            << ", required message length:" << messageLength);
             break;
         }
 

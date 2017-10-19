@@ -4,7 +4,9 @@
 #include "LoopMain.h"
 #include "SystemErrorInfo.h"
 #include "Lock.h"
+#include "SystemApi.h"
 #include "Trace.h"
+#include "Generic.h"
 #include <thread>
 
 namespace Environment {
@@ -128,9 +130,11 @@ void ShellCommandThread::startThread()
 {
     if (outPutFile_.empty())
     {
+        int pid = PlatformWrapper::SystemApi::getPid();
+        std::string pidStr = lexical_cast<std::string>(pid);
         RemoveCharacter remover(' ', RemovePlace::LOCATION_FRONT | RemovePlace::LOCATION_MIDDLE | RemovePlace::LOCATION_END);
         std::string filePrefix = remover.removeMultiCh(cmd_, "\t \\/-,|=");
-		filePrefix = MagicString + "." + filePrefix; 
+        filePrefix = MagicString + "." + pidStr + "." + filePrefix;
         Random random;
         const std::string& TempPath = Configure::getInstance().getEnvironmentTempPath();
         outPutFile_ = TempPath + "/." + filePrefix + "." + random.generateUpLetterString(10);

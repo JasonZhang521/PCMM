@@ -143,7 +143,8 @@ SOURCES +=../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/ShellCommandMessage/ShellCommandRequest.cpp \
     ../../sourceCode/ShellCommandMessage/ShellCommandResponse.cpp \
     ../../sourceCode/Environment/ShellCommandGenericOutput.cpp \
-    ../../sourceCode/Configure/SystemEnvironmentConfigure.cpp
+    ../../sourceCode/Configure/SystemEnvironmentConfigure.cpp \
+    ../../sourceCode/PlatformWrapper/SystemApi.cpp
 
 HEADERS += \
     ../../sourceCode/Ipc/Component.h \
@@ -277,7 +278,8 @@ HEADERS += \
     ../../sourceCode/TraceLog/Trace.h \
     ../../sourceCode/TraceLog/TraceBuf.h \
     ../../sourceCode/TraceLog/TraceConsole.h \
-    ../../sourceCode/TraceLog/TraceFile.h
+    ../../sourceCode/TraceLog/TraceFile.h \
+    ../../sourceCode/PlatformWrapper/SystemApi.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
