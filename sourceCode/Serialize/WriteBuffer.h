@@ -59,7 +59,7 @@ public:
     template<typename T>
     bool modify(const T& val, unsigned int start)
     {
-        if (start > dataSize_)
+        if (start + sizeof(T) > dataSize_)
         {
             return false;
         }

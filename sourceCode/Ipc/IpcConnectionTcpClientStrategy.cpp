@@ -63,7 +63,7 @@ void IpcConnectionTcpClientStrategy::send(IpcMessage::IIpcMessage& msg)
     Serialize::WriteBuffer writeBuffer;
     msg.serialize(writeBuffer);
     // set the message length
-    writeBuffer.modify(2, writeBuffer.getDataSize());
+    writeBuffer.modify(writeBuffer.getDataSize(), 2);
     TRACE_DEBUG("send msg:" << writeBuffer);
     client_->send(writeBuffer);
     heartbeartTimer_->resetTimer();
