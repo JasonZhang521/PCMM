@@ -298,4 +298,5 @@ else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../sourceCode/static
 LIBS += -lWs2_32
 
 DISTFILES += \
-    ../../sourceCode/Environment/CMakeLists.txt
+    ../../sourceCode/Environment/CMakeLists.txt \
+    ../../sourceCode/Configure/CMakeLists.txt
