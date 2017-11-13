@@ -1,6 +1,8 @@
 #ifndef UNIXPROCESS_H
 #define UNIXPROCESS_H
 #include "IUnixProcess.h"
+#include "Component.h"
+#include "Macro.h"
 
 namespace ProcessManagement
 {
@@ -16,6 +18,9 @@ public:
     virtual void startProcess();
     virtual void stopProcess();
     virtual void checkStatus();
+
+public:
+     GETCLASSNAME(IpcClient)
 };
 
 }
