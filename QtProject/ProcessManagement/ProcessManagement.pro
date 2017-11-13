@@ -10,8 +10,6 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    ../../sourceCode/ProcessManagement/IUnixProcess.cpp \
-    ../../sourceCode/ProcessManagement/UnixProcess.cpp \
     ../../sourceCode/Common/FilePathHandler.cpp \
     ../../sourceCode/Common/LocalTime.cpp \
     ../../sourceCode/Common/Lock.cpp \
@@ -23,7 +21,30 @@ SOURCES += main.cpp \
     ../../sourceCode/Configure/Configure.cpp \
     ../../sourceCode/Configure/ExceptionConfigure.cpp \
     ../../sourceCode/Configure/SystemEnvironmentConfigure.cpp \
-    ../../sourceCode/Configure/TraceLogConfigure.cpp
+    ../../sourceCode/Configure/TraceLogConfigure.cpp \
+    ../../sourceCode/ProcessManagementSupport/IUnixProcess.cpp \
+    ../../sourceCode/ProcessManagementSupport/UnixProcess.cpp \
+    ../../sourceCode/ProcessManagement/ProcessHandler.cpp \
+    ../../sourceCode/Core/EventLoop.cpp \
+    ../../sourceCode/Core/IoLoop.cpp \
+    ../../sourceCode/Core/LoopMain.cpp \
+    ../../sourceCode/Core/TimerLoop.cpp \
+    ../../sourceCode/TimerHandler/EventTimer.cpp \
+    ../../sourceCode/TimerHandler/ITimer.cpp \
+    ../../sourceCode/TimerHandler/ITimerQueue.cpp \
+    ../../sourceCode/TimerHandler/ListTimerQueue.cpp \
+    ../../sourceCode/TimerHandler/TimerIdGenerator.cpp \
+    ../../sourceCode/Io/IIoControl.cpp \
+    ../../sourceCode/Io/IIoEvent.cpp \
+    ../../sourceCode/Io/IoControlEventsHandler.cpp \
+    ../../sourceCode/EventHandler/EventIdGenerator.cpp \
+    ../../sourceCode/EventHandler/IEvent.cpp \
+    ../../sourceCode/EventHandler/IEventQueue.cpp \
+    ../../sourceCode/EventHandler/ListEventQueue.cpp \
+    ../../sourceCode/PlatformWrapper/NetworkHost.cpp \
+    ../../sourceCode/PlatformWrapper/SocketWrapper.cpp \
+    ../../sourceCode/PlatformWrapper/SystemApi.cpp \
+    ../../sourceCode/PlatformWrapper/SystemErrorInfo.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -37,9 +58,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 HEADERS += \
-    ../../sourceCode/ProcessManagement/Component.h \
-    ../../sourceCode/ProcessManagement/IUnixProcess.h \
-    ../../sourceCode/ProcessManagement/UnixProcess.h \
     ../../sourceCode/Common/App.h \
     ../../sourceCode/Common/AppConst.h \
     ../../sourceCode/Common/FilePathHandler.h \
@@ -63,11 +81,51 @@ HEADERS += \
     ../../sourceCode/Configure/Configure_Define.h \
     ../../sourceCode/Configure/ExceptionConfigure.h \
     ../../sourceCode/Configure/SystemEnvironmentConfigure.h \
-    ../../sourceCode/Configure/TraceLogConfigure.h
+    ../../sourceCode/Configure/TraceLogConfigure.h \
+    ../../sourceCode/ProcessManagementSupport/Component.h \
+    ../../sourceCode/ProcessManagementSupport/IUnixProcess.h \
+    ../../sourceCode/ProcessManagementSupport/UnixProcess.h \
+    ../../sourceCode/ProcessManagement/ProcessHandler.h \
+    ../../sourceCode/ProcessManagement/Component.h \
+    ../../sourceCode/Core/Component.h \
+    ../../sourceCode/Core/EventLoop.h \
+    ../../sourceCode/Core/IoLoop.h \
+    ../../sourceCode/Core/LoopMain.h \
+    ../../sourceCode/Core/TimerLoop.h \
+    ../../sourceCode/TimerHandler/Component.h \
+    ../../sourceCode/TimerHandler/EventTimer.h \
+    ../../sourceCode/TimerHandler/ITimer.h \
+    ../../sourceCode/TimerHandler/ITimerQueue.h \
+    ../../sourceCode/TimerHandler/ListTimerQueue.h \
+    ../../sourceCode/TimerHandler/TimerIdGenerator.h \
+    ../../sourceCode/Io/Component.h \
+    ../../sourceCode/Io/IIoControl.h \
+    ../../sourceCode/Io/IIoEvent.h \
+    ../../sourceCode/Io/IoControlEventsHandler.h \
+    ../../sourceCode/EventHandler/Component.h \
+    ../../sourceCode/EventHandler/EventIdGenerator.h \
+    ../../sourceCode/EventHandler/IEvent.h \
+    ../../sourceCode/EventHandler/IEventQueue.h \
+    ../../sourceCode/EventHandler/ListEventQueue.h \
+    ../../sourceCode/PlatformWrapper/NetworkHost.h \
+    ../../sourceCode/PlatformWrapper/SocketWrapper.h \
+    ../../sourceCode/PlatformWrapper/SocketWrapperDef.h \
+    ../../sourceCode/PlatformWrapper/SystemApi.h \
+    ../../sourceCode/PlatformWrapper/SystemErrorInfo.h
 
 INCLUDEPATH += ../../sourceCode/Common \
+               ../../sourceCode/PlatformWrapper \
                ../../sourceCode/TraceLog \
                ../../sourceCode/Configure \
-DISTFILES += \
-    ../../sourceCode/Common/CMakeLists.txt \
-    ../../sourceCode/Configure/CMakeLists.txt
+               ../../sourceCode/Core \
+               ../../sourceCode/TimerHandler \
+               ../../sourceCode/Io \
+               ../../sourceCode/EventHandler \
+               ../../sourceCode/ProcessManagementSupport \
+
+
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../sourceCode/static_lib/ -lssh.dll
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../sourceCode/static_lib/ -lssh.dll
+
+LIBS += -lWs2_32

@@ -1,10 +1,10 @@
-#ifndef UNIXPROCESS_H
-#define UNIXPROCESS_H
+#ifndef _PROCESSMANAGEMENTSUPPORT_LINUXPROCESS_H_
+#define _PROCESSMANAGEMENTSUPPORT_LINUXPROCESS_H_
 #include "IUnixProcess.h"
 #include "Component.h"
 #include "Macro.h"
 
-namespace ProcessManagement
+namespace ProcessManagementSupport
 {
 
 class UnixProcess : public IUnixProcess
@@ -24,4 +24,4 @@ public:
 };
 
 }
-#endif // UNIXPROCESS_H
+#endif // _PROCESSMANAGEMENTSUPPORT_LINUXPROCESS_H_

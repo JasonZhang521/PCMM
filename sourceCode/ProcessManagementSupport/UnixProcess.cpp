@@ -1,12 +1,14 @@
 #include "UnixProcess.h"
 #include "FilePathHandler.h"
 #include "Trace.h"
+#ifndef _WIN32
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <signal.h>
+#endif
 
-namespace ProcessManagement
+namespace ProcessManagementSupport
 {
 
 UnixProcess::UnixProcess()
@@ -29,6 +31,7 @@ void UnixProcess::config(LPConfig config, const std::string& val)
 
 void UnixProcess::startProcess()
 {
+#ifndef _WIN32
     pid_t pid = fork();
     // parent process
     if (pid > 0)
@@ -44,15 +47,19 @@ void UnixProcess::startProcess()
     {
         TRACE_ERROR("Can not fork the process:" << executedBinaryPath_);
     }
+#endif
 }
 
 void UnixProcess::stopProcess()
 {
+#ifndef _WIN32
     kill(pid_, 9);
+#endif
 }
 
 void UnixProcess::checkStatus()
 {
+#ifndef _WIN32
     int status = -1;
     waitpid(pid, &status, WNOHANG);
     if (WIFEXITED(status))
@@ -73,6 +80,7 @@ void UnixProcess::checkStatus()
     {
         status_ = LPStatus::RUNNING;
     }
+#endif
 }
 
 }

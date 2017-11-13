@@ -1,5 +1,5 @@
 #include "IUnixProcess.h"
-namespace ProcessManagement
+namespace ProcessManagementSupport
 {
 
 IUnixProcess::IUnixProcess()

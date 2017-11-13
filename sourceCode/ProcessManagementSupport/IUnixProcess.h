@@ -1,7 +1,7 @@
-#ifndef ILINUXPROCESS_H
-#define ILINUXPROCESS_H
+#ifndef _PROCESSMANAGEMENTSUPPORT_ILINUXPROCESS_H_
+#define _PROCESSMANAGEMENTSUPPORT_ILINUXPROCESS_H_
 #include <string>
-namespace ProcessManagement
+namespace ProcessManagementSupport
 {
 
 enum class LPConfig
@@ -30,4 +30,4 @@ public:
     LPStatus checkStatus() {return status_;}
 };
 }
-#endif // ILINUXPROCESS_H
+#endif // _PROCESSMANAGEMENTSUPPORT_ILINUXPROCESS_H_
