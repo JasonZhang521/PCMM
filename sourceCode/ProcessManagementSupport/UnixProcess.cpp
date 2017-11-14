@@ -11,9 +11,9 @@
 namespace ProcessManagementSupport
 {
 
-UnixProcess::UnixProcess()
+UnixProcess::UnixProcess(const std::string& executedBinaryPath)
+    : executedBinaryPath_(executedBinaryPath)
 {
-
 }
 
 UnixProcess::~UnixProcess()
@@ -21,16 +21,13 @@ UnixProcess::~UnixProcess()
 
 }
 
-void UnixProcess::config(LPConfig config, const std::string& val)
-{
-    if (LPConfig::PATH == config)
-    {
-        executedBinaryPath_ = val;
-    }
-}
-
 void UnixProcess::startProcess()
 {
+    if (!FilePathHandler::isFileExist(executedBinaryPath_))
+    {
+        TRACE_ERROR("Can not fork the process:" << executedBinaryPath_ << ", the File is not exsited!");
+        return;
+    }
 #ifndef _WIN32
     pid_t pid = fork();
     // parent process
@@ -40,7 +37,7 @@ void UnixProcess::startProcess()
     }
     else if (pid == 0)
     {
-        const std::string processName = FilePathHandler::getFileName();
+        const std::string processName = FilePathHandler::getFileName(executedBinaryPath_);
         execl(executedBinaryPath_.c_str(), processName.c_str());
     }
     else
@@ -53,12 +50,19 @@ void UnixProcess::startProcess()
 void UnixProcess::stopProcess()
 {
 #ifndef _WIN32
-    kill(pid_, 9);
+    if (pid_ > 0)
+    {
+        kill(pid_, 9);
+    }
 #endif
 }
 
-void UnixProcess::checkStatus()
+LPStatus UnixProcess::checkStatus()
 {
+    if (pid_ <= 0)
+    {
+        return LPStatus::STOPPED;
+    }
 #ifndef _WIN32
     int status = -1;
     waitpid(pid, &status, WNOHANG);
@@ -81,6 +85,7 @@ void UnixProcess::checkStatus()
         status_ = LPStatus::RUNNING;
     }
 #endif
+    return status_;
 }
 
 }

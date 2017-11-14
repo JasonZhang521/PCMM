@@ -4,11 +4,6 @@
 namespace ProcessManagementSupport
 {
 
-enum class LPConfig
-{
-    PATH
-};
-
 enum class LPStatus
 {
     STARTING,
@@ -24,10 +19,9 @@ protected:
 public:
     IUnixProcess();
     virtual ~IUnixProcess();
-    virtual void config(LPConfig config, const std::string&) = 0;
     virtual void startProcess() = 0;
     virtual void stopProcess() = 0;
-    LPStatus checkStatus() {return status_;}
+    virtual LPStatus checkStatus() = 0;
 };
 }
 #endif // _PROCESSMANAGEMENTSUPPORT_ILINUXPROCESS_H_

@@ -9,7 +9,7 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
-SOURCES += main.cpp \
+SOURCES += \
     ../../sourceCode/Common/FilePathHandler.cpp \
     ../../sourceCode/Common/LocalTime.cpp \
     ../../sourceCode/Common/Lock.cpp \
@@ -44,7 +44,9 @@ SOURCES += main.cpp \
     ../../sourceCode/PlatformWrapper/NetworkHost.cpp \
     ../../sourceCode/PlatformWrapper/SocketWrapper.cpp \
     ../../sourceCode/PlatformWrapper/SystemApi.cpp \
-    ../../sourceCode/PlatformWrapper/SystemErrorInfo.cpp
+    ../../sourceCode/PlatformWrapper/SystemErrorInfo.cpp \
+    ../../sourceCode/ProcessManagement/processmanagementmain.cpp \
+    ../../sourceCode/ProcessManagement/ProcessManagementProcess.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -111,7 +113,8 @@ HEADERS += \
     ../../sourceCode/PlatformWrapper/SocketWrapper.h \
     ../../sourceCode/PlatformWrapper/SocketWrapperDef.h \
     ../../sourceCode/PlatformWrapper/SystemApi.h \
-    ../../sourceCode/PlatformWrapper/SystemErrorInfo.h
+    ../../sourceCode/PlatformWrapper/SystemErrorInfo.h \
+    ../../sourceCode/ProcessManagement/ProcessManagementProcess.h
 
 INCLUDEPATH += ../../sourceCode/Common \
                ../../sourceCode/PlatformWrapper \
