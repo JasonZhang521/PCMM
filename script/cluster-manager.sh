@@ -1,5 +1,8 @@
 #!/bin/sh
 
+NumOfClientInstance=1
+NumOfServerInstance=1
+
 function helpIpPort()
 {
     echo "ip port should format as: a.b.c.d:port"
@@ -135,7 +138,7 @@ function cluster_manager_start_node_client()
 {
 	local Ret=`cluster_manager_check_node_client_process`
 	if [ $Ret -eq 0 ]; then
-		/opt/HongClusterMgt/bin/ComputerNodeMonitor.elf
+		/opt/HongClusterMgt/bin/ProcessManagement.elf  /opt/HongClusterMgt/bin/ComputerNodeMonitor.elf $NumOfClientInstance &
 	else
 		echo "the node client has been already started! process id $Ret"
 	fi
@@ -156,7 +159,7 @@ function cluster_manager_start_server()
 {
 	local Ret=`cluster_manager_check_server_process`
 	if [ $Ret -eq 0 ]; then
-		/opt/HongClusterMgt/bin/ClusterNodesControl.elf
+		/opt/HongClusterMgt/bin/ProcessManagement.elf /opt/HongClusterMgt/bin/ClusterNodesControl.elf $NumOfServerInstance &
 	else
 		echo "the server has been already started! process id $Ret"
 	fi

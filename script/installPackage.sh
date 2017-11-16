@@ -114,6 +114,11 @@ checkPackagePathDir()
         exit 1
     fi
 
+    if [ ! -f "$PackageFilesPath/bin/ProcessManagement.elf" ]; then
+        echo "$PackageFilesPath/bin/ProcessManagement.elf is not existed!"
+        exit 1
+    fi
+
     if [ ! -d "$PackageFilesPath/sbin" ]; then
         echo "$PackageFilesPath/sbin is not exsisted!"
         exit 1

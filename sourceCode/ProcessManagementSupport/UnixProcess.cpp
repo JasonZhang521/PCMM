@@ -61,24 +61,27 @@ LPStatus UnixProcess::checkStatus()
 {
     if (pid_ <= 0)
     {
+        TRACE_NOTICE("process id=" << pid_ << " not started");
         return LPStatus::STOPPED;
     }
 #ifndef _WIN32
     int status = -1;
-    waitpid(pid, &status, WNOHANG);
+    waitpid(pid_, &status, WNOHANG);
     if (WIFEXITED(status))
     {
         status_ = LPStatus::STOPPED;
-        TRACE_NOTICE("process id=" << pid << " exit normally, exit status =" << WEXITSTATUS(status));
+        TRACE_NOTICE("process id=" << pid_ << " exit normally, exit status =" << WEXITSTATUS(status));
+        pid_ = -1;
     }
     else if (WIFSIGNALED(status))
     {
         status_ = LPStatus::STOPPED;
-        TRACE_NOTICE("process id=" << pid << " exit by signal, signal is " << WTERMSIG(status));
+        TRACE_NOTICE("process id=" << pid_ << " exit by signal, signal is " << WTERMSIG(status));
         if (WCOREDUMP(status))
         {
-            TRACE_NOTICE("process id=" << pid << "core dumped");
+            TRACE_NOTICE("process id=" << pid_ << "core dumped");
         }
+        pid_ = -1;
     }
     else
     {
