@@ -6,6 +6,14 @@ PackagePath=""
 ImageType=""
 InstallDir=""
 
+createCoreDir()
+{
+	CoreDir=/corefile
+	if [ ! -d "$CoreDir" ]; then
+		mkdir "$CoreDir"
+    fi
+}
+
 initInstallDir()
 {
     echo "initialize Install Dir"
@@ -206,5 +214,6 @@ installPackage()
 }
 
 parseArgument $@
+createCoreDir
 initInstallDir
 installPackage

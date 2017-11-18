@@ -3,6 +3,12 @@
 NumOfClientInstance=1
 NumOfServerInstance=1
 
+function setCoredump()
+{
+    echo "1" > /proc/sys/kernel/core_uses_pid
+	echo "/corefile/%e.core.%p.%t" > /proc/sys/kernel/core_pattern
+}
+
 function helpIpPort()
 {
     echo "ip port should format as: a.b.c.d:port"
@@ -177,6 +183,7 @@ function cluster_manager_start_server()
 
 function cluster_manager_start()
 {
+	setCoredump
     local cmd=$1
     case "$cmd" in
 	"node-client")
