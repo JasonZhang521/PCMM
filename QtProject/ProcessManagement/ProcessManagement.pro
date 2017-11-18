@@ -46,7 +46,8 @@ SOURCES += \
     ../../sourceCode/PlatformWrapper/SystemApi.cpp \
     ../../sourceCode/PlatformWrapper/SystemErrorInfo.cpp \
     ../../sourceCode/ProcessManagement/processmanagementmain.cpp \
-    ../../sourceCode/ProcessManagement/ProcessManagementProcess.cpp
+    ../../sourceCode/ProcessManagement/ProcessManagementProcess.cpp \
+    ../../sourceCode/Common/CoredumpConfig.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -114,7 +115,8 @@ HEADERS += \
     ../../sourceCode/PlatformWrapper/SocketWrapperDef.h \
     ../../sourceCode/PlatformWrapper/SystemApi.h \
     ../../sourceCode/PlatformWrapper/SystemErrorInfo.h \
-    ../../sourceCode/ProcessManagement/ProcessManagementProcess.h
+    ../../sourceCode/ProcessManagement/ProcessManagementProcess.h \
+    ../../sourceCode/Common/CoredumpConfig.h
 
 INCLUDEPATH += ../../sourceCode/Common \
                ../../sourceCode/PlatformWrapper \
