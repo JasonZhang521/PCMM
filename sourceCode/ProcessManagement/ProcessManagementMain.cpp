@@ -9,7 +9,6 @@ int main(int argc, char *argv[])
     ProcessParameter parameter = DefaultPara;
     for (int i = 1; i < argc; ++i)
     {
-		std::cout << "i=" << i << ", " << argv[i] << std::endl;
         if (i % 2 == 1)
         {
             parameter.first = argv[i];
