@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
     using ProcessParameter = std::pair<std::string, unsigned int>;
     const ProcessParameter DefaultPara({"", 0});
     ProcessParameter parameter = DefaultPara;
-    for (int i = 1; i <= argc; ++i)
+    for (int i = 1; i < argc; ++i)
     {
 		std::cout << "i=" << i << ", " << argv[i] << std::endl;
         if (i % 2 == 1)
