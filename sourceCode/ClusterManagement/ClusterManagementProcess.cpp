@@ -9,6 +9,8 @@
 #include "Environment.h"
 #include "ShellCommandThread.h"
 #include "NetworkConfig.h"
+#include "CoredumpConfig.h"
+#include "Configure.h"
 
 namespace ClusterManagement {
 ClusterManagementProcess::ClusterManagementProcess()
@@ -18,6 +20,9 @@ ClusterManagementProcess::ClusterManagementProcess()
 
 void ClusterManagementProcess::process()
 {
+    CoredumpConfig::LimitSet();
+    Configure::getInstance().setTraceLogFilePath("/opt/HongClusterMgt/log/ClusterManagement.message.log");
+
     // create the Cluster mananger control
     std::shared_ptr<IClusterMgtController> clusterMgtController(new ClusterMgtController());
 

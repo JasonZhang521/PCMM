@@ -82,7 +82,8 @@ SOURCES += \
     ../../sourceCode/ShellCommandMessage/ShellCommandResponse.cpp \
     ../../sourceCode/ConfigureManagement/NetworkConfig.cpp \
     ../../sourceCode/Configure/SystemEnvironmentConfigure.cpp \
-    ../../sourceCode/PlatformWrapper/SystemApi.cpp
+    ../../sourceCode/PlatformWrapper/SystemApi.cpp \
+    ../../sourceCode/Common/CoredumpConfig.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -320,7 +321,8 @@ HEADERS += \
     ../../sourceCode/ShellCommandMessage/ShellCommandResponse.h \
     ../../sourceCode/ConfigureManagement/NetworkConfig.h \
     ../../sourceCode/Configure/SystemEnvironmentConfigure.h \
-    ../../sourceCode/PlatformWrapper/SystemApi.h
+    ../../sourceCode/PlatformWrapper/SystemApi.h \
+    ../../sourceCode/Common/CoredumpConfig.h
 
 unix {
     target.path = /usr/lib

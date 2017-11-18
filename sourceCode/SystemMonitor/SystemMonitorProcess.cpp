@@ -17,6 +17,8 @@
 #include "ShellCommandThread.h"
 #include "NetworkConfig.h"
 #include "RemoveCharacter.h"
+#include "CoredumpConfig.h"
+#include "Configure.h"
 #include <memory>
 #include <iostream>
 #include <fstream>
@@ -29,6 +31,9 @@ SystemMonitorProcess::SystemMonitorProcess()
 
 void SystemMonitorProcess::process()
 {
+    CoredumpConfig::LimitSet();
+    Configure::getInstance().setTraceLogFilePath("/opt/HongClusterMgt/log/SystemMonitor.message.log");
+
     std::vector<std::string> nodeServerIpPorts = ConfigureManagement::NetworkConfig::getNodeServerIpPort();
     // Local and remote endpoint.
     Network::IpSocketEndpoint localEndpoint("0.0.0.0:0");

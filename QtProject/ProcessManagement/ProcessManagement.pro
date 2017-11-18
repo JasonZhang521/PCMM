@@ -45,9 +45,9 @@ SOURCES += \
     ../../sourceCode/PlatformWrapper/SocketWrapper.cpp \
     ../../sourceCode/PlatformWrapper/SystemApi.cpp \
     ../../sourceCode/PlatformWrapper/SystemErrorInfo.cpp \
-    ../../sourceCode/ProcessManagement/processmanagementmain.cpp \
     ../../sourceCode/ProcessManagement/ProcessManagementProcess.cpp \
-    ../../sourceCode/Common/CoredumpConfig.cpp
+    ../../sourceCode/Common/CoredumpConfig.cpp \
+    ../../sourceCode/ProcessManagement/ProcessManagementMain.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
