@@ -124,6 +124,16 @@ function cluster_manager_list()
 	esac
 }
 
+function cluster_manager_check_process_manager_process()
+{
+	local Ret=`ps -ef | grep "ProcessManagement.elf" | grep -v "grep ProcessManagement.elf" | awk '{print $2}'`
+    if [ -z "$Ret" ]; then
+		echo "0"
+	else
+		echo "$Ret"
+	fi
+}
+
 function cluster_manager_check_node_client_process()
 {
 	local Ret=`ps -ef | grep "ComputerNodeMonitor.elf" | grep -v "grep ComputerNodeMonitor.elf" | awk '{print $2}'`
@@ -136,7 +146,7 @@ function cluster_manager_check_node_client_process()
 
 function cluster_manager_start_node_client()
 {
-	local Ret=`cluster_manager_check_node_client_process`
+	local Ret=`cluster_manager_check_process_manager_process`
 	if [ $Ret -eq 0 ]; then
 		/opt/HongClusterMgt/bin/ProcessManagement.elf  /opt/HongClusterMgt/bin/ComputerNodeMonitor.elf $NumOfClientInstance &
 	else
@@ -157,7 +167,7 @@ function cluster_manager_check_server_process()
 
 function cluster_manager_start_server()
 {
-	local Ret=`cluster_manager_check_server_process`
+	local Ret=`cluster_manager_check_process_manager_process`
 	if [ $Ret -eq 0 ]; then
 		/opt/HongClusterMgt/bin/ProcessManagement.elf /opt/HongClusterMgt/bin/ClusterNodesControl.elf $NumOfServerInstance &
 	else
