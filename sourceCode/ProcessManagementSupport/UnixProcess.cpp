@@ -39,6 +39,7 @@ void UnixProcess::startProcess()
     {
         const std::string processName = FilePathHandler::getFileName(executedBinaryPath_);
         execl(executedBinaryPath_.c_str(), processName.c_str());
+        TRACE_NOTICE("start process: path=" << executedBinaryPath_ << ", processname=" << processName);
         exit(0);
     }
     else
