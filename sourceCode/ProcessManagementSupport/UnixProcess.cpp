@@ -1,11 +1,13 @@
 #include "UnixProcess.h"
 #include "FilePathHandler.h"
+#include "SystemErrorInfo.h"
 #include "Trace.h"
 #ifndef _WIN32
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <signal.h>
+#include <iostream>
 #endif
 
 namespace ProcessManagementSupport
@@ -38,8 +40,12 @@ void UnixProcess::startProcess()
     else if (pid == 0)
     {
         const std::string processName = FilePathHandler::getFileName(executedBinaryPath_);
-        execl(executedBinaryPath_.c_str(), processName.c_str());
-        TRACE_NOTICE("start process: path=" << executedBinaryPath_ << ", processname=" << processName);
+        int ret = execl(executedBinaryPath_.c_str(), processName.c_str(), nullptr);
+		if (ret)
+		{
+            TRACE_WARNING("start process failed: path=" << executedBinaryPath_
+					                                    << ", processname=" << processName << ", error=" << PlatformWrapper::GetLastErrorMessage());
+		}
         exit(0);
     }
     else
