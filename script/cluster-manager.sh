@@ -140,6 +140,16 @@ function cluster_manager_check_process_manager_process()
 	fi
 }
 
+function cluster_manager_stop_process_manager()
+{
+    local Ret=`cluster_manager_check_process_manager_process`
+	if [ $Ret -eq 0 ]; then
+		echo "the process manager has been already stopped"
+	else
+		kill -9 "$Ret"
+    fi
+}
+
 function cluster_manager_check_node_client_process()
 {
 	local Ret=`ps -ef | grep "ComputerNodeMonitor.elf" | grep -v "grep ComputerNodeMonitor.elf" | awk '{print $2}'`
@@ -223,9 +233,11 @@ function cluster_manager_stop()
     local cmd=$1
     case "$cmd" in
 	"node-client")
+	    cluster_manager_stop_process_manager
 	    cluster_manager_stop_node_client
 		;;
 	"server")
+		cluster_manager_stop_process_manager
 		cluster_manager_stop_server
 		;;
 	*)
