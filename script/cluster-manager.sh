@@ -140,9 +140,49 @@ function cluster_manager_check_process_manager_process()
 	fi
 }
 
+function cluster_manager_check_process_manager_process_client()
+{
+	local Ret=`ps -ef | grep "ProcessManagement.elf" | grep -v "grep ProcessManagement.elf" | grep "ComputerNodeMonitor.elf" | awk '{print $2}'`
+    if [ -z "$Ret" ]; then
+		echo "0"
+	else
+		echo "$Ret"
+	fi
+}
+
+function cluster_manager_check_process_manager_process_server()
+{
+	local Ret=`ps -ef | grep "ProcessManagement.elf" | grep -v "grep ProcessManagement.elf" | grep "ClusterNodesControl.elf" | awk '{print $2}'`
+    if [ -z "$Ret" ]; then
+		echo "0"
+	else
+		echo "$Ret"
+	fi
+}
+
 function cluster_manager_stop_process_manager()
 {
     local Ret=`cluster_manager_check_process_manager_process`
+	if [ $Ret -eq 0 ]; then
+		echo "the process manager has been already stopped"
+	else
+		kill -9 "$Ret"
+    fi
+}
+
+function cluster_manager_stop_process_manager_client()
+{
+    local Ret=`cluster_manager_check_process_manager_process_client`
+	if [ $Ret -eq 0 ]; then
+		echo "the process manager has been already stopped"
+	else
+		kill -9 "$Ret"
+    fi
+}
+
+function cluster_manager_stop_process_manager_server()
+{
+    local Ret=`cluster_manager_check_process_manager_process_server`
 	if [ $Ret -eq 0 ]; then
 		echo "the process manager has been already stopped"
 	else
@@ -162,7 +202,7 @@ function cluster_manager_check_node_client_process()
 
 function cluster_manager_start_node_client()
 {
-	local Ret=`cluster_manager_check_process_manager_process`
+	local Ret=`cluster_manager_check_process_manager_process_client`
 	if [ $Ret -eq 0 ]; then
 		/opt/HongClusterMgt/bin/ProcessManagement.elf  /opt/HongClusterMgt/bin/ComputerNodeMonitor.elf $NumOfClientInstance &
 	else
@@ -183,7 +223,7 @@ function cluster_manager_check_server_process()
 
 function cluster_manager_start_server()
 {
-	local Ret=`cluster_manager_check_process_manager_process`
+	local Ret=`cluster_manager_check_process_manager_process_server`
 	if [ $Ret -eq 0 ]; then
 		/opt/HongClusterMgt/bin/ProcessManagement.elf /opt/HongClusterMgt/bin/ClusterNodesControl.elf $NumOfServerInstance &
 	else
@@ -233,11 +273,11 @@ function cluster_manager_stop()
     local cmd=$1
     case "$cmd" in
 	"node-client")
-	    cluster_manager_stop_process_manager
+	    cluster_manager_stop_process_manager_client
 	    cluster_manager_stop_node_client
 		;;
 	"server")
-		cluster_manager_stop_process_manager
+		cluster_manager_stop_process_manager_server
 		cluster_manager_stop_server
 		;;
 	*)
