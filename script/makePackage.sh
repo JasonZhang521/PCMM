@@ -35,6 +35,7 @@ LibStd6="$LibStd6Dir$LibStd6Name"
 mkdir "$TempDir/bin"
 mkdir "$TempDir/script"
 mkdir "$TempDir/sbin"
+mkdir "$TempDir/version"
 
 cp "$ClientImage" "$TempDir/bin"
 cp "$ServerImage" "$TempDir/bin"
@@ -47,6 +48,9 @@ cp "$ProjectDir/script/cluster-manager.sh" "$TempDir/script"
 grep "Version" $ProjectDir/sourceCode/Version/HongClusterMgt_Verstion.h > /tmp/tmpvesion
 Version=$(cut -d\" -f2 /tmp/tmpvesion)
 rm "/tmp/tmpvesion"
+`date >> "$TempDir/version/version"`
+`echo "Version: $Version" >> "$TempDir/version/version"`
+`git log -n 1 >> "$TempDir/version/version"`
 
 PackageName="$BuildDir/HongClusterMgt.$Version.tar.gz"
 cd $TempDir && tar -czf  $PackageName * 

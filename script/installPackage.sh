@@ -33,6 +33,9 @@ initInstallDir()
     if [ ! -d "$RootDir/tools" ]; then
         mkdir $RootDir/tools
     fi
+    if [ ! -d "$RootDir/misc" ]; then
+        mkdir $RootDir/misc
+    fi
     InstallDir="$RootDir"
     echo "initialize Install Dir completed"
 }
@@ -193,6 +196,8 @@ installPackageFromDir()
     echo "install tools"
     cp "$PackageFilesPath/script/cluster-manager-env.bash" "$InstallDir/tools/"
     cp "$PackageFilesPath/script/cluster-manager.sh" "$InstallDir/tools/"
+	echo "install misc"
+	cp "$PackageFilesPath/version/version" "$InstallDir/misc/"
 }
 
 installPackage()
