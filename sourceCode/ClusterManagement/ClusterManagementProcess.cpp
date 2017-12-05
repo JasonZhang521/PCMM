@@ -11,6 +11,7 @@
 #include "NetworkConfig.h"
 #include "CoredumpConfig.h"
 #include "Configure.h"
+#include "AppConst.h"
 
 namespace ClusterManagement {
 ClusterManagementProcess::ClusterManagementProcess()
@@ -60,11 +61,11 @@ void ClusterManagementProcess::process()
     // register the commands
     {
         Environment::IShellCommand* commandDf =
-                new Environment::ShellCommandThread(Environment::ShellCommand::getCmdString(Environment::ShellCommandType::DiskUsageDf), 600000);
+                new Environment::ShellCommandThread(Environment::ShellCommand::getCmdString(Environment::ShellCommandType::DiskUsageDf), DfCommandPeriod);
         Environment::Environment::instance().registerShellCmd(Environment::ShellCommandType::DiskUsageDf, commandDf);
 
         Environment::IShellCommand* commandDuHome =
-                new Environment::ShellCommandThread(Environment::ShellCommand::getCmdString(Environment::ShellCommandType::DiskUsageDuHome), 1200000);
+                new Environment::ShellCommandThread(Environment::ShellCommand::getCmdString(Environment::ShellCommandType::DiskUsageDuHome), DuCommandPeriod);
         Environment::Environment::instance().registerShellCmd(Environment::ShellCommandType::DiskUsageDuHome, commandDuHome);
     }
     // run
