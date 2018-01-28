@@ -72,11 +72,11 @@ void SystemMonitorProcess::process()
         Environment::IShellCommand* commandDf =
                 new Environment::ShellCommandThread(Environment::ShellCommand::getCmdString(Environment::ShellCommandType::DiskUsageDf), DfCommandPeriod);
         Environment::Environment::instance().registerShellCmd(Environment::ShellCommandType::DiskUsageDf, commandDf);
-
+/*
         Environment::IShellCommand* commandDuHome =
                 new Environment::ShellCommandThread(Environment::ShellCommand::getCmdString(Environment::ShellCommandType::DiskUsageDuHome), DuCommandPeriod);
         Environment::Environment::instance().registerShellCmd(Environment::ShellCommandType::DiskUsageDuHome, commandDuHome);
-
+*/
         Environment::IShellCommand* commandPsTop10CpuUsage =
                 new Environment::ShellCommandThread(Environment::ShellCommand::getCmdString(Environment::ShellCommandType::PsTop10CpuUsage), 5000);
         Environment::Environment::instance().registerShellCmd(Environment::ShellCommandType::PsTop10CpuUsage, commandPsTop10CpuUsage);
