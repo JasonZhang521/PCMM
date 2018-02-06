@@ -1,7 +1,11 @@
 #include "LoopMain.h"
 #include "ListEventQueue.h"
 #include "ListTimerQueue.h"
+#ifdef WIN32
 #include "IoControlEventsHandler.h"
+#else
+#include "IoControlEventsHandlerEpoll.h"
+#endif
 #include "AppConst.h"
 #include "Singleton.h"
 #include "TimeStat.h"
@@ -12,7 +16,11 @@ namespace Core {
 LoopMain::LoopMain()
     : eventLoop_(std::shared_ptr<EventHandler::IEventQueue>(new EventHandler::ListEventQueue()))
     , timeLoop_(std::shared_ptr<TimerHandler::ITimerQueue>(new TimerHandler::ListTimerQueue))
+#ifdef WIN32
     , ioLoop_(std::shared_ptr<Io::IIoControl>(new Io::IoControlEventsHandler()))
+#else
+    , ioLoop_(std::shared_ptr<Io::IIoControl>(new Io::IoControlEventsHandlerEpoll()))
+#endif
     , timeExcuteInOneLoop(MaxRunningTimeInOneLoop)
     , stop_(false)
 {

@@ -7,6 +7,7 @@
 #else
 #include <sys/socket.h>
 #include <sys/types.h>
+#include <sys/epoll.h>
 #include <poll.h>
 #include <errno.h>
 #include <netinet/in.h>
@@ -149,6 +150,10 @@ using SocketTimeVal = struct timeval;
 using SocketPollFdSet = struct pollfd;
 using SocketPollFdNumber = nfds_t;
 using SocketPollEvent = short;
+using SocketEpollFd = int;
+using SocketEpollEvent = int;
+using SocketEpollCtlOp = int;
+using SocketEpollEventStruct = struct epoll_event;
 using SocketInetAddress = struct in_addr;
 using SocketInet6Address = struct in6_addr;
 using SocketOptLevel = int;
@@ -240,6 +245,22 @@ const SocketPollEvent SOCKET_POLLERR = POLLERR;
 const SocketPollEvent SOCKET_POLLHUP = POLLHUP;
 const SocketPollEvent SOCKET_POLLNVAL = POLLNVAL;
 // Poll Event end
+
+// EPoll Event
+const SocketEpollEvent SOCKET_EPOLLIN = EPOLLIN;
+const SocketEPollEvent SOCKET_EPOLLOUT = EPOLLOUT;
+const SocketEpollEvent SOCKET_EPOLLPRI = EPOLLPRI;
+const SocketEpollEvent SOCKET_EPOLLERR = EPOLLERR;
+const SocketEpollEvent SOCKET_EPOLLHUP = EPOLLHUP;
+const SocketEpollEvent SOCKET_EPOLLET = EPOLLET;
+const SocketEpollEvent SOCKET_EPOLLONESHOT = EPOLLONESHOT;
+// EPoll Event
+
+// EPoll OP
+const SocketEpollCtlOp SocketEpollCtlAdd = EPOLL_CTL_ADD;
+const SocketEpollCtlOp SocketEpollCtlMod = EPOLL_CTL_MOD;
+const SocketEpollCtlOp SocketEpollCtlDel = EPOLL_CTL_DEL;
+// EPoll OP
 
 #endif
 

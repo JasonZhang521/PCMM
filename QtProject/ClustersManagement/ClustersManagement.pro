@@ -83,7 +83,8 @@ SOURCES += \
     ../../sourceCode/ConfigureManagement/NetworkConfig.cpp \
     ../../sourceCode/Configure/SystemEnvironmentConfigure.cpp \
     ../../sourceCode/PlatformWrapper/SystemApi.cpp \
-    ../../sourceCode/Common/CoredumpConfig.cpp
+    ../../sourceCode/Common/CoredumpConfig.cpp \
+    ../../sourceCode/Io/IoControlEventsHandlerEpoll.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -322,7 +323,8 @@ HEADERS += \
     ../../sourceCode/ConfigureManagement/NetworkConfig.h \
     ../../sourceCode/Configure/SystemEnvironmentConfigure.h \
     ../../sourceCode/PlatformWrapper/SystemApi.h \
-    ../../sourceCode/Common/CoredumpConfig.h
+    ../../sourceCode/Common/CoredumpConfig.h \
+    ../../sourceCode/Io/IoControlEventsHandlerEpoll.h
 
 unix {
     target.path = /usr/lib
