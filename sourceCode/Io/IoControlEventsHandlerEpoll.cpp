@@ -1,4 +1,7 @@
 #include "IoControlEventsHandlerEpoll.h"
+#include "SocketWrapper.h"
+#include "IEvent.h"
+#include "IIoEvent.h"
 #include "Component.h"
 #include "Macro.h"
 
@@ -12,7 +15,7 @@ IoControlEventsHandlerEpoll::IoControlEventsHandlerEpoll()
     epollFds_.reserve(NumOfEpollFds);
     for (size_t i = 0; i < NumOfEpollFds; ++i)
     {
-        epollFds_[i] = EpollCreate(MaxNumOfFdsEachEpollFd);
+        epollFds_[i] = PlatformWrapper::EpollCreate(MaxNumOfFdsEachEpollFd);
     }
 }
 
@@ -20,7 +23,7 @@ IoControlEventsHandlerEpoll::~IoControlEventsHandlerEpoll()
 {
     for (size_t i = 0; i < NumOfEpollFds; ++i)
     {
-        EpollClose(epollFds_[i]);
+		PlatformWrapper::EpollClose(epollFds_[i]);
     }
 }
 
@@ -30,7 +33,7 @@ void IoControlEventsHandlerEpoll::run()
     isRunning_ = true;
     for (size_t i = 0; i < NumOfEpollFds; ++i)
     {
-        int numberOfEvents = epoll_wait(epollFds_[i],events,MaxListenEvents,0);
+        int numberOfEvents = PlatformWrapper::EpollWait(epollFds_[i],events,MaxListenEvents,0);
 
         for (size_t j = 0; j < numberOfEvents; ++j)
         {
@@ -123,19 +126,19 @@ void IoControlEventsHandlerEpoll::removeEvent(int fd, uint32_t type)
     if (type & IoFdType::IoFdRead)
     {
         ev.events = SOCKET_EPOLLIN;
-        PlatformWrapper::EpollCtl(epollFd, EPOLL_CTL_DEL, fd, &ev);
+        PlatformWrapper::EpollCtl(epollFd, SocketEpollCtlDel, fd, &ev);
     }
 
     if(type & IoFdType::IoFdWrite)
     {
         ev.events = SOCKET_EPOLLOUT;
-        PlatformWrapper::EpollCtl(epollFd, EPOLL_CTL_DEL, fd, &ev);
+        PlatformWrapper::EpollCtl(epollFd, SocketEpollCtlDel, fd, &ev);
     }
 
     if (type & IoFdType::IoFdExcept)
     {
         ev.events = SOCKET_EPOLLERR;
-        PlatformWrapper::EpollCtl(epollFd, EPOLL_CTL_DEL, fd, &ev);
+        PlatformWrapper::EpollCtl(epollFd, SocketEpollCtlDel, fd, &ev);
     }
 }
 

@@ -132,12 +132,12 @@ inline SocketEpollFd EpollCreate(int size)
     return epoll_create(size);
 }
 
-inline int EpollCtl(SocketHandle epfd, SocketEpollCtlOp op, SocketHandle fd, SocketEpollEvent* event)
+inline int EpollCtl(SocketHandle epfd, SocketEpollCtlOp op, SocketHandle fd, SocketEpollEventStruct* event)
 {
     return epoll_ctl(epfd, op, fd, event);
 }
 
-inline int EpollWait(SocketHandle epfd, SocketEpollEvent* events, int maxevents, int timeout)
+inline int EpollWait(SocketHandle epfd, SocketEpollEventStruct* events, int maxevents, int timeout)
 {
     return epoll_wait(epfd, events, maxevents, timeout);
 }

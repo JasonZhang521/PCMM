@@ -248,7 +248,7 @@ const SocketPollEvent SOCKET_POLLNVAL = POLLNVAL;
 
 // EPoll Event
 const SocketEpollEvent SOCKET_EPOLLIN = EPOLLIN;
-const SocketEPollEvent SOCKET_EPOLLOUT = EPOLLOUT;
+const SocketEpollEvent SOCKET_EPOLLOUT = EPOLLOUT;
 const SocketEpollEvent SOCKET_EPOLLPRI = EPOLLPRI;
 const SocketEpollEvent SOCKET_EPOLLERR = EPOLLERR;
 const SocketEpollEvent SOCKET_EPOLLHUP = EPOLLHUP;
