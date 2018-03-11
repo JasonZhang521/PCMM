@@ -12,7 +12,7 @@ class IIpcConnectionAcceptor
 {
 public:
     IIpcConnectionAcceptor();
-    ~IIpcConnectionAcceptor();
+    virtual ~IIpcConnectionAcceptor();
     virtual void onAccept(int fd,
                           const Network::IpSocketEndpoint& localEndPoint,
                           const Network::IpSocketEndpoint& remoteEndPoint) = 0;

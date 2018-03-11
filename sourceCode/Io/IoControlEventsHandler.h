@@ -2,8 +2,7 @@
 #define _IO_IOCONTROLEVENT_H_
 #include "SocketWrapperDef.h"
 #include "IIoControl.h"
-#include "Component.h"
-#include "Macro.h"
+
 
 namespace Io {
 

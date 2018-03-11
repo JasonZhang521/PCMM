@@ -30,6 +30,17 @@ std::vector<std::string> NetworkConfig::getUiServerIpPort()
     return ipPorts;
 }
 
+std::vector<std::string> NetworkConfig::getChatServerIpPort()
+{
+    const std::string serverIpPortConfigPath("/opt/HongClusterMgt/config/conf.chat.server");
+    std::vector<std::string> ipPorts;
+    if (!readIpPortFromConfigFile(serverIpPortConfigPath, ipPorts))
+    {
+        ipPorts.push_back("127.0.0.1:23834");
+    }
+    return ipPorts;
+}
+
 bool NetworkConfig::readIpPortFromConfigFile(const std::string& configFile, std::vector<std::string>& ipPorts)
 {
 

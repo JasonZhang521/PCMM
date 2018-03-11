@@ -4,6 +4,8 @@
 #include "IIoEvent.h"
 #include "Generic.h"
 #include <string>
+#include "Component.h"
+#include "Macro.h"
 #include "Trace.h"
 
 namespace Io {

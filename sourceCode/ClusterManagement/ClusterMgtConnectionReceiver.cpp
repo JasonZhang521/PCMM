@@ -20,7 +20,7 @@ ClusterMgtConnectionReceiver::~ClusterMgtConnectionReceiver()
 
 void ClusterMgtConnectionReceiver::onConnect()
 {
-    TRACE_NOTICE("client connected!");
+    TRACE_NOTICE("client" << remoteIpEndpoint_ << " is connected!");
 }
 
 void ClusterMgtConnectionReceiver::onReceive(std::unique_ptr<IpcMessage::IIpcMessage> msg)
