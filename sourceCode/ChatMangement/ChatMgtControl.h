@@ -1,5 +1,5 @@
-#ifndef CHATMGTCONTROL_H
-#define CHATMGTCONTROL_H
+#ifndef _CHATMANAGEMENTCHATMGTCONTROL_H_
+#define _CHATMANAGEMENTCHATMGTCONTROL_H_
 #include <memory>
 #include <map>
 #include "IChatMgtControl.h"

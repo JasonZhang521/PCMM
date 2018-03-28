@@ -4,6 +4,8 @@
 #include "IpcClientCreator.h"
 #include "IpSocketEndpoint.h"
 #include "IpcClient.h"
+#include "ChatSessionMessageFactory.h"
+#include "IpcLayerMessageFactory.h"
 
 namespace ChatManagement {
 
@@ -32,10 +34,10 @@ void ChatMgtConnectionAcceptor::createChatConnection(int fd,
 
 
     IpcMessageFactories factories;
-/*
-    factories.push_back(std::shared_ptr<IpcMessage::IIpcMessageFactory>(new SystemMonitorMessage::SystemMonitorMessageFactory()));
+
+    factories.push_back(std::shared_ptr<IpcMessage::IIpcMessageFactory>(new ChatSessionMessage::ChatSessionMessageFactory()));
     factories.push_back(std::shared_ptr<IpcMessage::IIpcMessageFactory>(new IpcMessage::IpcLayerMessageFactory()));
-*/
+
     Ipc::IIpcClient* tcpAcceptedClientPtr =
             Ipc::IpcClientCreator::CreateWithTcpClientStrategy(fd, localEndPoint, remoteEndPoint, chatMgtConnectionReceiver, factories);
     std::unique_ptr<Ipc::IIpcClient> ipcClient(tcpAcceptedClientPtr);

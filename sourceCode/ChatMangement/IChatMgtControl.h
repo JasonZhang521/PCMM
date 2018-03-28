@@ -1,5 +1,5 @@
-#ifndef ICHATMGTCONTROL_H
-#define ICHATMGTCONTROL_H
+#ifndef _CHATMANAGEMENTICHATMGTCONTROL_H_
+#define _CHATMANAGEMENTICHATMGTCONTROL_H_
 #include <memory>
 
 namespace Network {
@@ -30,4 +30,4 @@ public:
 
 }
 
-#endif // ICHATMGTCONTROL_H
+#endif // _CHATMANAGEMENTICHATMGTCONTROL_H_

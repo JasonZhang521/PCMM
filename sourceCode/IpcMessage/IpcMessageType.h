@@ -9,7 +9,8 @@ enum IpcMessageType
     IpcMessage_IpcCommunication,
     IpcMessage_SystemMonitor,
     IpcMessage_ConfigureMgt,
-    IpcMessage_ShellCommand
+    IpcMessage_ShellCommand,
+    IpcMessage_ChatSession
 };
 std::string IpcMessageTypeString(IpcMessageType type);
 
@@ -47,6 +48,18 @@ enum IpcShellCommandMessageType
 };
 
 std::string IpcShellCommandTypeToString(IpcShellCommandMessageType type);
+
+enum IpcChatMessageType
+{
+    ChatTextMessage,
+    ChatFileMessage,
+    ChatFileRequestMessage,
+    ChatFileFragmentRequestMessage,
+    ChatAuthorizationRequest,
+    ChatAuthorizationResponse
+};
+
+std::string IpcChatMessageTypeToString(IpcChatMessageType type);
 
 }
 #endif // _IPCMESSAGE_IPCMESSAGETYPE_H_

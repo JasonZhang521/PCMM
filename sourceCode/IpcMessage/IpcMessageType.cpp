@@ -11,6 +11,8 @@ std::string IpcMessageTypeString(IpcMessageType type)
         return std::string("IpcMessage_ConfigureMgt");
     case IpcMessage_ShellCommand:
         return std::string("IpcMessage_ShellCommand");
+    case IpcMessage_ChatSession:
+        return std::string("IpcMessage_ChatSession");
     default:
         return std::string("IpcMessage_Unknown");
     }
@@ -72,6 +74,27 @@ std::string IpcShellCommandTypeToString(IpcShellCommandMessageType type)
         return std::string("ShellCommandResponseMessage");
     default:
         return std::string("ShellCommandUnknownMessage");
+        break;
+    }
+}
+
+std::string IpcChatMessageTypeToString(IpcChatMessageType type)
+{
+    switch (type) {
+    case ChatTextMessage:
+        return std::string("ChatTextMessage");
+    case ChatFileMessage:
+        return std::string("ChatFileMessage");
+    case ChatFileRequestMessage:
+        return std::string("ChatFileRequestMessage");
+    case ChatFileFragmentRequestMessage:
+        return std::string("ChatFileFragmentRequestMessage");
+    case ChatAuthorizationRequest:
+        return std::string("ChatAuthorizationRequest");
+    case ChatAuthorizationResponse:
+        return std::string("ChatAuthorizationResponse");
+    default:
+        return std::string("ChatMessageUnkownMessage");
         break;
     }
 }

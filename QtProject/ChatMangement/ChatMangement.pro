@@ -89,7 +89,19 @@ SOURCES += \
     ../../sourceCode/ChatMangement/ChatMgtConnectionReceiver.cpp \
     ../../sourceCode/ChatMangement/ChatManagementProcess.cpp \
     ../../sourceCode/ConfigureManagement/NetworkConfig.cpp \
-    ../../sourceCode/ChatMangement/ChatMangementMain.cpp
+    ../../sourceCode/ChatMangement/ChatMangementMain.cpp \
+    ../../sourceCode/ChatSessionMessage/IChatMessage.cpp \
+    ../../sourceCode/Common/MessageBuffer.cpp \
+    ../../sourceCode/ChatSessionMessage/ChatTextMessage.cpp \
+    ../../sourceCode/ChatSessionMessage/ChatFileMessage.cpp \
+    ../../sourceCode/ChatSessionMessage/ChatAuthorizationRequest.cpp \
+    ../../sourceCode/ChatSessionMessage/ChatAuthorizationResponse.cpp \
+    ../../sourceCode/ChatSessionMessage/ChatLoginRequest.cpp \
+    ../../sourceCode/ChatSessionMessage/ChatLoginResponse.cpp \
+    ../../sourceCode/Common/Encryption.cpp \
+    ../../sourceCode/ChatSessionMessage/ChatFileFragmentRequest.cpp \
+    ../../sourceCode/ChatSessionMessage/ChatFileRequest.cpp \
+    ../../sourceCode/ChatSessionMessage/ChatSessionMessageFactory.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -112,7 +124,8 @@ INCLUDEPATH += ../../sourceCode/Serialize \
                ../../sourceCode/PlatformWrapper \
                ../../sourceCode/IpcMessage \
                ../../sourceCode/Serialize \
-               ../../sourceCode/ConfigureManagement
+               ../../sourceCode/ConfigureManagement \
+               ../../sourceCode/ChatSessionMessage
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
@@ -221,7 +234,19 @@ HEADERS += \
     ../../sourceCode/ChatMangement/ChatMgtConnectionReceiver.h \
     ../../sourceCode/ChatMangement/ChatManagementProcess.h \
     ../../sourceCode/ConfigureManagement/Component.h \
-    ../../sourceCode/ConfigureManagement/NetworkConfig.h
+    ../../sourceCode/ConfigureManagement/NetworkConfig.h \
+    ../../sourceCode/ChatSessionMessage/IChatMessage.h \
+    ../../sourceCode/Common/MessageBuffer.h \
+    ../../sourceCode/ChatSessionMessage/ChatTextMessage.h \
+    ../../sourceCode/ChatSessionMessage/ChatFileMessage.h \
+    ../../sourceCode/ChatSessionMessage/ChatAuthorizationRequest.h \
+    ../../sourceCode/ChatSessionMessage/ChatAuthorizationResponse.h \
+    ../../sourceCode/ChatSessionMessage/ChatLoginRequest.h \
+    ../../sourceCode/ChatSessionMessage/ChatLoginResponse.h \
+    ../../sourceCode/Common/Encryption.h \
+    ../../sourceCode/ChatSessionMessage/ChatFileFragmentRequest.h \
+    ../../sourceCode/ChatSessionMessage/ChatFileRequest.h \
+    ../../sourceCode/ChatSessionMessage/ChatSessionMessageFactory.h
 
 unix {
     target.path = /usr/lib
