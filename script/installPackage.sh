@@ -119,6 +119,11 @@ checkPackagePathDir()
         echo "$PackageFilesPath/bin/ClusterNodesControl.elf is not existed!"
         exit 1
     fi
+    
+    if [ ! -f "$PackageFilesPath/bin/ChatSessionManager.elf" ]; then
+        echo "$PackageFilesPath/bin/ChatSessionManager.elf is not existed!"
+        exit 1
+    fi
 
     if [ ! -f "$PackageFilesPath/bin/ComputerNodeMonitor.elf" ]; then
         echo "$PackageFilesPath/bin/ComputerNodeMonitor.elf is not existed!"

@@ -15,8 +15,9 @@ if [ ! -d "$BuildDir" ]; then
     mkdir "$BuildDir"
 fi 
 
-ClientImage=$ProjectDir/build/SystemMonitor/ComputerNodeMonitor.elf
-ServerImage=$ProjectDir/build/ClusterManagement/ClusterNodesControl.elf
+NodeClientImage=$ProjectDir/build/SystemMonitor/ComputerNodeMonitor.elf
+ClusterControlServerImage=$ProjectDir/build/ClusterManagement/ClusterNodesControl.elf
+ChatManagementServerImage=$ProjectDir/build/ChatSessionManagement/ChatSessionManager.elf
 ProcessManagementImage=$ProjectDir/build/ProcessManagement/ProcessManagement.elf
 TempDir=/tmp/HongClusterMgt
 if [ ! -d "$TempDir" ]; then
@@ -37,9 +38,10 @@ mkdir "$TempDir/script"
 mkdir "$TempDir/sbin"
 mkdir "$TempDir/version"
 
-cp "$ClientImage" "$TempDir/bin"
-cp "$ServerImage" "$TempDir/bin"
+cp "$NodeClientImage" "$TempDir/bin"
+cp "$ClusterControlServerImage" "$TempDir/bin"
 cp "$ProcessManagementImage" "$TempDir/bin"
+cp "$ChatManagementServerImage" "$TempDir/bin"
 cp "$LibStd6" "$TempDir/sbin/libstdc++.so.6"
 cp "$ProjectDir/script/installPackage.sh" "$TempDir/script"
 cp "$ProjectDir/script/cluster-manager-env.bash" "$TempDir/script"

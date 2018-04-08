@@ -89,7 +89,10 @@ function cluster_manager_add()
 	    ;;
 	"node-server")
 	    cluster_manager_add_server $ipPort "/opt/HongClusterMgt/config/conf.node.server"
-		;;
+     	    ;;
+	"chat-server")
+	    cluster_manager_add_server $ipPort "/opt/HongClusterMgt/config/conf.chat.server"
+     	    ;;
 	*)
 		echo "error usage command!"
 		exit 1
@@ -107,7 +110,10 @@ function cluster_manager_delete()
 	    ;;
 	"node-server")
 	    cluster_manager_delete_server $ipPort "/opt/HongClusterMgt/config/conf.node.server"
-		;;
+            ;;
+	"chat-server")
+	    cluster_manager_delete_server $ipPort "/opt/HongClusterMgt/config/conf.chat.server"
+            ;;
 	*)
 		echo "error usage command!"
 		exit 1
@@ -123,7 +129,10 @@ function cluster_manager_list()
 	    ;;
 	"node-server")
 	    cluster_manager_list_server "/opt/HongClusterMgt/config/conf.node.server"
-		;;
+	    ;;
+	"chat-server")
+	    cluster_manager_list_server "/opt/HongClusterMgt/config/conf.chat.server"
+	    ;;
 	*)
 		echo "error usage command!"
 		exit 1
@@ -132,27 +141,28 @@ function cluster_manager_list()
 
 function cluster_manager_check_process_manager_process()
 {
-	local Ret=`ps -ef | grep "ProcessManagement.elf" | grep -v "grep ProcessManagement.elf" | awk '{print $2}'`
+    local Ret=`ps -ef | grep "ProcessManagement.elf" | grep -v "grep ProcessManagement.elf" | awk '{print $2}'`
     if [ -z "$Ret" ]; then
-		echo "0"
-	else
-		echo "$Ret"
-	fi
+	echo "0"
+    else
+	echo "$Ret"
+    fi
 }
 
-function cluster_manager_check_process_manager_process_client()
+function cluster_manager_check_process_manager_process_node_client()
 {
-	local Ret=`ps -ef | grep "ProcessManagement.elf" | grep -v "grep ProcessManagement.elf" | grep "ComputerNodeMonitor.elf" | awk '{print $2}'`
+    local Ret=`ps -ef | grep "ProcessManagement.elf" | grep -v "grep ProcessManagement.elf" | grep "ComputerNodeMonitor.elf" | awk '{print $2}'`
     if [ -z "$Ret" ]; then
-		echo "0"
-	else
-		echo "$Ret"
-	fi
+	echo "0"
+    else
+	echo "$Ret"
+    fi
 }
 
+# new server process add in this funciton
 function cluster_manager_check_process_manager_process_server()
 {
-	local Ret=`ps -ef | grep "ProcessManagement.elf" | grep -v "grep ProcessManagement.elf" | grep "ClusterNodesControl.elf" | awk '{print $2}'`
+    local Ret=`ps -ef | grep "ProcessManagement.elf" | grep -v "grep ProcessManagement.elf" | grep "ClusterNodesControl.elf" | grep "ChatSessionManager.elf" | awk '{print $2}'`
     if [ -z "$Ret" ]; then
 		echo "0"
 	else
@@ -163,16 +173,16 @@ function cluster_manager_check_process_manager_process_server()
 function cluster_manager_stop_process_manager()
 {
     local Ret=`cluster_manager_check_process_manager_process`
-	if [ $Ret -eq 0 ]; then
-		echo "the process manager has been already stopped"
-	else
+    if [ $Ret -eq 0 ]; then
+	echo "the process manager has been already stopped"
+    else
 		kill -9 "$Ret"
     fi
 }
 
-function cluster_manager_stop_process_manager_client()
+function cluster_manager_stop_process_manager_node_client()
 {
-    local Ret=`cluster_manager_check_process_manager_process_client`
+    local Ret=`cluster_manager_check_process_manager_process_node_client`
 	if [ $Ret -eq 0 ]; then
 		echo "the process manager has been already stopped"
 	else
@@ -202,7 +212,7 @@ function cluster_manager_check_node_client_process()
 
 function cluster_manager_start_node_client()
 {
-	local Ret=`cluster_manager_check_process_manager_process_client`
+	local Ret=`cluster_manager_check_process_manager_process_node_client`
 	if [ $Ret -eq 0 ]; then
 		/opt/HongClusterMgt/bin/ProcessManagement.elf  /opt/HongClusterMgt/bin/ComputerNodeMonitor.elf $NumOfClientInstance &
 	else
@@ -210,7 +220,7 @@ function cluster_manager_start_node_client()
 	fi
 }
 
-function cluster_manager_check_server_process()
+function cluster_manager_check_cluster_server_process()
 {
 	local Ret=`ps -ef | grep "ClusterNodesControl.elf" | grep -v "grep ClusterNodesControl.elf" | awk '{print $2}'`
     if [ -z "$Ret" ]; then
@@ -220,12 +230,23 @@ function cluster_manager_check_server_process()
 	fi
 }
 
+function cluster_manager_check_chat_server_process()
+{
+	local Ret=`ps -ef | grep "ChatSessionManager.elf" | grep -v "ChatSessionManager.elf" | awk '{print $2}'`
+    if [ -z "$Ret" ]; then
+		echo "0"
+	else
+		echo "$Ret"
+	fi
+}
+
+#check new server add here
 
 function cluster_manager_start_server()
 {
 	local Ret=`cluster_manager_check_process_manager_process_server`
 	if [ $Ret -eq 0 ]; then
-		/opt/HongClusterMgt/bin/ProcessManagement.elf /opt/HongClusterMgt/bin/ClusterNodesControl.elf $NumOfServerInstance &
+		/opt/HongClusterMgt/bin/ProcessManagement.elf /opt/HongClusterMgt/bin/ClusterNodesControl.elf $NumOfServerInstance /opt/HongClusterMgt/bin/ChatSessionManager.elf $NumOfServerInstance &
 	else
 		echo "the server has been already started! process id $Ret"
 	fi
@@ -258,9 +279,9 @@ function cluster_manager_stop_node_client()
     fi
 }
 
-function cluster_manager_stop_server()
+function cluster_manager_stop_cluster_server()
 {
-    local Ret=`cluster_manager_check_server_process`
+    local Ret=`cluster_manager_check_cluster_server_process`
 	if [ $Ret -eq 0 ]; then
 		echo "the server has been already stopped"
 	else
@@ -268,17 +289,30 @@ function cluster_manager_stop_server()
     fi
 }
 
+function cluster_manager_stop_chat_server()
+{
+    local Ret=`cluster_manager_check_chat_server_process`
+	if [ $Ret -eq 0 ]; then
+		echo "the server has been already stopped"
+	else
+		kill -9 "$Ret"
+    fi
+}
+
+#add new stop server here
+
 function cluster_manager_stop()
 {
     local cmd=$1
     case "$cmd" in
 	"node-client")
-	    cluster_manager_stop_process_manager_client
+	    cluster_manager_stop_process_manager_node_client
 	    cluster_manager_stop_node_client
 		;;
 	"server")
 		cluster_manager_stop_process_manager_server
-		cluster_manager_stop_server
+		cluster_manager_stop_cluster_server
+                cluster_manager_stop_chat_server
 		;;
 	*)
 		echo "error usage command!"
@@ -288,13 +322,16 @@ function cluster_manager_stop()
 
 function cluster_manager_restart_node_client()
 {
+        cluster_manager_stop_process_manager_node_client
 	cluster_manager_stop_node_client
 	cluster_manager_start_node_client
 }
 
 function cluster_manager_restart_server()
 {
-	cluster_manager_stop_server
+        cluster_manager_stop_process_manager_server
+	cluster_manager_stop_cluster_server
+        cluster_manager_stop_chat_server
 	cluster_manager_start_server
 }
 
@@ -322,10 +359,10 @@ function cluster_manager_help()
 	echo "                computer node client will using the node-server address to connect the control server"
 	echo "                control server will listen on the ui-server address for the ui-client connection"
 	echo "                                    listen on the node-server address for the node-client connection"
-	echo "cluster-manager delete (ui-server | node-server) IP:PORT"
+	echo "cluster-manager delete (ui-server | node-server | chat-server) IP:PORT"
 	echo "                delete a (ui-server | node-server) address, refer to the [add] command"
-	echo "cluster-manager list (ui-server | node-server)"
-	echo "                list the configured address for (ui-server | node-server)"
+	echo "cluster-manager list (ui-server | node-server | chat-server)"
+	echo "                list the configured address for (ui-server | node-server | chat-server)"
 	echo "cluster-manager start (node-client | server)"
 	echo "                start the (node client | control server) service"
 	echo "cluster-manager stop (node-client | server)"

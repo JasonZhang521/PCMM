@@ -1,7 +1,7 @@
 #ifndef _CHATSESSIONMESSAGE_CHATFILEMESSAGE_H_
 #define _CHATSESSIONMESSAGE_CHATFILEMESSAGE_H_
 #include <stdint.h>
-#include <IChatMessage.h>
+#include "IChatMessage.h"
 #include "MessageBuffer.h"
 
 namespace ChatSessionMessage {

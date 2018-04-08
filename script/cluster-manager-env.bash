@@ -15,10 +15,10 @@ function __cmd__cluster_manager()
     elif [ $COMP_CWORD -eq 2 ]; then
         case "$prev" in    
             "add"|"delete"|"list")
-                COMPREPLY=( $(compgen -W "ui-server node-server" -- $cur) )
+                COMPREPLY=( $(compgen -W "ui-server node-server chat-server" -- $cur) )
                 ;;
             "start"|"stop"|"restart")
-                COMPREPLY=( $(compgen -W "node-client server" -- $cur) )
+                COMPREPLY=( $(compgen -W "node-client node-server chat-server" -- $cur) )
                 ;;
             "trace-debug")
                 COMPREPLY=( $(compgen -W "level target" -- $cur) ) 
@@ -28,7 +28,7 @@ function __cmd__cluster_manager()
         esac
     elif [ $COMP_CWORD -eq 3 ]; then
         case "$prev" in
-             "ui-server"|"node-server")
+             "ui-server"|"node-server" | "chat-server")
                   COMPREPLY=( $(compgen -W "ip:port" -- $cur) )
                   ;;
              "level")
