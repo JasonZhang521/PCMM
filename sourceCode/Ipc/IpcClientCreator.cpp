@@ -31,10 +31,10 @@ IIpcClient* IpcClientCreator::CreateWithTcpClientStrategy(int fd,
                                                std::shared_ptr<IIpcConnectionReceiver> receiver,
                                                IpcMessageFactories factories)
 {
-    std::shared_ptr<Network::TcpSocket> socket(new Network::TcpSocket(fd, localEndPoint, remoteEndPoint));
+    std::unique_ptr<Network::TcpSocket> socket(new Network::TcpSocket(fd, localEndPoint, remoteEndPoint));
 
     // Tcp client
-    Network::TcpClient* tcpClientPtr = new Network::TcpClient(socket, Network::TcpState::Tcp_Established);
+    Network::TcpClient* tcpClientPtr = new Network::TcpClient(Network::TcpState::Tcp_Established, std::move(socket));
     std::shared_ptr<Network::ITcpClient> tcpClient(tcpClientPtr);
     Core::LoopMain::instance().registerIo(Io::IoFdType::IoFdRead, tcpClientPtr);
     return CreateWithTcpClient(tcpClient, receiver, factories, true);

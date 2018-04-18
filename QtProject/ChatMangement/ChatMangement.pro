@@ -37,7 +37,7 @@ SOURCES += \
     ../../sourceCode/PlatformWrapper/SystemApi.cpp \
     ../../sourceCode/Common/CoredumpConfig.cpp \
     ../../sourceCode/Io/IoControlEventsHandlerEpoll.cpp \
-    ../../sourceCode/ChatMangement/ChatMgtConnectionAcceptor.cpp \
+    ../../sourceCode/ChatSessionManagement/ChatMgtConnectionAcceptor.cpp \
     ../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/Ipc/IpcClient.cpp \
     ../../sourceCode/IpcMessage/IpcMessageIdGenerator.cpp \
@@ -84,12 +84,12 @@ SOURCES += \
     ../../sourceCode/Configure/Configure.cpp \
     ../../sourceCode/Configure/ExceptionConfigure.cpp \
     ../../sourceCode/Configure/TraceLogConfigure.cpp \
-    ../../sourceCode/ChatMangement/IChatMgtControl.cpp \
-    ../../sourceCode/ChatMangement/ChatMgtControl.cpp \
-    ../../sourceCode/ChatMangement/ChatMgtConnectionReceiver.cpp \
-    ../../sourceCode/ChatMangement/ChatManagementProcess.cpp \
+    ../../sourceCode/ChatSessionManagement/IChatMgtControl.cpp \
+    ../../sourceCode/ChatSessionManagement/ChatMgtControl.cpp \
+    ../../sourceCode/ChatSessionManagement/ChatMgtConnectionReceiver.cpp \
+    ../../sourceCode/ChatSessionManagement/ChatManagementProcess.cpp \
     ../../sourceCode/ConfigureManagement/NetworkConfig.cpp \
-    ../../sourceCode/ChatMangement/ChatMangementMain.cpp \
+    ../../sourceCode/ChatSessionManagement/ChatManagementMain.cpp \
     ../../sourceCode/ChatSessionMessage/IChatMessage.cpp \
     ../../sourceCode/Common/MessageBuffer.cpp \
     ../../sourceCode/ChatSessionMessage/ChatTextMessage.cpp \
@@ -125,7 +125,8 @@ INCLUDEPATH += ../../sourceCode/Serialize \
                ../../sourceCode/IpcMessage \
                ../../sourceCode/Serialize \
                ../../sourceCode/ConfigureManagement \
-               ../../sourceCode/ChatSessionMessage
+               ../../sourceCode/ChatSessionMessage \
+               ../../sourceCode/ChatSessionManagement
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
@@ -227,12 +228,12 @@ HEADERS += \
     ../../sourceCode/PlatformWrapper/SystemApi.h \
     ../../sourceCode/Common/CoredumpConfig.h \
     ../../sourceCode/Io/IoControlEventsHandlerEpoll.h \
-    ../../sourceCode/ChatMangement/ChatMgtConnectionAcceptor.h \
-    ../../sourceCode/ChatMangement/IChatMgtControl.h \
-    ../../sourceCode/ChatMangement/ChatMgtControl.h \
-    ../../sourceCode/ChatMangement/Component.h \
-    ../../sourceCode/ChatMangement/ChatMgtConnectionReceiver.h \
-    ../../sourceCode/ChatMangement/ChatManagementProcess.h \
+    ../../sourceCode/ChatSessionManagement/ChatMgtConnectionAcceptor.h \
+    ../../sourceCode/ChatSessionManagement/IChatMgtControl.h \
+    ../../sourceCode/ChatSessionManagement/ChatMgtControl.h \
+    ../../sourceCode/ChatSessionManagement/Component.h \
+    ../../sourceCode/ChatSessionManagement/ChatMgtConnectionReceiver.h \
+    ../../sourceCode/ChatSessionManagement/ChatManagementProcess.h \
     ../../sourceCode/ConfigureManagement/Component.h \
     ../../sourceCode/ConfigureManagement/NetworkConfig.h \
     ../../sourceCode/ChatSessionMessage/IChatMessage.h \

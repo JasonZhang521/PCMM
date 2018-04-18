@@ -84,7 +84,19 @@ SOURCES += \
     ../../sourceCode/Configure/SystemEnvironmentConfigure.cpp \
     ../../sourceCode/PlatformWrapper/SystemApi.cpp \
     ../../sourceCode/Common/CoredumpConfig.cpp \
-    ../../sourceCode/Io/IoControlEventsHandlerEpoll.cpp
+    ../../sourceCode/Io/IoControlEventsHandlerEpoll.cpp \
+    ../../sourceCode/DeviceCommunication/IoeZpConnectionReceiver.cpp \
+    ../../sourceCode/DeviceCommunication/DeviceConnectionAcceptor.cpp \
+    ../../sourceCode/DeviceCommunication/IDeviceServer.cpp \
+    ../../sourceCode/DeviceCommunication/DeviceServer.cpp \
+    ../../sourceCode/DeviceCommunication/IDeviceClient.cpp \
+    ../../sourceCode/DeviceCommunication/DeviceClient.cpp \
+    ../../sourceCode/DeviceMessage/IDeviceMessage.cpp \
+    ../../sourceCode/DeviceCommunication/IDeviceClientManager.cpp \
+    ../../sourceCode/DeviceCommunication/DeviceConnectionReceiverCreator.cpp \
+    ../../sourceCode/DeviceMessage/IoeZpMessage.cpp \
+    ../../sourceCode/Common/Number.cpp \
+    ../../sourceCode/DeviceMessage/IoeZpResource.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -109,7 +121,8 @@ INCLUDEPATH += ../../sourceCode/Serialize \
                ../../sourceCode/IpcMessage \
                ../../sourceCode/SystemMonitorMessage \
                ../../sourceCode/Serialize \
-               ../../sourceCode/ConfigureManagement
+               ../../sourceCode/ConfigureManagement \
+               ../../sourceCode/DeviceMessage
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
@@ -324,7 +337,22 @@ HEADERS += \
     ../../sourceCode/Configure/SystemEnvironmentConfigure.h \
     ../../sourceCode/PlatformWrapper/SystemApi.h \
     ../../sourceCode/Common/CoredumpConfig.h \
-    ../../sourceCode/Io/IoControlEventsHandlerEpoll.h
+    ../../sourceCode/Io/IoControlEventsHandlerEpoll.h \
+    ../../sourceCode/DeviceCommunication/Component.h \
+    ../../sourceCode/DeviceCommunication/IoeZpConnectionReceiver.h \
+    ../../sourceCode/DeviceCommunication/DeviceConnectionAcceptor.h \
+    ../../sourceCode/DeviceCommunication/IDeviceServer.h \
+    ../../sourceCode/DeviceCommunication/DeviceServer.h \
+    ../../sourceCode/DeviceCommunication/DeviceType.h \
+    ../../sourceCode/DeviceCommunication/IDeviceClient.h \
+    ../../sourceCode/DeviceCommunication/DeviceClient.h \
+    ../../sourceCode/DeviceMessage/Component.h \
+    ../../sourceCode/DeviceMessage/IDeviceMessage.h \
+    ../../sourceCode/DeviceCommunication/IDeviceClientManager.h \
+    ../../sourceCode/DeviceCommunication/DeviceConnectionReceiverCreator.h \
+    ../../sourceCode/DeviceMessage/IoeZpMessage.h \
+    ../../sourceCode/Common/Number.h \
+    ../../sourceCode/DeviceMessage/IoeZpResource.h
 
 unix {
     target.path = /usr/lib

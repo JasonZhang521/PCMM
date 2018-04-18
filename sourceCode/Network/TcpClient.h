@@ -47,16 +47,16 @@ class TcpClient : public ITcpClient, public Io::IIoEvent
     };
 
     TcpState state_;
-    std::shared_ptr<TcpSocket> socket_;
+    std::unique_ptr<TcpSocket> socket_;
     std::shared_ptr<ITcpConnectionReceiver> tcpConnectionReceiver_;
-    std::shared_ptr<ConnectionTimer> connectionTimer_;
+    std::unique_ptr<ConnectionTimer> connectionTimer_;
     OutBuffer outBuffer_;
 public:
     TcpClient(const IpSocketEndpoint& localEndpoint,
               const IpSocketEndpoint& remoteEndpoint,
-              std::shared_ptr<ITcpConnectionReceiver> receiver);
+              std::unique_ptr<ITcpConnectionReceiver> receiver);
     TcpClient(const IpSocketEndpoint& localEndpoint, const IpSocketEndpoint& remoteEndpoint);
-    TcpClient(std::shared_ptr<TcpSocket> socket, TcpState state);
+    TcpClient(TcpState state, std::unique_ptr<TcpSocket> socket);
     virtual ~TcpClient();
 private:
     virtual TcpResult init();

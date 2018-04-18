@@ -92,10 +92,10 @@ void TcpClient::OutBuffer::resetPos(unsigned int outSize)
 
 TcpClient::TcpClient(const IpSocketEndpoint& localEndpoint,
                      const IpSocketEndpoint& remoteEndpoint,
-                     std::shared_ptr<ITcpConnectionReceiver> receiver)
+                     std::unique_ptr<ITcpConnectionReceiver> receiver)
     :state_(TcpState::Tcp_Closed)
     ,socket_(new TcpSocket(localEndpoint, remoteEndpoint))
-    ,tcpConnectionReceiver_(receiver)
+    ,tcpConnectionReceiver_(std::move(receiver))
 {
     if (!receiver)
     {
@@ -111,9 +111,9 @@ TcpClient::TcpClient(const IpSocketEndpoint& localEndpoint, const IpSocketEndpoi
 
 }
 
-TcpClient::TcpClient(std::shared_ptr<TcpSocket> socket, TcpState state)
+TcpClient::TcpClient(TcpState state, std::unique_ptr<TcpSocket> socket)
     :state_(state)
-    ,socket_(socket)
+    ,socket_(std::move(socket))
 {
 }
 
@@ -156,7 +156,7 @@ TcpResult TcpClient::connect()
     TRACE_DEBUG("localEndpoint:" << socket_->getLocalEndpoint() << ", remoteEndpoint:" << socket_->getRemoteEndpoint());
     if (!connectionTimer_)
     {
-        connectionTimer_ = std::shared_ptr<ConnectionTimer>(new ConnectionTimer(this));
+        connectionTimer_ = std::unique_ptr<ConnectionTimer>(new ConnectionTimer(this));
     }
     // connect
     int ret = socket_->connect();
@@ -283,7 +283,7 @@ TcpResult TcpClient::cleanup()
 TcpResult TcpClient::restart()
 {
     TRACE_ENTER();
-    socket_ = std::shared_ptr<TcpSocket>(new TcpSocket(socket_->getRemoteEndpoint(), socket_->getRemoteEndpoint()));
+    socket_ = std::unique_ptr<TcpSocket>(new TcpSocket(socket_->getRemoteEndpoint(), socket_->getRemoteEndpoint()));
     init();
     return TcpResult::Success;
 }
