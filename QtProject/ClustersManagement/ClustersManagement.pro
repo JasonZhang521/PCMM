@@ -96,7 +96,14 @@ SOURCES += \
     ../../sourceCode/DeviceCommunication/DeviceConnectionReceiverCreator.cpp \
     ../../sourceCode/DeviceMessage/IoeZpMessage.cpp \
     ../../sourceCode/Common/Number.cpp \
-    ../../sourceCode/DeviceMessage/IoeZpResource.cpp
+    ../../sourceCode/DeviceMessage/IoeZpResource.cpp \
+    ../../sourceCode/DeviceCommunication/DeviceClientManager.cpp \
+    ../../sourceCode/DeviceMessage/DeviceMessageType.cpp \
+    ../../sourceCode/DeviceCommunication/IDeviceMessageHandler.cpp \
+    ../../sourceCode/DeviceCommunication/IoeZpMessageHandler.cpp \
+    ../../sourceCode/Environment/DeviceInfo.cpp \
+    ../../sourceCode/Environment/IoeZpDeviceInfo.cpp \
+    ../../sourceCode/DeviceCommunication/DeviceServerCreator.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -352,7 +359,14 @@ HEADERS += \
     ../../sourceCode/DeviceCommunication/DeviceConnectionReceiverCreator.h \
     ../../sourceCode/DeviceMessage/IoeZpMessage.h \
     ../../sourceCode/Common/Number.h \
-    ../../sourceCode/DeviceMessage/IoeZpResource.h
+    ../../sourceCode/DeviceMessage/IoeZpResource.h \
+    ../../sourceCode/DeviceCommunication/DeviceClientManager.h \
+    ../../sourceCode/DeviceMessage/DeviceMessageType.h \
+    ../../sourceCode/DeviceCommunication/IDeviceMessageHandler.h \
+    ../../sourceCode/DeviceCommunication/IoeZpMessageHandler.h \
+    ../../sourceCode/Environment/DeviceInfo.h \
+    ../../sourceCode/Environment/IoeZpDeviceInfo.h \
+    ../../sourceCode/DeviceCommunication/DeviceServerCreator.h
 
 unix {
     target.path = /usr/lib

@@ -1,5 +1,5 @@
-#ifndef DEVICECLIENT_H
-#define DEVICECLIENT_H
+#ifndef _DEVICECOMMUNICATION_DEVICECLIENT_H_
+#define _DEVICECOMMUNICATION_DEVICECLIENT_H_
 #include "IDeviceClient.h"
 #include <memory>
 namespace Network {
@@ -25,4 +25,4 @@ public:
 
 }
 
-#endif // DEVICECLIENT_H
+#endif // _DEVICECOMMUNICATION_DEVICECLIENT_H_

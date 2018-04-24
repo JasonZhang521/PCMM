@@ -40,6 +40,7 @@ std::ostream& ControlNodeBrieflyInfoResponse::operator<< (std::ostream& os) cons
     os << ", ipcMessageType=" << IpcMessage::IpcMessageTypeString(IpcMessage::IpcMessage_SystemMonitor)
        << ", clusterMgtType=" << IpcMessage::SystemMonitorTypeString(IpcMessage::ControlNodeBrieflyInfoResponseMessage)
        << ", systemInfoBriefly=" << systemInfoBriefly_
+       << ", ioeZpDeviceInfo=" << ioeZpDeviceInfo_
        << "]";
     return os;
 }
@@ -54,5 +55,14 @@ const Environment::SystemInfoBriefly& ControlNodeBrieflyInfoResponse::getSystemI
     return systemInfoBriefly_;
 }
 
+void ControlNodeBrieflyInfoResponse::setIoeZpDeviceInfo(const Environment::IoeZpDeviceInfo& info)
+{
+    ioeZpDeviceInfo_ = info;
+}
+
+const Environment::IoeZpDeviceInfo& ControlNodeBrieflyInfoResponse::getIoeZpDeviceInfo() const
+{
+    return ioeZpDeviceInfo_;
+}
 
 }

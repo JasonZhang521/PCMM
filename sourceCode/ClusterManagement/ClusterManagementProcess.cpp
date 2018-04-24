@@ -29,7 +29,7 @@ void ClusterManagementProcess::process()
 
     std::vector<std::string> nodeServerIpPorts = ConfigureManagement::NetworkConfig::getNodeServerIpPort();
     std::vector<std::string> uiServerIpPorts = ConfigureManagement::NetworkConfig::getUiServerIpPort();
-
+    std::vector<std::string> deviceServerIpPorts = ConfigureManagement::NetworkConfig::getDeviceServerIpPort();
     // create node server
     {
         // create the Ipc server, will set the tcp acceptor later
@@ -47,6 +47,19 @@ void ClusterManagementProcess::process()
     {
         // create the Ipc server, will set the tcp acceptor later
         Network::IpSocketEndpoint localEndpoint(uiServerIpPorts[0]);
+        // create ipc acceptor
+        ClusterMgtConnectionAcceptor* acceptorPtr = new ClusterMgtConnectionAcceptor(UiType, clusterMgtController);
+        std::shared_ptr<Ipc::IIpcConnectionAcceptor> acceptor(acceptorPtr);
+        std::shared_ptr<Ipc::IIpcServer> ipcServer(Ipc::IpcServerCreator::CreateWithTcpServer(localEndpoint, acceptor));
+        // add the client manger to the  mananger control
+        std::unique_ptr<IClusterMgtClientsManagement> clientsManager(new ClusterMgtClientsManagment(UiType, ipcServer));
+        clusterMgtController->addClientManager(UiType, std::move(clientsManager));
+    }
+
+    // create Device server
+    {
+        // create the Ipc server, will set the tcp acceptor later
+        Network::IpSocketEndpoint localEndpoint(deviceServerIpPorts[0]);
         // create ipc acceptor
         ClusterMgtConnectionAcceptor* acceptorPtr = new ClusterMgtConnectionAcceptor(UiType, clusterMgtController);
         std::shared_ptr<Ipc::IIpcConnectionAcceptor> acceptor(acceptorPtr);

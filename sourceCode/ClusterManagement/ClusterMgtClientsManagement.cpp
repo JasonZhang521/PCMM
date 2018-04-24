@@ -1,6 +1,7 @@
 #include "ClusterMgtClientsManagement.h"
 #include "ControlNodeBrieflyInfoRequest.h"
 #include "ControlNodeBrieflyInfoResponse.h"
+#include "DeviceInfo.h"
 #include "IIpcClient.h"
 #include "IIpcServer.h"
 #include "IIpcMessage.h"
@@ -144,10 +145,12 @@ void ClusterMgtClientsManagment::handleClusterMgtMessage(const IpcMessage::IIpcM
     if (request != nullptr)
     {
         SystemMonitorMessage::ControlNodeBrieflyInfoResponse response;
-        Environment::SystemInfoBriefly info;
-        info.update();
-		TRACE_DEBUG(info);
-        response.setSystemInfoBriefly(info);
+        Environment::SystemInfoBriefly systemInfoBriefly;
+        systemInfoBriefly.update();
+        TRACE_DEBUG(systemInfoBriefly);
+        response.setSystemInfoBriefly(systemInfoBriefly);
+        response.setIoeZpDeviceInfo(Environment::DeviceInfo::instance().getIoeZpDeviceInfo());
+
         IpcClientsMap::iterator it = clients_.find(remoteIpEndpoint);
         if (it != clients_.end())
         {

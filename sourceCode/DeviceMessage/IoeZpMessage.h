@@ -47,6 +47,19 @@ public:
     virtual ~IoeZpMessage();
     virtual void serialize(Serialize::WriteBuffer& writeBuffer) const;
     virtual void unserialize(Serialize::ReadBuffer& readBuffer);
+    virtual DeviceMessageType getMessageType();
+
+    inline uint16_t getHeader() const {return header_;}
+    inline void setHeader(uint16_t header) {header_ = header;}
+    inline uint8_t getLength() const {return length_;}
+    inline void setLength(uint8_t length) {length_ = length;}
+    inline uint8_t getLengthInverse() const {return length_Inverse_;}
+    inline void setLengthInverse(uint8_t length_Inverse) {length_Inverse_ = length_Inverse;}
+    inline uint8_t getCheckSum() const {return checkSum_;}
+    inline void setCheckSum(uint8_t checkSum) {checkSum_ = checkSum;}
+    inline uint8_t getCmd() const {return cmd_;}
+    inline void setCmd(uint8_t checkSum) {cmd_ = checkSum;}
+    inline IoeZpMessagePayload& getPayload() {return payload_;}
 };
 }
 #endif // _DEVICEMESSAGE_IOEZPMESSAGE_H_

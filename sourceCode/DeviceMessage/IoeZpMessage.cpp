@@ -97,4 +97,10 @@ void IoeZpMessage::unserialize(Serialize::ReadBuffer& readBuffer)
     payload_.unserialize(readBuffer);
 }
 
+
+DeviceMessageType IoeZpMessage::getMessageType()
+{
+    return DeviceMessageType::IoeZpType;
+}
+
 }

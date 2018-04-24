@@ -2,12 +2,14 @@
 #define _SYSTEMMONITORMESSAGE_CLUSTERMGTBRIEFLYRESPONSE_H_
 #include "ISystemMonitorMessage.h"
 #include "SystemInfoBriefly.h"
+#include "IoeZpDeviceInfo.h"
 
 namespace SystemMonitorMessage {
 
 class ControlNodeBrieflyInfoResponse : public ISystemMonitorMessage
 {
     Environment::SystemInfoBriefly systemInfoBriefly_;
+    Environment::IoeZpDeviceInfo ioeZpDeviceInfo_;
 public:
     ControlNodeBrieflyInfoResponse();
     virtual ~ControlNodeBrieflyInfoResponse();
@@ -19,6 +21,8 @@ public:
 
     void setSystemInfoBriefly(const Environment::SystemInfoBriefly& info);
     const Environment::SystemInfoBriefly& getSystemInfoBriefly() const;
+    void setIoeZpDeviceInfo(const Environment::IoeZpDeviceInfo& info);
+    const Environment::IoeZpDeviceInfo& getIoeZpDeviceInfo() const;
 };
 
 }
