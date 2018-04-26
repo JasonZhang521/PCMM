@@ -2,9 +2,15 @@
 #include "IoeZpMessage.h"
 #include "DeviceInfo.h"
 #include "DeviceClientManager.h"
+#include "Trace.h"
+#include "Component.h"
+#include "Macro.h"
 #include <memory>
 
 namespace DeviceCommunication {
+
+GETCLASSNAME(IoeZpConnectionReceiver)
+
 IoeZpConnectionReceiver::IoeZpConnectionReceiver(const Network::IpSocketEndpoint& remoteIpEndpoint, IDeviceClientManager& clientManager)
     : remoteIpEndpoint_(remoteIpEndpoint)
     , clientManager_(clientManager)
@@ -19,7 +25,7 @@ IoeZpConnectionReceiver::~IoeZpConnectionReceiver()
 
 void IoeZpConnectionReceiver::onConnect()
 {
-
+    TRACE_NOTICE("onConnect:" << remoteIpEndpoint_);
 }
 
 void IoeZpConnectionReceiver::onReceive(Serialize::ReadBuffer& readBuffer)
@@ -62,6 +68,7 @@ void IoeZpConnectionReceiver::onReceive(Serialize::ReadBuffer& readBuffer)
 
 void IoeZpConnectionReceiver::onDisconnect()
 {
-
+    TRACE_NOTICE("onDisconnect:" << remoteIpEndpoint_);
+    clientManager_.removeClient(remoteIpEndpoint_);
 }
 }

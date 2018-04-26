@@ -49,7 +49,7 @@ void IpcConnectionTcpServerStrategy::shutdown()
     server_->disconnect();
     server_->cleanup();
 }
-#include <iostream>
+
 void IpcConnectionTcpServerStrategy::onAccept(int fd,
                       const Network::IpSocketEndpoint& localEndPoint,
                       const Network::IpSocketEndpoint& remoteEndPoint)

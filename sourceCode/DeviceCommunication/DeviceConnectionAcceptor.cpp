@@ -6,9 +6,14 @@
 #include "TcpClient.h"
 #include "TcpSocket.h"
 #include "LoopMain.h"
+#include "Trace.h"
+#include "Component.h"
+#include "Macro.h"
 #include <memory>
 
 namespace DeviceCommunication {
+
+GETCLASSNAME(DeviceConnectionAcceptor)
 
 DeviceConnectionAcceptor::DeviceConnectionAcceptor(IDeviceClientManager& clientManager, DeviceType type)
     : clientManager_(clientManager)
@@ -24,6 +29,7 @@ DeviceConnectionAcceptor::~DeviceConnectionAcceptor()
 
 void DeviceConnectionAcceptor::onAccept(int fd, const Network::IpSocketEndpoint& localEndPoint, const Network::IpSocketEndpoint& remoteEndPoint)
 {
+    TRACE_NOTICE("onAccept! fd=" << fd << ", local=" << localEndPoint << ", remote=" << remoteEndPoint);
     std::shared_ptr<Network::ITcpConnectionReceiver> receiver(DeviceConnectionReceiverCreator::create(type_, remoteEndPoint, clientManager_));
     std::unique_ptr<Network::TcpSocket> socket(new Network::TcpSocket(fd, localEndPoint, remoteEndPoint));
     std::unique_ptr<Network::TcpClient> tcpClient(new Network::TcpClient(Network::TcpState::Tcp_Established, std::move(socket)));
@@ -32,7 +38,7 @@ void DeviceConnectionAcceptor::onAccept(int fd, const Network::IpSocketEndpoint&
     // Tcp client
     Core::LoopMain::instance().registerIo(Io::IoFdType::IoFdRead, tcpClient.get());
     std::unique_ptr<IDeviceClient> deviceClient(new DeviceClient(std::move(tcpClient)));
-    clientManager_.addClient(std::move(deviceClient));
+    clientManager_.addClient(localEndPoint, std::move(deviceClient));
 }
 
 }
