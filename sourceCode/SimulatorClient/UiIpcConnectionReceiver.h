@@ -1,5 +1,5 @@
-#ifndef UIIPCCONNECTIONRECEIVER_H
-#define UIIPCCONNECTIONRECEIVER_H
+#ifndef _SIMULATORCLIENT_UIIPCCONNECTIONRECEIVER_H_
+#define _SIMULATORCLIENT_UIIPCCONNECTIONRECEIVER_H_
 #include "IIpcConnectionReceiver.h"
 #include "Component.h"
 #include "Macro.h"
@@ -8,7 +8,7 @@ namespace IpcMessage {
 class IIpcMessageQueue;
 }
 
-namespace UiClient {
+namespace SimulatorClient {
 class IUiClientHandler;
 
 class UiIpcConnectionReceiver : public Ipc::IIpcConnectionReceiver
@@ -32,4 +32,4 @@ public:
 
 }
 
-#endif // UIIPCCONNECTIONRECEIVER_H
+#endif // _SIMULATORCLIENT_UIIPCCONNECTIONRECEIVER_H_

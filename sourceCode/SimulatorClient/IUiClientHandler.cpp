@@ -1,5 +1,5 @@
 #include "IUiClientHandler.h"
-namespace UiClient {
+namespace SimulatorClient {
 IUiClientHandler::IUiClientHandler()
 {
 

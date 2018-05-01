@@ -1,5 +1,5 @@
-#ifndef UICLIENTMESSAGESENDTIMER_H
-#define UICLIENTMESSAGESENDTIMER_H
+#ifndef _SIMULATORCLIENT_UICLIENTMESSAGESENDTIMER_H_
+#define _SIMULATORCLIENT_UICLIENTMESSAGESENDTIMER_H_
 #include "ITimer.h"
 #include <memory>
 #include "Component.h"
@@ -13,7 +13,7 @@ namespace Ipc {
 class IIpcClient;
 }
 
-namespace UiClient {
+namespace SimulatorClient {
 class UiClientMessageSendTimer : public TimerHandler::ITimer
 {
     std::shared_ptr<IpcMessage::IIpcMessageQueue> ipcMessageSendQueue_;
@@ -29,4 +29,4 @@ public:
 };
 
 }
-#endif // UICLIENTMESSAGESENDTIMER_H
+#endif // _SIMULATORCLIENT_UICLIENTMESSAGESENDTIMER_H_

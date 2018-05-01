@@ -4,7 +4,7 @@
 #include "IIpcMessage.h"
 #include "Trace.h"
 
-namespace UiClient {
+namespace SimulatorClient {
 UiClientMessageSendTimer::UiClientMessageSendTimer(std::shared_ptr<IpcMessage::IIpcMessageQueue> ipcMessageSendQueue,
                                                    std::shared_ptr<Ipc::IIpcClient> ipcClient)
     : TimerHandler::ITimer(1000, TimerHandler::TimerType::PeriodTimer)

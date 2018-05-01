@@ -1,12 +1,12 @@
-#ifndef IUICLIENTHANDLER_H
-#define IUICLIENTHANDLER_H
+#ifndef _SIMULATORCLIENT_ICLIENTHANDLER_H_
+#define _SIMULATORCLIENT_ICLIENTHANDLER_H_
 #include <memory>
 
 namespace Ipc {
 class IIpcClient;
 }
 
-namespace UiClient {
+namespace SimulatorClient {
 class IUiClientHandler
 {
 public:
@@ -22,4 +22,4 @@ public:
 
 }
 
-#endif // IUICLIENTHANDLER_H
+#endif // _SIMULATORCLIENTHANDLER_H_

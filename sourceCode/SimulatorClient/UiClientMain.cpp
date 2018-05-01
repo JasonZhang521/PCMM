@@ -16,7 +16,7 @@ int main(int argc, char**argv)
     static_cast<void>(argc);
     static_cast<void>(argv);
     Configure::getInstance().setTraceLogFilePath("C:\\message.log");
-    UiClient::UiClientProcess process;
+    SimulatorClient::UiClientProcess process;
     process.start();
     while (true) {
         while (process.messageReceived())

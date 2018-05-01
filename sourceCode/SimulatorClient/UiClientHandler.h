@@ -1,5 +1,5 @@
-#ifndef UICLIENTHANDLER_H
-#define UICLIENTHANDLER_H
+#ifndef _SIMULATORCLIENT_UICLIENTHANDLER_H_
+#define _SIMULATORCLIENT_UICLIENTHANDLER_H_
 #include "IUiClientHandler.h"
 #include "ITimer.h"
 #include "Component.h"
@@ -10,7 +10,7 @@ namespace Ipc {
 class IIpcClient;
 }
 
-namespace UiClient {
+namespace SimulatorClient {
 
 class UiClientHandler : public IUiClientHandler
 {
@@ -44,4 +44,4 @@ public:
 };
 
 }
-#endif // UICLIENTHANDLER_H
+#endif // _SIMULATORCLIENT_UICLIENTHANDLER_H_

@@ -20,7 +20,7 @@
 #include <memory>
 #include <thread>
 
-namespace UiClient {
+namespace SimulatorClient {
 
 UiClientProcess::UiClientProcess()
     : ipcMessageSendQueue_(new IpcMessage::IpcThreadSafeMessageQueue())

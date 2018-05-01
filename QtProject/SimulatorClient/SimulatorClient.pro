@@ -1,7 +1,7 @@
 QT += core
 QT -= gui
 
-TARGET = UiClient
+TARGET = SimulatorClient
 
 CONFIG += console
 CONFIG -= app_bundle
@@ -31,6 +31,8 @@ INCLUDEPATH += ../../sourceCode/Serialize \
                ../../sourceCode/IpcMessage \
                ../../sourceCode/SystemMonitorMessage \
                ../../sourceCode/Serialize \
+               ../../sourceCode/DeviceCommunication \
+               ../../sourceCode/DeviceMessage
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
@@ -101,15 +103,15 @@ SOURCES +=../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/IpcMessage/IIpcComunicationMessage.cpp \
     ../../sourceCode/IpcMessage/IpcAuthorizationRequest.cpp \
     ../../sourceCode/IpcMessage/IpcAuthorizationResponse.cpp \
-    ../../sourceCode/UiClient/UiIpcConnectionReceiver.cpp \
-    ../../sourceCode/UiClient/IUiClientHandler.cpp \
-    ../../sourceCode/UiClient/UiClientHandler.cpp \
-    ../../sourceCode/UiClient/UiClientProcess.cpp \
-    ../../sourceCode/UiClient/UiClientMain.cpp \
+    ../../sourceCode/SimulatorClient/UiIpcConnectionReceiver.cpp \
+    ../../sourceCode/SimulatorClient/IUiClientHandler.cpp \
+    ../../sourceCode/SimulatorClient/UiClientHandler.cpp \
+    ../../sourceCode/SimulatorClient/UiClientProcess.cpp \
+    ../../sourceCode/SimulatorClient/UiClientMain.cpp \
     ../../sourceCode/IpcMessage/IIpcMessageQueue.cpp \
     ../../sourceCode/Common/Lock.cpp \
     ../../sourceCode/IpcMessage/IpcThreadSafeMessageQueue.cpp \
-    ../../sourceCode/UiClient/UiClientMessageSendTimer.cpp \
+    ../../sourceCode/SimulatorClient/UiClientMessageSendTimer.cpp \
     ../../sourceCode/Environment/ComputerNodeInfo.cpp \
     ../../sourceCode/Environment/CpuInfo.cpp \
     ../../sourceCode/Environment/CpuInfoBriefly.cpp \
@@ -144,7 +146,29 @@ SOURCES +=../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/ShellCommandMessage/ShellCommandResponse.cpp \
     ../../sourceCode/Environment/ShellCommandGenericOutput.cpp \
     ../../sourceCode/Configure/SystemEnvironmentConfigure.cpp \
-    ../../sourceCode/PlatformWrapper/SystemApi.cpp
+    ../../sourceCode/PlatformWrapper/SystemApi.cpp \
+    ../../sourceCode/DeviceMessage/DeviceMessageType.cpp \
+    ../../sourceCode/DeviceMessage/IDeviceMessage.cpp \
+    ../../sourceCode/DeviceMessage/IoeZpMessage.cpp \
+    ../../sourceCode/DeviceMessage/IoeZpResource.cpp \
+    ../../sourceCode/DeviceCommunication/DeviceClient.cpp \
+    ../../sourceCode/DeviceCommunication/DeviceClientManager.cpp \
+    ../../sourceCode/DeviceCommunication/DeviceConnectionAcceptor.cpp \
+    ../../sourceCode/DeviceCommunication/DeviceConnectionReceiverCreator.cpp \
+    ../../sourceCode/DeviceCommunication/DeviceServer.cpp \
+    ../../sourceCode/DeviceCommunication/DeviceServerCreator.cpp \
+    ../../sourceCode/DeviceCommunication/IDeviceClient.cpp \
+    ../../sourceCode/DeviceCommunication/IDeviceClientManager.cpp \
+    ../../sourceCode/DeviceCommunication/IDeviceMessageHandler.cpp \
+    ../../sourceCode/DeviceCommunication/IDeviceServer.cpp \
+    ../../sourceCode/DeviceCommunication/IoeZpConnectionReceiver.cpp \
+    ../../sourceCode/DeviceCommunication/IoeZpMessageHandler.cpp \
+    ../../sourceCode/Environment/IoeZpDeviceInfo.cpp \
+    ../../sourceCode/Common/Number.cpp \
+    ../../sourceCode/Environment/DeviceInfo.cpp \
+    ../../sourceCode/Network/ITcpConnectionAcceptor.cpp \
+    ../../sourceCode/SimulatorClient/DeviceClientHandler.cpp \
+    ../../sourceCode/SimulatorClient/IDeviceClientHandler.cpp
 
 HEADERS += \
     ../../sourceCode/Ipc/Component.h \
@@ -231,15 +255,15 @@ HEADERS += \
     ../../sourceCode/IpcMessage/IIpcComunicationMessage.h \
     ../../sourceCode/IpcMessage/IpcAuthorizationRequest.h \
     ../../sourceCode/IpcMessage/IpcAuthorizationResponse.h \
-    ../../sourceCode/UiClient/UiIpcConnectionReceiver.h \
-    ../../sourceCode/UiClient/IUiClientHandler.h \
-    ../../sourceCode/UiClient/UiClientHandler.h \
-    ../../sourceCode/UiClient/UiClientProcess.h \
-    ../../sourceCode/UiClient/Component.h \
+    ../../sourceCode/SimulatorClient/UiIpcConnectionReceiver.h \
+    ../../sourceCode/SimulatorClient/IUiClientHandler.h \
+    ../../sourceCode/SimulatorClient/UiClientHandler.h \
+    ../../sourceCode/SimulatorClient/UiClientProcess.h \
+    ../../sourceCode/SimulatorClient/Component.h \
     ../../sourceCode/IpcMessage/IIpcMessageQueue.h \
     ../../sourceCode/Common/Lock.h \
     ../../sourceCode/IpcMessage/IpcThreadSafeMessageQueue.h \
-    ../../sourceCode/UiClient/UiClientMessageSendTimer.h \
+    ../../sourceCode/SimulatorClient/UiClientMessageSendTimer.h \
     ../../sourceCode/Environment/ComputerNodeInfo.h \
     ../../sourceCode/Environment/CpuInfo.h \
     ../../sourceCode/Environment/CpuInfoBriefly.h \
@@ -279,7 +303,31 @@ HEADERS += \
     ../../sourceCode/TraceLog/TraceBuf.h \
     ../../sourceCode/TraceLog/TraceConsole.h \
     ../../sourceCode/TraceLog/TraceFile.h \
-    ../../sourceCode/PlatformWrapper/SystemApi.h
+    ../../sourceCode/PlatformWrapper/SystemApi.h \
+    ../../sourceCode/DeviceMessage/Component.h \
+    ../../sourceCode/DeviceMessage/DeviceMessageType.h \
+    ../../sourceCode/DeviceMessage/IDeviceMessage.h \
+    ../../sourceCode/DeviceMessage/IoeZpMessage.h \
+    ../../sourceCode/DeviceMessage/IoeZpResource.h \
+    ../../sourceCode/DeviceCommunication/Component.h \
+    ../../sourceCode/DeviceCommunication/DeviceClient.h \
+    ../../sourceCode/DeviceCommunication/DeviceConnectionAcceptor.h \
+    ../../sourceCode/DeviceCommunication/DeviceConnectionReceiverCreator.h \
+    ../../sourceCode/DeviceCommunication/DeviceServer.h \
+    ../../sourceCode/DeviceCommunication/DeviceServerCreator.h \
+    ../../sourceCode/DeviceCommunication/DeviceType.h \
+    ../../sourceCode/DeviceCommunication/IDeviceClient.h \
+    ../../sourceCode/DeviceCommunication/IDeviceClientManager.h \
+    ../../sourceCode/DeviceCommunication/IDeviceMessageHandler.h \
+    ../../sourceCode/DeviceCommunication/IDeviceServer.h \
+    ../../sourceCode/DeviceCommunication/IoeZpConnectionReceiver.h \
+    ../../sourceCode/DeviceCommunication/IoeZpMessageHandler.h \
+    ../../sourceCode/Environment/IoeZpDeviceinfo.h \
+    ../../sourceCode/Common/Number.h \
+    ../../sourceCode/Environment/DeviceInfo.h \
+    ../../sourceCode/Network/ITcpConnectionAcceptor.h \
+    ../../sourceCode/SimulatorClient/DeviceClientHandler.h \
+    ../../sourceCode/SimulatorClient/IDeviceClientHandler.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

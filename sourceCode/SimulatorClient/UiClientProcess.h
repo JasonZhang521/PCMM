@@ -1,5 +1,5 @@
-#ifndef UICLIENTPROCESS_H
-#define UICLIENTPROCESS_H
+#ifndef _SIMULATORCLIENT_UICLIENTPROCESS_H_
+#define _SIMULATORCLIENT_UICLIENTPROCESS_H_
 #include "Component.h"
 #include "Macro.h"
 #include <memory>
@@ -13,7 +13,7 @@ namespace std {
 class thread;
 }
 
-namespace UiClient {
+namespace SimulatorClient {
 class UiClientProcess
 {
     std::unique_ptr<std::thread> uiClientThread_;
@@ -32,4 +32,4 @@ public:
      GETCLASSNAME(UiClientProcess)
 };
 }
-#endif // UICLIENTPROCESS_H
+#endif // _SIMULATORCLIENT_UICLIENTPROCESS_H_

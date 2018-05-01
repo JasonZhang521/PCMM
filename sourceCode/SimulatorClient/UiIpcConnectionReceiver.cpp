@@ -6,7 +6,7 @@
 #include "ReadBuffer.h"
 #include "Trace.h"
 
-namespace UiClient {
+namespace SimulatorClient {
 
 UiIpcConnectionReceiver::UiIpcConnectionReceiver(std::shared_ptr<IUiClientHandler> uiClientHandler,
                                                  std::shared_ptr<IpcMessage::IIpcMessageQueue> ipcMessageReceiveQueue)

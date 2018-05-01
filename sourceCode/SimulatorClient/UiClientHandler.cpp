@@ -4,7 +4,7 @@
 #include "AppConst.h"
 #include "Trace.h"
 
-namespace UiClient {
+namespace SimulatorClient {
 
 UiClientHandler::UiClientRestartTimer::UiClientRestartTimer(IUiClientHandler* handler)
     : ITimer(UiClientRestartPeriod)

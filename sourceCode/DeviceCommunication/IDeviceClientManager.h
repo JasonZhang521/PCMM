@@ -11,6 +11,7 @@ class IDeviceMessage;
 namespace DeviceCommunication {
 
 class IDeviceClient;
+class IDeviceServer;
 class IDeviceClientManager
 {
 public:
@@ -19,6 +20,9 @@ public:
     virtual void addClient(const Network::IpSocketEndpoint& localEndPoint, std::unique_ptr<IDeviceClient> client) = 0;
     virtual void removeClient(const Network::IpSocketEndpoint& localEndPoint) = 0;
     virtual void handleMessage(DeviceMessage::IDeviceMessage& message) = 0;
+    virtual void setDeviceServer(std::unique_ptr<IDeviceServer> server) = 0;
+    virtual void startup() = 0;
+    virtual void shutdown() = 0;
 
 };
 }
