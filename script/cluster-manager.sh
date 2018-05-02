@@ -92,6 +92,9 @@ function cluster_manager_add()
      	    ;;
 	"chat-server")
 	    cluster_manager_add_server $ipPort "/opt/HongClusterMgt/config/conf.chat.server"
+            ;;
+	"device-server")
+	    cluster_manager_add_server $ipPort "/opt/HongClusterMgt/config/conf.device.server"
      	    ;;
 	*)
 		echo "error usage command!"
@@ -114,6 +117,9 @@ function cluster_manager_delete()
 	"chat-server")
 	    cluster_manager_delete_server $ipPort "/opt/HongClusterMgt/config/conf.chat.server"
             ;;
+	"device-server")
+	    cluster_manager_add_server $ipPort "/opt/HongClusterMgt/config/conf.device.server"
+     	    ;;
 	*)
 		echo "error usage command!"
 		exit 1
@@ -133,6 +139,9 @@ function cluster_manager_list()
 	"chat-server")
 	    cluster_manager_list_server "/opt/HongClusterMgt/config/conf.chat.server"
 	    ;;
+	"device-server")
+	    cluster_manager_add_server $ipPort "/opt/HongClusterMgt/config/conf.device.server"
+     	    ;;
 	*)
 		echo "error usage command!"
 		exit 1
