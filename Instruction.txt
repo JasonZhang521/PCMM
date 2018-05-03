@@ -1,0 +1,18 @@
+前提条件：当前目录为PCMM
+1, 编译：
+   ./script/buildProject
+   --> 生成安装包 ./build/Package/
+
+2, 安装：
+   a) root 用户
+   b) 运行  ./installPackage -p ./build/Package/HongClusterMgt.1.0.tar.gz
+   installPackage 可预先copy到安装机器上， 然后运行
+
+3, 设置IP，port
+   a)  cluster-manager add (ui-server | node-server | chat-server | device-server) IP:PORT
+   b)  cluster-manager help 查看具体使用方法
+
+4, 启动
+   a) 启动计算节点：cluster-manager start node-client
+   b) 启动控制节点：cluster-manager start node-server
+   c) cluster-manager help 查看具体使用方法
