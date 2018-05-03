@@ -227,3 +227,4 @@ parseArgument $@
 createCoreDir
 initInstallDir
 installPackage
+source /opt/HongClusterMgt/tools/cluster-manager-env.bash
