@@ -118,7 +118,7 @@ function cluster_manager_delete()
 	    cluster_manager_delete_server $ipPort "/opt/HongClusterMgt/config/conf.chat.server"
             ;;
 	"device-server")
-	    cluster_manager_add_server $ipPort "/opt/HongClusterMgt/config/conf.device.server"
+	    cluster_manager_delete_server $ipPort "/opt/HongClusterMgt/config/conf.device.server"
      	    ;;
 	*)
 		echo "error usage command!"
@@ -140,7 +140,7 @@ function cluster_manager_list()
 	    cluster_manager_list_server "/opt/HongClusterMgt/config/conf.chat.server"
 	    ;;
 	"device-server")
-	    cluster_manager_add_server $ipPort "/opt/HongClusterMgt/config/conf.device.server"
+	    cluster_manager_list_server "/opt/HongClusterMgt/config/conf.device.server"
      	    ;;
 	*)
 		echo "error usage command!"
@@ -363,7 +363,7 @@ function cluster_manager_restart()
 function cluster_manager_help()
 {
 	echo "cluster-manager command usage document:"
-	echo "cluster-manager add (ui-server | node-server | chat-server | deive-server) IP:PORT"
+	echo "cluster-manager add (ui-server | node-server | chat-server | device-server) IP:PORT"
 	echo "                configure a (ui-server | node-server) address"
 	echo "                computer node client will using the node-server address to connect the control server"
 	echo "                control server will listen on the ui-server address for the ui-client connection"
