@@ -1,7 +1,9 @@
 #ifndef _ENVIRONMENT_IOEZPDEVICEINFO_H_
 #define _ENVIRONMENT_IOEZPDEVICEINFO_H_
+#include "IpSocketEndpoint.h"
 #include <stdint.h>
 #include <ostream>
+#include <map>
 
 namespace Serialize {
 class WriteBuffer;
@@ -58,7 +60,11 @@ public:
     void unserialize(Serialize::ReadBuffer& readBuffer);
 
     std::ostream& print(std::ostream& os) const;
+
+    static const IoeZpDeviceInfo Null;
 };
+
+using IoeZpDeviceInfos = std::map<Network::IpSocketEndpoint, IoeZpDeviceInfo>;
 }
 
 inline std::ostream& operator <<(std::ostream& os, const Environment::IoeZpDeviceInfo& info)

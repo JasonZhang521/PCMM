@@ -149,7 +149,7 @@ void ClusterMgtClientsManagment::handleClusterMgtMessage(const IpcMessage::IIpcM
         systemInfoBriefly.update();
         TRACE_DEBUG(systemInfoBriefly);
         response.setSystemInfoBriefly(systemInfoBriefly);
-        response.setIoeZpDeviceInfo(Environment::DeviceInfo::instance().getIoeZpDeviceInfo());
+        response.setIoeZpDeviceInfos(Environment::DeviceInfo::instance().getIoeZpDeviceInfos());
 
         IpcClientsMap::iterator it = clients_.find(remoteIpEndpoint);
         if (it != clients_.end())

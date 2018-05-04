@@ -168,7 +168,8 @@ SOURCES +=../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/Environment/DeviceInfo.cpp \
     ../../sourceCode/Network/ITcpConnectionAcceptor.cpp \
     ../../sourceCode/SimulatorClient/DeviceClientHandler.cpp \
-    ../../sourceCode/SimulatorClient/IDeviceClientHandler.cpp
+    ../../sourceCode/SimulatorClient/IDeviceClientHandler.cpp \
+    ../../sourceCode/SimulatorClient/IoeZpClientManager.cpp
 
 HEADERS += \
     ../../sourceCode/Ipc/Component.h \
@@ -327,7 +328,8 @@ HEADERS += \
     ../../sourceCode/Environment/DeviceInfo.h \
     ../../sourceCode/Network/ITcpConnectionAcceptor.h \
     ../../sourceCode/SimulatorClient/DeviceClientHandler.h \
-    ../../sourceCode/SimulatorClient/IDeviceClientHandler.h
+    ../../sourceCode/SimulatorClient/IDeviceClientHandler.h \
+    ../../sourceCode/SimulatorClient/IoeZpClientManager.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

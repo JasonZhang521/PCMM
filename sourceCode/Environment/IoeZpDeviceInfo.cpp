@@ -79,4 +79,6 @@ std::ostream& IoeZpDeviceInfo::print(std::ostream& os) const
     return os;
 }
 
+const IoeZpDeviceInfo IoeZpDeviceInfo::Null = IoeZpDeviceInfo();
+
 }

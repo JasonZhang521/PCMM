@@ -16,9 +16,19 @@ DeviceInfo& DeviceInfo::instance()
    return info;
 }
 
-IoeZpDeviceInfo& DeviceInfo::getIoeZpDeviceInfo()
+IoeZpDeviceInfo& DeviceInfo::getIoeZpDeviceInfo(const Network::IpSocketEndpoint& remoteEndpoint)
 {
-    return ioeZpDeviceInfo_;
+    return ioeZpDeviceInfos_[remoteEndpoint];
+}
+
+void DeviceInfo::addIoeZpDeviceInfo(const Network::IpSocketEndpoint& remoteEndpoint, const IoeZpDeviceInfo& info)
+{
+    ioeZpDeviceInfos_[remoteEndpoint] = info;
+}
+
+const IoeZpDeviceInfos& DeviceInfo::getIoeZpDeviceInfos() const
+{
+    return ioeZpDeviceInfos_;
 }
 
 }

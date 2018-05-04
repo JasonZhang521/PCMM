@@ -9,7 +9,7 @@ namespace SystemMonitorMessage {
 class ControlNodeBrieflyInfoResponse : public ISystemMonitorMessage
 {
     Environment::SystemInfoBriefly systemInfoBriefly_;
-    Environment::IoeZpDeviceInfo ioeZpDeviceInfo_;
+    Environment::IoeZpDeviceInfos ioeZpDeviceInfos_;
 public:
     ControlNodeBrieflyInfoResponse();
     virtual ~ControlNodeBrieflyInfoResponse();
@@ -21,8 +21,8 @@ public:
 
     void setSystemInfoBriefly(const Environment::SystemInfoBriefly& info);
     const Environment::SystemInfoBriefly& getSystemInfoBriefly() const;
-    void setIoeZpDeviceInfo(const Environment::IoeZpDeviceInfo& info);
-    const Environment::IoeZpDeviceInfo& getIoeZpDeviceInfo() const;
+    void setIoeZpDeviceInfos(const Environment::IoeZpDeviceInfos& infos);
+    const Environment::IoeZpDeviceInfos& getIoeZpDeviceInfos() const;
 };
 
 }
