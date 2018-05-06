@@ -35,7 +35,7 @@ TcpResult TcpServer::bind()
     int ret = socket_.bind();
     if (SOCKET_ERROR == ret)
     {
-        TRACE_WARNING(socket_.getErrorInfo());
+        TRACE_WARNING(socket_.getErrorInfo() << ", " << socket_);
         return TcpResult::Failed;
     }
     else
