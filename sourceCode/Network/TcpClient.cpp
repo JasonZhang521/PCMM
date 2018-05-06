@@ -97,7 +97,7 @@ TcpClient::TcpClient(const IpSocketEndpoint& localEndpoint,
     ,socket_(new TcpSocket(localEndpoint, remoteEndpoint))
     ,tcpConnectionReceiver_(std::move(receiver))
 {
-    if (!receiver)
+    if (!tcpConnectionReceiver_)
     {
         TRACE_ERROR("Initial Tcp Client with null connection connection receiver, local = " << localEndpoint << ", remote = " << remoteEndpoint);
         throw std::invalid_argument("Initial Tcp Client with null connection connection receiver");
