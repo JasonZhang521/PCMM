@@ -6,11 +6,11 @@ namespace SimulatorClient {
 
 class DeviceClientHandler : public IDeviceClientHandler
 {
-    std::unique_ptr<DeviceCommunication::IDeviceClient> client_;
+    std::shared_ptr<DeviceCommunication::IDeviceClient> client_;
 public:
     DeviceClientHandler();
     virtual ~DeviceClientHandler();
-    virtual void setDeviceClient(std::unique_ptr<DeviceCommunication::IDeviceClient> client);
+    virtual void setDeviceClient(std::shared_ptr<DeviceCommunication::IDeviceClient> client);
     virtual void startup();
     virtual void shutdown();
     virtual void reStartup();

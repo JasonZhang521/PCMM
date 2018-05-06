@@ -9,7 +9,7 @@ class IDeviceClientHandler
 public:
     IDeviceClientHandler();
     virtual ~IDeviceClientHandler();
-    virtual void setDeviceClient(std::shared_ptr<DeviceCommunication::IDeviceClient> ipcClient) = 0;
+    virtual void setDeviceClient(std::shared_ptr<DeviceCommunication::IDeviceClient> deviceClient) = 0;
     virtual void startup() = 0;
     virtual void shutdown() = 0;
     virtual void reStartup() = 0;

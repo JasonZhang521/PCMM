@@ -16,11 +16,7 @@ const uint16_t CMD_UP_RES = 0x1103;
 
 class IoeZpMessage : public IDeviceMessage
 {
-    uint16_t header_;
-    uint8_t length_;
-    uint8_t length_Inverse_;
-    uint16_t checkSum_;
-    uint16_t cmd_;
+public:
     struct IoeZpMessagePayload
     {
         uint64_t reserved;
@@ -39,8 +35,14 @@ class IoeZpMessage : public IDeviceMessage
         void unserialize(Serialize::ReadBuffer& readBuffer);
         static void initIoeZpResIdSet();
     };
-
+private:
+    uint16_t header_;
+    uint8_t length_;
+    uint8_t length_Inverse_;
+    uint16_t checkSum_;
+    uint16_t cmd_;
     IoeZpMessagePayload payload_;
+public:
     static std::vector<uint16_t> IoeZpResIdSet;
 public:
     IoeZpMessage();

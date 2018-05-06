@@ -111,7 +111,6 @@ SOURCES +=../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/IpcMessage/IIpcMessageQueue.cpp \
     ../../sourceCode/Common/Lock.cpp \
     ../../sourceCode/IpcMessage/IpcThreadSafeMessageQueue.cpp \
-    ../../sourceCode/SimulatorClient/UiClientMessageSendTimer.cpp \
     ../../sourceCode/Environment/ComputerNodeInfo.cpp \
     ../../sourceCode/Environment/CpuInfo.cpp \
     ../../sourceCode/Environment/CpuInfoBriefly.cpp \
@@ -169,7 +168,11 @@ SOURCES +=../../sourceCode/Ipc/IIpcConnectionClientStrategy.cpp \
     ../../sourceCode/Network/ITcpConnectionAcceptor.cpp \
     ../../sourceCode/SimulatorClient/DeviceClientHandler.cpp \
     ../../sourceCode/SimulatorClient/IDeviceClientHandler.cpp \
-    ../../sourceCode/SimulatorClient/IoeZpClientManager.cpp
+    ../../sourceCode/SimulatorClient/IoeZpClientManager.cpp \
+    ../../sourceCode/DeviceMessage/IDeviceMessageQueue.cpp \
+    ../../sourceCode/DeviceMessage/DeviceMessageThreadSafeQueue.cpp \
+    ../../sourceCode/SimulatorClient/ClientMessageSendTimer.cpp \
+    ../../sourceCode/DeviceMessage/DeviceMessageGenerator.cpp
 
 HEADERS += \
     ../../sourceCode/Ipc/Component.h \
@@ -264,7 +267,6 @@ HEADERS += \
     ../../sourceCode/IpcMessage/IIpcMessageQueue.h \
     ../../sourceCode/Common/Lock.h \
     ../../sourceCode/IpcMessage/IpcThreadSafeMessageQueue.h \
-    ../../sourceCode/SimulatorClient/UiClientMessageSendTimer.h \
     ../../sourceCode/Environment/ComputerNodeInfo.h \
     ../../sourceCode/Environment/CpuInfo.h \
     ../../sourceCode/Environment/CpuInfoBriefly.h \
@@ -329,7 +331,11 @@ HEADERS += \
     ../../sourceCode/Network/ITcpConnectionAcceptor.h \
     ../../sourceCode/SimulatorClient/DeviceClientHandler.h \
     ../../sourceCode/SimulatorClient/IDeviceClientHandler.h \
-    ../../sourceCode/SimulatorClient/IoeZpClientManager.h
+    ../../sourceCode/SimulatorClient/IoeZpClientManager.h \
+    ../../sourceCode/DeviceMessage/IDeviceMessageQueue.h \
+    ../../sourceCode/DeviceMessage/DeviceMessageThreadSafeQueue.h \
+    ../../sourceCode/SimulatorClient/ClientMessageSendTimer.h \
+    ../../sourceCode/DeviceMessage/DeviceMessageGenerator.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

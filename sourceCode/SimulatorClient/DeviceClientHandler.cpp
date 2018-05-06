@@ -17,10 +17,10 @@ DeviceClientHandler::~DeviceClientHandler()
 
 }
 
-void DeviceClientHandler::setDeviceClient(std::unique_ptr<DeviceCommunication::IDeviceClient> client)
+void DeviceClientHandler::setDeviceClient(std::shared_ptr<DeviceCommunication::IDeviceClient> client)
 {
     TRACE_ENTER();
-    client_ = std::move(client);
+    client_ = client;
 }
 
 void DeviceClientHandler::startup()

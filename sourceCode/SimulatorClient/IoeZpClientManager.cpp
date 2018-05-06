@@ -1,7 +1,9 @@
 #include "IoeZpClientManager.h"
+#include "IDeviceClientHandler.h"
 
 namespace SimulatorClient {
-IoeZpClientManager::IoeZpClientManager()
+IoeZpClientManager::IoeZpClientManager(IDeviceClientHandler& handler)
+    :handler_(handler)
 {
 
 }
@@ -33,12 +35,12 @@ void IoeZpClientManager::setDeviceServer(std::unique_ptr<DeviceCommunication::ID
 
 void IoeZpClientManager::startup()
 {
-
+    handler_.startup();
 }
 
 void IoeZpClientManager::shutdown()
 {
-
+    handler_.shutdown();
 }
 
 }

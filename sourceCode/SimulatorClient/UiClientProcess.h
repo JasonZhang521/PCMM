@@ -9,6 +9,11 @@ class IIpcMessageQueue;
 class IIpcMessage;
 }
 
+namespace DeviceMessage {
+class IDeviceMessage;
+class IDeviceMessageQueue;
+}
+
 namespace std {
 class thread;
 }
@@ -19,6 +24,7 @@ class UiClientProcess
     std::unique_ptr<std::thread> uiClientThread_;
     std::shared_ptr<IpcMessage::IIpcMessageQueue> ipcMessageSendQueue_;
     std::shared_ptr<IpcMessage::IIpcMessageQueue> ipcMessageReceiveQueue_;
+    std::shared_ptr<DeviceMessage::IDeviceMessageQueue> deviceMessageQueue_;
 public:
     UiClientProcess();
     ~UiClientProcess();
@@ -26,6 +32,7 @@ public:
     bool messageReceived();
     std::unique_ptr<IpcMessage::IIpcMessage> getOneMessage();
     void sendMessage(std::unique_ptr<IpcMessage::IIpcMessage> msg);
+    void sendMessage(std::unique_ptr<DeviceMessage::IDeviceMessage> msg);
 private:
     void process();
 public:

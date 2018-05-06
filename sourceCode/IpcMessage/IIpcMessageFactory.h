@@ -1,5 +1,5 @@
-#ifndef IIPCMESSAGEFACTORY_H
-#define IIPCMESSAGEFACTORY_H
+#ifndef _IPCMESSAGE_IIPCMESSAGEFACTORY_H_
+#define _IPCMESSAGE_IIPCMESSAGEFACTORY_H_
 #include "IpcMessageType.h"
 #include <stdint.h>
 
@@ -23,4 +23,4 @@ private:
 
 }
 
-#endif // IIPCMESSAGEFACTORY_H
+#endif // _IPCMESSAGE_IIPCMESSAGEFACTORY_H_

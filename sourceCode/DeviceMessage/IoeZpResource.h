@@ -13,6 +13,7 @@ const uint16_t DEVOPTS_BZ06 = 0x04;
 const uint16_t RUNDATA_BZ06 = 0x10;
 const uint16_t OUTCTL_BZ06 = 0x20;
 const uint16_t RELATED_BZ06 = 0x40;
+const uint16_t RESOURCE_MASK = USROPTS_BZ06 | DEVOPTS_BZ06 | RUNDATA_BZ06 | OUTCTL_BZ06 | RELATED_BZ06;
 
 struct UsrOptsBz06
 {

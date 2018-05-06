@@ -1,5 +1,5 @@
-#ifndef IPCAUTHORIZATIONRESPONSE_H
-#define IPCAUTHORIZATIONRESPONSE_H
+#ifndef _IPCMESSAGE_IPCAUTHORIZATIONRESPONSE_H_
+#define _IPCMESSAGE_IPCAUTHORIZATIONRESPONSE_H_
 #include "IIpcComunicationMessage.h"
 
 namespace IpcMessage {
@@ -15,4 +15,4 @@ private:
     virtual std::ostream& operator<< (std::ostream& os) const;
 };
 }
-#endif // IPCAUTHORIZATIONRESPONSE_H
+#endif // _IPCMESSAGE_IPCAUTHORIZATIONRESPONSE_H_

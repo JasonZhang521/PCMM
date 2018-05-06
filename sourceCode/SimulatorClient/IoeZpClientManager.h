@@ -7,10 +7,15 @@ class IDeviceClient;
 }
 
 namespace SimulatorClient {
+
+class IDeviceClientHandler;
+
 class IoeZpClientManager : public DeviceCommunication::IDeviceClientManager
 {
+    IDeviceClientHandler& handler_;
+
 public:
-    IoeZpClientManager();
+    IoeZpClientManager(IDeviceClientHandler& handler);
     virtual ~IoeZpClientManager();
     virtual void addClient(const Network::IpSocketEndpoint& localEndPoint, std::unique_ptr<DeviceCommunication::IDeviceClient> client);
     virtual void removeClient(const Network::IpSocketEndpoint& localEndPoint);

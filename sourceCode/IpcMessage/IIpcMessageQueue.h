@@ -1,5 +1,5 @@
-#ifndef IIPCMESSAGEQUEUE_H
-#define IIPCMESSAGEQUEUE_H
+#ifndef _IPCMESSAGE_IIPCMESSAGEQUEUE_H_
+#define _IPCMESSAGE_IIPCMESSAGEQUEUE_H_
 #include <memory>
 
 namespace IpcMessage {
@@ -18,4 +18,4 @@ public:
 
 }
 
-#endif // IIPCMESSAGEQUEUE_H
+#endif // _IPCMESSAGE_IIPCMESSAGEQUEUE_H_
