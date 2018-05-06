@@ -71,6 +71,7 @@ void ClusterManagementProcess::process()
         (static_cast<DeviceCommunication::IDeviceClientManager&>(deviceClientManager)).setDeviceServer(std::move(deviceServer));
     }
 
+    // start service
     clusterMgtController->startup();
     (static_cast<DeviceCommunication::IDeviceClientManager&>(deviceClientManager)).startup();
 

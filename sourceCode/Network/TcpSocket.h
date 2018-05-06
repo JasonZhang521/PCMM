@@ -41,7 +41,7 @@ public:
     std::ostream& operator<< (std::ostream& os) const;
 
 public:
-     GETCLASSNAME(SocketImp)
+     GETCLASSNAME(TcpSocket)
 };
 
 std::ostream& operator<< (std::ostream& os, const TcpSocket& socket);
