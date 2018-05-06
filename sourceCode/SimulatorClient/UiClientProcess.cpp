@@ -80,7 +80,7 @@ void UiClientProcess::process()
     // Local and remote endpoint.
     Network::IpSocketEndpoint uiLocalEndpoint("0.0.0.0:0");
     //Network::IpSocketEndpoint remoteEndpoint(std::string("127.0.0.1:23833"));
-    Network::IpSocketEndpoint uiRemoteEndpoint(std::string("192.168.5.138:23833"));
+    Network::IpSocketEndpoint uiRemoteEndpoint(std::string("192.168.5.139:23833"));
     //Network::IpSocketEndpoint remoteEndpoint(std::string("116.236.169.100:23833"));
     // UiClientHandler
     std::shared_ptr<IUiClientHandler> uiClientHandler(new UiClientHandler());
@@ -107,7 +107,7 @@ void UiClientProcess::process()
     // Local and remote endpoint.
     Network::IpSocketEndpoint deviceLocalEndpoint("0.0.0.0:0");
     //Network::IpSocketEndpoint remoteEndpoint(std::string("127.0.0.1:23835"));
-    Network::IpSocketEndpoint deviceRemoteEndpoint(std::string("192.168.5.138:23835"));
+    Network::IpSocketEndpoint deviceRemoteEndpoint(std::string("192.168.5.139:23835"));
     //Network::IpSocketEndpoint remoteEndpoint(std::string("116.236.169.100:23835"));
     DeviceClientHandler deviceClientHandler;
     IoeZpClientManager ioeZpClientManager(deviceClientHandler);
@@ -117,6 +117,7 @@ void UiClientProcess::process()
     std::shared_ptr<DeviceCommunication::IDeviceClient> deviceClient(new DeviceCommunication::DeviceClient(std::move(tcpClient)));
 
     deviceClientHandler.setDeviceClient(deviceClient);
+    deviceClientHandler.startup();
 
 
     std::shared_ptr<ClientMessageSendTimer>

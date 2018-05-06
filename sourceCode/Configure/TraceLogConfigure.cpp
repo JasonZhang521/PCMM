@@ -2,7 +2,7 @@
 
 TraceLogConfigure::TraceLogConfigure()
 :level_(TRACE_LOG_NOTICE)
-,target_(TRACE_LOG_TO_FILE)
+,target_(TRACE_LOG_BOTH)
 ,filePath_(TraceLogFilePath)
 ,logBufSize_(LogBufSize)
 ,logLineNumberInFile_(0)

@@ -22,7 +22,7 @@ DeviceClient::~DeviceClient()
 
 void DeviceClient::connect()
 {
-    TRACE_ENTER();
+    TRACE_NOTICE("connect");
     client_->connect();
 }
 
@@ -37,7 +37,7 @@ void DeviceClient::send(DeviceMessage::IDeviceMessage& msg)
 
 void DeviceClient::disconnect()
 {
-    TRACE_ENTER();
+    TRACE_NOTICE("disconnect");
     client_->disconnect();
     client_->cleanup();
     client_->restart();

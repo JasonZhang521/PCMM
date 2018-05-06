@@ -24,18 +24,18 @@ DeviceServer::~DeviceServer()
 
 void DeviceServer::startup()
 {
-    TRACE_DEBUG("Tcp server init!");
+    TRACE_NOTICE("Tcp server init!");
     server_->init();
-    TRACE_DEBUG("Tcp server bind!");
+    TRACE_NOTICE("Tcp server bind!");
     server_->bind();
     int backlog = SOMAXCONN;
-    TRACE_DEBUG("Tcp server start to listen!");
+    TRACE_NOTICE("Tcp server start to listen!");
     server_->listen(backlog);
 }
 
 void DeviceServer::shutdown()
 {
-    TRACE_ENTER();
+    TRACE_NOTICE("Tcp server shutdown!");
     server_->disconnect();
     server_->cleanup();
 }
