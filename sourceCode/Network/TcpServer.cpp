@@ -24,14 +24,14 @@ TcpServer::~TcpServer()
 
 TcpResult TcpServer::init()
 {
-    TRACE_ENTER();
+    TRACE_NOTICE("init!" << socket_);
     socket_.init();
     return TcpResult::Success;
 }
 
 TcpResult TcpServer::bind()
 {
-    TRACE_ENTER();
+    TRACE_NOTICE("bind!" << socket_);
     int ret = socket_.bind();
     if (SOCKET_ERROR == ret)
     {
@@ -46,7 +46,7 @@ TcpResult TcpServer::bind()
 
 TcpResult TcpServer::listen(int backlog)
 {
-    TRACE_ENTER();
+    TRACE_NOTICE("listen!" << socket_);
     int ret = socket_.listen(backlog);
     if (SOCKET_ERROR == ret)
     {
@@ -61,7 +61,7 @@ TcpResult TcpServer::listen(int backlog)
 
 TcpResult TcpServer::accept(int flag)
 {
-    TRACE_ENTER();
+    TRACE_NOTICE("accept!" << socket_);
     IpSocketEndpoint remoteEndPoint;
     int fd = socket_.accept(remoteEndPoint, flag);
     if (SOCKET_ERROR == fd)
@@ -79,7 +79,7 @@ TcpResult TcpServer::accept(int flag)
 
 TcpResult TcpServer::disconnect()
 {
-    TRACE_ENTER();
+    TRACE_NOTICE("disconnect!" << socket_);
     if (SOCKET_ERROR == socket_.close())
     {
         TRACE_NOTICE(socket_.getErrorInfo());
@@ -93,7 +93,7 @@ TcpResult TcpServer::disconnect()
 
 TcpResult TcpServer::cleanup()
 {
-    TRACE_ENTER();
+    TRACE_NOTICE("cleanup!" << socket_);
     if (SOCKET_ERROR == socket_.shutdown(SOCKET_SD_BOTH))
     {
         TRACE_NOTICE(socket_.getErrorInfo());

@@ -29,7 +29,7 @@ void IpcClient::setConnectionStrategy(std::shared_ptr<IIpcConnectionClientStrate
 
 void IpcClient::connect()
 {
-    TRACE_ENTER();
+    TRACE_NOTICE("connect");
     strategy_->connect();
 }
 
@@ -41,7 +41,7 @@ void IpcClient::send(IpcMessage::IIpcMessage& msg)
 
 void IpcClient::disconnect()
 {
-    TRACE_ENTER();
+    TRACE_NOTICE("disconnect");
     strategy_->disconnect();
 }
 

@@ -124,7 +124,7 @@ TcpClient::~TcpClient()
 
 TcpResult TcpClient::init()
 {
-    TRACE_ENTER();
+    TRACE_NOTICE("init:" << socket);
     if (SOCKET_SUCCESS == socket_->init())
     {
        return TcpResult::Success;
@@ -138,7 +138,7 @@ TcpResult TcpClient::init()
 
 TcpResult TcpClient::bind()
 {
-    TRACE_ENTER();
+    TRACE_NOTICE("bind:" << socket);
     if (SOCKET_SUCCESS == socket_->bind())
     {
        TRACE_NOTICE("tcp client bind successfully! bind to:" << socket_->getLocalEndpoint());
@@ -153,7 +153,7 @@ TcpResult TcpClient::bind()
 
 TcpResult TcpClient::connect()
 {
-    TRACE_DEBUG("localEndpoint:" << socket_->getLocalEndpoint() << ", remoteEndpoint:" << socket_->getRemoteEndpoint());
+    TRACE_NOTICE("connect:" << socket);
     if (!connectionTimer_)
     {
         connectionTimer_ = std::unique_ptr<ConnectionTimer>(new ConnectionTimer(this));
@@ -250,8 +250,7 @@ TcpResult TcpClient::receive()
 
 TcpResult TcpClient::disconnect()
 {
-    TRACE_ENTER();
-    TRACE_NOTICE("TcpClient::disconnect");
+    TRACE_NOTICE("disconnect:" << socket);
     // deregister the IO
     Core::LoopMain::instance().deRegisterIo(Io::IoFdType::IoFdAll, getIoHandle());
 
@@ -268,7 +267,7 @@ TcpResult TcpClient::disconnect()
 
 TcpResult TcpClient::cleanup()
 {
-    TRACE_ENTER();
+    TRACE_NOTICE("cleanup:" << socket);
     if (SOCKET_ERROR == socket_->shutdown(SOCKET_SD_BOTH))
     {
         TRACE_NOTICE(socket_->getErrorInfo());
@@ -282,7 +281,7 @@ TcpResult TcpClient::cleanup()
 
 TcpResult TcpClient::restart()
 {
-    TRACE_ENTER();
+    TRACE_NOTICE("restart:" << socket);
     socket_ = std::unique_ptr<TcpSocket>(new TcpSocket(socket_->getRemoteEndpoint(), socket_->getRemoteEndpoint()));
     init();
     return TcpResult::Success;
