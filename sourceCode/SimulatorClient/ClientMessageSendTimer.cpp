@@ -30,14 +30,14 @@ ClientMessageSendTimer::~ClientMessageSendTimer()
 void ClientMessageSendTimer::onTime()
 {
     TRACE_DEBUG3("send message, message number in queue is " << ipcMessageSendQueue_->getSize());
-    if (!ipcMessageSendQueue_->isEmpty())
+    if (!ipcMessageSendQueue_->isEmpty() && ipcClient_)
     {
         std::unique_ptr<IpcMessage::IIpcMessage> msg = std::move(ipcMessageSendQueue_->popFront());
         ipcClient_->send(*msg);
     }
 
     TRACE_DEBUG3("send message, message number in queue is " << deviceMessageQueue_->getSize());
-    if (!deviceMessageQueue_->isEmpty())
+    if (!deviceMessageQueue_->isEmpty() && deviceClient_)
     {
         std::unique_ptr<DeviceMessage::IDeviceMessage> msg = std::move(deviceMessageQueue_->popFront());
         deviceClient_->send(*msg);
