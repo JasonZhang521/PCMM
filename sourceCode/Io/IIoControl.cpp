@@ -24,7 +24,7 @@ IIoControl::~IIoControl()
 void IIoControl::registerIoFd(IoFdType type, IIoEvent* event)
 {
     int fd = event->getIoHandle();
-    TRACE_NOTICE("fd = " << fd << ", type = " << type << ", event = " << event);
+    TRACE_NOTICE("fd = " << fd << ", type = " << type << ", event = " << event << ", isRunnint = " << isRunning_);
     if (!isRunning_)
     {
         IoFdEventMap::iterator it = fdEventMap_.find(fd);
