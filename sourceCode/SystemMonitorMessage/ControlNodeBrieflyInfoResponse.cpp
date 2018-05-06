@@ -19,7 +19,7 @@ void ControlNodeBrieflyInfoResponse::serialize(Serialize::WriteBuffer& writeBuff
     writeBuffer.write<uint8_t>(static_cast<uint8_t>(IpcMessage::ControlNodeBrieflyInfoResponseMessage));
     IpcMessage::IIpcMessage::write(writeBuffer);
     systemInfoBriefly_.serialize(writeBuffer);
-    size_t numberOfIoeZpDeviceInfo = ioeZpDeviceInfos_.size();
+    uint32_t numberOfIoeZpDeviceInfo = ioeZpDeviceInfos_.size();
     writeBuffer.write(numberOfIoeZpDeviceInfo);
     using Infos = Environment::IoeZpDeviceInfos;
     for (Infos::const_iterator it = ioeZpDeviceInfos_.begin(); it != ioeZpDeviceInfos_.end(); ++it)
@@ -36,14 +36,15 @@ void ControlNodeBrieflyInfoResponse::unserialize(Serialize::ReadBuffer& readBuff
     readBuffer.read(temp);
     IpcMessage::IIpcMessage::read(readBuffer);
     systemInfoBriefly_.unserialize(readBuffer);
-    size_t numberOfIoeZpDeviceInfo = 0;
+    uint32_t numberOfIoeZpDeviceInfo = 0;
     readBuffer.read(numberOfIoeZpDeviceInfo);
-    for (size_t i = 0; i < numberOfIoeZpDeviceInfo; ++i)
+    for (uint32_t i = 0; i < numberOfIoeZpDeviceInfo; ++i)
     {
         Network::IpSocketEndpoint remoteEndpoint;
         remoteEndpoint.unserialize(readBuffer);
         Environment::IoeZpDeviceInfo ioeZpDeviceInfo;
         ioeZpDeviceInfo.unserialize(readBuffer);
+        ioeZpDeviceInfos_[remoteEndpoint] = ioeZpDeviceInfo;
     }
 }
 
