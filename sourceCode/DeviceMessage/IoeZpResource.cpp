@@ -15,6 +15,14 @@ void UsrOptsBz06::unserialize(Serialize::ReadBuffer& readBuffer)
     readBuffer.read(upInfoDelay);
 }
 
+void UsrOptsBz06::print(std::ostream& os) const
+{
+    os << "["
+       << "devName=" << std::string(devName, 16)
+       << ", upInfoDelay=" << upInfoDelay
+       << "]";
+}
+
 void DevoptsBz06::serialize(Serialize::WriteBuffer& writeBuffer) const
 {
     writeBuffer.write(devNumber);
@@ -27,6 +35,15 @@ void DevoptsBz06::unserialize(Serialize::ReadBuffer& readBuffer)
     readBuffer.read(devNumber);
     readBuffer.read(modeINum);
     readBuffer.read(date);
+}
+
+void DevoptsBz06::print(std::ostream& os) const
+{
+    os << "["
+       << "devNumber=" << devNumber
+       << ", modeINum=" << modeINum
+       << ", date=" << date
+       << "]";
 }
 
 void RunDataBz06::serialize(Serialize::WriteBuffer& writeBuffer) const
@@ -49,6 +66,18 @@ void RunDataBz06::unserialize(Serialize::ReadBuffer& readBuffer)
     readBuffer.read(battVol);
 }
 
+void RunDataBz06::print(std::ostream& os) const
+{
+    os << "["
+       << "temp1=" << temp1
+       << ", temp2=" << temp2
+       << ", hum=" << hum
+       << "output=" << output
+       << ", input=" << input
+       << ", battVol=" << battVol
+       << "]";
+}
+
 void OutCtlBz06::serialize(Serialize::WriteBuffer& writeBuffer) const
 {
     writeBuffer.write(delay);
@@ -59,6 +88,14 @@ void OutCtlBz06::unserialize(Serialize::ReadBuffer& readBuffer)
 {
     readBuffer.read(delay);
     readBuffer.read(reserved);
+}
+
+void OutCtlBz06::print(std::ostream& os) const
+{
+    os << "["
+       << "delay=" << delay
+       << ", reserved=" << reserved
+       << "]";
 }
 
 IoeZpResource::IoeZpResource()
@@ -160,6 +197,40 @@ void IoeZpResource::unserialize(Serialize::ReadBuffer& readBuffer)
     {
         OutCtlBz06* pRes = reinterpret_cast<OutCtlBz06*>(resource);
         pRes->unserialize(readBuffer);
+        break;
+    }
+    case RELATED_BZ06:
+        break;
+    default:
+        break;
+    }
+}
+
+void IoeZpResource::print(std::ostream& os) const
+{
+    switch (resourceId) {
+    case USROPTS_BZ06:
+    {
+        UsrOptsBz06* pRes = reinterpret_cast<UsrOptsBz06*>(resource);
+        pRes->print(os);
+        break;
+    }
+    case DEVOPTS_BZ06:
+    {
+        DevoptsBz06* pRes = reinterpret_cast<DevoptsBz06*>(resource);
+        pRes->print(os);
+        break;
+    }
+    case RUNDATA_BZ06:
+    {
+        RunDataBz06* pRes = reinterpret_cast<RunDataBz06*>(resource);
+        pRes->print(os);
+        break;
+    }
+    case OUTCTL_BZ06:
+    {
+        OutCtlBz06* pRes = reinterpret_cast<OutCtlBz06*>(resource);
+        pRes->print(os);
         break;
     }
     case RELATED_BZ06:

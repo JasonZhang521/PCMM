@@ -1,5 +1,6 @@
 #ifndef _DEVICEMESSAGE_IOEZPRESOURCE_H_
 #define _DEVICEMESSAGE_IOEZPRESOURCE_H_
+#include <ostream>
 #include <stdint.h>
 
 namespace Serialize {
@@ -21,6 +22,7 @@ struct UsrOptsBz06
     uint32_t upInfoDelay;
     void serialize(Serialize::WriteBuffer& writeBuffer) const;
     void unserialize(Serialize::ReadBuffer& readBuffer);
+    void print(std::ostream& os) const;
 };
 
 struct DevoptsBz06
@@ -30,6 +32,7 @@ struct DevoptsBz06
     uint32_t date;
     void serialize(Serialize::WriteBuffer& writeBuffer) const;
     void unserialize(Serialize::ReadBuffer& readBuffer);
+    void print(std::ostream& os) const;
 };
 
 struct RunDataBz06
@@ -42,6 +45,7 @@ struct RunDataBz06
     uint16_t battVol;
     void serialize(Serialize::WriteBuffer& writeBuffer) const;
     void unserialize(Serialize::ReadBuffer& readBuffer);
+    void print(std::ostream& os) const;
 };
 
 struct OutCtlBz06
@@ -50,6 +54,7 @@ struct OutCtlBz06
     int8_t reserved;
     void serialize(Serialize::WriteBuffer& writeBuffer) const;
     void unserialize(Serialize::ReadBuffer& readBuffer);
+    void print(std::ostream& os) const;
 };
 
 struct IoeZpResource
@@ -63,6 +68,7 @@ struct IoeZpResource
     ~IoeZpResource();
     void serialize(Serialize::WriteBuffer& writeBuffer) const;
     void unserialize(Serialize::ReadBuffer& readBuffer);
+    void print(std::ostream& os) const;
 private:
     void allocate();
     void dellocate();
@@ -70,4 +76,11 @@ private:
 };
 
 }
+
+inline std::ostream& operator<< (std::ostream& os, const DeviceMessage::IoeZpResource& res)
+{
+    res.print(os);
+    return os;
+}
+
 #endif // _DEVICEMESSAGE_IOEZPRESOURCE_H_

@@ -2,6 +2,7 @@
 #include "IoeZpMessage.h"
 #include "DeviceInfo.h"
 #include "DeviceClientManager.h"
+#include "ReadBuffer.h"
 #include "Trace.h"
 #include "Component.h"
 #include "Macro.h"
@@ -30,12 +31,13 @@ void IoeZpConnectionReceiver::onConnect()
 
 void IoeZpConnectionReceiver::onReceive(Serialize::ReadBuffer& readBuffer)
 {
+    TRACE_DEBUG3(readBuffer);
     DeviceMessage::IoeZpMessage message;
     message.unserialize(readBuffer);
 //    clientManager_.handleMessage(message);
     Environment::IoeZpDeviceInfo& ioeZpDeviceInfo = Environment::DeviceInfo::instance().getIoeZpDeviceInfo(remoteIpEndpoint_);
     ioeZpDeviceInfo.setNetId(message.getPayload().netId);
-
+    TRACE_DEBUG3(message);
     for (auto it : message.getPayload().resources)
     {
         DeviceMessage::IoeZpResource& ioeZpResource = it.second;

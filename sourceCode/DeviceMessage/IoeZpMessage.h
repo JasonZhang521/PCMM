@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <ostream>
 #include "stdint.h"
 
 namespace DeviceMessage {
@@ -34,6 +35,7 @@ public:
         void serialize(Serialize::WriteBuffer& writeBuffer) const;
         void unserialize(Serialize::ReadBuffer& readBuffer);
         static void initIoeZpResIdSet();
+        void print(std::ostream& os) const;
     };
 private:
     uint16_t header_;
@@ -62,6 +64,8 @@ public:
     inline uint8_t getCmd() const {return cmd_;}
     inline void setCmd(uint8_t checkSum) {cmd_ = checkSum;}
     inline IoeZpMessagePayload& getPayload() {return payload_;}
+private:
+    virtual void print(std::ostream& os) const;
 };
 }
 #endif // _DEVICEMESSAGE_IOEZPMESSAGE_H_

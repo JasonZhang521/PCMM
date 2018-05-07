@@ -67,6 +67,23 @@ void IoeZpMessage::IoeZpMessagePayload::initIoeZpResIdSet()
     IoeZpResIdSet.push_back(OUTCTL_BZ06);
 }
 
+void IoeZpMessage::IoeZpMessagePayload::print(std::ostream& os) const
+{
+    os << "["
+       << "reserved=" << reserved
+       << ", netId=" << netId
+       << ", extnum=" << extnum
+       << ", mode=" << mode
+       << ", resIndex=" << resIndex
+       << ", resOffset=" << resOffset
+       << ", resLength=" << resLength;
+    for (auto it = resources.begin(); it != resources.end(); ++it)
+    {
+        os << ", [index=" << it->first << ", resource=" << it->second << "]";
+    }
+    os << "]";
+}
+
 IoeZpMessage::IoeZpMessage()
 {
 
@@ -101,6 +118,19 @@ void IoeZpMessage::unserialize(Serialize::ReadBuffer& readBuffer)
 DeviceMessageType IoeZpMessage::getMessageType()
 {
     return DeviceMessageType::IoeZpType;
+}
+
+void IoeZpMessage::print(std::ostream& os) const
+{
+    os << "["
+       << "header=" << header_
+       << ", length=" << length_
+       << ", length_Inverse=" << length_Inverse_
+       << ", checkSum=" << checkSum_
+       << ", cmd=" << cmd_
+       << ", payload=";
+    payload_.print(os);
+    os << "]";
 }
 
 }
