@@ -77,11 +77,11 @@ void UiClientProcess::sendMessage(std::unique_ptr<DeviceMessage::IDeviceMessage>
 void UiClientProcess::process()
 {
     TRACE_NOTICE("Ui Client is starting!");
+
     // Local and remote endpoint.
     Network::IpSocketEndpoint uiLocalEndpoint("0.0.0.0:0");
-    //Network::IpSocketEndpoint remoteEndpoint(std::string("127.0.0.1:23833"));
     Network::IpSocketEndpoint uiRemoteEndpoint(std::string("192.168.5.139:23833"));
-    //Network::IpSocketEndpoint remoteEndpoint(std::string("116.236.169.100:23833"));
+
     // UiClientHandler
     std::shared_ptr<IUiClientHandler> uiClientHandler(new UiClientHandler());
     // UiClientConnectionReceiver
@@ -103,12 +103,9 @@ void UiClientProcess::process()
 
 
 
-
     // Local and remote endpoint.
     Network::IpSocketEndpoint deviceLocalEndpoint("0.0.0.0:0");
-    //Network::IpSocketEndpoint remoteEndpoint(std::string("127.0.0.1:23835"));
     Network::IpSocketEndpoint deviceRemoteEndpoint(std::string("192.168.5.139:23835"));
-    //Network::IpSocketEndpoint remoteEndpoint(std::string("116.236.169.100:23835"));
     DeviceClientHandler deviceClientHandler;
     IoeZpClientManager ioeZpClientManager(deviceClientHandler);
     // Tcp client
@@ -120,8 +117,10 @@ void UiClientProcess::process()
     deviceClientHandler.startup();
 
 
-    std::shared_ptr<ClientMessageSendTimer>
-            clientMessageSendTimer(new ClientMessageSendTimer(ipcMessageSendQueue_, ipcClient, deviceMessageQueue_, deviceClient));
+//   std::shared_ptr<ClientMessageSendTimer> clientMessageSendTimer(new ClientMessageSendTimer(ipcMessageSendQueue_, ipcClient, deviceMessageQueue_, nullptr));
+//    std::shared_ptr<ClientMessageSendTimer> clientMessageSendTimer(new ClientMessageSendTimer(ipcMessageSendQueue_, nullptr, deviceMessageQueue_, deviceClient));
+    std::shared_ptr<ClientMessageSendTimer> clientMessageSendTimer(new ClientMessageSendTimer(ipcMessageSendQueue_, ipcClient, deviceMessageQueue_, deviceClient));
+
     Core::LoopMain::instance().registerTimer(clientMessageSendTimer.get());
     // run
     Core::LoopMain::instance().loopStart();

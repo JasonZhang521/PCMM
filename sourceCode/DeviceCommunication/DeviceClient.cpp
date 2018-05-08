@@ -37,6 +37,7 @@ void DeviceClient::send(DeviceMessage::IDeviceMessage& msg)
     Serialize::WriteBuffer writeBuffer;
     msg.serialize(writeBuffer);
     TRACE_DEBUG("send msg:" << writeBuffer);
+    TRACE_NOTICE("send msg:" << writeBuffer);
     client_->send(writeBuffer);
 }
 
