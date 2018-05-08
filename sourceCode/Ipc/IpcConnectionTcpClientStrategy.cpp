@@ -50,6 +50,11 @@ void IpcConnectionTcpClientStrategy::connect()
 void IpcConnectionTcpClientStrategy::send(IpcMessage::IIpcMessage& msg)
 {
     TRACE_ENTER();
+    if (client_->state() != Network::TcpState::Tcp_Established)
+    {
+        TRACE_NOTICE("connection is not established while sending Message!");
+        return;
+    }
     if (!msg.getSource().isValid())
     {
         msg.setSource(client_->getLocalEndpoint());
@@ -134,6 +139,9 @@ void IpcConnectionTcpClientStrategy::onReceive(Serialize::ReadBuffer& readBuffer
         uint8_t messageType = static_cast<uint8_t>(IpcMessage::IpcMessage_None);
         inBuffer_.peek(messageType);
         TRACE_DEBUG("Receive ipc message: message type = "
+                    << IpcMessage::IpcMessageTypeString(static_cast<IpcMessage::IpcMessageType>(messageType))
+                    << ", message stream:" << inBuffer_);
+        TRACE_NOTICE("Receive ipc message: message type = "
                     << IpcMessage::IpcMessageTypeString(static_cast<IpcMessage::IpcMessageType>(messageType))
                     << ", message stream:" << inBuffer_);
 

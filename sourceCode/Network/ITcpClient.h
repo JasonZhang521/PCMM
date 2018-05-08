@@ -1,6 +1,7 @@
 #ifndef _NETWORK_ITCPCLIENT_H_
 #define _NETWORK_ITCPCLIENT_H_
 #include "TcpResult.h"
+#include "TcpState.h"
 #include <memory>
 
 namespace Serialize {
@@ -28,6 +29,7 @@ public:
     virtual void setConnectionReceiver(std::shared_ptr<ITcpConnectionReceiver> receiver) = 0;
     virtual IpSocketEndpoint getRemoteEndpoint() const = 0;
     virtual IpSocketEndpoint getLocalEndpoint() const = 0;
+    virtual TcpState state() const = 0;
 };
 
 }

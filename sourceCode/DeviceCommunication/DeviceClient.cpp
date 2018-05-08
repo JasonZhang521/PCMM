@@ -29,6 +29,11 @@ void DeviceClient::connect()
 void DeviceClient::send(DeviceMessage::IDeviceMessage& msg)
 {
     TRACE_ENTER();
+    if (client_->state() != Network::TcpState::Tcp_Established)
+    {
+        TRACE_NOTICE("connection is not established while sending Message!");
+        return;
+    }
     Serialize::WriteBuffer writeBuffer;
     msg.serialize(writeBuffer);
     TRACE_DEBUG("send msg:" << writeBuffer);

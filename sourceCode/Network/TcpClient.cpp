@@ -282,7 +282,7 @@ TcpResult TcpClient::cleanup()
 TcpResult TcpClient::restart()
 {
     TRACE_NOTICE("restart:" << *socket_);
-    socket_ = std::unique_ptr<TcpSocket>(new TcpSocket(socket_->getRemoteEndpoint(), socket_->getRemoteEndpoint()));
+    socket_ = std::unique_ptr<TcpSocket>(new TcpSocket(socket_->getLocalEndpoint(), socket_->getRemoteEndpoint()));
     init();
     return TcpResult::Success;
 }
@@ -344,6 +344,11 @@ IpSocketEndpoint TcpClient::getLocalEndpoint() const
     SocketAddresstLength len = sizeof(SocketAddress);
     socket_->getSockName(&addr, len);
     return IpSocketEndpoint(addr);
+}
+
+TcpState TcpClient::state() const
+{
+    return state_;
 }
 
 void TcpClient::setConnectionReceiver(std::shared_ptr<ITcpConnectionReceiver> receiver)

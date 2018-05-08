@@ -75,6 +75,7 @@ private:
 
     virtual IpSocketEndpoint getRemoteEndpoint() const;
     virtual IpSocketEndpoint getLocalEndpoint() const;
+    virtual TcpState state() const;
 
 public:
      GETCLASSNAME(TcpClient)
