@@ -76,7 +76,7 @@ void IoeZpMessage::IoeZpMessagePayload::print(std::ostream& os) const
        << ", mode=" << mode
        << ", resIndex=" << resIndex
        << ", resOffset=" << resOffset
-       << ", resLength=" << resLength;
+       << ", resLength=" << static_cast<int>(resLength);
     for (auto it = resources.begin(); it != resources.end(); ++it)
     {
         os << ", [index=" << it->first << ", resource=" << it->second << "]";
@@ -124,8 +124,8 @@ void IoeZpMessage::print(std::ostream& os) const
 {
     os << "["
        << "header=" << header_
-       << ", length=" << length_
-       << ", length_Inverse=" << length_Inverse_
+       << ", length=" << static_cast<int>(length_)
+       << ", length_Inverse=" << static_cast<int>(length_Inverse_)
        << ", checkSum=" << checkSum_
        << ", cmd=" << cmd_
        << ", payload=";

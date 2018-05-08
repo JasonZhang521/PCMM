@@ -72,7 +72,7 @@ void RunDataBz06::print(std::ostream& os) const
        << "temp1=" << temp1
        << ", temp2=" << temp2
        << ", hum=" << hum
-       << "output=" << output
+       << ", output=" << static_cast<int>(output)
        << ", input=" << input
        << ", battVol=" << battVol
        << "]";
@@ -94,7 +94,7 @@ void OutCtlBz06::print(std::ostream& os) const
 {
     os << "["
        << "delay=" << delay
-       << ", reserved=" << reserved
+       << ", reserved=" << static_cast<int>(reserved)
        << "]";
 }
 

@@ -97,7 +97,7 @@ std::ostream& WriteBuffer::operator << (std::ostream& os) const
        << "bufferSize=" << bufferSize_
        << ", dataSize=" << dataSize_
        << ", pos=" << pos_
-       << ",stream=";
+       << ", stream=";
     for (unsigned int i = 0; i < dataSize_; ++i)
     {
         os << std::hex;

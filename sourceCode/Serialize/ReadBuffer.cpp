@@ -164,7 +164,7 @@ std::ostream& ReadBuffer::operator << (std::ostream& os) const
        << "bufferSize=" << bufferSize_
        << ", dataSize=" << dataSize_
        << ", pos=" << pos_
-       << "stream unreaded:=\n";
+       << ", stream unreaded:=\n";
     for (unsigned int i = pos_; i < dataSize_; ++i)
     {
         os << std::hex;
