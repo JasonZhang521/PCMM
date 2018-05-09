@@ -40,15 +40,17 @@ int main(int argc, char**argv)
         if (count < 4)
         {
             std::unique_ptr<DeviceMessage::IDeviceMessage> deviceMessage(std::move(generator.generateIoZpResourceMessage(DeviceMessage::RESOURCE_MASK)));
-            std::cout << "debug info:" << *deviceMessage << std::endl;
+            std::cout << "-----------------------" << std::endl;
+            std::cout << "send Device Message:" << *deviceMessage << std::endl;
+            std::cout << "-----------------------" << std::endl;
             process.sendMessage(std::move(deviceMessage));
 
             System::Sleep(1000);
-            /*
+
             std::unique_ptr<IpcMessage::IIpcMessage>
                     controlNodeBrieflyInfoRequest(new SystemMonitorMessage::ControlNodeBrieflyInfoRequest);
             process.sendMessage(std::move(controlNodeBrieflyInfoRequest));
-*/
+
             System::Sleep(1000);
         }
         else

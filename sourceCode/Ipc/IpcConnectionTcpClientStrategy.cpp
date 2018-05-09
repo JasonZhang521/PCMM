@@ -141,9 +141,6 @@ void IpcConnectionTcpClientStrategy::onReceive(Serialize::ReadBuffer& readBuffer
         TRACE_DEBUG("Receive ipc message: message type = "
                     << IpcMessage::IpcMessageTypeString(static_cast<IpcMessage::IpcMessageType>(messageType))
                     << ", message stream:" << inBuffer_);
-        TRACE_NOTICE("Receive ipc message: message type = "
-                    << IpcMessage::IpcMessageTypeString(static_cast<IpcMessage::IpcMessageType>(messageType))
-                    << ", message stream:" << inBuffer_);
 
         IpcMessageFactroyMap::iterator
                 it = ipcMessageFactories_.find(static_cast<IpcMessage::IpcMessageType>(messageType));

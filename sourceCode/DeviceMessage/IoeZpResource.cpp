@@ -7,12 +7,14 @@ void UsrOptsBz06::serialize(Serialize::WriteBuffer& writeBuffer) const
 {
     writeBuffer.write(devName, 16);
     writeBuffer.write(upInfoDelay);
+    writeBuffer.write(flag);
 }
 
 void UsrOptsBz06::unserialize(Serialize::ReadBuffer& readBuffer)
 {
     readBuffer.read(devName, 16);
     readBuffer.read(upInfoDelay);
+    readBuffer.read(flag);
 }
 
 void UsrOptsBz06::print(std::ostream& os) const
@@ -20,6 +22,7 @@ void UsrOptsBz06::print(std::ostream& os) const
     os << "["
        << "devName=" << std::string(devName, 16)
        << ", upInfoDelay=" << upInfoDelay
+       << ", flag=" << static_cast<int>(flag)
        << "]";
 }
 

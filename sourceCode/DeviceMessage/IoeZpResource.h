@@ -20,6 +20,7 @@ struct UsrOptsBz06
 {
     char devName[16];
     uint32_t upInfoDelay;
+    uint8_t flag;
     void serialize(Serialize::WriteBuffer& writeBuffer) const;
     void unserialize(Serialize::ReadBuffer& readBuffer);
     void print(std::ostream& os) const;

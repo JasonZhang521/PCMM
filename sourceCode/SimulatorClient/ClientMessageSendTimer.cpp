@@ -39,7 +39,6 @@ void ClientMessageSendTimer::onTime()
     TRACE_DEBUG3("send message, message number in queue is " << deviceMessageQueue_->getSize());
     if (!deviceMessageQueue_->isEmpty() && deviceClient_)
     {
-        TRACE_NOTICE("send message, message number in queue is " << deviceMessageQueue_->getSize());
         std::unique_ptr<DeviceMessage::IDeviceMessage> msg = std::move(deviceMessageQueue_->popFront());
         deviceClient_->send(*msg);
     }
