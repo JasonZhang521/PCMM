@@ -367,7 +367,8 @@ HEADERS += \
     ../../sourceCode/DeviceCommunication/IoeZpMessageHandler.h \
     ../../sourceCode/Environment/DeviceInfo.h \
     ../../sourceCode/Environment/IoeZpDeviceInfo.h \
-    ../../sourceCode/DeviceCommunication/DeviceServerCreator.h
+    ../../sourceCode/DeviceCommunication/DeviceServerCreator.h \
+    ../../sourceCode/Version/HongClusterMgt_Verstion.h
 
 unix {
     target.path = /usr/lib

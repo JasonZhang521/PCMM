@@ -1,2 +1,2 @@
 #include <string>
-static const std::string Version("1.0");
+static const std::string Version("1.0.1");

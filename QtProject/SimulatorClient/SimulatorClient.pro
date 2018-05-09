@@ -335,7 +335,8 @@ HEADERS += \
     ../../sourceCode/DeviceMessage/IDeviceMessageQueue.h \
     ../../sourceCode/DeviceMessage/DeviceMessageThreadSafeQueue.h \
     ../../sourceCode/SimulatorClient/ClientMessageSendTimer.h \
-    ../../sourceCode/DeviceMessage/DeviceMessageGenerator.h
+    ../../sourceCode/DeviceMessage/DeviceMessageGenerator.h \
+    ../../sourceCode/Version/HongClusterMgt_Verstion.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
