@@ -1,12 +1,15 @@
 #ifndef _CHATSESSIONMESSAGE_ICHATMESSAGE_H_
 #define _CHATSESSIONMESSAGE_ICHATMESSAGE_H_
 #include "IIpcMessage.h"
+#include <vector>
 #include "stdint.h"
 
-namespace ChatSessionMessage {
 
+namespace ChatSessionMessage {
+using GroupDestination = std::vector<Network::IpSocketEndpoint>;
 class IChatMessage : public IpcMessage::IIpcMessage
 {
+    GroupDestination groupDestination_;
 public:
     IChatMessage();
     virtual ~IChatMessage();
@@ -16,6 +19,14 @@ public:
 
     virtual IpcMessage::IpcChatMessageType getChatMessageType() const = 0;
     virtual std::ostream& operator<< (std::ostream& os) const = 0;
+
+    //Common function
+    const GroupDestination& getGroupDestination() const;
+
+protected:
+    void write(Serialize::WriteBuffer& writeBuffer) const;
+    void read(Serialize::ReadBuffer& readBuffer);
+    void print(std::ostream& os) const;
 };
 
 }

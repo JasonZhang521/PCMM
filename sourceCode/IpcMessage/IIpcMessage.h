@@ -29,6 +29,7 @@ public:
     virtual void unserialize(Serialize::ReadBuffer& readBuffer) = 0;
     virtual std::ostream& operator<< (std::ostream& os) const = 0;
 
+    // common functions
 public:
     uint32_t getMessageLength() const;
     void setMessageLength(uint32_t len);

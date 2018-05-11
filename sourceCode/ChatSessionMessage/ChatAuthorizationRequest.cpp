@@ -16,7 +16,7 @@ void ChatAuthorizationRequest::serialize(Serialize::WriteBuffer& writeBuffer) co
 {
     writeBuffer.write<uint8_t>(static_cast<uint8_t>(IpcMessage::IpcMessage_ChatSession));
     writeBuffer.write<uint8_t>(static_cast<uint8_t>(IpcMessage::ChatAuthorizationRequest));
-    IIpcMessage::write(writeBuffer);
+    IpcMessage::IIpcMessage::write(writeBuffer);
     writeBuffer.write(userName_);
     writeBuffer.write(secret_);
 }

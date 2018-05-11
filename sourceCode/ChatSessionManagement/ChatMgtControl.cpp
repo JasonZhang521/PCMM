@@ -7,6 +7,7 @@
 #include "IpcClient.h"
 #include "IpcServer.h"
 #include "IpSocketEndpoint.h"
+#include "IIpcMessage.h"
 
 
 namespace ChatManagement {
@@ -61,7 +62,7 @@ void ChatMgtControl::removeAcceptedIpcClient(const Network::IpSocketEndpoint& re
 
 void ChatMgtControl::handleMessage(IpcMessage::IIpcMessage& msg, const Network::IpSocketEndpoint& remoteIpEndpoint)
 {
-
+    const Network::IpSocketEndpoint& dest = msg.getDestnation();
 }
 
 }
