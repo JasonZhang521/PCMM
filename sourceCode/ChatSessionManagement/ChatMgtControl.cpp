@@ -3,6 +3,7 @@
 #include "Trace.h"
 #include "ChatMgtControl.h"
 #include "ChatMgtConnectionAcceptor.h"
+#include "IChatMessage.h"
 #include "IpcServerCreator.h"
 #include "IpcClient.h"
 #include "IpcServer.h"
@@ -62,7 +63,25 @@ void ChatMgtControl::removeAcceptedIpcClient(const Network::IpSocketEndpoint& re
 
 void ChatMgtControl::handleMessage(IpcMessage::IIpcMessage& msg, const Network::IpSocketEndpoint& remoteIpEndpoint)
 {
-    const Network::IpSocketEndpoint& dest = msg.getDestnation();
+    static_cast<void>(remoteIpEndpoint);
+    ChatSessionMessage::IChatMessage* chatMessage = dynamic_cast<ChatSessionMessage::IChatMessage*>(&msg);
+    if (nullptr == chatMessage)
+    {
+        TRACE_NOTICE("Not chat message, Can't parse!");
+        return;
+    }
+
+    const ChatSessionMessage::GroupDestination& dests = chatMessage->getGroupDestination();
+    for (ChatSessionMessage::GroupDestination::const_iterator it = dests.begin(); it != dests.end(); ++it)
+    {
+        IpcClientsMap::iterator clientIt = clients_.find(*it);
+        if (clientIt != clients_.end())
+        {
+            std::unique_ptr<Ipc::IIpcClient>& client = clientIt->second;
+            msg.setDestnation(*it);
+            client->send(msg);
+        }
+    }
 }
 
 }

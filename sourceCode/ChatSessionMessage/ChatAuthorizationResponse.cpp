@@ -30,6 +30,7 @@ void ChatAuthorizationResponse::serialize(Serialize::WriteBuffer& writeBuffer) c
     writeBuffer.write<uint8_t>(static_cast<uint8_t>(IpcMessage::IpcMessage_ChatSession));
     writeBuffer.write<uint8_t>(static_cast<uint8_t>(IpcMessage::ChatAuthorizationResponse));
     IIpcMessage::write(writeBuffer);
+    IChatMessage::write(writeBuffer);
     writeBuffer.write<uint8_t>(static_cast<uint8_t>(result_));
 }
 
@@ -39,6 +40,7 @@ void ChatAuthorizationResponse::unserialize(Serialize::ReadBuffer& readBuffer)
     readBuffer.read(temp);
     readBuffer.read(temp);
     IpcMessage::IIpcMessage::read(readBuffer);
+    IChatMessage::read(readBuffer);
     readBuffer.read(temp);
     result_ = static_cast<AuthorizationResult>(temp);
 }

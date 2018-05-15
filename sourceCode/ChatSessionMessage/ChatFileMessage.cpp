@@ -85,6 +85,7 @@ void ChatFileMessage::serialize(Serialize::WriteBuffer& writeBuffer) const
     writeBuffer.write<uint8_t>(static_cast<uint8_t>(IpcMessage::IpcMessage_ChatSession));
     writeBuffer.write<uint8_t>(static_cast<uint8_t>(IpcMessage::ChatFileMessage));
     IIpcMessage::write(writeBuffer);
+    IChatMessage::write(writeBuffer);
     writeBuffer.write(fileId_);
     writeBuffer.write(fileName_);
     writeBuffer.write(sequence_);
@@ -100,6 +101,7 @@ void ChatFileMessage::unserialize(Serialize::ReadBuffer& readBuffer)
     readBuffer.read(temp);
     readBuffer.read(temp);
     IpcMessage::IIpcMessage::read(readBuffer);
+    IChatMessage::read(readBuffer);
     readBuffer.read(fileId_);
     readBuffer.read(fileName_);
     readBuffer.read(sequence_);

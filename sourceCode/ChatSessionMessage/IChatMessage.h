@@ -22,6 +22,7 @@ public:
 
     //Common function
     const GroupDestination& getGroupDestination() const;
+    void setGroupDestination(const GroupDestination& groupDestination);
 
 protected:
     void write(Serialize::WriteBuffer& writeBuffer) const;

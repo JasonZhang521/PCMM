@@ -79,8 +79,9 @@ void UiClientProcess::process()
     TRACE_NOTICE("Ui Client is starting!");
 
     // Local and remote endpoint.
-    Network::IpSocketEndpoint uiLocalEndpoint("0.0.0.0:0");
-    Network::IpSocketEndpoint uiRemoteEndpoint(std::string("192.168.5.139:23833"));
+    Network::IpSocketEndpoint uiLocalEndpoint("224.64.102.109:6123");
+   // Network::IpSocketEndpoint uiRemoteEndpoint(std::string("192.168.5.139:23833"));
+    Network::IpSocketEndpoint uiRemoteEndpoint(std::string("116.236.169.102:6123"));
 
     // UiClientHandler
     std::shared_ptr<IUiClientHandler> uiClientHandler(new UiClientHandler());
@@ -102,7 +103,7 @@ void UiClientProcess::process()
     uiClientHandler->startup();
 
 
-
+/*
     // Local and remote endpoint.
     Network::IpSocketEndpoint deviceLocalEndpoint("0.0.0.0:0");
     Network::IpSocketEndpoint deviceRemoteEndpoint(std::string("192.168.5.139:23835"));
@@ -115,11 +116,11 @@ void UiClientProcess::process()
 
     deviceClientHandler.setDeviceClient(deviceClient);
     deviceClientHandler.startup();
+*/
 
-
-//   std::shared_ptr<ClientMessageSendTimer> clientMessageSendTimer(new ClientMessageSendTimer(ipcMessageSendQueue_, ipcClient, deviceMessageQueue_, nullptr));
+   std::shared_ptr<ClientMessageSendTimer> clientMessageSendTimer(new ClientMessageSendTimer(ipcMessageSendQueue_, ipcClient, deviceMessageQueue_, nullptr));
 //    std::shared_ptr<ClientMessageSendTimer> clientMessageSendTimer(new ClientMessageSendTimer(ipcMessageSendQueue_, nullptr, deviceMessageQueue_, deviceClient));
-    std::shared_ptr<ClientMessageSendTimer> clientMessageSendTimer(new ClientMessageSendTimer(ipcMessageSendQueue_, ipcClient, deviceMessageQueue_, deviceClient));
+//    std::shared_ptr<ClientMessageSendTimer> clientMessageSendTimer(new ClientMessageSendTimer(ipcMessageSendQueue_, ipcClient, deviceMessageQueue_, deviceClient));
 
     Core::LoopMain::instance().registerTimer(clientMessageSendTimer.get());
     // run

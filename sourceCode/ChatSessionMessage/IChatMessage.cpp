@@ -23,6 +23,11 @@ const GroupDestination& IChatMessage::getGroupDestination() const
     return groupDestination_;
 }
 
+void IChatMessage::setGroupDestination(const GroupDestination& groupDestination)
+{
+    groupDestination_ = groupDestination;
+}
+
 void IChatMessage::write(Serialize::WriteBuffer& writeBuffer) const
 {
     uint32_t size = groupDestination_.size();

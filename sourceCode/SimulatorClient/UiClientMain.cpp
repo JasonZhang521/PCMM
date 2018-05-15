@@ -37,7 +37,7 @@ int main(int argc, char**argv)
 
         static int count = 0;
         count ++;
-        if (count < 4)
+        if (count < 40)
         {
             std::unique_ptr<DeviceMessage::IDeviceMessage> deviceMessage(std::move(generator.generateIoZpResourceMessage(DeviceMessage::RESOURCE_MASK)));
             std::cout << "-----------------------" << std::endl;
