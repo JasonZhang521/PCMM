@@ -25,7 +25,7 @@ public:
         uint16_t extnum;
         uint16_t mode;
         uint16_t resIndex;
-        uint16_t resOffset;
+        uint8_t resOffset;
         uint8_t resLength;
         std::map<uint16_t, IoeZpResource> resources;
         std::string modeName() const;
