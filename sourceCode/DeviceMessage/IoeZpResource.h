@@ -19,7 +19,7 @@ const uint16_t RESOURCE_MASK = USROPTS_BZ06 | DEVOPTS_BZ06 | RUNDATA_BZ06 | OUTC
 struct UsrOptsBz06
 {
     char devName[16];
-    uint32_t upInfoDelay;
+    uint16_t upInfoDelay;
     uint8_t flag;
     void serialize(Serialize::WriteBuffer& writeBuffer) const;
     void unserialize(Serialize::ReadBuffer& readBuffer);
