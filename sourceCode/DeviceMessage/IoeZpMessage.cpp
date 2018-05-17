@@ -13,7 +13,6 @@ IoeZpMessage::IoeZpMessagePayload::IoeZpMessagePayload()
 
 IoeZpMessage::IoeZpMessagePayload::~IoeZpMessagePayload()
 {
-    delete [] resData;
 }
 
 std::string IoeZpMessage::IoeZpMessagePayload::modeName() const

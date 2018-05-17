@@ -27,7 +27,6 @@ public:
         uint16_t resIndex;
         uint16_t resOffset;
         uint8_t resLength;
-        uint8_t* resData;
         std::map<uint16_t, IoeZpResource> resources;
         std::string modeName() const;
         IoeZpMessagePayload();
