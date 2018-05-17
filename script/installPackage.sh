@@ -88,7 +88,7 @@ parseArgument()
 checkPackageType()
 {
     if [ -f "$PackagePath" ]; then
-        TarGzExist=`echo "$PackagePath" | grep '.*HongClusterMgt\.[0-9]\.[0-9]\.tar\.gz$'`
+        TarGzExist=`echo "$PackagePath" | grep '.*HongClusterMgt.*\.tar\.gz$'`
         if [ -z "$TarGzExist" ]; then
             return 0
         else
